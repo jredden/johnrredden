@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="keywords" content="Hawaii, 
+Globalization, 
+ScienceFiction, 
+Coffee",
+"Zenred Computing" />
+
+<link href="css/main.css" rel="stylesheet" type="text/css">
+
+<script src="../js/jquery-1.8.1.min.js" type="text/javascript"></script>
+<script type="text/javascript" >
+$(document).ready(function() {
+	console.log("in ready");
+	$(skfSect).hide();
+	$(zenredSect).hide();
+	
+	$("#skf").click(function () { 
+		console.log("in click");
+		$(skfSect).show();
+		$(zenredSect).hide();
+	});
+	$("#zenred").click(function () { 
+		console.log("in click");
+		$(skfSect).hide();
+		$(zenredSect).show();
+	});
+});
+
+
+</script>
+
+<title>John Redden's Web Site</title>
+</head>
+<body>
+<div id="wrapper">
+<header id="topHeader">
+<hgroup>
+<nav id="topNav">
+  <button id="skf">South Kona Farms</button>
+  <button id="doh">Documents On Hawai`i</button>
+  <button id="login"> Login for access to works of fiction</button>
+  <button id="zenred">Zenred Computing</button>
+</nav>
+
+
+</hgroup>
+</header>
+
+<section id="space">
+</section>
+
+<section id="skfSect">
+	<iframe src="http://southkonafarms.com" width="1000" height="1000"></iframe>
+</section>
+<section id="zenredSect">
+	<iframe src="http://zenredcomputing.com" width="1000" height="1000"></iframe>
+</section>
+
+</div>
+
+
+</body>
+</html>
