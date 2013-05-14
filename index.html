@@ -16,16 +16,25 @@ $(document).ready(function() {
 	console.log("in ready");
 	$(skfSect).hide();
 	$(zenredSect).hide();
+	$(hawaiiSect).hide();
 	
 	$("#skf").click(function () { 
 		console.log("in click");
 		$(skfSect).show();
 		$(zenredSect).hide();
+		$(hawaiiSect).hide();
 	});
 	$("#zenred").click(function () { 
 		console.log("in click");
 		$(skfSect).hide();
 		$(zenredSect).show();
+		$(hawaiiSect).hide();
+	});	
+	$("#doh").click(function () { 
+		console.log("in click");
+		$(skfSect).hide();
+		$(zenredSect).hide();
+		$(hawaiiSect).show();
 	});
 });
 
@@ -57,6 +66,22 @@ $(document).ready(function() {
 </section>
 <section id="zenredSect">
 	<iframe src="http://zenredcomputing.com" width="1000" height="1000"></iframe>
+</section>
+<section id="hawaiiSect">
+	<nav>
+		<div>
+		<a href="docs/FuelOil.pdf">Fuel Oil in Hawaii</a>
+		</div>
+		<div>
+		<a href="docs/MauiGrid.pdf">Maui Grid</a>	
+		</div>
+		<div>
+		<a href="docs/HawaiianPinapple.txt">Hawaiian Pineapple</a>
+		</div>
+		<div>
+		<a href="docs/renewable-energy-projects-report.pdf" >Renewable Energy</a>
+		</div>
+	</nav>
 </section>
 
 </div>
