@@ -17,24 +17,40 @@ $(document).ready(function() {
 	$(skfSect).hide();
 	$(zenredSect).hide();
 	$(hawaiiSect).hide();
+	$(login_op).hide();
 	
+	$("#home").click(function () { 
+		$(skfSect).hide();
+		$(zenredSect).hide();
+		$(hawaiiSect).hide();
+		$(login_op).hide();
+	});	
 	$("#skf").click(function () { 
 		console.log("in click");
 		$(skfSect).show();
 		$(zenredSect).hide();
 		$(hawaiiSect).hide();
+		$(login-op).hide();
 	});
 	$("#zenred").click(function () { 
 		console.log("in click");
 		$(skfSect).hide();
 		$(zenredSect).show();
 		$(hawaiiSect).hide();
+		$(login_op).hide();
 	});	
 	$("#doh").click(function () { 
 		console.log("in click");
 		$(skfSect).hide();
 		$(zenredSect).hide();
 		$(hawaiiSect).show();
+		$(login_op).hide();
+	});
+	$("#login").click(function () { 
+		$(login_op).show();
+		$(skfSect).hide();
+		$(zenredSect).hide();
+		$(hawaiiSect).hide();
 	});
 });
 
@@ -48,6 +64,7 @@ $(document).ready(function() {
 <header id="topHeader">
 <hgroup>
 <nav id="topNav">
+  <button id="home">Home</button>
   <button id="skf">South Kona Farms</button>
   <button id="doh">Documents On Hawai`i</button>
   <button id="login"> Login for access to works of fiction</button>
@@ -69,21 +86,28 @@ $(document).ready(function() {
 </section>
 <section id="hawaiiSect">
 	<nav>
-		<div>
-		<a href="docs/FuelOil.pdf">Fuel Oil in Hawaii</a>
+		<div id="h21">
+		<a href="docs/Hawaii21stCentury.pdf">Hawai`i in the 21st Century, Age of Globalization</a>
 		</div>
-		<div>
+		<div id="foh">
+		<a href="docs/FuelOil.pdf">Fuel Oil in Hawai`i</a>
+		</div>
+		<div id="mg">
 		<a href="docs/MauiGrid.pdf">Maui Grid</a>	
 		</div>
-		<div>
-		<a href="docs/HawaiianPinapple.txt">Hawaiian Pineapple</a>
+		<div id="hap">
+		<a href="docs/HawaiianPinapple.pdf">Hawai`ian Pineapple</a>
 		</div>
-		<div>
+		<div id="rep">
 		<a href="docs/renewable-energy-projects-report.pdf" >Renewable Energy</a>
 		</div>
 	</nav>
 </section>
-
+<section id="login_op">
+	<i>coming soon ...</i>
+</section>
+<section id="page">
+</section>
 </div>
 
 
