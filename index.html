@@ -18,7 +18,19 @@ $(document).ready(function() {
 	$(zenredSect).hide();
 	$(hawaiiSect).hide();
 	$(login_op).hide();
+	$(JRedden).hide();
 	
+
+ var h1 = $('JRedden').height();
+  var h = h1/2;
+  var w1 = $(window).height();
+  var w = w1/2;
+  var m = w - h
+  $('JRedden').css("margin-top",m + "px")
+
+	$(JRedden).fadeIn();
+	$(JRedden).fadeOut(5000);
+		
 	$("#home").click(function () { 
 		$(skfSect).hide();
 		$(zenredSect).hide();
@@ -86,6 +98,12 @@ $(document).ready(function() {
 </section>
 <section id="hawaiiSect">
 	<nav>
+		<div id="gsaPubPaper">
+		<a href="docs/GSAPubCandidate.pdf">Global Studies Publish Candidate: Paper on Hawai`ian Islands</a>
+		</div>
+		<div id="gsaPaper">
+		<a href="docs/GSAHawaiiPaper.pdf">Global Studies: Paper on Hawai`ian Islands</a>
+		</div>
 		<div id="h21">
 		<a href="docs/Hawaii21stCentury.pdf">Hawai`i in the 21st Century, Age of Globalization</a>
 		</div>
@@ -107,7 +125,10 @@ $(document).ready(function() {
 	<i>coming soon ...</i>
 </section>
 <section id="page">
-</section>
+	<div id="JRedden">
+		WEB SITE OF JOHN T REDDEN
+	</div>
+	</section>
 </div>
 
 
