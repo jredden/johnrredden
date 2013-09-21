@@ -7,6 +7,7 @@ public class User {
 	private String firstName;
 	private String lastName;
 	private String emailAddress;
+	private String password;
 	
 	public Integer getUser_id() {
 		return user_id;
@@ -37,6 +38,12 @@ public class User {
 	}
 	public void setEmailAddress(String emailAddress) {
 		this.emailAddress = emailAddress;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
 

@@ -7,6 +7,7 @@ CREATE TABLE `User` (
   ,`firstName` varchar(255) NOT NULL default ''
   ,`lastName` varchar(255) NOT NULL default ''
   ,`emailAddress` varchar(255) NOT NULL default ''
+  ,`password` varchar(255)  NOT NULL default ''
   ,`Datestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
   ,KEY `User_idKey` (`User_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
