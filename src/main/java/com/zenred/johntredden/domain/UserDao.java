@@ -55,4 +55,16 @@ public class UserDao extends AbstractJDBCDao {
 		user.setEmailAddress(userMap.get("emailAddress").toString());
 		return user;
 	}
+	
+	public User readUser(String emailAddress, String password){
+		User user = new User();
+		String sql = "SELECT User FROM User WHERE emailAddress = ? AND password = ?";
+		Map <String, Object> userMap = super.jdbcSetUp().getSimpleJdbcTemplate().queryForMap(sql, emailAddress, password);
+		user.setUser_id(Integer.parseInt(userMap.get("User_id").toString()));
+		user.setFirstName(userMap.get("firstName").toString());
+		user.setLastName(userMap.get("lastName").toString());
+		user.setPassword(password);
+		user.setEmailAddress(emailAddress);
+		return user;
+	}
 }
