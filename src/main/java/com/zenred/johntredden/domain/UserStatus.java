@@ -8,7 +8,7 @@ public enum UserStatus {
 	
 	candidate1, candidate2, registered;
 	
-	public String whichOne(String status){
+	public static String whichOne(String status){
 		String theOne= null;
 		if(UserStatus.candidate1.name().equals(status)){
 			theOne = UserStatus.candidate1.name();
@@ -22,4 +22,17 @@ public enum UserStatus {
 		return theOne;
 	}
 
+	public static UserStatus whichStatus(String status){
+		UserStatus theOne= null;
+		if(UserStatus.candidate1.name().equals(status)){
+			theOne = UserStatus.candidate1;
+		}
+		else if(UserStatus.candidate2.name().equals(status)){
+			theOne = UserStatus.candidate2;
+		}
+		else if(UserStatus.registered.name().equals(status)){
+			theOne = UserStatus.registered;
+		}
+		return theOne;
+	}
 }
