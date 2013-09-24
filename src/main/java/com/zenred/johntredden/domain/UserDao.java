@@ -3,9 +3,9 @@ package com.zenred.johntredden.domain;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 
 /**
@@ -83,10 +83,16 @@ public class UserDao extends AbstractJDBCDao {
 	public User readUser(String emailAddress, String password) {
 		User user = new User();
 		String sql = "SELECT User_id, firstName, lastName, User_status FROM User WHERE emailAddress = ? AND password = ?";
-		Map<String, Object> parameters = new HashMap<String, Object>();
 		Object[] param = { emailAddress, password };
-		Map<String, Object> userMap = super.jdbcSetUp().getSimpleJdbcTemplate()
+		Map<String, Object> userMap = null;
+		try{
+			userMap = super.jdbcSetUp().getSimpleJdbcTemplate()
 				.queryForMap(sql, param);
+		}
+		catch(EmptyResultDataAccessException erdae){
+			user = null;
+			return user;
+		}
 		user.setUser_id(Integer.parseInt(userMap.get("User_id").toString()));
 		user.setFirstName(userMap.get("firstName").toString());
 		user.setLastName(userMap.get("lastName").toString());
