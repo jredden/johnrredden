@@ -1,17 +1,18 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="keywords" content="Hawaii, 
+<meta charset="UTF-8" />
+<meta name="keywords"
+	content="Hawaii, 
 Globalization, 
 ScienceFiction, 
-Coffee",
+Coffee" ,
 "Zenred Computing" />
 
 <link href="css/main.css" rel="stylesheet" type="text/css">
 
 <script src="../js/jquery-1.8.1.min.js" type="text/javascript"></script>
-<script type="text/javascript" >
+<script type="text/javascript">
 $(document).ready(function() {
 	console.log("in ready");
 	$(skfSect).hide();
@@ -42,7 +43,7 @@ $(document).ready(function() {
 		$(skfSect).show();
 		$(zenredSect).hide();
 		$(hawaiiSect).hide();
-		$(login-op).hide();
+		$(login_op).hide();
 	});
 	$("#zenred").click(function () { 
 		console.log("in click");
@@ -72,64 +73,71 @@ $(document).ready(function() {
 <title>John Redden's Web Site</title>
 </head>
 <body>
-<div id="wrapper">
-<header id="topHeader">
-<hgroup>
-<nav id="topNav">
-  <button id="home">Home</button>
-  <button id="skf">South Kona Farms</button>
-  <button id="doh">Documents On Hawai`i</button>
-  <button id="login"> Login for access to works of fiction</button>
-  <button id="zenred">Zenred Computing</button>
-</nav>
+	<div id="wrapper">
+		<header id="topHeader">
+			<hgroup>
+				<nav id="topNav">
+					<button id="home">Home</button>
+					<button id="skf">South Kona Farms</button>
+					<button id="doh">Documents On Hawai`i</button>
+					<button id="login">Login for access to works of fiction</button>
+					<button id="zenred">Zenred Computing</button>
+				</nav>
 
 
-</hgroup>
-</header>
+			</hgroup>
+		</header>
 
-<section id="space">
-</section>
+		<section id="space"></section>
 
-<section id="skfSect">
-	<iframe src="http://southkonafarms.com" width="1000" height="1000"></iframe>
-</section>
-<section id="zenredSect">
-	<iframe src="http://zenredcomputing.com" width="1000" height="1000"></iframe>
-</section>
-<section id="hawaiiSect">
-	<nav>
-		<div id="gsaPubPaper">
-		<a href="docs/GSAPubCandidate.pdf">Global Studies Publish Candidate: Paper on Hawai`ian Islands</a>
-		</div>
-		<div id="gsaPaper">
-		<a href="docs/GSAHawaiiPaper.pdf">Global Studies: Paper on Hawai`ian Islands</a>
-		</div>
-		<div id="h21">
-		<a href="docs/Hawaii21stCentury.pdf">Hawai`i in the 21st Century, Age of Globalization</a>
-		</div>
-		<div id="foh">
-		<a href="docs/FuelOil.pdf">Fuel Oil in Hawai`i</a>
-		</div>
-		<div id="mg">
-		<a href="docs/MauiGrid.pdf">Maui Grid</a>	
-		</div>
-		<div id="hap">
-		<a href="docs/HawaiianPinapple.pdf">Hawai`ian Pineapple</a>
-		</div>
-		<div id="rep">
-		<a href="docs/renewable-energy-projects-report.pdf" >Renewable Energy</a>
-		</div>
-	</nav>
-</section>
-<section id="login_op">
-	<i>coming soon ...</i>
-</section>
-<section id="page">
-	<div id="JRedden">
-		WEB SITE OF JOHN T REDDEN
+
+		<section id="hawaiiSect">
+			<nav>
+				<div id="gsaPubPaper">
+					<a href="docs/GSAPubCandidate.pdf">Global Studies Publish
+						Candidate: Paper on Hawai`ian Islands</a>
+				</div>
+				<div id="gsaPaper">
+					<a href="docs/GSAHawaiiPaper.pdf">Global Studies: Paper on
+						Hawai`ian Islands</a>
+				</div>
+				<div id="h21">
+					<a href="docs/Hawaii21stCentury.pdf">Hawai`i in the 21st
+						Century, Age of Globalization</a>
+				</div>
+				<div id="foh">
+					<a href="docs/FuelOil.pdf">Fuel Oil in Hawai`i</a>
+				</div>
+				<div id="mg">
+					<a href="docs/MauiGrid.pdf">Maui Grid</a>
+				</div>
+				<div id="hap">
+					<a href="docs/HawaiianPinapple.pdf">Hawai`ian Pineapple</a>
+				</div>
+				<div id="rep">
+					<a href="docs/renewable-energy-projects-report.pdf">Renewable
+						Energy</a>
+				</div>
+			</nav>
+		</section>
+		<section id="login_op">
+			<div id="chooseLogin">
+				<button id="startLogin">Existing Login</button>
+			</div>
+			<div id="requestLogin">
+				<button id="startLoginRequest">Request Access to Works of Fiction</button>
+			</div>
+		</section>
+		<section id="page">
+			<div id="JRedden">WEB SITE OF JOHN T REDDEN</div>
+			<div id="skfSect">
+				<iframe src="http://southkonafarms.com" width="1000" height="1000"></iframe>
+			</div>
+			<div id="zenredSect">
+				<iframe src="http://zenredcomputing.com" width="1000" height="1000"></iframe>
+			</div>
+		</section>
 	</div>
-	</section>
-</div>
 
 
 </body>
