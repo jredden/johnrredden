@@ -48,6 +48,15 @@ header#topHeader{
 	position: relative;
 	background-color: #A1A9A9;
 }
+#glossary{
+	width: 1100px;
+	height: 20px;
+	margin: 0 auto;
+	padding: 0 50px;
+	text-align:left;
+	position: relative;
+	background-color: #A1A9A9;
+}
 #gsaPaper{
 	width: 1100px;
 	height: 20px;
@@ -56,6 +65,15 @@ header#topHeader{
 	text-align:left;
 	position: relative;
 	background-color: #A3A3A3;
+}
+#humFed1{
+	width: 1100px;
+	height: 20px;
+	margin: 0 auto;
+	padding: 0 50px;
+	text-align:left;
+	position: relative;
+	background-color: #A3A3A3;	
 }
 #h21{
 	width: 1100px;
@@ -66,6 +84,15 @@ header#topHeader{
 	position: relative;
 	background-color: #A9A6A6;
 }
+#humFed2{
+	width: 1100px;
+	height: 20px;
+	margin: 0 auto;
+	padding: 0 50px;
+	text-align:left;
+	position: relative;
+	background-color: #ABAAAA;	
+}
 #foh{
 	width: 1100px;
 	height: 20px;
@@ -75,7 +102,15 @@ header#topHeader{
 	position: relative;
 	background-color: #ABAAAA;
 }
-
+#cosmosHeaven{
+	width: 1100px;
+	height: 20px;
+	margin: 0 auto;
+	padding: 0 50px;
+	text-align:left;
+	position: relative;
+	background-color: #A1A1A1;
+}
 #mg{
 	width: 1100px;
 	height: 20px;
@@ -85,7 +120,15 @@ header#topHeader{
 	position: relative;
 	background-color: #A1A1A1;
 }
-
+#cosmosPurgatory{
+	width: 1100px;
+	height: 20px;
+	margin: 0 auto;
+	padding: 0 50px;
+	text-align:left;
+	position: relative;
+	background-color: #979696;	
+}
 #hap{
 	width: 1100px;
 	height: 20px;
@@ -94,6 +137,15 @@ header#topHeader{
 	text-align:left;
 	position: relative;
 	background-color: #979696;
+}
+#cosmosHell{
+	width: 1100px;
+	height: 20px;
+	margin: 0 auto;
+	padding: 0 50px;
+	text-align:left;
+	position: relative;
+	background-color: #8C8B8B;	
 }
 #rep{
 	width: 1100px;
@@ -126,6 +178,20 @@ header#topHeader{
 	background-color: #666666;
 	color:lightgoldenrodyellow;
 	width: 200px;
+}
+#uEmail{
+	background-color: #666666;
+	color:lightgoldenrodyellow;
+}
+#loginPassword{
+	background-color: #777777;
+	color:greenyellow;
+}
+#uMails{
+	background-color: #666666;
+}
+#loginPasswords{
+	background-color: #777777;
 }
 nav:#topNav{
 	background-color: #B8B3B3;

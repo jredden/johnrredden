@@ -22,7 +22,7 @@ public abstract class AbstractJDBCDao {
 				.setUrl("jdbc:mysql://localhost/johntredden");
 		driverManagerDataSource.setUsername("jredden");
 		driverManagerDataSource
-				.setPassword("XXX");
+				.setPassword("nCXL3O2GVAwLBJnT");
 
 		Properties connectionProperties = new Properties();
 		connectionProperties.setProperty("noAccessToProcedureBodies", "true"); // *sigh*.
@@ -45,7 +45,7 @@ public abstract class AbstractJDBCDao {
 				.setUrl("jdbc:mysql://localhost/johntredden");
 		driverManagerDataSource.setUsername("jredden");
 		driverManagerDataSource
-				.setPassword("XXX");
+				.setPassword("nCXL3O2GVAwLBJnT");
 		SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(
 				driverManagerDataSource);
 		return simpleJdbcInsert;

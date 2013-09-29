@@ -16,6 +16,9 @@ public class Login implements Controller {
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
+		// response.setContentType("application/javascript");
+		// response.setHeader("jsonpCallback", "processJson");
+		response.addHeader("Access-Control-Allow-Origin", "*");
 		String emailAddress = request.getParameter("email");
 		String password = request.getParameter("password");
 		BasicMessageResponse basicMessageResponse = new BasicMessageResponse();

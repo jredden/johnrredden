@@ -22,14 +22,30 @@ $(document).ready(function() {
 	$(login_op).hide();
 	$(JRedden).hide();
 	$(emailAndPassword).hide();
+	$(cosmosSect).hide();
 	
 	$('#LoginFormID').ajaxForm({ 
-		dataType:  'jsonp', 
-		success:   processJson
+		dataType:  'json', 
+		success:   processJson,
+		error: function errorHandler(){
+			var out = '';
+  			for (var p in this) {
+    			out += p + ':::::' + this[p] + '\n';
+    			console.log("error:"+out);
+  				}
+//			console.log("error:"+this;
+		}
 	});
 	
-	function processJson(data) {
+	function processJson(json) {
 		console.log("login:");
+		if(json.basicMesage.theMessage.indexOf("Passed") != -1){
+			$(cosmosSect).show();
+			$(emailAndPassword).hide();
+		}
+		else{
+			alert("login failed  ... select home and try again");
+		}
 	}
 
 	var h1 = $('JRedden').height();
@@ -48,6 +64,7 @@ $(document).ready(function() {
 		$(hawaiiSect).hide();
 		$(login_op).hide();
 		$(emailAndPassword).hide();
+		$(cosmosSect).hide();
 	});	
 	$("#skf").click(function () { 
 		console.log("in click");
@@ -56,6 +73,7 @@ $(document).ready(function() {
 		$(hawaiiSect).hide();
 		$(login_op).hide();
 		$(emailAndPassword).hide();
+		$(cosmosSect).hide();
 	});
 	$("#zenred").click(function () { 
 		console.log("in click");
@@ -64,6 +82,7 @@ $(document).ready(function() {
 		$(hawaiiSect).hide();
 		$(login_op).hide();
 		$(emailAndPassword).hide();
+		$(cosmosSect).hide();
 	});	
 	$("#doh").click(function () { 
 		console.log("in click");
@@ -72,6 +91,7 @@ $(document).ready(function() {
 		$(hawaiiSect).show();
 		$(login_op).hide();
 		$(emailAndPassword).hide();
+		$(cosmosSect).hide();
 	});
 	$("#login").click(function () { 
 		$(login_op).show();
@@ -79,8 +99,10 @@ $(document).ready(function() {
 		$(zenredSect).hide();
 		$(hawaiiSect).hide();
 		$(emailAndPassword).hide();
+		$(cosmosSect).hide();
 	});
 	$("#startLogin").click(function(){
+		$(cosmosSect).hide();
 		$(login_op).hide();
 		$(emailAndPassword).show();
 	});
@@ -139,6 +161,28 @@ $(document).ready(function() {
 				</div>
 			</nav>
 		</section>
+		<section id="cosmosSect">
+			<nav>
+				<div id="glossary">
+					<a href="docs_private/glossary.pdf">League Cosmos Glossary</a>
+				</div>
+				<div id="humFed1">
+					<a href="docs_private/humFed1.pdf">First Human Federation</a>
+				</div>
+				<div id="humFed2">
+					<a href="docs/hymFed2.pdf">Second Human Federation</a>
+				</div>
+				<div id="cosmosHeaven">
+					<a href="docs_private/cosmosHeaven.pdf">Cosmos Heaven</a>
+				</div>
+				<div id="cosmosPurgatory">
+					<a href="docs_private/cosmosPurgatory.pdf">Cosmos Purgatory</a>
+				</div>
+				<div id="cosmosHell">
+					<a href="docs_private/cosmosHell.pdf">Cosmos Hell</a>
+				</div>
+			</nav>
+		</section>
 		<section id="login_op">
 			<nav>
 				<div id="chooseLogin">
@@ -159,7 +203,7 @@ $(document).ready(function() {
 				<iframe src="http://zenredcomputing.com" width="1000" height="1000"></iframe>
 			</div>
 			<div id="emailAndPassword">
-				<form name="LoginForm" id="LoginFormID" action="http://www.johntreddenlocal.com:8080/login.html" method="post">
+				<form name="LoginForm" id="LoginFormID" action="http://www.johntreddenlocal.com:8080/login.html" method="get">
 				<div id="uEmail">
 					E-Mail Address:
 					<span id="uMails">
@@ -167,7 +211,7 @@ $(document).ready(function() {
 					</span>
 				</div>
 				<div id="loginPassword">
-					Password:
+					Password&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
 					<span id="loginPasswords">
 					<input type="password" name="password" maxlength=255 size=64/>
 					</span>
