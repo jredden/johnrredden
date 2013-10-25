@@ -42,6 +42,7 @@ $(document).ready(function() {
 		if(json.basicMesage.theMessage.indexOf("Passed") != -1){
 			$(cosmosSect).show();
 			$(emailAndPassword).hide();
+			sessionStorage.setItem('LOGIN', true);
 		}
 		else{
 			alert("login failed  ... select home and try again");
@@ -94,12 +95,23 @@ $(document).ready(function() {
 		$(cosmosSect).hide();
 	});
 	$("#login").click(function () { 
+		console.log("LOGIN:"+sessionStorage.LOGIN);
+		if(sessionStorage.LOGIN){
+		console.log("Already logged in");
+		$(login_op).hide();
+		$(skfSect).hide();
+		$(zenredSect).hide();
+		$(hawaiiSect).hide();
+		$(emailAndPassword).hide();
+		$(cosmosSect).show();		}
+		else{
 		$(login_op).show();
 		$(skfSect).hide();
 		$(zenredSect).hide();
 		$(hawaiiSect).hide();
 		$(emailAndPassword).hide();
 		$(cosmosSect).hide();
+		}
 	});
 	$("#startLogin").click(function(){
 		$(cosmosSect).hide();
@@ -121,7 +133,7 @@ $(document).ready(function() {
 					<button id="home">Home</button>
 					<button id="skf">South Kona Farms</button>
 					<button id="doh">Documents On Hawai`i</button>
-					<button id="login">Login for access to works of fiction</button>
+					<button id="login">Access works of fiction</button>
 					<button id="zenred">Zenred Computing</button>
 				</nav>
 
@@ -170,7 +182,7 @@ $(document).ready(function() {
 					<a href="docs_private/humFed1.pdf">First Human Federation</a>
 				</div>
 				<div id="humFed2">
-					<a href="docs/hymFed2.pdf">Second Human Federation</a>
+					<a href="docs/humFed2.pdf">Second Human Federation</a>
 				</div>
 				<div id="cosmosHeaven">
 					<a href="docs_private/cosmosHeaven.pdf">Cosmos Heaven</a>
