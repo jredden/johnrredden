@@ -118,8 +118,26 @@ $(document).ready(function() {
 		$(login_op).hide();
 		$(emailAndPassword).show();
 	});
+	$("#startLoginRequest").click(function(){
+		$(cosmosSect).hide();
+		$(login_op).hide();
+		accessRequest.jsonCall();
+	});
+	
 });
 
+var accessRequest = (function () {
+	return{
+		jsonCall: function(){
+			console.log("start AccessRequest");
+			$.getJSON("http://www.johntreddenlocal.com:8080/firstAccess.htm",
+					function(json){           // callback
+					console.log("Here");
+					}		
+			);
+		}
+	}
+})();
 
 </script>
 
@@ -215,26 +233,24 @@ $(document).ready(function() {
 				<iframe src="http://zenredcomputing.com" width="1000" height="1000"></iframe>
 			</div>
 			<div id="emailAndPassword">
-				<form name="LoginForm" id="LoginFormID" action="http://www.johntreddenlocal.com:8080/login.html" method="get">
-				<div id="uEmail">
-					E-Mail Address:
-					<span id="uMails">
-					<input type="text" name="email" maxlength=255 size=64/>
-					</span>
-				</div>
-				<div id="loginPassword">
-					Password&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
-					<span id="loginPasswords">
-					<input type="password" name="password" maxlength=255 size=64/>
-					</span>
-				</div>
-				<div id="submit">
-				<input class="button" 
-					type="submit" 
-					id="loginOperation" 
-					name="submit" 
-					value="Submit E-Mail Address and Password"/>
-				</div>					
+				<form name="LoginForm" id="LoginFormID"
+					action="http://www.johntreddenlocal.com:8080/login.html"
+					method="get">
+					<div id="uEmail">
+						E-Mail Address: <span id="uMails"> <input type="text"
+							name="email" maxlength=255 size=64 />
+						</span>
+					</div>
+					<div id="loginPassword">
+						Password&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+						<span id="loginPasswords"> <input type="password"
+							name="password" maxlength=255 size=64 />
+						</span>
+					</div>
+					<div id="submit">
+						<input class="button" type="submit" id="loginOperation"
+							name="submit" value="Submit E-Mail Address and Password" />
+					</div>
 				</form>
 			</div>
 		</section>
