@@ -67,7 +67,7 @@ public class QuestionDao extends AbstractJDBCDao {
 		questions = super
 				.jdbcSetUp()
 				.getSimpleJdbcTemplate()
-				.query(sql, new StringQuestionId(), id);
+				.query(sql, new QuestionContent(), id);
 		return questions;
 	}
 }

@@ -14,7 +14,12 @@ public class QuestionGroupTest {
 		List<Integer> questionGroupList = questionDao.questionGroupCollecton();
 		System.out.println(questionGroupList);
 		assertTrue(0 != questionGroupList.size() );
-		
+		Integer numberOfQuestions = questionDao.numberOfQuestions();
+		int questionNumber = (int)Math.random()*numberOfQuestions;
+		int listNumber = questionGroupList.get(questionNumber);
+		List<String> questionList = questionDao.readQuestion(listNumber);
+		System.out.println(questionList);
+		assertTrue(0 != questionList.size() );
 	}
 
 }
