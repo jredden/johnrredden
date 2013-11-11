@@ -14,12 +14,14 @@
 
 
 	<bean id="login" class="com.zenred.johntredden.controller.Login"/>
+	<bean id="firstAccess" class="com.zenred.johntredden.controller.FirstAccess"/>
 	
 	<bean id="urlMapping"
 		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="mappings">
 			<props>
 				<prop key="/login.html">login</prop>
+				<prop key="/firstAccess.html">firstAccess</prop>
 			</props>
 		</property>
 	</bean>

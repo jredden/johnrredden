@@ -1,7 +1,5 @@
 package com.zenred.johntredden.controller;
 
-import static org.junit.Assert.assertTrue;
-
 import java.util.List;
 import java.util.UUID;
 
@@ -25,7 +23,8 @@ public class FirstAccess implements Controller {
 
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		
+	
+		response.addHeader("Access-Control-Allow-Origin", "*");
 		HttpSession httpSession =  request.getSession();
 		UUID idOne = UUID.randomUUID();
 		httpSession.setAttribute(FIRST_ACCESS, idOne.toString());
@@ -33,6 +32,9 @@ public class FirstAccess implements Controller {
 		User user = new User();
 		user.setPassword(idOne.toString());
 		user.setUser_Status(UserStatus.candidate1);
+		user.setFirstName("NONE");
+		user.setLastName("NONE");
+		user.setEmailAddress("NONE@bog.us");
 		userDao.createUser(user);
 		
 		FirstAccessResponse firstAccessResponse = new FirstAccessResponse();
@@ -43,9 +45,11 @@ public class FirstAccess implements Controller {
 		int listNumber = questionGroupList.get(questionNumber);
 
 		firstAccessResponse.setQuestionList(questionDao.readQuestion(listNumber));
-		ModelAndView modelAndView = new ModelAndView();
+		ModelAndView modelAndView = new ModelAndView(new FirstAccessView());
 		modelAndView.addObject(FirstAccessView.JSON_ROOT, firstAccessResponse);
+		System.out.println(modelAndView);
 		return modelAndView;
+
 	}
 
 }
