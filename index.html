@@ -130,11 +130,24 @@ var accessRequest = (function () {
 	return{
 		jsonCall: function(){
 			console.log("start AccessRequest");
-			$.getJSON("http://www.johntreddenlocal.com:8080/firstAccess.html?jsoncallback=?",
+			$.getJSON("http://www.johntreddenlocal.com:8080/firstAccess.html",
 					function(json){           // callback
 					console.log("Here");
+					processRequest.jsonProcess(json);
 					}		
 			);
+		}
+	}
+})();
+
+var processRequest = (function () {
+	return{
+		jsonProcess: function(json){
+			for (var idex = 0; idex < json.firstAccessResponse.questionList.string.length; idex++) {
+				console.log("question:" + json.firstAccessResponse.questionList.string[idex]);
+			}
+			
+			
 		}
 	}
 })();
