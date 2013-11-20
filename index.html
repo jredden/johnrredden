@@ -143,11 +143,18 @@ var accessRequest = (function () {
 var processRequest = (function () {
 	return{
 		jsonProcess: function(json){
+			var colorSelector = 0;
+			$(questions1).html("");
 			for (var idex = 0; idex < json.firstAccessResponse.questionList.string.length; idex++) {
+				
+				$(questions1).append("<div id=\"question" + idex + "\""
+				+colorSelector
+				+">"
+				+json.firstAccessResponse.questionList.string[idex]
+				+"</div>");
 				console.log("question:" + json.firstAccessResponse.questionList.string[idex]);
-			}
-			
-			
+				
+			}	
 		}
 	}
 })();
@@ -173,7 +180,6 @@ var processRequest = (function () {
 		</header>
 
 		<section id="space"></section>
-
 
 		<section id="hawaiiSect">
 			<nav>
@@ -244,6 +250,8 @@ var processRequest = (function () {
 			</div>
 			<div id="zenredSect">
 				<iframe src="http://zenredcomputing.com" width="1000" height="1000"></iframe>
+			</div>
+			<div id="questions1">
 			</div>
 			<div id="emailAndPassword">
 				<form name="LoginForm" id="LoginFormID"
