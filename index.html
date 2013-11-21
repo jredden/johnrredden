@@ -23,6 +23,7 @@ $(document).ready(function() {
 	$(JRedden).hide();
 	$(emailAndPassword).hide();
 	$(cosmosSect).hide();
+	$(questions1).hide();
 	
 	$('#LoginFormID').ajaxForm({ 
 		dataType:  'json', 
@@ -66,6 +67,7 @@ $(document).ready(function() {
 		$(login_op).hide();
 		$(emailAndPassword).hide();
 		$(cosmosSect).hide();
+		$(questions1).hide();
 	});	
 	$("#skf").click(function () { 
 		console.log("in click");
@@ -75,6 +77,7 @@ $(document).ready(function() {
 		$(login_op).hide();
 		$(emailAndPassword).hide();
 		$(cosmosSect).hide();
+		$(questions1).hide();
 	});
 	$("#zenred").click(function () { 
 		console.log("in click");
@@ -84,6 +87,7 @@ $(document).ready(function() {
 		$(login_op).hide();
 		$(emailAndPassword).hide();
 		$(cosmosSect).hide();
+		$(questions1).hide();
 	});	
 	$("#doh").click(function () { 
 		console.log("in click");
@@ -93,6 +97,7 @@ $(document).ready(function() {
 		$(login_op).hide();
 		$(emailAndPassword).hide();
 		$(cosmosSect).hide();
+		$(questions1).hide();
 	});
 	$("#login").click(function () { 
 		console.log("LOGIN:"+sessionStorage.LOGIN);
@@ -103,6 +108,7 @@ $(document).ready(function() {
 		$(zenredSect).hide();
 		$(hawaiiSect).hide();
 		$(emailAndPassword).hide();
+		$(questions1).hide();
 		$(cosmosSect).show();		}
 		else{
 		$(login_op).show();
@@ -111,6 +117,7 @@ $(document).ready(function() {
 		$(hawaiiSect).hide();
 		$(emailAndPassword).hide();
 		$(cosmosSect).hide();
+		$(questions1).hide();
 		}
 	});
 	$("#startLogin").click(function(){
@@ -155,6 +162,7 @@ var processRequest = (function () {
 				console.log("question:" + json.firstAccessResponse.questionList.string[idex]);
 				
 			}	
+			$(questions1).show();
 		}
 	}
 })();
