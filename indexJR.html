@@ -189,14 +189,14 @@ $(document).ready(function() {
 	
 	$("#zenred").click(function () { 
 		console.log("in click");
-		var showList = ['zenredSect];
+		var showList = ['zenredSect'];
 		var hideList = ['skfSect','hawaiiSect','login_op','emailAndPassword','cosmosSect','questions1'];
 		tagOperations.both(showList, hideList);
 	});	
 	
 	$("#doh").click(function () { 
 		console.log("in click");
-		var showList = ['hawaiiSect];
+		var showList = ['hawaiiSect'];
 		var hideList = ['skfSect','zenredSect','login_op','emailAndPassword','cosmosSect','questions1'];
 		tagOperations.both(showList, hideList);
 	});
@@ -205,11 +205,11 @@ $(document).ready(function() {
 		console.log("LOGIN:"+sessionStorage.LOGIN);
 		if(sessionStorage.LOGIN){
 			console.log("Already logged in");
-			var showList = ['cosmosSect];
+			var showList = ['cosmosSect'];
    			var hideList = ['skfSect','zenredSect','login_op','emailAndPassword','cosmosSect','questions1'];
 		}
 		else{
-			var showList = ['login_op];
+			var showList = ['login_op'];
 			var hideList = ['skfSect','zenredSect','cosmosSect','emailAndPassword','cosmosSect','questions1'];
 		}
 		tagOperations.both(showList, hideList);
@@ -400,7 +400,7 @@ var processRequest = (function () {
 			
 		</section>
 	</div>
-
+*/
 
 </body>
 </html>
