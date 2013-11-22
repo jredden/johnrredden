@@ -20,12 +20,12 @@ import com.zenred.johntredden.vizualization.FirstAccessResponse;
 public class AnswerQuestion1 implements Controller {
 	
 	public static final String FIRST_ACCESS = UserStatus.candidate1.name();
-	public static final String QUESTION_NUMBER = "QUESTION_NUMBER";
 
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 	
 		response.addHeader("Access-Control-Allow-Origin", "*");
+		String answer = request.getParameter("question1");
 		HttpSession httpSession =  request.getSession();
 		UUID idOne = UUID.randomUUID();
 		httpSession.setAttribute(FIRST_ACCESS, idOne.toString());
@@ -43,7 +43,6 @@ public class AnswerQuestion1 implements Controller {
 		List<Integer> questionGroupList = questionDao.questionGroupCollecton();
 		Integer numberOfQuestions = questionDao.numberOfQuestions();
 		int questionNumber = (int)Math.floor(Math.random()*numberOfQuestions);
-		httpSession.setAttribute(QUESTION_NUMBER, questionNumber);
 		int listNumber = questionGroupList.get(questionNumber);
 
 		firstAccessResponse.setQuestionList(questionDao.readQuestion(listNumber));

@@ -41,7 +41,10 @@ var tagOperations = (function(){
 	   				},
 	   			   	function questions1(){
 	   					$('#questions1').show();
-	   				}
+	   				},
+	   				function answerQuestionOne(){
+		   				$('answerQuestionOne').show();
+		   			}
 	];
 	var hideOperations = [
 			   function skfSect(){
@@ -67,7 +70,11 @@ var tagOperations = (function(){
    				},
    			   	function questions1(){
    					$('#questions1').hide();
-   				}
+   				},
+   				function answerQuestionOne(){
+	   				$('answerQuestionOne').hide();
+	   			}
+				
 	];
 
 	var references = {
@@ -78,7 +85,8 @@ var tagOperations = (function(){
 			"JRedden" : 4,
 			"emailAndPassword" : 5,
 			"cosmosSect" : 6,
-			"questions1" :7
+			"questions1" :7,
+			"answerQuestionOne" : 8
 	}
 	
 	// public 
@@ -134,7 +142,7 @@ $(document).ready(function() {
 		console.log("login:");
 		if(json.basicMesage.theMessage.indexOf("Passed") != -1){
 			var showList = ['cosmosSect'];
-			var hideList = ['emailAndPassword'];
+			var hideList = ['emailAndPassword', 'answerQuestionOne'];
 			tagOperations.both(showList, hideList);
 			sessionStorage.setItem('LOGIN', true);
 		}
@@ -183,21 +191,21 @@ $(document).ready(function() {
 	$("#skf").click(function () { 
 		console.log("in click");
 		var showList = ['skfSect'];
-		var hideList = ['zenredSect','hawaiiSect','login_op','emailAndPassword','cosmosSect','questions1'];
+		var hideList = ['zenredSect','hawaiiSect','login_op','emailAndPassword','cosmosSect','questions1','answerQuestionOne'];
 		tagOperations.both(showList, hideList);
 	});
 	
 	$("#zenred").click(function () { 
 		console.log("in click");
 		var showList = ['zenredSect'];
-		var hideList = ['skfSect','hawaiiSect','login_op','emailAndPassword','cosmosSect','questions1'];
+		var hideList = ['skfSect','hawaiiSect','login_op','emailAndPassword','cosmosSect','questions1', 'answerQuestionOne'];
 		tagOperations.both(showList, hideList);
 	});	
 	
 	$("#doh").click(function () { 
 		console.log("in click");
 		var showList = ['hawaiiSect'];
-		var hideList = ['skfSect','zenredSect','login_op','emailAndPassword','cosmosSect','questions1'];
+		var hideList = ['skfSect','zenredSect','login_op','emailAndPassword','cosmosSect','questions1', 'answerQuestionOne'];
 		tagOperations.both(showList, hideList);
 	});
 	
@@ -206,23 +214,23 @@ $(document).ready(function() {
 		if(sessionStorage.LOGIN){
 			console.log("Already logged in");
 			var showList = ['cosmosSect'];
-   			var hideList = ['skfSect','zenredSect','login_op','emailAndPassword','cosmosSect','questions1'];
+   			var hideList = ['skfSect','zenredSect','login_op','emailAndPassword','cosmosSect','questions1','answerQuestionOne'];
 		}
 		else{
 			var showList = ['login_op'];
-			var hideList = ['skfSect','zenredSect','cosmosSect','emailAndPassword','cosmosSect','questions1'];
+			var hideList = ['skfSect','zenredSect','cosmosSect','emailAndPassword','cosmosSect','questions1','answerQuestionOne'];
 		}
 		tagOperations.both(showList, hideList);
 	});
 	
 	$("#startLogin").click(function(){
 		var showList = ['emailAndPassword']
-		var hideList = ['cosmosSect','login_op'];
+		var hideList = ['cosmosSect','login_op', 'answerQuestionOne'];
 		tagOperations.both(showList, hideList);
 	});
 	
 	$("#startLoginRequest").click(function(){
-		var hideList = ['cosmosSect','login_op'];
+		var hideList = ['cosmosSect','login_op', 'answerQuestionOne'];
 		tagOperations.hide(hideList);
 		accessRequest.jsonCall();
 	});
@@ -400,7 +408,7 @@ var processRequest = (function () {
 			
 		</section>
 	</div>
-*/
+
 
 </body>
 </html>
