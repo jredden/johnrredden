@@ -17,7 +17,7 @@ import com.zenred.johntredden.domain.UserDao;
 import com.zenred.johntredden.domain.UserStatus;
 import com.zenred.johntredden.vizualization.FirstAccessResponse;
 
-public class AnswerQuestion1 implements Controller {
+public class FirstAccess implements Controller {
 	
 	public static final String FIRST_ACCESS = UserStatus.candidate1.name();
 	public static final String QUESTION_NUMBER = "QUESTION_NUMBER";

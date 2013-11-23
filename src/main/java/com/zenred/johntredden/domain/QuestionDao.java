@@ -44,6 +44,14 @@ public class QuestionDao extends AbstractJDBCDao {
 		}
 	}
 	
+	private class QuestionGroupAnswer implements ParameterizedRowMapper<String>{
+
+		public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+			return rs.getString("QuestionGroupAnswer");
+		}
+		
+	}
+	
 	public Integer numberOfQuestions(){
 		Integer answer = 0;
 		String sql = "SELECT COUNT(*) FROM QuestionGroup";
