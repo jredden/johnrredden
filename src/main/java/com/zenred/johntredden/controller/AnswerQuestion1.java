@@ -1,8 +1,6 @@
 package com.zenred.johntredden.controller;
 
 import java.util.List;
-import java.util.UUID;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -17,29 +15,29 @@ import com.zenred.johntredden.domain.UserDao;
 import com.zenred.johntredden.domain.UserStatus;
 import com.zenred.johntredden.vizualization.FirstAccessResponse;
 
-public class AnswerQuestion1 implements Controller {
+public class AnswerQuestion1 implements Controller, StateIF {
 	
-	public static final String FIRST_ACCESS = UserStatus.candidate1.name();
-
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 	
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		String answer = request.getParameter("question1");
 		HttpSession httpSession =  request.getSession();
-		UUID idOne = UUID.randomUUID();
-		httpSession.setAttribute(FIRST_ACCESS, idOne.toString());
-		UserDao userDao = new UserDao();
-		User user = new User();
-		user.setPassword(idOne.toString());
-		user.setUser_Status(UserStatus.candidate1);
-		user.setFirstName("NONE");
-		user.setLastName("NONE");
-		user.setEmailAddress("NONE@bog.us");
-		userDao.createUser(user);
+		Integer questionGroupNumber = (Integer) httpSession.getAttribute(QUESTION_NUMBER);
+		QuestionDao questionDao = new QuestionDao();
+		String correctAnswer = questionDao.getAnswer(questionGroupNumber);
+		if(answer.equalsIgnoreCase(correctAnswer)){
+			String tempPassword = (String) httpSession.getAttribute(FIRST_ACCESS);
+			UserDao userDao = new UserDao();
+			
+		}
+		else{
+			
+		}
+
+		
 		
 		FirstAccessResponse firstAccessResponse = new FirstAccessResponse();
-		QuestionDao questionDao = new QuestionDao();
 		List<Integer> questionGroupList = questionDao.questionGroupCollecton();
 		Integer numberOfQuestions = questionDao.numberOfQuestions();
 		int questionNumber = (int)Math.floor(Math.random()*numberOfQuestions);

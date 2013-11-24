@@ -45,7 +45,6 @@ public class QuestionDao extends AbstractJDBCDao {
 	}
 	
 	private class QuestionGroupAnswer implements ParameterizedRowMapper<String>{
-
 		public String mapRow(ResultSet rs, int rowNum) throws SQLException {
 			return rs.getString("QuestionGroupAnswer");
 		}
@@ -77,5 +76,16 @@ public class QuestionDao extends AbstractJDBCDao {
 				.getSimpleJdbcTemplate()
 				.query(sql, new QuestionContent(), id);
 		return questions;
+	}
+	
+	public String getAnswer(Integer QuestionGroup_id ){
+		List<String> answer = null;
+		String sql = "SELECT QuestionGroupAnswer FROM QuestionGroup WHERE QuestionGroup_id = ?";
+		answer = super
+				.jdbcSetUp()
+				.getSimpleJdbcTemplate()
+				.query(sql, new QuestionGroupAnswer(), QuestionGroup_id);
+		
+		return answer.get(0);
 	}
 }

@@ -17,11 +17,8 @@ import com.zenred.johntredden.domain.UserDao;
 import com.zenred.johntredden.domain.UserStatus;
 import com.zenred.johntredden.vizualization.FirstAccessResponse;
 
-public class FirstAccess implements Controller {
+public class FirstAccess implements Controller, StateIF {
 	
-	public static final String FIRST_ACCESS = UserStatus.candidate1.name();
-	public static final String QUESTION_NUMBER = "QUESTION_NUMBER";
-
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 	
@@ -43,9 +40,8 @@ public class FirstAccess implements Controller {
 		List<Integer> questionGroupList = questionDao.questionGroupCollecton();
 		Integer numberOfQuestions = questionDao.numberOfQuestions();
 		int questionNumber = (int)Math.floor(Math.random()*numberOfQuestions);
-		httpSession.setAttribute(QUESTION_NUMBER, questionNumber);
 		int listNumber = questionGroupList.get(questionNumber);
-
+		httpSession.setAttribute(QUESTION_NUMBER, listNumber);
 		firstAccessResponse.setQuestionList(questionDao.readQuestion(listNumber));
 		ModelAndView modelAndView = new ModelAndView(new FirstAccessView());
 		modelAndView.addObject(FirstAccessView.JSON_ROOT, firstAccessResponse);
