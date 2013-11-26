@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="keywords"
-        content="Hawaii, 
+	content="Hawaii, 
 Globalization, 
 ScienceFiction, 
 Coffee" ,
@@ -41,7 +41,10 @@ var tagOperations = (function(){
 	   				},
 	   			   	function questions1(){
 	   					$('#questions1').show();
-	   				}
+	   				},
+	   				function answerQuestionOne(){
+		   				$('#answerQuestionOne').show();
+		   			}
 	];
 	var hideOperations = [
 			   function skfSect(){
@@ -67,7 +70,11 @@ var tagOperations = (function(){
    				},
    			   	function questions1(){
    					$('#questions1').hide();
-   				}
+   				},
+   				function answerQuestionOne(){
+	   				$('#answerQuestionOne').hide();
+	   			}
+				
 	];
 
 	var references = {
@@ -78,7 +85,8 @@ var tagOperations = (function(){
 			"JRedden" : 4,
 			"emailAndPassword" : 5,
 			"cosmosSect" : 6,
-			"questions1" :7
+			"questions1" :7,
+			"answerQuestionOne" : 8
 	}
 	
 	// public 
@@ -112,112 +120,135 @@ var tagOperations = (function(){
 	}
 }());
 
+
 $(document).ready(function() {
-        console.log("in ready");
-			tagOperations.hideAll(); 
-			     
-        $('#LoginFormID').ajaxForm({ 
-                dataType:  'json', 
-                success:   processJson,
-                error: function errorHandler(){
-                        var out = '';
-                          for (var p in this) {
-                            out += p + ':::::' + this[p] + '\n';
-                            console.log("error:"+out);
-                                  }
-//                        console.log("error:"+this;
-                }
-        });
-        
-        function processJson(json) {
-                console.log("login:");
-                if(json.basicMesage.theMessage.indexOf("Passed") != -1){
-                        $(cosmosSect).show();
-                        $(emailAndPassword).hide();
-                        sessionStorage.setItem('LOGIN', true);
-                }
-                else{
-                        alert("login failed  ... select home and try again");
-                }
-        }
+	console.log("in ready");
+	tagOperations.hideAll();
+	
+	$('#LoginFormID').ajaxForm({ 
+		dataType:  'json', 
+		success:   processJson,
+		error: function errorHandler(){
+			var out = '';
+  			for (var p in this) {
+    			out += p + ':::::' + this[p] + '\n';
+    			console.log("error:"+out);
+  				}
+//			console.log("error:"+this;
+		}
+	});
+	
+	function processJson(json) {
+		console.log("login:");
+		if(json.basicMesage.theMessage.indexOf("Passed") != -1){
+			var showList = ['cosmosSect'];
+			var hideList = ['emailAndPassword', 'answerQuestionOne'];
+			tagOperations.both(showList, hideList);
+			sessionStorage.setItem('LOGIN', true);
+		}
+		else{
+			alert("login failed  ... select home and try again");
+		}
+	}
 
-        var h1 = $('JRedden').height();
-        var h = h1/2;
-        var w1 = $(window).height();
-        var w = w1/2;
-        var m = w - h
-        $('JRedden').css("margin-top",m + "px")
+	$('#Question1FormID').ajaxForm({ 
+		dataType:  'json', 
+		success:   processQuestion1Json,
+		error: function errorHandler(){
+			var out = '';
+  			for (var p in this) {
+    			out += p + ':::::' + this[p] + '\n';
+    			console.log("error:"+out);
+  				}
+//			console.log("error:"+this;
+		}
+	});
+	
+	function processQuestion1Json(json) {
+		console.log("question1:");
+		if(json.basicMesage.theMessage.indexOf("Passed") != -1){
+			// sessionStorage.setItem('LOGIN', true);
+		}
+		else{
+			alert("wrong answer ... try again");
+		}
+	}
 
-        $(JRedden).fadeIn();
-        $(JRedden).fadeOut(5000);
-                
+	
+	var h1 = $('JRedden').height();
+	var h = h1/2;
+	var w1 = $(window).height();
+	var w = w1/2;
+	var m = w - h
+	$('JRedden').css("margin-top",m + "px")
+
+	$(JRedden).fadeIn();
+	$(JRedden).fadeOut(5000);
+		
 	$("#home").click(function () { 
 		tagOperations.hideAll();
 	});	
-
 	$("#skf").click(function () { 
 		console.log("in click");
 		var showList = ['skfSect'];
-		var hideList = ['zenredSect','hawaiiSect','login_op','emailAndPassword','cosmosSect','questions1'];
+		var hideList = ['zenredSect','hawaiiSect','login_op','emailAndPassword','cosmosSect','questions1','answerQuestionOne'];
 		tagOperations.both(showList, hideList);
 	});
-
- 	$("#zenred").click(function () { 
+	
+	$("#zenred").click(function () { 
 		console.log("in click");
 		var showList = ['zenredSect'];
-		var hideList = ['skfSect','hawaiiSect','login_op','emailAndPassword','cosmosSect','questions1'];
+		var hideList = ['skfSect','hawaiiSect','login_op','emailAndPassword','cosmosSect','questions1', 'answerQuestionOne'];
 		tagOperations.both(showList, hideList);
 	});	
 	
 	$("#doh").click(function () { 
 		console.log("in click");
 		var showList = ['hawaiiSect'];
-		var hideList = ['skfSect','zenredSect','login_op','emailAndPassword','cosmosSect','questions1'];
+		var hideList = ['skfSect','zenredSect','login_op','emailAndPassword','cosmosSect','questions1', 'answerQuestionOne'];
 		tagOperations.both(showList, hideList);
 	});
 	
- 	$("#login").click(function () { 
+	$("#login").click(function () { 
 		console.log("LOGIN:"+sessionStorage.LOGIN);
 		if(sessionStorage.LOGIN){
 			console.log("Already logged in");
 			var showList = ['cosmosSect'];
-   			var hideList = ['skfSect','zenredSect','login_op','emailAndPassword','cosmosSect','questions1'];
+   			var hideList = ['skfSect','zenredSect','login_op','emailAndPassword','questions1','answerQuestionOne'];
 		}
 		else{
 			var showList = ['login_op'];
-			var hideList = ['skfSect','zenredSect','cosmosSect','emailAndPassword','cosmosSect','questions1'];
+			var hideList = ['skfSect','zenredSect','cosmosSect','emailAndPassword','cosmosSect','questions1','answerQuestionOne'];
 		}
 		tagOperations.both(showList, hideList);
 	});
 	
-	
- 	$("#startLogin").click(function(){
+	$("#startLogin").click(function(){
 		var showList = ['emailAndPassword']
-		var hideList = ['cosmosSect','login_op'];
+		var hideList = ['cosmosSect','login_op', 'answerQuestionOne'];
 		tagOperations.both(showList, hideList);
 	});
 	
 	$("#startLoginRequest").click(function(){
-		var hideList = ['cosmosSect','login_op'];
+		var hideList = ['cosmosSect','login_op', 'answerQuestionOne'];
 		tagOperations.hide(hideList);
 		accessRequest.jsonCall();
 	});
 	
-        
 });
 
 var accessRequest = (function () {
-        return{
-                jsonCall: function(){
-                        console.log("start AccessRequest");
-                        $.getJSON("http://www.johntreddenlocal.com:8080/firstAccess.html",
-                                        function(json){           // callback
-                                        console.log("Here");
-                                        processRequest.jsonProcess(json);
-                                        }                
-                        );
-                }
-        }
+	return{
+		jsonCall: function(){
+			console.log("start AccessRequest");
+			$.getJSON("http://www.johntreddenlocal.com:8080/firstAccess.html",
+					function(json){           // callback
+					console.log("Here");
+					processRequest.jsonProcess(json);
+					}		
+			);
+		}
+	}
 })();
 
 var processRequest = (function () {
@@ -246,118 +277,137 @@ var processRequest = (function () {
 <title>John Redden's Web Site</title>
 </head>
 <body>
-        <div id="wrapper">
-                <header id="topHeader">
-                        <hgroup>
-                                <nav id="topNav">
-                                        <button id="home">Home</button>
-                                        <button id="skf">South Kona Farms</button>
-                                        <button id="doh">Documents On Hawai`i</button>
-                                        <button id="login">Access works of fiction</button>
-                                        <button id="zenred">Zenred Computing</button>
-                                </nav>
+	<div id="wrapper">
+		<header id="topHeader">
+			<hgroup>
+				<nav id="topNav">
+					<button id="home">Home</button>
+					<button id="skf">South Kona Farms</button>
+					<button id="doh">Documents On Hawai`i</button>
+					<button id="login">Access works of fiction</button>
+					<button id="zenred">Zenred Computing</button>
+				</nav>
 
 
-                        </hgroup>
-                </header>
+			</hgroup>
+		</header>
 
-                <section id="space"></section>
+		<section id="space"></section>
 
-                <section id="hawaiiSect">
-                        <nav>
-                                <div id="gsaPubPaper">
-                                        <a href="docs/GSAPubCandidate.pdf">Global Studies Publish
-                                                Candidate: Paper on Hawai`ian Islands</a>
-                                </div>
-                                <div id="gsaPaper">
-                                        <a href="docs/GSAHawaiiPaper.pdf">Global Studies: Paper on
-                                                Hawai`ian Islands</a>
-                                </div>
-                                <div id="h21">
-                                        <a href="docs/Hawaii21stCentury.pdf">Hawai`i in the 21st
-                                                Century, Age of Globalization</a>
-                                </div>
-                                <div id="foh">
-                                        <a href="docs/FuelOil.pdf">Fuel Oil in Hawai`i</a>
-                                </div>
-                                <div id="mg">
-                                        <a href="docs/MauiGrid.pdf">Maui Grid</a>
-                                </div>
-                                <div id="hap">
-                                        <a href="docs/HawaiianPinapple.pdf">Hawai`ian Pineapple</a>
-                                </div>
-                                <div id="rep">
-                                        <a href="docs/renewable-energy-projects-report.pdf">Renewable
-                                                Energy</a>
-                                </div>
-                        </nav>
-                </section>
-                <section id="cosmosSect">
-                        <nav>
-                                <div id="glossary">
-                                        <a href="docs_private/glossary.pdf">League Cosmos Glossary</a>
-                                </div>
-                                <div id="humFed1">
-                                        <a href="docs_private/humFed1.pdf">First Human Federation</a>
-                                </div>
-                                <div id="humFed2">
-                                        <a href="docs/humFed2.pdf">Second Human Federation</a>
-                                </div>
-                                <div id="cosmosHeaven">
-                                        <a href="docs_private/cosmosHeaven.pdf">Cosmos Heaven</a>
-                                </div>
-                                <div id="cosmosPurgatory">
-                                        <a href="docs_private/cosmosPurgatory.pdf">Cosmos Purgatory</a>
-                                </div>
-                                <div id="cosmosHell">
-                                        <a href="docs_private/cosmosHell.pdf">Cosmos Hell</a>
-                                </div>
-                        </nav>
-                </section>
-                <section id="login_op">
-                        <nav>
-                                <div id="chooseLogin">
-                                        <button id="startLogin">Existing Login</button>
-                                </div>
-                                <div id="requestLogin">
-                                        <button id="startLoginRequest">Request Access to Works of
-                                                Fiction</button>
-                                </div>
-                        </nav>
-                </section>
-                <section id="page">
-                        <div id="JRedden">WEB SITE OF JOHN T REDDEN</div>
-                        <div id="skfSect">
-                                <iframe src="http://southkonafarms.com" width="1000" height="1000"></iframe>
-                        </div>
-                        <div id="zenredSect">
-                                <iframe src="http://zenredcomputing.com" width="1000" height="1000"></iframe>
-                        </div>
-                        <div id="questions1">
-                        </div>
-                        <div id="emailAndPassword">
-                                <form name="LoginForm" id="LoginFormID"
-                                        action="http://www.johntreddenlocal.com:8080/login.html"
-                                        method="get">
-                                        <div id="uEmail">
-                                                E-Mail Address: <span id="uMails"> <input type="text"
-                                                        name="email" maxlength=255 size=64 />
-                                                </span>
-                                        </div>
-                                        <div id="loginPassword">
-                                                Password&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
-                                                <span id="loginPasswords"> <input type="password"
-                                                        name="password" maxlength=255 size=64 />
-                                                </span>
-                                        </div>
-                                        <div id="submit">
-                                                <input class="button" type="submit" id="loginOperation"
-                                                        name="submit" value="Submit E-Mail Address and Password" />
-                                        </div>
-                                </form>
-                        </div>
-                </section>
-        </div>
+		<section id="hawaiiSect">
+			<nav>
+				<div id="gsaPubPaper">
+					<a href="docs/GSAPubCandidate.pdf">Global Studies Publish
+						Candidate: Paper on Hawai`ian Islands</a>
+				</div>
+				<div id="gsaPaper">
+					<a href="docs/GSAHawaiiPaper.pdf">Global Studies: Paper on
+						Hawai`ian Islands</a>
+				</div>
+				<div id="h21">
+					<a href="docs/Hawaii21stCentury.pdf">Hawai`i in the 21st
+						Century, Age of Globalization</a>
+				</div>
+				<div id="foh">
+					<a href="docs/FuelOil.pdf">Fuel Oil in Hawai`i</a>
+				</div>
+				<div id="mg">
+					<a href="docs/MauiGrid.pdf">Maui Grid</a>
+				</div>
+				<div id="hap">
+					<a href="docs/HawaiianPinapple.pdf">Hawai`ian Pineapple</a>
+				</div>
+				<div id="rep">
+					<a href="docs/renewable-energy-projects-report.pdf">Renewable
+						Energy</a>
+				</div>
+			</nav>
+		</section>
+		<section id="cosmosSect">
+			<nav>
+				<div id="glossary">
+					<a href="docs_private/glossary.pdf">League Cosmos Glossary</a>
+				</div>
+				<div id="humFed1">
+					<a href="docs_private/humFed1.pdf">First Human Federation</a>
+				</div>
+				<div id="humFed2">
+					<a href="docs/humFed2.pdf">Second Human Federation</a>
+				</div>
+				<div id="cosmosHeaven">
+					<a href="docs_private/cosmosHeaven.pdf">Cosmos Heaven</a>
+				</div>
+				<div id="cosmosPurgatory">
+					<a href="docs_private/cosmosPurgatory.pdf">Cosmos Purgatory</a>
+				</div>
+				<div id="cosmosHell">
+					<a href="docs_private/cosmosHell.pdf">Cosmos Hell</a>
+				</div>
+			</nav>
+		</section>
+		<section id="login_op">
+			<nav>
+				<div id="chooseLogin">
+					<button id="startLogin">Existing Login</button>
+				</div>
+				<div id="requestLogin">
+					<button id="startLoginRequest">Request Access to Works of
+						Fiction</button>
+				</div>
+			</nav>
+		</section>
+		<section id="page">
+			<div id="JRedden">WEB SITE OF JOHN T REDDEN</div>
+			<div id="skfSect">
+				<iframe src="http://southkonafarms.com" width="1000" height="1000"></iframe>
+			</div>
+			<div id="zenredSect">
+				<iframe src="http://zenredcomputing.com" width="1000" height="1000"></iframe>
+			</div>
+			
+			<div id="questions1"></div>
+			
+			<div id="emailAndPassword">
+				<form name="LoginForm" id="LoginFormID"
+					action="http://www.johntreddenlocal.com:8080/login.html"
+					method="get">
+					<div id="uEmail">
+						E-Mail Address: <span id="uMails"> <input type="text"
+							name="email" maxlength=255 size=64 />
+						</span>
+					</div>
+					<div id="loginPassword">
+						Password&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+						<span id="loginPasswords"> <input type="password"
+							name="password" maxlength=255 size=64 />
+						</span>
+					</div>
+					<div id="submit">
+						<input class="button" type="submit" id="loginOperation"
+							name="submit" value="Submit E-Mail Address and Password" />
+					</div>
+				</form>
+			</div>
+			
+			<div id="answerQuestionOne">
+				<form name="Question1Form" id="Question1FormID"
+					action="http://www.johntreddenlocal.com:8080/answerQuestion1.html"
+					method="get">
+					<div id="uQuestion1">
+						Your Answer: <span id="uQ1"> <input type="text"
+							name="question1" maxlength=10 size=5 />
+						</span>
+					</div>
+					<div id="submit">
+						<input class="button" type="submit" id="questionOneOperation"
+							name="submit" value="Submit Answer to Question One" />
+					</div>
+				</form>
+			</div>
+			
+			
+		</section>
+	</div>
 
 
 </body>
