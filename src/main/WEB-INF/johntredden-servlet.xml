@@ -23,7 +23,7 @@
 			<props>
 				<prop key="/login.html">login</prop>
 				<prop key="/firstAccess.html">firstAccess</prop>
-				<prop key="/answerQuesrtion1.html"></prop>
+				<prop key="/answerQuestion1.html">answerQuestion1</prop>
 			</props>
 		</property>
 	</bean>
