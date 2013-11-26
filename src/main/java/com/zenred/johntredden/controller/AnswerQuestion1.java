@@ -9,11 +9,13 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
 import com.zenred.johntredden.controller.json.FirstAccessView;
+import com.zenred.johntredden.controller.json.QuestionResponseView;
 import com.zenred.johntredden.domain.QuestionDao;
 import com.zenred.johntredden.domain.User;
 import com.zenred.johntredden.domain.UserDao;
 import com.zenred.johntredden.domain.UserStatus;
 import com.zenred.johntredden.vizualization.FirstAccessResponse;
+import com.zenred.johntredden.vizualization.QuestionResponse;
 
 public class AnswerQuestion1 implements Controller, StateIF {
 	
@@ -25,27 +27,27 @@ public class AnswerQuestion1 implements Controller, StateIF {
 		HttpSession httpSession =  request.getSession();
 		Integer questionGroupNumber = (Integer) httpSession.getAttribute(QUESTION_NUMBER);
 		QuestionDao questionDao = new QuestionDao();
+		QuestionResponse questionResponse = new QuestionResponse();
 		String correctAnswer = questionDao.getAnswer(questionGroupNumber);
 		if(answer.equalsIgnoreCase(correctAnswer)){
 			String tempPassword = (String) httpSession.getAttribute(FIRST_ACCESS);
+			System.out.println("tempPassword:"+tempPassword+"::");
 			UserDao userDao = new UserDao();
-			
+			userDao.updateUserStatusToCandidate2(tempPassword);
+			questionResponse.setTheMessage("SUCCESS");
+			int secondQuestionNumber1 = (int)Math.floor(Math.random()*100);
+			int secondQuestionNumber2 = (int)Math.floor(Math.random()*100);
+			String secondQuestion = secondQuestionNumber1 + "+" + secondQuestionNumber2;
+			questionResponse.setSecondQuestion(secondQuestion);
 		}
 		else{
-			
+			questionResponse.setTheMessage("FAIL");
 		}
 
 		
 		
-		FirstAccessResponse firstAccessResponse = new FirstAccessResponse();
-		List<Integer> questionGroupList = questionDao.questionGroupCollecton();
-		Integer numberOfQuestions = questionDao.numberOfQuestions();
-		int questionNumber = (int)Math.floor(Math.random()*numberOfQuestions);
-		int listNumber = questionGroupList.get(questionNumber);
-
-		firstAccessResponse.setQuestionList(questionDao.readQuestion(listNumber));
-		ModelAndView modelAndView = new ModelAndView(new FirstAccessView());
-		modelAndView.addObject(FirstAccessView.JSON_ROOT, firstAccessResponse);
+		ModelAndView modelAndView = new ModelAndView(new QuestionResponseView());
+		modelAndView.addObject(QuestionResponseView.JSON_ROOT, questionResponse);
 		System.out.println(modelAndView);
 		return modelAndView;
 
