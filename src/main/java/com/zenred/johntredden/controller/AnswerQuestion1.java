@@ -16,22 +16,31 @@ import com.zenred.johntredden.domain.UserDao;
 import com.zenred.johntredden.domain.UserStatus;
 import com.zenred.johntredden.vizualization.FirstAccessResponse;
 import com.zenred.johntredden.vizualization.QuestionResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 public class AnswerQuestion1 implements Controller, StateIF {
 	
+	private Logger log = LoggerFactory.getLogger(getClass());
+	
+	
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-	
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		String answer = request.getParameter("question1");
-		HttpSession httpSession =  request.getSession();
-		Integer questionGroupNumber = (Integer) httpSession.getAttribute(QUESTION_NUMBER);
+		String key = request.getParameter("key");
+//		HttpSession httpSession =  request.getSession();
+		System.out.println("EntertempPassword:"+key+"::");
+		log.info("EntertempPassword:"+key+"::");
+		Integer questionGroupNumber = new Integer(request.getParameter("questionNumber"));
 		QuestionDao questionDao = new QuestionDao();
 		QuestionResponse questionResponse = new QuestionResponse();
 		String correctAnswer = questionDao.getAnswer(questionGroupNumber);
 		if(answer.equalsIgnoreCase(correctAnswer)){
-			String tempPassword = (String) httpSession.getAttribute(FIRST_ACCESS);
+			String tempPassword = key;
 			System.out.println("tempPassword:"+tempPassword+"::");
+			log.info("tempPassword:"+tempPassword+"::");
 			UserDao userDao = new UserDao();
 			userDao.updateUserStatusToCandidate2(tempPassword);
 			questionResponse.setTheMessage("SUCCESS");
@@ -42,6 +51,9 @@ public class AnswerQuestion1 implements Controller, StateIF {
 		}
 		else{
 			questionResponse.setTheMessage("FAIL");
+			System.out.println("answer:"+correctAnswer+"::"+answer);
+			log.info("tempPassword:"+correctAnswer+"::"+answer);
+
 		}
 
 		

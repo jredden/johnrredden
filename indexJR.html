@@ -153,7 +153,9 @@ $(document).ready(function() {
 
 	$('#Question1FormID').ajaxForm({ 
 		dataType:  'json', 
-		success:   processQuestion1Json,
+		type: "GET",
+		success:   processQuestion1Json,		
+		data: { key: sessionStorage.getItem('SESSKEY'), questionNumber: sessionStorage.getItem('QUESTIONNUM') },
 		error: function errorHandler(){
 			var out = '';
   			for (var p in this) {
@@ -166,7 +168,7 @@ $(document).ready(function() {
 	
 	function processQuestion1Json(json) {
 		console.log("question1:");
-		if(json.basicMesage.theMessage.indexOf("Passed") != -1){
+		if(json.basicMesage.theMessage.indexOf("SUCCESS") != -1){
 			// sessionStorage.setItem('LOGIN', true);
 		}
 		else{
@@ -266,6 +268,8 @@ var processRequest = (function () {
 				console.log("question:" + json.firstAccessResponse.questionList.string[idex]);
 				
 			}
+			sessionStorage.setItem('SESSKEY', json.firstAccessResponse.key);
+			sessionStorage.setItem('QUESTIONNUM', json.firstAccessResponse.questionNumber);
 			var showList = ['questions1','answerQuestionOne'];
 			tagOperations.show(showList);
 		}

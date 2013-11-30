@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
@@ -19,13 +21,17 @@ import com.zenred.johntredden.vizualization.FirstAccessResponse;
 
 public class FirstAccess implements Controller, StateIF {
 	
+	private Logger log = LoggerFactory.getLogger(getClass());
+	
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 	
 		response.addHeader("Access-Control-Allow-Origin", "*");
-		HttpSession httpSession =  request.getSession();
+//		HttpSession httpSession =  request.getSession();
 		UUID idOne = UUID.randomUUID();
-		httpSession.setAttribute(FIRST_ACCESS, idOne.toString());
+//		httpSession.setAttribute(FIRST_ACCESS, idOne.toString());
+		System.out.println(FIRST_ACCESS+":"+idOne.toString());
+		log.info(FIRST_ACCESS+":"+idOne.toString());
 		UserDao userDao = new UserDao();
 		User user = new User();
 		user.setPassword(idOne.toString());
@@ -41,7 +47,9 @@ public class FirstAccess implements Controller, StateIF {
 		Integer numberOfQuestions = questionDao.numberOfQuestions();
 		int questionNumber = (int)Math.floor(Math.random()*numberOfQuestions);
 		int listNumber = questionGroupList.get(questionNumber);
-		httpSession.setAttribute(QUESTION_NUMBER, listNumber);
+//		httpSession.setAttribute(QUESTION_NUMBER, listNumber);
+		firstAccessResponse.setKey(idOne.toString());
+		firstAccessResponse.setQuestionNumber(listNumber);
 		firstAccessResponse.setQuestionList(questionDao.readQuestion(listNumber));
 		ModelAndView modelAndView = new ModelAndView(new FirstAccessView());
 		modelAndView.addObject(FirstAccessView.JSON_ROOT, firstAccessResponse);
