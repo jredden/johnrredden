@@ -15,6 +15,10 @@ Coffee" ,
 <script type="text/javascript" src="../js/jquery.form.js"></script>
 <script type="text/javascript">
 
+var questionNumber = '0';
+var addQuestion = '0+0';
+var formData = { questionNumber1:questionNumber, questionNumber2:addQuestion, questionNumber3:'0+0' }
+
 var tagOperations = (function(){
 	// private
 	var showOperations = [
@@ -155,7 +159,7 @@ $(document).ready(function() {
 		dataType:  'json', 
 		type: "GET",
 		success:   processQuestion1Json,		
-		data: { key: sessionStorage.getItem('SESSKEY'), questionNumber: sessionStorage.getItem('QUESTIONNUM') },
+		data: formData,
 		error: function errorHandler(){
 			var out = '';
   			for (var p in this) {
@@ -257,7 +261,8 @@ var processRequest = (function () {
 	return{
 		jsonProcess: function(json){
 			var colorSelector = 0;
-			$(questions1).html("<div id=\"questionHeader\"> Please prove you are a person.  Key in a four letter word that describe ... </div> ");
+			$(questions1).html("<div id=\"questionHeader\"> Please prove you are a person.  Key in a four letter word that describes  </div> ");
+			$(questions1).append("<div id=\"questionHeader\"> the first Question.  Then key in the answer to the second question </div> ");
 			for (var idex = 0; idex < json.firstAccessResponse.questionList.string.length; idex++) {
 				
 				$(questions1).append("<div id=\"question" + idex + "\""
@@ -266,10 +271,10 @@ var processRequest = (function () {
 				+json.firstAccessResponse.questionList.string[idex]
 				+"</div>");
 				console.log("question:" + json.firstAccessResponse.questionList.string[idex]);
-				
 			}
-			sessionStorage.setItem('SESSKEY', json.firstAccessResponse.key);
-			sessionStorage.setItem('QUESTIONNUM', json.firstAccessResponse.questionNumber);
+			$(questions1).append("Please add these two numbers:"+json.firstAccessResponse.secondQuestion);
+			questionNumber = json.firstAccessResponse.questionNumber;
+			addQuestion = json.firstAccessResponse.secondQuestion;
 			var showList = ['questions1','answerQuestionOne'];
 			tagOperations.show(showList);
 		}
@@ -398,13 +403,33 @@ var processRequest = (function () {
 					action="http://www.johntreddenlocal.com:8080/answerQuestion1.html"
 					method="get">
 					<div id="uQuestion1">
-						Your Answer: <span id="uQ1"> <input type="text"
+						Your First Question Answer: <span id="uQ1"> <input type="text"
 							name="question1" maxlength=10 size=5 />
+						</span>
+					</div>
+					<div id="uQuestion2">
+						Your Second Question Answer: <span id="uQ2"> <input type="text"
+							name="question2" maxlength=10 size=5 />
+						</span>
+					</div>
+					<div id="eMail">
+						Your E-Mail Address: <span id="em1"> <input type="text"
+							name="email" maxlength=255 size=25 />
+						</span>
+					</div>
+					<div id="password1">
+						Type Your Password: <span id="pw1"> <input type="password"
+							name="Password1" maxlength=255 size=25 />
+						</span>
+					</div>
+					<div id="password2">
+						Retype Your Password: <span id="pw2"> <input type="password"
+							name="Password2" maxlength=255 size=25 />
 						</span>
 					</div>
 					<div id="submit">
 						<input class="button" type="submit" id="questionOneOperation"
-							name="submit" value="Submit Answer to Question One" />
+							name="submit" value="Submit Answers" />
 					</div>
 				</form>
 			</div>

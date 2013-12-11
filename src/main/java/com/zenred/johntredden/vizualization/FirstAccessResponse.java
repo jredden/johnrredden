@@ -7,8 +7,8 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 @XStreamAlias("firstAccessResponse")
 public class FirstAccessResponse {
 	private List<String> questionList;
-	private String key;
 	private Integer questionNumber;
+	private String secondQuestion;
 
 	public List<String> getQuestionList() {
 		return questionList;
@@ -16,14 +16,6 @@ public class FirstAccessResponse {
 
 	public void setQuestionList(List<String> questionList) {
 		this.questionList = questionList;
-	}
-
-	public String getKey() {
-		return key;
-	}
-
-	public void setKey(String key) {
-		this.key = key;
 	}
 
 	public Integer getQuestionNumber() {
@@ -34,10 +26,19 @@ public class FirstAccessResponse {
 		this.questionNumber = questionNumber;
 	}
 
+	public String getSecondQuestion() {
+		return secondQuestion;
+	}
+
+	public void setSecondQuestion(String secondQuestion) {
+		this.secondQuestion = secondQuestion;
+	}
+
 	@Override
 	public String toString() {
-		return "FirstAccessResponse [questionList=" + questionList + ", key="
-				+ key + ", questionNumber=" + questionNumber + "]";
+		return "FirstAccessResponse [questionList=" + questionList
+				+ ", questionNumber=" + questionNumber + ", secondQuestion="
+				+ secondQuestion + "]";
 	}
 	
 	

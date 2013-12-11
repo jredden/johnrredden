@@ -28,31 +28,35 @@ public class AnswerQuestion1 implements Controller, StateIF {
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		response.addHeader("Access-Control-Allow-Origin", "*");
-		String answer = request.getParameter("question1");
-		String key = request.getParameter("key");
+		String answer1 = request.getParameter("question1");
+		String answer2 = request.getParameter("question2");
 //		HttpSession httpSession =  request.getSession();
-		System.out.println("EntertempPassword:"+key+"::");
-		log.info("EntertempPassword:"+key+"::");
-		Integer questionGroupNumber = new Integer(request.getParameter("questionNumber"));
+//		System.out.println("EntertempPassword:"+key+"::");
+//		log.info("EntertempPassword:"+key+"::");
+		Integer questionGroupNumber = new Integer(request.getParameter("questionNumber1"));
 		QuestionDao questionDao = new QuestionDao();
 		QuestionResponse questionResponse = new QuestionResponse();
 		String correctAnswer = questionDao.getAnswer(questionGroupNumber);
-		if(answer.equalsIgnoreCase(correctAnswer)){
+		if(answer1.equalsIgnoreCase(correctAnswer)){
+			/*
 			String tempPassword = key;
 			System.out.println("tempPassword:"+tempPassword+"::");
 			log.info("tempPassword:"+tempPassword+"::");
 			UserDao userDao = new UserDao();
 			userDao.updateUserStatusToCandidate2(tempPassword);
+			*/
 			questionResponse.setTheMessage("SUCCESS");
+			/*
 			int secondQuestionNumber1 = (int)Math.floor(Math.random()*100);
 			int secondQuestionNumber2 = (int)Math.floor(Math.random()*100);
 			String secondQuestion = secondQuestionNumber1 + "+" + secondQuestionNumber2;
 			questionResponse.setSecondQuestion(secondQuestion);
+			*/
 		}
 		else{
 			questionResponse.setTheMessage("FAIL");
-			System.out.println("answer:"+correctAnswer+"::"+answer);
-			log.info("tempPassword:"+correctAnswer+"::"+answer);
+			System.out.println("answer:"+correctAnswer+"::"+answer1);
+			log.info("tempPassword:"+correctAnswer+"::"+answer1);
 
 		}
 
