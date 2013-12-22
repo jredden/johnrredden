@@ -28,6 +28,8 @@ public class AnswerQuestion1 implements Controller, StateIF {
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		response.addHeader("Access-Control-Allow-Origin", "*");
+		
+		System.out.println("SESSION ID:"+request.getRequestedSessionId());
 		String answer1 = request.getParameter("question1");
 		String answer2 = request.getParameter("question2");
 //		HttpSession httpSession =  request.getSession();

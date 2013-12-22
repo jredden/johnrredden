@@ -148,7 +148,7 @@ $(document).ready(function() {
 			var showList = ['cosmosSect'];
 			var hideList = ['emailAndPassword', 'answerQuestionOne'];
 			tagOperations.both(showList, hideList);
-			sessionStorage.setItem('LOGIN', true);
+			sessionStorage.setItem('LOGIN', true);answerQuestionOne
 		}
 		else{
 			alert("login failed  ... select home and try again");
@@ -273,7 +273,7 @@ var processRequest = (function () {
 				console.log("question:" + json.firstAccessResponse.questionList.string[idex]);
 			}
 			$(questions1).append("Please add these two numbers:"+json.firstAccessResponse.secondQuestion);
-			questionNumber = json.firstAccessResponse.questionNumber;
+			questionNumber = json.firstAccessResponse.questionNumber;first
 			addQuestion = json.firstAccessResponse.secondQuestion;
 			var showList = ['questions1','answerQuestionOne'];
 			tagOperations.show(showList);
