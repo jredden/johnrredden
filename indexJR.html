@@ -273,8 +273,10 @@ var processRequest = (function () {
 				console.log("question:" + json.firstAccessResponse.questionList.string[idex]);
 			}
 			$(questions1).append("Please add these two numbers:"+json.firstAccessResponse.secondQuestion);
-			questionNumber = json.firstAccessResponse.questionNumber;first
+			questionNumber = json.firstAccessResponse.questionNumber;
 			addQuestion = json.firstAccessResponse.secondQuestion;
+			formData.questionNumber1 = questionNumber;
+			formData.questionNumber2 = addQuestion;
 			var showList = ['questions1','answerQuestionOne'];
 			tagOperations.show(showList);
 		}

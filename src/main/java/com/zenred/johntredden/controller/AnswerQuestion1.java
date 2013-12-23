@@ -32,33 +32,22 @@ public class AnswerQuestion1 implements Controller, StateIF {
 		System.out.println("SESSION ID:"+request.getRequestedSessionId());
 		String answer1 = request.getParameter("question1");
 		String answer2 = request.getParameter("question2");
-//		HttpSession httpSession =  request.getSession();
-//		System.out.println("EntertempPassword:"+key+"::");
-//		log.info("EntertempPassword:"+key+"::");
+		int mathResponse = new Integer(answer2).intValue();
+
 		Integer questionGroupNumber = new Integer(request.getParameter("questionNumber1"));
 		QuestionDao questionDao = new QuestionDao();
 		QuestionResponse questionResponse = new QuestionResponse();
 		String correctAnswer = questionDao.getAnswer(questionGroupNumber);
-		if(answer1.equalsIgnoreCase(correctAnswer)){
-			/*
-			String tempPassword = key;
-			System.out.println("tempPassword:"+tempPassword+"::");
-			log.info("tempPassword:"+tempPassword+"::");
-			UserDao userDao = new UserDao();
-			userDao.updateUserStatusToCandidate2(tempPassword);
-			*/
+		
+		String [] mathQuestion = request.getParameter("questionNumber2").split("\\+");
+		Integer mathAnswer = new Integer(mathQuestion[0] + new Integer(mathQuestion[1]));
+		if(answer1.equalsIgnoreCase(correctAnswer)  && mathAnswer.intValue() == mathResponse){
 			questionResponse.setTheMessage("SUCCESS");
-			/*
-			int secondQuestionNumber1 = (int)Math.floor(Math.random()*100);
-			int secondQuestionNumber2 = (int)Math.floor(Math.random()*100);
-			String secondQuestion = secondQuestionNumber1 + "+" + secondQuestionNumber2;
-			questionResponse.setSecondQuestion(secondQuestion);
-			*/
 		}
 		else{
 			questionResponse.setTheMessage("FAIL");
-			System.out.println("answer:"+correctAnswer+"::"+answer1);
-			log.info("tempPassword:"+correctAnswer+"::"+answer1);
+			System.out.println("answer:"+correctAnswer+"::"+answer1+"::"+ mathResponse+ ":m2:"+mathAnswer.intValue());
+			log.info("answer:"+correctAnswer+"::"+answer1+":m1:"+ mathResponse + ":m2:"+mathAnswer.intValue());
 
 		}
 

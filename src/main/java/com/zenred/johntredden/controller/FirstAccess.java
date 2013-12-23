@@ -27,6 +27,8 @@ public class FirstAccess implements Controller, StateIF {
 			HttpServletResponse response) throws Exception {
 	
 		response.addHeader("Access-Control-Allow-Origin", "*");
+		System.out.println("SESSION ID:"+request.getRequestedSessionId());
+
 /*
 		HttpSession httpSession =  request.getSession();
 		UUID idOne = UUID.randomUUID();

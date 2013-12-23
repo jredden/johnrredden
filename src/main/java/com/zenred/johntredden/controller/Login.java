@@ -36,6 +36,7 @@ public class Login implements Controller {
 		UserDao userDao = new UserDao();
 		User user = userDao.readUser(emailAddress, password);
 		if(null == user){
+			/*
 			QuestionDao questionDao = new QuestionDao();
 			List<Integer> questionGroupList = questionDao.questionGroupCollecton();
 			Integer numberOfQuestions = questionDao.numberOfQuestions();
@@ -47,6 +48,7 @@ public class Login implements Controller {
 			int secondQuestionNumber2 = (int)Math.floor(Math.random()*100);
 			String secondQuestion = secondQuestionNumber1 + "+" + secondQuestionNumber2;
 			basicMessageResponse.setSecondQuestion(secondQuestion);
+			*/
 			basicMessageResponse.setTheMessage("SignUp");
 			modelAndView.addObject(BasicMessageView.JSON_ROOT, basicMessageResponse);
 			return modelAndView;
