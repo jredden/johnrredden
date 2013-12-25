@@ -297,7 +297,8 @@ var processRequest = (function () {
 		jsonProcess: function(json){
 			var colorSelector = 0;
 			$(questions1).html("<div id=\"questionHeader\"> Please prove you are a person.  Key in a four letter word that describes  </div> ");
-			$(questions1).append("<div id=\"questionHeader\"> the first Question.  Then key in the answer to the second question </div> ");
+			$(questions1).append("<div> the first Question.   </div> ");
+			$(questions1).append("<div/>");
 			for (var idex = 0; idex < json.firstAccessResponse.questionList.string.length; idex++) {
 				
 				$(questions1).append("<div id=\"question" + idex + "\""
@@ -307,6 +308,7 @@ var processRequest = (function () {
 				+"</div>");
 				console.log("question:" + json.firstAccessResponse.questionList.string[idex]);
 			}
+			$(questions1).append("<div/>");
 			$(questions1).append("Please add these two numbers:"+json.firstAccessResponse.secondQuestion);
 			questionNumber = json.firstAccessResponse.questionNumber;
 			addQuestion = json.firstAccessResponse.secondQuestion;

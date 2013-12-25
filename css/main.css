@@ -1,198 +1,264 @@
- a:link {
-     color:lightgoldenrodyellow;
+a:link {
+	color: lightgoldenrodyellow;
 }
- a:visited {
-     color:greenyellow;
+
+a:visited {
+	color: greenyellow;
 }
-body{
+
+body {
 	width: auto;
 	height: auto;
 	background-color: darkgrey;
 }
 
-#page{
+#page {
 	width: 1100px;
 	height: 1000px;
 	margin: 0 auto;
 	padding: 0 50px;
-	text-align:left;
+	text-align: left;
 	position: relative;
 	background-color: #888686;
 }
 
-section#space{
+section#space {
 	width: 1100px;
 	height: 50px;
 	margin: 0 auto;
 	padding: 0 50px;
-	text-align:left;
+	text-align: left;
 	position: relative;
 	background-color: #B5B4B4;
 }
 
-header#topHeader{
+header#topHeader {
 	width: 1100px;
 	height: 50px;
 	margin: 0 auto;
 	padding: 0 50px;
-	text-align:left;
+	text-align: left;
 	position: relative;
 	background-color: #CBC5C5;
 }
-#gsaPubPaper{
+
+#gsaPubPaper {
 	width: 1100px;
 	height: 20px;
 	margin: 0 auto;
 	padding: 0 50px;
-	text-align:left;
+	text-align: left;
 	position: relative;
 	background-color: #A1A9A9;
 }
-#glossary{
+
+#glossary {
 	width: 1100px;
 	height: 20px;
 	margin: 0 auto;
 	padding: 0 50px;
-	text-align:left;
+	text-align: left;
 	position: relative;
 	background-color: #A1A9A9;
 }
-#gsaPaper{
+
+#gsaPaper {
 	width: 1100px;
 	height: 20px;
 	margin: 0 auto;
 	padding: 0 50px;
-	text-align:left;
+	text-align: left;
 	position: relative;
 	background-color: #A3A3A3;
 }
-#humFed1{
+
+#humFed1 {
 	width: 1100px;
 	height: 20px;
 	margin: 0 auto;
 	padding: 0 50px;
-	text-align:left;
+	text-align: left;
 	position: relative;
-	background-color: #A3A3A3;	
+	background-color: #A3A3A3;
 }
-#h21{
+
+#h21 {
 	width: 1100px;
 	height: 20px;
 	margin: 0 auto;
 	padding: 0 50px;
-	text-align:left;
+	text-align: left;
 	position: relative;
 	background-color: #A9A6A6;
 }
-#humFed2{
+
+#humFed2 {
 	width: 1100px;
 	height: 20px;
 	margin: 0 auto;
 	padding: 0 50px;
-	text-align:left;
-	position: relative;
-	background-color: #ABAAAA;	
-}
-#foh{
-	width: 1100px;
-	height: 20px;
-	margin: 0 auto;
-	padding: 0 50px;
-	text-align:left;
+	text-align: left;
 	position: relative;
 	background-color: #ABAAAA;
 }
-#cosmosHeaven{
+
+#foh {
 	width: 1100px;
 	height: 20px;
 	margin: 0 auto;
 	padding: 0 50px;
-	text-align:left;
+	text-align: left;
+	position: relative;
+	background-color: #ABAAAA;
+}
+
+#cosmosHeaven {
+	width: 1100px;
+	height: 20px;
+	margin: 0 auto;
+	padding: 0 50px;
+	text-align: left;
 	position: relative;
 	background-color: #A1A1A1;
 }
-#mg{
+
+#mg {
 	width: 1100px;
 	height: 20px;
 	margin: 0 auto;
 	padding: 0 50px;
-	text-align:left;
+	text-align: left;
 	position: relative;
 	background-color: #A1A1A1;
 }
-#cosmosPurgatory{
+
+#cosmosPurgatory {
 	width: 1100px;
 	height: 20px;
 	margin: 0 auto;
 	padding: 0 50px;
-	text-align:left;
-	position: relative;
-	background-color: #979696;	
-}
-#hap{
-	width: 1100px;
-	height: 20px;
-	margin: 0 auto;
-	padding: 0 50px;
-	text-align:left;
+	text-align: left;
 	position: relative;
 	background-color: #979696;
 }
-#cosmosHell{
+
+#hap {
 	width: 1100px;
 	height: 20px;
 	margin: 0 auto;
 	padding: 0 50px;
-	text-align:left;
+	text-align: left;
 	position: relative;
-	background-color: #8C8B8B;	
+	background-color: #979696;
 }
-#rep{
+
+#cosmosHell {
 	width: 1100px;
 	height: 20px;
 	margin: 0 auto;
 	padding: 0 50px;
-	text-align:left;
+	text-align: left;
 	position: relative;
 	background-color: #8C8B8B;
 }
-#JRedden{
-	color:lightgoldenrodyellow;
+
+#rep {
+	width: 1100px;
+	height: 20px;
+	margin: 0 auto;
+	padding: 0 50px;
+	text-align: left;
+	position: relative;
+	background-color: #8C8B8B;
+}
+
+#JRedden {
+	color: lightgoldenrodyellow;
 	text-align: center;
 	font-size: 400%;
 }
-#chooseLogin{
+
+#chooseLogin {
 	padding: 0 50px;
 	background-color: #A1A9A9;
 }
-#startLogin{
+
+#startLogin {
 	background-color: #777777;
-	color:greenyellow;
+	color: greenyellow;
 	width: 200px;
 }
-#requestLogin{
+
+#requestLogin {
 	padding: 0 50px;
 	background-color: #A3A3A3;
 }
-#startLoginRequest{
+
+#startLoginRequest {
 	background-color: #666666;
-	color:lightgoldenrodyellow;
+	color: lightgoldenrodyellow;
 	width: 200px;
 }
-#uEmail{
+
+#uEmail {
 	background-color: #666666;
-	color:lightgoldenrodyellow;
+	color: lightgoldenrodyellow;
 }
-#loginPassword{
+
+#loginPassword {
 	background-color: #777777;
-	color:greenyellow;
+	color: greenyellow;
 }
-#uMails{
+
+#uMails {
 	background-color: #666666;
 }
-#loginPasswords{
+
+#loginPasswords {
 	background-color: #777777;
 }
-nav:#topNav{
+#answerQuestionOne{
+	width:65%;
+	background-color: #AAAAAA;
+}
+
+#questionHeader, #questionHeader2{
+	width:65%;
+	background-color: #999999;
+}
+#question0{
+	width:65%;
+	background-color: #777777;
+}
+#question1{
+	width:65%;
+	background-color: #667676;
+}#question2{
+	width:65%;
+	background-color: #557575;
+}#question3{
+	width:65%;
+	background-color: #447474;
+}#uQuestion1 {
+	width:100%;
+	background-color: #CCCCCC;
+}
+
+#uQuestion2 {
+	width:100%;
+	background-color: #DDDDDD;
+}
+
+#uQ1 {
+	width:20%;
+	background-color: #DDDDDD;
+}
+
+#uQ2 {
+	width:20%;
+	background-color: #CCCCCC;
+}
+
+nav:#topNav {
 	background-color: #B8B3B3;
 }
