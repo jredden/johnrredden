@@ -77,6 +77,9 @@ var tagOperations = (function(){
    				},
    					function answerQuestionOne(){
 	   				$('#answerQuestionOne').hide();
+	   			},
+	   				function createLogin(){
+	   				$('#createLogin').hide();
 	   			}
 				
 	];
@@ -90,7 +93,8 @@ var tagOperations = (function(){
 			"emailAndPassword" : 5,
 			"cosmosSect" : 6,
 			"questions1" :7,
-			"answerQuestionOne" : 8
+			"answerQuestionOne" : 8,
+			"createLogin" :9
 	}
 	
 	// public 
@@ -146,9 +150,9 @@ $(document).ready(function() {
 		console.log("login:");
 		if(json.basicMesage.theMessage.indexOf("Passed") != -1){
 			var showList = ['cosmosSect'];
-			var hideList = ['emailAndPassword', 'answerQuestionOne'];
+			var hideList = ['emailAndPassword', 'answerQuestionOne', 'createLogin'];
 			tagOperations.both(showList, hideList);
-			sessionStorage.setItem('LOGIN', true);
+			sessionStorage.setItem('LOGIN', true);answerQuestionOne
 		}
 		else{
 			alert("login failed  ... select home and try again");
@@ -173,7 +177,10 @@ $(document).ready(function() {
 	function processQuestion1Json(json) {
 		console.log("question1:");
 		if(json.basicMesage.theMessage.indexOf("SUCCESS") != -1){
-			// sessionStorage.setItem('LOGIN', true);
+			var showList = ['createLogin']
+			var hideList = ['skfSect','zenredSect','login_op','emailAndPassword','cosmosSect','questions1', 'answerQuestionOne'];
+			tagOperations.both(showList, hideList);
+
 		}
 		else{
 			alert("wrong answer ... try again");
@@ -197,21 +204,21 @@ $(document).ready(function() {
 	$("#skf").click(function () { 
 		console.log("in click");
 		var showList = ['skfSect'];
-		var hideList = ['zenredSect','hawaiiSect','login_op','emailAndPassword','cosmosSect','questions1','answerQuestionOne'];
+		var hideList = ['zenredSect','hawaiiSect','login_op','emailAndPassword','cosmosSect','questions1','answerQuestionOne', 'createLogin'];
 		tagOperations.both(showList, hideList);
 	});
 	
 	$("#zenred").click(function () { 
 		console.log("in click");
 		var showList = ['zenredSect'];
-		var hideList = ['skfSect','hawaiiSect','login_op','emailAndPassword','cosmosSect','questions1', 'answerQuestionOne'];
+		var hideList = ['skfSect','hawaiiSect','login_op','emailAndPassword','cosmosSect','questions1', 'answerQuestionOne', 'createLogin'];
 		tagOperations.both(showList, hideList);
 	});	
 	
 	$("#doh").click(function () { 
 		console.log("in click");
 		var showList = ['hawaiiSect'];
-		var hideList = ['skfSect','zenredSect','login_op','emailAndPassword','cosmosSect','questions1', 'answerQuestionOne'];
+		var hideList = ['skfSect','zenredSect','login_op','emailAndPassword','cosmosSect','questions1', 'answerQuestionOne', 'createLogin'];
 		tagOperations.both(showList, hideList);
 	});
 	
@@ -220,23 +227,23 @@ $(document).ready(function() {
 		if(sessionStorage.LOGIN){
 			console.log("Already logged in");
 			var showList = ['cosmosSect'];
-   			var hideList = ['skfSect','zenredSect','login_op','emailAndPassword','questions1','answerQuestionOne'];
+   			var hideList = ['skfSect', 'hawaiiSect', 'zenredSect','login_op','emailAndPassword','questions1','answerQuestionOne', 'createLogin'];
 		}
 		else{
 			var showList = ['login_op'];
-			var hideList = ['skfSect','zenredSect','cosmosSect','emailAndPassword','cosmosSect','questions1','answerQuestionOne'];
+			var hideList = ['skfSect','zenredSect','emailAndPassword','cosmosSect','questions1','answerQuestionOne', 'createLogin'];
 		}
 		tagOperations.both(showList, hideList);
 	});
 	
 	$("#startLogin").click(function(){
 		var showList = ['emailAndPassword']
-		var hideList = ['cosmosSect','login_op', 'answerQuestionOne'];
+		var hideList = ['cosmosSect','login_op', 'answerQuestionOne', 'createLogin'];
 		tagOperations.both(showList, hideList);
 	});
 	
 	$("#startLoginRequest").click(function(){
-		var hideList = ['cosmosSect','login_op', 'answerQuestionOne'];
+		var hideList = ['cosmosSect','login_op', 'answerQuestionOne', 'createLogin'];
 		tagOperations.hide(hideList);
 		accessRequest.jsonCall();
 	});
@@ -275,6 +282,8 @@ var processRequest = (function () {
 			$(questions1).append("Please add these two numbers:"+json.firstAccessResponse.secondQuestion);
 			questionNumber = json.firstAccessResponse.questionNumber;
 			addQuestion = json.firstAccessResponse.secondQuestion;
+			formData.questionNumber1 = questionNumber;
+			formData.questionNumber2 = addQuestion;
 			var showList = ['questions1','answerQuestionOne'];
 			tagOperations.show(showList);
 		}
@@ -328,7 +337,7 @@ var processRequest = (function () {
 				</div>
 				<div id="rep">
 					<a href="docs/renewable-energy-projects-report.pdf">Renewable
-						Energy</a>
+						Energy</a>			
 				</div>
 			</nav>
 		</section>
@@ -412,6 +421,16 @@ var processRequest = (function () {
 							name="question2" maxlength=10 size=5 />
 						</span>
 					</div>
+					<div id="submit">
+						<input class="button" type="submit" id="questionOneOperation"
+							name="submit" value="Submit Answers" />
+					</div>
+				</form>
+			</div>
+			<div id="createLogin">
+				<form name="createLoginForm"  id=createLoginFormId"
+					action="http://www.johntreddenlocal.com:8080/createLogin.html"
+					method="get">
 					<div id="eMail">
 						Your E-Mail Address: <span id="em1"> <input type="text"
 							name="email" maxlength=255 size=25 />
@@ -430,10 +449,9 @@ var processRequest = (function () {
 					<div id="submit">
 						<input class="button" type="submit" id="questionOneOperation"
 							name="submit" value="Submit Answers" />
-					</div>
-				</form>
+					</div>				
+					</form>
 			</div>
-			
 			
 		</section>
 	</div>

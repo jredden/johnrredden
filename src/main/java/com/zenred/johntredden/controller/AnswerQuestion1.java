@@ -40,7 +40,7 @@ public class AnswerQuestion1 implements Controller, StateIF {
 		String correctAnswer = questionDao.getAnswer(questionGroupNumber);
 		
 		String [] mathQuestion = request.getParameter("questionNumber2").split("\\+");
-		Integer mathAnswer = new Integer(mathQuestion[0] + new Integer(mathQuestion[1]));
+		Integer mathAnswer = (new Integer(mathQuestion[0])) + (new Integer(mathQuestion[1]));
 		if(answer1.equalsIgnoreCase(correctAnswer)  && mathAnswer.intValue() == mathResponse){
 			questionResponse.setTheMessage("SUCCESS");
 		}
