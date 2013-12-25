@@ -48,7 +48,10 @@ var tagOperations = (function(){
 	   				},
 	   					function answerQuestionOne(){
 		   				$('#answerQuestionOne').show();
-		   			}
+		   			},
+	   					function createLogin(){
+	   					$('#createLogin').show();
+	   				}	
 	];
 	var hideOperations = [
 			   function skfSect(){
@@ -152,7 +155,7 @@ $(document).ready(function() {
 			var showList = ['cosmosSect'];
 			var hideList = ['emailAndPassword', 'answerQuestionOne', 'createLogin'];
 			tagOperations.both(showList, hideList);
-			sessionStorage.setItem('LOGIN', true);answerQuestionOne
+			sessionStorage.setItem('LOGIN', true);
 		}
 		else{
 			alert("login failed  ... select home and try again");
@@ -180,14 +183,39 @@ $(document).ready(function() {
 			var showList = ['createLogin']
 			var hideList = ['skfSect','zenredSect','login_op','emailAndPassword','cosmosSect','questions1', 'answerQuestionOne'];
 			tagOperations.both(showList, hideList);
-
 		}
 		else{
 			alert("wrong answer ... try again");
 		}
 	}
-
 	
+	$('#CreateLoginFormID').ajaxForm({ 
+		dataType:  'json', 
+		type: "GET",
+		success:   processCreateLoginJson,		
+		error: function errorHandler(){
+			var out = '';
+  			for (var p in this) {
+    			out += p + ':::::' + this[p] + '\n';
+    			console.log("error:"+out);
+  				}
+//			console.log("error:"+this;
+		}
+	});
+
+		function processCreateLoginJson(json) {
+		console.log("createLogin:");
+		if(json.createMessageResponse.theMessage.indexOf("SUCCESS") != -1){
+			var showList = ['cosmosSect'];
+   		var hideList = ['skfSect', 'hawaiiSect', 'zenredSect','login_op','emailAndPassword','questions1','answerQuestionOne', 'createLogin'];
+			tagOperations.both(showList, hideList);
+			sessionStorage.setItem('LOGIN', true);
+		}
+		else{
+			alert("There is an error in what you typed:"+json.createMessageResponse.theMessage);
+		}
+	}
+
 	var h1 = $('JRedden').height();
 	var h = h1/2;
 	var w1 = $(window).height();
@@ -428,9 +456,19 @@ var processRequest = (function () {
 				</form>
 			</div>
 			<div id="createLogin">
-				<form name="createLoginForm"  id=createLoginFormId"
+				<form name="CreateLoginForm"  id="CreateLoginFormID"
 					action="http://www.johntreddenlocal.com:8080/createLogin.html"
 					method="get">
+					<div id="firstName">
+						Your First Name: <span id="fn1"> <input type="text"
+							name="firstName" maxlength=255 size=25 />
+						</span>
+					</div>
+					<div id="lastName">
+						Your Last Name: <span id="ln1"> <input type="text"
+							name="lastName" maxlength=255 size=25 />
+						</span>
+					</div>
 					<div id="eMail">
 						Your E-Mail Address: <span id="em1"> <input type="text"
 							name="email" maxlength=255 size=25 />
@@ -447,7 +485,7 @@ var processRequest = (function () {
 						</span>
 					</div>
 					<div id="submit">
-						<input class="button" type="submit" id="questionOneOperation"
+						<input class="button" type="submit" id="createLoginOperation"
 							name="submit" value="Submit Answers" />
 					</div>				
 					</form>
