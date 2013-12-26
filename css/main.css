@@ -222,15 +222,18 @@ header#topHeader {
 	background-color: #AAAAAA;
 }
 
-#questionHeader, #questionHeader2{
+#questionHeader, #questionHeader2, #math{
 	width:65%;
 	background-color: #999999;
 }
-#question0{
+#knum{
+	color: yellow;
+}
+#question0, #firstName, #eMail, #password2{
 	width:65%;
 	background-color: #777777;
 }
-#question1{
+#question1, #lastName, #password1{
 	width:65%;
 	background-color: #667676;
 }#question2{
