@@ -259,19 +259,19 @@ $(document).ready(function() {
 		}
 		else{
 			var showList = ['login_op'];
-			var hideList = ['skfSect','zenredSect','emailAndPassword','cosmosSect','questions1','answerQuestionOne', 'createLogin'];
+			var hideList = ['hawaiiSect','skfSect','zenredSect','emailAndPassword','cosmosSect','questions1','answerQuestionOne', 'createLogin'];
 		}
 		tagOperations.both(showList, hideList);
 	});
 	
 	$("#startLogin").click(function(){
 		var showList = ['emailAndPassword']
-		var hideList = ['cosmosSect','login_op', 'answerQuestionOne', 'createLogin'];
+		var hideList = ['hawaiiSect','cosmosSect','login_op', 'answerQuestionOne', 'createLogin'];
 		tagOperations.both(showList, hideList);
 	});
 	
 	$("#startLoginRequest").click(function(){
-		var hideList = ['cosmosSect','login_op', 'answerQuestionOne', 'createLogin'];
+		var hideList = ['hawaiiSect', 'cosmosSect','login_op', 'answerQuestionOne', 'createLogin'];
 		tagOperations.hide(hideList);
 		accessRequest.jsonCall();
 	});
@@ -442,12 +442,12 @@ var processRequest = (function () {
 					action="http://www.johntreddenlocal.com:8080/answerQuestion1.html"
 					method="get">
 					<div id="uQuestion1">
-						Your First Question Answer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <span id="uQ1"> <input type="text"
+						Your First Question Answer: <span id="uQ1"  > <input type="text" 
 							name="question1" maxlength=10 size=5 />
 						</span>
 					</div>
 					<div id="uQuestion2">
-						Your Second Question Answer: <span id="uQ2"> <input type="text"
+						Your Second Question Answer: <span id="uQ2"> <input type="text" 
 							name="question2" maxlength=10 size=5 />
 						</span>
 					</div>
@@ -462,12 +462,12 @@ var processRequest = (function () {
 					action="http://www.johntreddenlocal.com:8080/createLogin.html"
 					method="get">
 					<div id="firstName">
-						Your First Name: <span id="fn1"> <input type="text"
+						Your First Name: <span id="fn1"> <input type="text" 
 							name="firstName" maxlength=255 size=25 />
 						</span>
 					</div>
 					<div id="lastName">
-						Your Last Name: <span id="ln1"> <input type="text"
+						Your Last Name: <span id="ln1"> <input type="text" 
 							name="lastName" maxlength=255 size=25 />
 						</span>
 					</div>
@@ -477,21 +477,24 @@ var processRequest = (function () {
 						</span>
 					</div>
 					<div id="password1">
-						Type Your Password: <span id="pw1"> <input type="password"
+						Type Your Password: <span id="pw1"> <input type="password" 
 							name="Password1" maxlength=255 size=25 />
 						</span>
 					</div>
 					<div id="password2">
-						Retype Your Password: <span id="pw2"> <input type="password"
+						Retype Your Password: <span id="pw2"> <input type="password" 
 							name="Password2" maxlength=255 size=25 />
 						</span>
 					</div>
-					<div id="submit">
+					<div class="submitC" id="submit">
 						<input class="button" type="submit" id="createLoginOperation"
 							name="submit" value="Submit Answers" />
 					</div>				
 					</form>
 			</div>
+			
+		</section>
+	</div>
 			
 		</section>
 	</div>
