@@ -276,13 +276,16 @@ $(document).ready(function() {
 		accessRequest.jsonCall();
 	});
 	
+	$("#zenred").click(function(){
+		window.location = "http://www.zenredcomputing.com";
+	});
 });
 
 var accessRequest = (function () {
 	return{
 		jsonCall: function(){
 			console.log("start AccessRequest");
-			$.getJSON("http://www.johntreddenlocal.com:8080/firstAccess.html",
+			$.getJSON("http://www.johntredden.com:8088/firstAccess.html",
 					function(json){           // callback
 					console.log("Here");
 					processRequest.jsonProcess(json);
@@ -410,14 +413,17 @@ var processRequest = (function () {
 				<iframe src="http://southkonafarms.com" width="1000" height="1000"></iframe>
 			</div>
 			<div id="zenredSect">
+			<!--  
+				not used 
 				<iframe src="http://zenredcomputing.com" width="1000" height="1000"></iframe>
+			-->
 			</div>
 			
 			<div id="questions1"></div>
 			
 			<div id="emailAndPassword">
 				<form name="LoginForm" id="LoginFormID"
-					action="http://www.johntreddenlocal.com:8080/login.html"
+					action="http://www.johntredden.com:8088/login.html"
 					method="get">
 					<div id="uEmail">
 						E-Mail Address: <span id="uMails"> <input type="text"
@@ -439,7 +445,7 @@ var processRequest = (function () {
 			
 			<div id="answerQuestionOne">
 				<form name="Question1Form" id="Question1FormID"
-					action="http://www.johntreddenlocal.com:8080/answerQuestion1.html"
+					action="http://www.johntredden.com:8088/answerQuestion1.html"
 					method="get">
 					<div id="uQuestion1">
 						Your First Question Answer: <span id="uQ1"  > <input type="text" 
@@ -459,7 +465,7 @@ var processRequest = (function () {
 			</div>
 			<div id="createLogin">
 				<form name="CreateLoginForm"  id="CreateLoginFormID"
-					action="http://www.johntreddenlocal.com:8080/createLogin.html"
+					action="http://www.johntredden.com:8088/createLogin.html"
 					method="get">
 					<div id="firstName">
 						Your First Name: <span id="fn1"> <input type="text" 
