@@ -4,7 +4,7 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import com.zenred.uitil.GenName;
+import com.zenred.util.GenName;
 
 public class CreateUserDaoTest {
 
