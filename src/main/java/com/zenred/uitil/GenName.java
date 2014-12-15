@@ -1,4 +1,4 @@
-package com.zenred.uitil;
+package com.zenred.util;
 
 public class GenName {
 	
