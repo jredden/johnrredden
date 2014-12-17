@@ -5,18 +5,22 @@ import java.util.Properties;
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.apache.log4j.Logger;
 
 public abstract class AbstractJDBCDao {
+	static private Logger logger = Logger.getLogger(AbstractJDBCDao.class);
+	
+	static private DriverManagerDataSource driverManagerDataSource = null;
+	private static void fetchDataSource(){
+		if(null == driverManagerDataSource){
+			driverManagerDataSource= new DriverManagerDataSource();
+		}
+
+	}
 	
 	public static SimpleJdbcDaoSupport jdbcSetUp() {
-		DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
+		fetchDataSource();
 		driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		/*
-		 * driverManagerDataSource
-		 * .setUrl("jdbc:mysql://sherpadb.matrix.cc/email_advert");
-		 * driverManagerDataSource.setUsername("jredden");
-		 * driverManagerDataSource.setPassword("nCXL3O2GVAwLBJnT");
-		 */
 
 		driverManagerDataSource
 				.setUrl("jdbc:mysql://localhost/johntredden");
@@ -38,7 +42,7 @@ public abstract class AbstractJDBCDao {
 	}
 
 	public static SimpleJdbcInsert jdbcInsertSetup() {
-		DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
+		fetchDataSource();
 		driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
 
 		driverManagerDataSource
