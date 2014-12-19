@@ -47,8 +47,8 @@ public class SystemDao extends AbstractJDBCDao {
 			+ ", sy."+SYSTEM_NAME+" = ?  "
 			+ " WHERE sy."+SYSTEM_ID+ " = ?"; 
 			;
-	private String deleteSystem = "DELETE FROM " + SYSTEM + " sy " + "WHERE "
-			+ "sy." + SYSTEM_ID + " = ?";
+	private String deleteSystem = "DELETE FROM " + SYSTEM +  " WHERE "
+			 + SYSTEM_ID + " = ?";
 			
 	/**
 	 * create a system
@@ -77,7 +77,7 @@ public class SystemDao extends AbstractJDBCDao {
 		Map<String, Object> systemMap = null;
 		systemMap = super.jdbcSetUp().getSimpleJdbcTemplate()
 				.queryForMap(readSystemById, param);
-		system.setDatestamp((String) systemMap.get(DATESTAMP));
+		system.setDatestamp((String) systemMap.get(DATESTAMP).toString());
 		String s_distance_to_galaxy_centre = systemMap.get(
 				DISTANCE_TO_GALACTIC_CENTRE).toString();
 		system.setDistance_to_galaxy_centre(new Double(
@@ -102,7 +102,7 @@ public class SystemDao extends AbstractJDBCDao {
 		Map<String, Object> systemMap = null;
 		systemMap = super.jdbcSetUp().getSimpleJdbcTemplate()
 				.queryForMap(readSystemByName, param);
-		system.setDatestamp((String) systemMap.get(DATESTAMP));
+		system.setDatestamp((String) systemMap.get(DATESTAMP).toString());
 		String s_distance_to_galaxy_centre = systemMap.get(
 				DISTANCE_TO_GALACTIC_CENTRE).toString();
 		system.setDistance_to_galaxy_centre(new Double(

@@ -118,8 +118,8 @@ public class System {
 		return map;
 	}
 
-	public static String csvSeparatedColumns() {
-		return "\"distance_to_galaxy_centre\",\"ucoordinate\",\"vcoordinate\",\"systemName\"";
+	public static String [] csvSeparatedColumns() {
+		return new String[]{"distance_to_galaxy_centre","ucoordinate","vcoordinate","systemName"};
 	}
 
 	@Override
