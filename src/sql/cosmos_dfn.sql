@@ -134,6 +134,7 @@ CREATE TABLE `System` (
   `distance_to_galaxy_centre` double DEFAULT NULL,
   `ucoordinate` double DEFAULT NULL,
   `vcoordinate` double DEFAULT NULL,
+  `systemName` varchar(255) DEFAULT NULL,
   `Datestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY `system_id` (`SystemId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
