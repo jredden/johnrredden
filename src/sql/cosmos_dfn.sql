@@ -25,16 +25,26 @@ DROP TABLE IF EXISTS `ClusterRep`;
 CREATE TABLE `ClusterRep` (
   `clusterRepId` int unsigned NOT NULL auto_increment,
   `systemId` int unsigned NOT NULL,
-  `clusterId` int unsigned NOT NULL,
   `clusterName` varchar(255),
   `distance_sys_virt_centre` double DEFAULT NULL,
   `angle_in_radians` double DEFAULT NULL,
-  `cluster_description` varchar(80) DEFAULT NULL,
-  `number_stars_in_cluster` smallint(6) DEFAULT NULL,
+  `cluster_description` ENUM (
+  'SINGLESTAR'
+  , 'DOUBLESTAR_BINARY'
+  , 'DOUBLESTAR_SPREAD'
+  , 'THREESTAR_TRINARY'
+  , 'THREESTAR_BINARYPLUSONE'
+  , 'THREESTAR_SPREAD'
+  , 'FOURSTAR_TRINARYPLUSONE'
+  , 'FOURSTAR_TWOBINARIES'
+  , 'FOURSTAR_SPREAD'
+  , 'FIVESTAR_FOURSTARSPREADPLUSONE'
+  , 'FIVESTAR_SPREAD'
+  , 'CLUSTER_N'
+  ) DEFAULT NULL,
   `Datestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`clusterRepId`),
-  KEY `clusterrep_system_id` (`SystemId`),
-  KEY `clusterrep_cluster_id` (`clusterId`)
+  KEY `clusterrep_system_id` (`SystemId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -93,6 +103,33 @@ CREATE TABLE `PlanetoidRep` (
   PRIMARY KEY (`planetoidrepId`),
   KEY `owner_id` (`ownerId`),
   KEY `planetoid_id` (`planetoidId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table ClusterToStar
+--
+
+DROP TABLE IF EXISTS `ClusterToStar`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ClusterToStar` (
+  `clusterToStarId` int unsigned NOT NULL auto_increment, 
+  `clusterRepId` int NOT NULL,
+  `starId` int NOT NULL,
+  `sub_cluster_description` ENUM(
+    'SINGLESTAR'
+  , 'DOUBLESTAR_BINARY'
+  , 'THREESTAR_TRINARY'
+  , 'THREESTAR_BINARYPLUSONE'
+  , 'FOURSTAR_TRINARYPLUSONE'
+  , 'FOURSTAR_2BINARIES'
+  , 'FIVESTAR_FOURSTARSPREADPLUSONE'
+  ) DEFAULT NULL,
+  `Datestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`clusterToStarId`),
+  KEY `cluster_to_star_clusterRepId` (`clusterRepId`),
+  KEY `cluster_to_star_starId` (`clusterRepId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

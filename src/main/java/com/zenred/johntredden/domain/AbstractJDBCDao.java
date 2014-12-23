@@ -14,6 +14,7 @@ public abstract class AbstractJDBCDao {
 	private static void fetchDataSource(){
 		if(null == driverManagerDataSource){
 			driverManagerDataSource= new DriverManagerDataSource();
+			logger.info("driverManagerDataSource estblished");
 		}
 
 	}
