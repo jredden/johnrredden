@@ -1,5 +1,8 @@
 package com.zenred.cosmos.domain;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ClusterRep {
 	
 	public ClusterRep(){}
@@ -67,6 +70,24 @@ public class ClusterRep {
 	}
 	public void setDateStamp(String dateStamp) {
 		DateStamp = dateStamp;
+	}
+	
+	/**
+	 * 
+	 * @return database centric map used for inserts
+	 */
+	public Map<String, Object> getMap(){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("systemId", this.systemId);
+		map.put("clusterName", this.clusterName);
+		map.put("distance_sys_virt_centre", this.distance_sys_virt_centre);
+		map.put("angle_in_radians", this.angle_in_radians);
+		map.put("cluster_type", this.cluster_type);
+		return map;
+	}
+
+	public static String [] csvSeparatedColumns() {
+		return new String[]{"systemId","clusterName","distance_sys_virt_centre","angle_in_radians", "cluster_type"};
 	}
 
 	@Override

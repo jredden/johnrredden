@@ -16,9 +16,9 @@ public class SystemDao extends AbstractJDBCDao {
 	public static String SYSTEM_NAME = "systemName";
 	public static String DATESTAMP = "Datestamp";
 	
-	private String lastInsertSql = "SELECT MAX("+SYSTEM_ID+") FROM "+SYSTEM;
+	private static String lastInsertSql = "SELECT MAX("+SYSTEM_ID+") FROM "+SYSTEM;
 	
-	private String readSystemById = "SELECT "
+	private static String readSystemById = "SELECT "
 			+ " sy."+SYSTEM_ID+" "
 			+ ", sy."+DISTANCE_TO_GALACTIC_CENTRE+" "
 			+ ", sy."+UCOORDINATE+" "
@@ -26,10 +26,10 @@ public class SystemDao extends AbstractJDBCDao {
 			+ ", sy."+SYSTEM_NAME+" "
 			+ ", sy."+DATESTAMP+" "
 			+ " FROM " + SYSTEM + " sy "
-			+ " WHERE sy."+SYSTEM_ID+ " = ?"; 
+			+ " WHERE sy."+SYSTEM_ID+ " = ?" 
 			;
 			
-	private String readSystemByName = "SELECT "
+	private static String readSystemByName = "SELECT "
 			+ " sy."+SYSTEM_ID+" "
 			+ ", sy."+DISTANCE_TO_GALACTIC_CENTRE+" "
 			+ ", sy."+UCOORDINATE+" "
@@ -40,14 +40,14 @@ public class SystemDao extends AbstractJDBCDao {
 			+ " WHERE sy."+SYSTEM_NAME+ " = ?"; 
 			;
 
-	private String updateSystemById = "UPDATE " + SYSTEM + " sy SET "
+	private static String updateSystemById = "UPDATE " + SYSTEM + " sy SET "
 			+ " sy."+DISTANCE_TO_GALACTIC_CENTRE+" = ?  "
 			+ ", sy."+UCOORDINATE+" = ?  "
 			+ ", sy."+VCOORDINATE+" = ?  "
 			+ ", sy."+SYSTEM_NAME+" = ?  "
 			+ " WHERE sy."+SYSTEM_ID+ " = ?"; 
 			;
-	private String deleteSystem = "DELETE FROM " + SYSTEM +  " WHERE "
+	private static String deleteSystem = "DELETE FROM " + SYSTEM +  " WHERE "
 			 + SYSTEM_ID + " = ?";
 			
 	/**
