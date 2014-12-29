@@ -82,12 +82,12 @@ public class ClusterRep {
 		map.put("clusterName", this.clusterName);
 		map.put("distance_sys_virt_centre", this.distance_sys_virt_centre);
 		map.put("angle_in_radians", this.angle_in_radians);
-		map.put("cluster_type", this.cluster_type);
+		map.put("cluster_description", this.cluster_type);
 		return map;
 	}
 
 	public static String [] csvSeparatedColumns() {
-		return new String[]{"systemId","clusterName","distance_sys_virt_centre","angle_in_radians", "cluster_type"};
+		return new String[]{"systemId","clusterName","distance_sys_virt_centre","angle_in_radians", "cluster_description"};
 	}
 
 	@Override

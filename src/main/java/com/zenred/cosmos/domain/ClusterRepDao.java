@@ -49,7 +49,7 @@ public class ClusterRepDao extends AbstractJDBCDao{
 			+ ", cr."+DISTANCE_SYS_VIRT_CENTRE+" = ? "
 			+ ", cr."+ANGLE_IN_RADIANS+" = ? "
 			+ ", cr."+CLUSTER_DESCRIPTION+" = ? "
-			+ " WHERE sy."+CLUSTER_REP_ID+ " = ?";
+			+ " WHERE cr."+CLUSTER_REP_ID+ " = ?";
 			;
 			
 	private static String deleteClusterRep = "DELETE FROM " + CLUSTER_REP + " WHERE "
@@ -78,7 +78,75 @@ public class ClusterRepDao extends AbstractJDBCDao{
 	 */
 	public ClusterRep readClusterRepById(Integer clusterRep_id){
 		ClusterRep clusterRep = new ClusterRep();
-		
+		Object[] param = { clusterRep_id };
+		Map<String, Object> clusterRepMap = null;
+		clusterRepMap = super.jdbcSetUp().getSimpleJdbcTemplate()
+				.queryForMap(readClusterRepById, param);
+		String s_angleInRadians = clusterRepMap.get(ANGLE_IN_RADIANS).toString();
+		clusterRep.setAngle_in_radians(new Double(s_angleInRadians));
+		clusterRep.setCluster_description(clusterRepMap.get(CLUSTER_DESCRIPTION).toString());
+		clusterRep.setClusterName(clusterRepMap.get(CLUSTER_NAME).toString());
+		clusterRep.setDateStamp(clusterRepMap.get(DATESTAMP).toString());
+		String s_distance_sys_virt_centre = clusterRepMap.get(DISTANCE_SYS_VIRT_CENTRE).toString();
+		clusterRep.setDistance_sys_virt_centre(new Double(s_distance_sys_virt_centre));
+		String s_systemId = clusterRepMap.get(SYSTEM_ID).toString();
+		clusterRep.setSystemId(new Integer(s_systemId));
+		clusterRep.setClusterRepId(clusterRep_id);
 		return clusterRep;
+	}
+	
+	/**
+	 * 
+	 * @param clusterRep_Name
+	 * @return cluster rep
+	 */
+	public ClusterRep readClusterRepByName(String clusterRep_Name){
+		ClusterRep clusterRep = new ClusterRep();
+		Object[] param = { clusterRep_Name};
+		Map<String, Object> clusterRepMap = null;
+		clusterRepMap = super.jdbcSetUp().getSimpleJdbcTemplate()
+				.queryForMap(readClusterRepByName, param);
+		String s_angleInRadians = clusterRepMap.get(ANGLE_IN_RADIANS).toString();
+		clusterRep.setAngle_in_radians(new Double(s_angleInRadians));
+		clusterRep.setCluster_description(clusterRepMap.get(CLUSTER_DESCRIPTION).toString());
+		clusterRep.setClusterName(clusterRepMap.get(CLUSTER_NAME).toString());
+		clusterRep.setDateStamp(clusterRepMap.get(DATESTAMP).toString());
+		String s_distance_sys_virt_centre = clusterRepMap.get(DISTANCE_SYS_VIRT_CENTRE).toString();
+		clusterRep.setDistance_sys_virt_centre(new Double(s_distance_sys_virt_centre));
+		String s_systemId = clusterRepMap.get(SYSTEM_ID).toString();
+		clusterRep.setSystemId(new Integer(s_systemId));
+		String s_clusterRep_id = clusterRepMap.get(CLUSTER_REP_ID).toString();
+		clusterRep.setClusterRepId(new Integer(s_clusterRep_id));
+		return clusterRep;
+	}
+	
+	/**
+	 * 
+	 * @param clusterRep
+	 * @return cluster rep
+	 */
+	public ClusterRep updateClusterRepBySystemId(ClusterRep clusterRep) {
+		super.jdbcSetUp()
+				.getSimpleJdbcTemplate()
+				.update(updateClusterRepById,
+						new Object[] { clusterRep.getSystemId(),
+								clusterRep.getClusterName(),
+								clusterRep.getDistance_sys_virt_centre(),
+								clusterRep.getAngle_in_radians(),
+								clusterRep.getCluster_description(),
+								clusterRep.getClusterRepId()
+								});
+		return readClusterRepById(clusterRep.getClusterRepId());
+	}
+
+	/**
+	 * 
+	 * @param clusterRep
+	 */
+	public void deleteClusterRep(ClusterRep clusterRep) {
+		super.jdbcSetUp()
+				.getSimpleJdbcTemplate()
+				.update(deleteClusterRep,
+						new Object[] { clusterRep.getClusterRepId() });
 	}
 }

@@ -16,7 +16,7 @@ import org.apache.log4j.Logger;
  */
 
 interface Operation {
-	void process(ClusterRep clusterRep);
+	ClusterRep process(ClusterRep clusterRep);
 
 }
 
@@ -87,7 +87,7 @@ public enum ClusterFactory {
 	static private Logger logger = Logger.getLogger(ClusterFactory.class);
 	private String type;
 	private static Map<String, ClusterFactory> operationMap = new HashMap<String, ClusterFactory>();
-	private static Map<String, Integer[]> chanceMap;
+	private static Map<String, Integer[]> chanceMap = new HashMap<String, Integer[]>();
 
 	private ClusterFactory(String type) {
 		this.type = type;
@@ -123,63 +123,80 @@ public enum ClusterFactory {
 	abstract Operation get();
 
 	protected static Operation singleStar = new Operation() {
-		public void process(ClusterRep clusterRep) {
-
+		public ClusterRep process(ClusterRep clusterRep) {
+			Double distance_sys_virt_centre = new Double(0.0);
+			clusterRep.setDistance_sys_virt_centre(distance_sys_virt_centre);
+			clusterRep.setAngle_in_radians(Math.toRadians(0.0));
+			clusterRep.setClusterName(clusterRep.getClusterName());
+			clusterRep.setCluster_description(ClusterFactory.SINGLESTAR.name());
+			return clusterRep;
 		}
 	};
 	protected static Operation doubleStarBinary = new Operation() {
-		public void process(ClusterRep clusterRep) {
-
+		public ClusterRep process(ClusterRep clusterRep) {
+			
+			
+			return clusterRep;
 		}
 	};
 	protected static Operation doubleStarSpread = new Operation() {
-		public void process(ClusterRep clusterRep) {
+		public ClusterRep process(ClusterRep clusterRep) {
 
+			return clusterRep;
 		}
 	};
 	protected static Operation threeStarTrinary = new Operation() {
-		public void process(ClusterRep clusterRep) {
+		public ClusterRep process(ClusterRep clusterRep) {
 
+			return clusterRep;
 		}
 	};
 	protected static Operation threeStarBinaryPlusOne = new Operation() {
-		public void process(ClusterRep clusterRep) {
+		public ClusterRep process(ClusterRep clusterRep) {
 
+			return clusterRep;
 		}
 	};
 	protected static Operation threeStarSpread = new Operation() {
-		public void process(ClusterRep clusterRep) {
+		public ClusterRep process(ClusterRep clusterRep) {
 
+			return clusterRep;
 		}
 	};
 	protected static Operation fourStarTrinaryPlusOne = new Operation() {
-		public void process(ClusterRep clusterRep) {
+		public ClusterRep process(ClusterRep clusterRep) {
 
+			return clusterRep;
 		}
 	};
 	protected static Operation fourStarTwoBinaries = new Operation() {
-		public void process(ClusterRep clusterRep) {
+		public ClusterRep process(ClusterRep clusterRep) {
 
+			return clusterRep;
 		}
 	};
 	protected static Operation fourStarSpread = new Operation() {
-		public void process(ClusterRep clusterRep) {
+		public ClusterRep process(ClusterRep clusterRep) {
 
+			return clusterRep;
 		}
 	};
 	protected static Operation fiveStarFourStarSpreadPlusOne = new Operation() {
-		public void process(ClusterRep clusterRep) {
+		public ClusterRep process(ClusterRep clusterRep) {
 
+			return clusterRep;
 		}
 	};
 	protected static Operation fiveStarSpread = new Operation() {
-		public void process(ClusterRep clusterRep) {
+		public ClusterRep process(ClusterRep clusterRep) {
 
+			return clusterRep;
 		}
 	};
 	protected static Operation clusterN = new Operation() {
-		public void process(ClusterRep clusterRep) {
+		public ClusterRep process(ClusterRep clusterRep) {
 
+			return clusterRep;
 		}
 	};
 	
