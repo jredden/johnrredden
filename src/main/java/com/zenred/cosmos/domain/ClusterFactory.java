@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import com.zenred.util.GenRandomRolls;
+
 /**
  * 'SINGLESTAR' , 'DOUBLESTAR_BINARY' , 'DOUBLESTAR_SPREAD' ,
  * 'THREESTAR_TRINARY' , 'THREESTAR_BINARYPLUSONE' , 'THREESTAR_SPREAD' ,
@@ -47,7 +49,7 @@ public enum ClusterFactory {
 			return ClusterFactory.threeStarBinaryPlusOne;
 		}
 	},
-	THREESTAR_SPREAD("THREESTAR_TRINARY") {
+	THREESTAR_SPREAD("THREESTAR_SPREAD") {
 		Operation get() {
 			return threeStarSpread;
 		}
@@ -124,9 +126,10 @@ public enum ClusterFactory {
 
 	protected static Operation singleStar = new Operation() {
 		public ClusterRep process(ClusterRep clusterRep) {
-			Double distance_sys_virt_centre = new Double(0.0);
+			Double distance = GenRandomRolls.Instance().draw_rand()*AstronomicalUnits.HALFPSEC;
+			Double distance_sys_virt_centre = new Double(distance);
 			clusterRep.setDistance_sys_virt_centre(distance_sys_virt_centre);
-			clusterRep.setAngle_in_radians(Math.toRadians(0.0));
+			clusterRep.setAngle_in_radians(Math.toRadians(GenRandomRolls.Instance().getD360()));
 			clusterRep.setClusterName(clusterRep.getClusterName());
 			clusterRep.setCluster_description(ClusterFactory.SINGLESTAR.name());
 			return clusterRep;
@@ -134,25 +137,46 @@ public enum ClusterFactory {
 	};
 	protected static Operation doubleStarBinary = new Operation() {
 		public ClusterRep process(ClusterRep clusterRep) {
-			
-			
+			Double distance = GenRandomRolls.Instance().draw_rand()*AstronomicalUnits.HALFPSEC;
+			Double distance_sys_virt_centre = new Double(distance);
+			clusterRep.setDistance_sys_virt_centre(distance_sys_virt_centre);
+			clusterRep.setAngle_in_radians(Math.toRadians(GenRandomRolls.Instance().getD360()));
+			clusterRep.setClusterName(clusterRep.getClusterName());
+			clusterRep.setCluster_description(ClusterFactory.DOUBLESTAR_BINARY.name());
 			return clusterRep;
 		}
 	};
 	protected static Operation doubleStarSpread = new Operation() {
 		public ClusterRep process(ClusterRep clusterRep) {
-
+			Double distance = GenRandomRolls.Instance().draw_rand()*AstronomicalUnits.THIRD_PARSEC;
+			Double distance_sys_virt_centre = new Double(distance);
+			clusterRep.setDistance_sys_virt_centre(distance_sys_virt_centre);
+			clusterRep.setAngle_in_radians(Math.toRadians(GenRandomRolls.Instance().getD360()));
+			clusterRep.setClusterName(clusterRep.getClusterName());
+			clusterRep.setCluster_description(ClusterFactory.DOUBLESTAR_SPREAD.name());
 			return clusterRep;
 		}
 	};
 	protected static Operation threeStarTrinary = new Operation() {
 		public ClusterRep process(ClusterRep clusterRep) {
-
+			Double distance = GenRandomRolls.Instance().draw_rand()*AstronomicalUnits.HALFPSEC;
+			Double distance_sys_virt_centre = new Double(distance);
+			clusterRep.setDistance_sys_virt_centre(distance_sys_virt_centre);
+			clusterRep.setAngle_in_radians(Math.toRadians(GenRandomRolls.Instance().getD360()));
+			clusterRep.setClusterName(clusterRep.getClusterName());
+			clusterRep.setCluster_description(ClusterFactory.THREESTAR_TRINARY.name());
+			logger.info("THREE STAR TRINARY:"+clusterRep);
 			return clusterRep;
 		}
 	};
 	protected static Operation threeStarBinaryPlusOne = new Operation() {
 		public ClusterRep process(ClusterRep clusterRep) {
+			Double distance = GenRandomRolls.Instance().draw_rand()*AstronomicalUnits.FOURTH_PARSEC;
+			Double distance_sys_virt_centre = new Double(distance);
+			clusterRep.setDistance_sys_virt_centre(distance_sys_virt_centre);
+			clusterRep.setAngle_in_radians(Math.toRadians(GenRandomRolls.Instance().getD360()));
+			clusterRep.setClusterName(clusterRep.getClusterName());
+			clusterRep.setCluster_description(ClusterFactory.DOUBLESTAR_SPREAD.name());
 
 			return clusterRep;
 		}
