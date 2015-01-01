@@ -183,42 +183,84 @@ public enum ClusterFactory {
 	};
 	protected static Operation threeStarSpread = new Operation() {
 		public ClusterRep process(ClusterRep clusterRep) {
+			Double distance = GenRandomRolls.Instance().draw_rand()*AstronomicalUnits.HALFPSEC;
+			Double distance_sys_virt_centre = new Double(distance);
+			clusterRep.setDistance_sys_virt_centre(distance_sys_virt_centre);
+			clusterRep.setAngle_in_radians(Math.toRadians(GenRandomRolls.Instance().getD360()));
+			clusterRep.setClusterName(clusterRep.getClusterName());
+			clusterRep.setCluster_description(ClusterFactory.THREESTAR_SPREAD.name());
 
 			return clusterRep;
 		}
 	};
 	protected static Operation fourStarTrinaryPlusOne = new Operation() {
 		public ClusterRep process(ClusterRep clusterRep) {
+			Double distance = GenRandomRolls.Instance().draw_rand()*AstronomicalUnits.FOURTH_PARSEC;
+			Double distance_sys_virt_centre = new Double(distance);
+			clusterRep.setDistance_sys_virt_centre(distance_sys_virt_centre);
+			clusterRep.setAngle_in_radians(Math.toRadians(GenRandomRolls.Instance().getD360()));
+			clusterRep.setClusterName(clusterRep.getClusterName());
+			clusterRep.setCluster_description(ClusterFactory.FOURSTAR_TRINARYPLUSONE.name());
 
 			return clusterRep;
 		}
 	};
 	protected static Operation fourStarTwoBinaries = new Operation() {
 		public ClusterRep process(ClusterRep clusterRep) {
+			Double distance = GenRandomRolls.Instance().draw_rand()*AstronomicalUnits.HALFPSEC;
+			Double distance_sys_virt_centre = new Double(distance);
+			clusterRep.setDistance_sys_virt_centre(distance_sys_virt_centre);
+			clusterRep.setAngle_in_radians(Math.toRadians(GenRandomRolls.Instance().getD360()));
+			clusterRep.setClusterName(clusterRep.getClusterName());
+			clusterRep.setCluster_description(ClusterFactory.FOURSTAR_TWOBINARIES.name());
 
 			return clusterRep;
 		}
 	};
 	protected static Operation fourStarSpread = new Operation() {
 		public ClusterRep process(ClusterRep clusterRep) {
+			Double distance = GenRandomRolls.Instance().draw_rand()*AstronomicalUnits.FOURTH_PARSEC;
+			Double distance_sys_virt_centre = new Double(distance);
+			clusterRep.setDistance_sys_virt_centre(distance_sys_virt_centre);
+			clusterRep.setAngle_in_radians(Math.toRadians(GenRandomRolls.Instance().getD360()));
+			clusterRep.setClusterName(clusterRep.getClusterName());
+			clusterRep.setCluster_description(ClusterFactory.FOURSTAR_SPREAD.name());
 
 			return clusterRep;
 		}
 	};
 	protected static Operation fiveStarFourStarSpreadPlusOne = new Operation() {
 		public ClusterRep process(ClusterRep clusterRep) {
+			Double distance = GenRandomRolls.Instance().draw_rand()*AstronomicalUnits.FOURTH_PARSEC;
+			Double distance_sys_virt_centre = new Double(distance);
+			clusterRep.setDistance_sys_virt_centre(distance_sys_virt_centre);
+			clusterRep.setAngle_in_radians(Math.toRadians(GenRandomRolls.Instance().getD360()));
+			clusterRep.setClusterName(clusterRep.getClusterName());
+			clusterRep.setCluster_description(ClusterFactory.FIVESTAR_FOURSTARSPREADPLUSONE.name());
 
 			return clusterRep;
 		}
 	};
 	protected static Operation fiveStarSpread = new Operation() {
 		public ClusterRep process(ClusterRep clusterRep) {
+			Double distance = GenRandomRolls.Instance().draw_rand()*AstronomicalUnits.FOURTH_PARSEC;
+			Double distance_sys_virt_centre = new Double(distance);
+			clusterRep.setDistance_sys_virt_centre(distance_sys_virt_centre);
+			clusterRep.setAngle_in_radians(Math.toRadians(GenRandomRolls.Instance().getD360()));
+			clusterRep.setClusterName(clusterRep.getClusterName());
+			clusterRep.setCluster_description(ClusterFactory.FIVESTAR_SPREAD.name());
 
 			return clusterRep;
 		}
 	};
 	protected static Operation clusterN = new Operation() {
 		public ClusterRep process(ClusterRep clusterRep) {
+			Double distance = GenRandomRolls.Instance().draw_rand()*AstronomicalUnits.FOURTH_PARSEC;
+			Double distance_sys_virt_centre = new Double(distance);
+			clusterRep.setDistance_sys_virt_centre(distance_sys_virt_centre);
+			clusterRep.setAngle_in_radians(Math.toRadians(GenRandomRolls.Instance().getD360()));
+			clusterRep.setClusterName(clusterRep.getClusterName());
+			clusterRep.setCluster_description(ClusterFactory.CLUSTER_N.name());
 
 			return clusterRep;
 		}

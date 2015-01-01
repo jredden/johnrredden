@@ -109,6 +109,11 @@ CREATE TABLE `PlanetoidRep` (
 --
 -- Table structure for table ClusterToStar
 --
+-- sub clusters describe possible configurations for stars
+-- that have planetoids.  Planetoids can be "rogue" with an 
+-- irregular orbit around a cluster of stars and be "owned" by
+-- the cluster.
+--
 
 DROP TABLE IF EXISTS `ClusterToStar`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -119,11 +124,15 @@ CREATE TABLE `ClusterToStar` (
   `starId` int NOT NULL,
   `sub_cluster_description` ENUM(
     'SINGLESTAR'
-  , 'DOUBLESTAR_BINARY'
-  , 'THREESTAR_TRINARY'
+  , 'DOUBLESTAR_BINARY_0'
+  , 'DOUBLESTAR_BINARY_1'
+  , 'THREESTAR_TRINARY_0'
+  , 'THREESTAR_TRINARY_1'
+  , 'THREESTAR_TRINARY_2'
   , 'THREESTAR_BINARYPLUSONE'
   , 'FOURSTAR_TRINARYPLUSONE'
-  , 'FOURSTAR_2BINARIES'
+  , 'FOURSTAR_2BINARIES_0'
+  , 'FOURSTAR_2BINARIES_1'
   , 'FIVESTAR_FOURSTARSPREADPLUSONE'
   ) DEFAULT NULL,
   `Datestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
