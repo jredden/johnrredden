@@ -125,6 +125,7 @@ public class ClusterRepDao extends AbstractJDBCDao{
 	 * @param clusterRep
 	 * @return cluster rep
 	 */
+	@Transactional
 	public ClusterRep updateClusterRepBySystemId(ClusterRep clusterRep) {
 		super.jdbcSetUp()
 				.getSimpleJdbcTemplate()

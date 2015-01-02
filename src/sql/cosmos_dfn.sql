@@ -138,12 +138,12 @@ CREATE TABLE `ClusterToStar` (
   `Datestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`clusterToStarId`),
   KEY `cluster_to_star_clusterRepId` (`clusterRepId`),
-  KEY `cluster_to_star_starId` (`clusterRepId`)
+  KEY `cluster_to_star_starId` (`clusterToStarId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `StarRep`
+-- Table structure for table `Star`
 --
 
 DROP TABLE IF EXISTS `Star`;
@@ -151,8 +151,7 @@ DROP TABLE IF EXISTS `Star`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Star` (
   `starId` int unsigned NOT NULL auto_increment,
-  `systemId` int unsigned NOT NULL,
-  `clusterId` int unsigned NOT NULL,
+  `clusterToStarId` int unsigned NOT NULL,
   `Name` varchar(255),
   `distance_clust_virt_centre` double DEFAULT NULL,
   `luminosity` double DEFAULT NULL,
@@ -160,11 +159,10 @@ CREATE TABLE `Star` (
   `angle_in_radians_s` double DEFAULT NULL,
   `star_color` varchar(40) DEFAULT NULL,
   `star_type` varchar(40) DEFAULT NULL,
-  `Datestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `star_size` double DEFAULT NULL,
+  `Datestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
    PRIMARY KEY (`starId`),
-  KEY `star_system_id` (`SystemId`),
-  KEY `star_cluster_id` (`clusterId`)
+  KEY `cluster_to_star_id` (`clusterToStarId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
