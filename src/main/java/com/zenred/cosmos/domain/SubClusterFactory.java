@@ -5,12 +5,29 @@ package com.zenred.cosmos.domain;
  * 'THREESTAR_TRINARY_0' , 'THREESTAR_TRINARY_1' , 'THREESTAR_TRINARY_2' ,
  * 'THREESTAR_BINARYPLUSONE' , 'FOURSTAR_TRINARYPLUSONE' ,
  * 'FOURSTAR_2BINARIES_0' , 'FOURSTAR_2BINARIES_1' ,
- * 'FIVESTAR_FOURSTARSPREADPLUSONE'
+ * 'FIVESTAR_FOURSTARSPREADPLUSONE', NONE
  * 
  * @author jredden
  *
  */
 
 public enum SubClusterFactory {
-
+	
+	SINGLESTAR("SINGLESTAR"){
+		
+	},
+	DOUBLESTAR_BINARY_0("DOUBLESTAR_BINARY_0"){
+		
+	}
+	,
+	DOUBLESTAR_BINARY_1("DOUBLESTAR_BINARY_1"){
+		
+	}
+	;
+	
+	private String type;
+	
+	private SubClusterFactory (String type){
+		this.type = type;
+	}
 }

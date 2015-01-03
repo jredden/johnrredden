@@ -121,7 +121,6 @@ DROP TABLE IF EXISTS `ClusterToStar`;
 CREATE TABLE `ClusterToStar` (
   `clusterToStarId` int unsigned NOT NULL auto_increment, 
   `clusterRepId` int NOT NULL,
-  `starId` int NOT NULL,
   `sub_cluster_description` ENUM(
     'SINGLESTAR'
   , 'DOUBLESTAR_BINARY_0'
@@ -134,6 +133,7 @@ CREATE TABLE `ClusterToStar` (
   , 'FOURSTAR_2BINARIES_0'
   , 'FOURSTAR_2BINARIES_1'
   , 'FIVESTAR_FOURSTARSPREADPLUSONE'
+  , 'NONE'
   ) DEFAULT NULL,
   `Datestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`clusterToStarId`),

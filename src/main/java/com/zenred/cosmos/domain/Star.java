@@ -168,10 +168,9 @@ public class Star {
 	 * 
 	 * @return database centric map used for inserts
 	 */
-	public Map<String, Object> getClusterToStarMap(Integer clusterRepId, Integer starId, String sub_cluster_description) {
+	public Map<String, Object> getClusterToStarMap(Integer clusterRepId, String sub_cluster_description) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("clusterRepId", clusterRepId);
-		map.put("starId", starId);
 		map.put("sub_cluster_description", sub_cluster_description);
 		return map;
 	}
@@ -184,7 +183,7 @@ public class Star {
 	}
 	
 	public static String [] csvClusterToStarSeparatedColumns(){
-		return new String[] {"clusterRepId", "starId", "sbu_cluster_description"};
+		return new String[] {"clusterRepId", "sbu_cluster_description"};
 	}
 
 	@Override
