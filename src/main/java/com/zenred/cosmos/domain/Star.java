@@ -98,8 +98,10 @@ public class Star {
 		this.luminosity = luminosity;
 	}
 
-	public Boolean getNo_planets_allowed() {
-		return no_planets_allowed;
+	public Short getNo_planets_allowed() {
+		Short one = new Short("1");
+		Short zero = new Short("0");
+		return no_planets_allowed == true? one:zero;
 	}
 
 	public void setNo_planets_allowed(Boolean no_planets_allowed) {
@@ -183,7 +185,7 @@ public class Star {
 	}
 	
 	public static String [] csvClusterToStarSeparatedColumns(){
-		return new String[] {"clusterRepId", "sbu_cluster_description"};
+		return new String[] {"clusterRepId", "sub_cluster_description"};
 	}
 
 	@Override
