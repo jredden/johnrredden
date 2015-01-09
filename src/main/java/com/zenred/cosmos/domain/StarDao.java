@@ -128,43 +128,30 @@ public class StarDao extends AbstractJDBCDao {
 	
 	/**
 	 * 
+	 * @param star
+	 * @param clusterToStarId
+	 * @return star added to "NONE" subCluster.
+	 */
+	public Star addStarToNonSubCluster(Star star, Integer clusterToStarId) {
+		star.setClusterToStarId(clusterToStarId);
+		Map<String, Object> starMap = star.getStarMap();
+		super.jdbcInsertSetup().withTableName(STAR)
+				.usingColumns(Star.csvStarSeparatedColumns()).execute(starMap);
+		Integer starId = super.jdbcSetUp().getSimpleJdbcTemplate()
+				.queryForInt(lastStarInsertSql);
+		return readStarById(starId);
+	}
+	
+	/**
+	 * 
 	 * @param starId
 	 * @return star
 	 */
 	public Star readStarById(Integer starId){
-		Star star = new Star();
 		Object[] param = {starId};
 		Map<String, Object> starMap = null;
 		starMap = super.jdbcSetUp().getSimpleJdbcTemplate().queryForMap(readStarById, param);
-		String s_clusterToStarId = starMap.get(CLUSTER_TO_STAR_ID_2).toString();
-		star.setClusterToStarId(new Integer(s_clusterToStarId));
-		star.setName(starMap.get(NAME).toString());
-		String s_distance_clust_virt_centre = starMap.get(DISTANCE_CLUST_VIRT_CENTRE).toString();
-		star.setDistance_clust_virt_centre(new Double(s_distance_clust_virt_centre));
-		String s_luminosity = starMap.get(LUMINOSITY).toString();
-		star.setLuminosity(new Double(s_luminosity));
-		String s_angle_in_radians_s = starMap.get(ANGLE_IN_RADIANS_S).toString();
-		star.setAngle_in_radians_s(new Double(s_angle_in_radians_s));
-		star.setStar_color(starMap.get(STAR_COLOR).toString());
-		star.setStar_type(starMap.get(STAR_TYPE).toString());
-		String s_star_size = starMap.get(STAR_SIZE).toString();
-		star.setStar_size(new Double(s_star_size));
-		String s_no_planets_allowed = null;
-		if(null == starMap.get(NO_PLANETS_ALLOWED)){
-			s_no_planets_allowed = "0";
-		}
-		else{
-			s_no_planets_allowed = starMap.get(NO_PLANETS_ALLOWED).toString();
-		}
-		if(s_no_planets_allowed.equals("0")){
-			star.setNo_planets_allowed(Boolean.FALSE);
-		}
-		else{
-			star.setNo_planets_allowed(Boolean.TRUE);
-		}
-		star.setDatestamp((String) starMap.get(DATESTAMP).toString());
-		String s_starId = starMap.get(STAR_ID).toString();
-		star.setStarId(new Integer(s_starId));
+		Star star = buildStar(starMap);
 		return star;
 	}
 	
@@ -219,38 +206,58 @@ public class StarDao extends AbstractJDBCDao {
 				.getSimpleJdbcTemplate()
 				.queryForList(readStarsInCluster, clusterRep.getClusterRepId());
 		for (Map<String, Object> starMap: starListMap){
-			Star star = new Star();
-			String s_angle_in_radians_s = starMap.get(ANGLE_IN_RADIANS_S).toString();
-			star.setAngle_in_radians_s(new Double(s_angle_in_radians_s));
-			String s_clusterToStarId = starMap.get(CLUSTER_TO_STAR_ID_2).toString();
-			star.setClusterToStarId(new Integer(s_clusterToStarId));
-			star.setDatestamp((String) starMap.get(DATESTAMP).toString());
-			String s_distance_clust_virt_centre = starMap.get(DISTANCE_CLUST_VIRT_CENTRE).toString();
-			star.setDistance_clust_virt_centre(new Double(s_distance_clust_virt_centre));
-			String s_luminosity = starMap.get(LUMINOSITY).toString();
-			star.setLuminosity(new Double(s_luminosity));
-			star.setName(starMap.get(NAME).toString());
-			String s_no_planets_allowed = null;
-			if(null == starMap.get(NO_PLANETS_ALLOWED)){
-				s_no_planets_allowed = "0";
-			}
-			else{
-				s_no_planets_allowed = starMap.get(NO_PLANETS_ALLOWED).toString();
-			}
-			if(s_no_planets_allowed.equals("0")){
-				star.setNo_planets_allowed(Boolean.FALSE);
-			}
-			else{
-				star.setNo_planets_allowed(Boolean.TRUE);
-			}
-			star.setStar_color(starMap.get(STAR_COLOR).toString());
-			String s_star_size = starMap.get(STAR_SIZE).toString();
-			star.setStar_size(new Double(s_star_size));
-			star.setStar_type(starMap.get(STAR_TYPE).toString());
-			String s_starId = starMap.get(STAR_ID).toString();
-			star.setStarId(new Integer(s_starId));
+			Star star = buildStar(starMap);
 			starList.add(star);
 		}
 		return starList;
+	}
+	
+	/**
+	 * 
+	 * @param star
+	 * @return list or stars in stars sub-cluster
+	 */
+	public String readStarsInSubCluster(Star star){
+		
+		return "";
+	}
+	
+	/**
+	 * 
+	 * @param starMap
+	 * @return built star
+	 */
+	private Star buildStar(Map<String, Object> starMap){
+		Star star = new Star();
+		String s_angle_in_radians_s = starMap.get(ANGLE_IN_RADIANS_S).toString();
+		star.setAngle_in_radians_s(new Double(s_angle_in_radians_s));
+		String s_clusterToStarId = starMap.get(CLUSTER_TO_STAR_ID_2).toString();
+		star.setClusterToStarId(new Integer(s_clusterToStarId));
+		star.setDatestamp((String) starMap.get(DATESTAMP).toString());
+		String s_distance_clust_virt_centre = starMap.get(DISTANCE_CLUST_VIRT_CENTRE).toString();
+		star.setDistance_clust_virt_centre(new Double(s_distance_clust_virt_centre));
+		String s_luminosity = starMap.get(LUMINOSITY).toString();
+		star.setLuminosity(new Double(s_luminosity));
+		star.setName(starMap.get(NAME).toString());
+		String s_no_planets_allowed = null;
+		if(null == starMap.get(NO_PLANETS_ALLOWED)){
+			s_no_planets_allowed = "0";
+		}
+		else{
+			s_no_planets_allowed = starMap.get(NO_PLANETS_ALLOWED).toString();
+		}
+		if(s_no_planets_allowed.equals("0")){
+			star.setNo_planets_allowed(Boolean.FALSE);
+		}
+		else{
+			star.setNo_planets_allowed(Boolean.TRUE);
+		}
+		star.setStar_color(starMap.get(STAR_COLOR).toString());
+		String s_star_size = starMap.get(STAR_SIZE).toString();
+		star.setStar_size(new Double(s_star_size));
+		star.setStar_type(starMap.get(STAR_TYPE).toString());
+		String s_starId = starMap.get(STAR_ID).toString();
+		star.setStarId(new Integer(s_starId));
+		return star;
 	}
 }

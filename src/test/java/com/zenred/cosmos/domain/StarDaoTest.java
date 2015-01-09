@@ -162,7 +162,7 @@ public class StarDaoTest {
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_4",
 				new Double(162), new Double(1), null, new Double(3), "red",
 				"m4", new Double(7003), null);
-		Star starAdd2 = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.NONE.name());
+		Star starAdd2 = starDao.addStarToNonSubCluster(star, star.getClusterToStarId());
 		logger.info("STAR_READ_4:"+starAdd2);
 		starAdd2.setNo_planets_allowed(Boolean.FALSE);
 		Star starUpdate2 = starDao.updateStarByStarId(starAdd2);
@@ -290,7 +290,7 @@ public class StarDaoTest {
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_26x",
 				new Double(296), new Double(1), null, new Double(3), "red",
 				"m7", new Double(7096), null);
-		Star starAddx2 = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.NONE.name());
+		Star starAddx2 = starDao.addStarToNonSubCluster(star, starUpdateX.getClusterToStarId());
 		logger.info("STAR_READ_26:"+starAddx2);
 		starAddx2.setNo_planets_allowed(Boolean.TRUE);
 		Star starUpdateX2 = starDao.updateStarByStarId(starAddx2);
@@ -299,7 +299,7 @@ public class StarDaoTest {
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_27x",
 				new Double(297), new Double(1), null, new Double(3.5), "red",
 				"m8", new Double(7097), null);
-		Star starAddx3 = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.NONE.name());
+		Star starAddx3 = starDao.addStarToNonSubCluster(star, starUpdateX.getClusterToStarId());
 		logger.info("STAR_READ_27:"+starAddx3);
 		starAddx3.setNo_planets_allowed(Boolean.TRUE);
 		Star starUpdateX3 = starDao.updateStarByStarId(starAddx3);
@@ -355,7 +355,7 @@ public class StarDaoTest {
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_10",
 				new Double(164), new Double(1), null, new Double(3), "red",
 				"k1", new Double(7010), null);
-		Star starAdd2 = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.NONE.name());
+		Star starAdd2 = starDao.addStarToNonSubCluster(star, starUpdate.getClusterToStarId());
 		logger.info("STAR_READ_10:"+starAdd2);
 		starAdd2.setNo_planets_allowed(Boolean.TRUE);
 		Star starUpdate2 = starDao.updateStarByStarId(starAdd2);
@@ -364,7 +364,7 @@ public class StarDaoTest {
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_11",
 				new Double(165), new Double(1), null, new Double(3.5), "red",
 				"k2", new Double(7011), null);
-		Star starAdd3 = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.NONE.name());
+		Star starAdd3 = starDao.addStarToNonSubCluster(star, starUpdate.getClusterToStarId());
 		logger.info("STAR_READ_11:"+starAdd3);
 		starAdd3.setNo_planets_allowed(Boolean.TRUE);
 		Star starUpdate3 = starDao.updateStarByStarId(starAdd3);
@@ -430,7 +430,7 @@ public class StarDaoTest {
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_26x",
 				new Double(296), new Double(1), null, new Double(3), "red",
 				"m7", new Double(7096), null);
-		Star starAddx2 = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.NONE.name());
+		Star starAddx2 = starDao.addStarToNonSubCluster(star, starUpdateX.getClusterToStarId());
 		logger.info("STAR_READ_26:"+starAddx2);
 		starAddx2.setNo_planets_allowed(Boolean.TRUE);
 		Star starUpdateX2 = starDao.updateStarByStarId(starAddx2);
@@ -439,7 +439,7 @@ public class StarDaoTest {
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_27x",
 				new Double(297), new Double(1), null, new Double(3.5), "red",
 				"m8", new Double(7097), null);
-		Star starAddx3 = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.NONE.name());
+		Star starAddx3 = starDao.addStarToNonSubCluster(star, starUpdateX.getClusterToStarId());
 		logger.info("STAR_READ_27:"+starAddx3);
 		starAddx3.setNo_planets_allowed(Boolean.TRUE);
 		Star starUpdateX3 = starDao.updateStarByStarId(starAddx3);
@@ -572,7 +572,7 @@ public class StarDaoTest {
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_16",
 				new Double(176), new Double(1), null, new Double(3), "red",
 				"k7", new Double(7016), null);
-		Star starAdd2 = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.NONE.name());
+		Star starAdd2 = starDao.addStarToNonSubCluster(star, starUpdate.getClusterToStarId());
 		logger.info("STAR_READ_16:"+starAdd2);
 		starAdd2.setNo_planets_allowed(Boolean.TRUE);
 		Star starUpdate2 = starDao.updateStarByStarId(starAdd2);
@@ -581,7 +581,7 @@ public class StarDaoTest {
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_17",
 				new Double(177), new Double(1), null, new Double(3.5), "red",
 				"k8", new Double(7017), null);
-		Star starAdd3 = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.NONE.name());
+		Star starAdd3 = starDao.addStarToNonSubCluster(star, starUpdate.getClusterToStarId());
 		logger.info("STAR_READ_17:"+starAdd3);
 		starAdd3.setNo_planets_allowed(Boolean.TRUE);
 		Star starUpdate3 = starDao.updateStarByStarId(starAdd3);
@@ -590,7 +590,7 @@ public class StarDaoTest {
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_18",
 				new Double(178), new Double(1), null, new Double(3.5), "red",
 				"k8", new Double(7017), null);
-		Star starAdd4 = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.NONE.name());
+		Star starAdd4 = starDao.addStarToNonSubCluster(star, starUpdate.getClusterToStarId());
 		logger.info("STAR_READ_18:"+starAdd4);
 		starAdd4.setNo_planets_allowed(Boolean.TRUE);
 		Star starUpdate4 = starDao.updateStarByStarId(starAdd4);
@@ -657,7 +657,7 @@ public class StarDaoTest {
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_26x",
 				new Double(296), new Double(1), null, new Double(3), "red",
 				"m7", new Double(7096), null);
-		Star starAddx2 = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.NONE.name());
+		Star starAddx2 = starDao.addStarToNonSubCluster(star, starUpdateX.getClusterToStarId());
 		logger.info("STAR_READ_26:"+starAddx2);
 		starAddx2.setNo_planets_allowed(Boolean.TRUE);
 		Star starUpdateX2 = starDao.updateStarByStarId(starAddx2);
@@ -666,7 +666,7 @@ public class StarDaoTest {
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_27x",
 				new Double(297), new Double(1), null, new Double(3.5), "red",
 				"m8", new Double(7097), null);
-		Star starAddx3 = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.NONE.name());
+		Star starAddx3 = starDao.addStarToNonSubCluster(star, starUpdateX.getClusterToStarId());
 		logger.info("STAR_READ_27:"+starAddx3);
 		starAddx3.setNo_planets_allowed(Boolean.TRUE);
 		Star starUpdateX3 = starDao.updateStarByStarId(starAddx3);
@@ -675,7 +675,7 @@ public class StarDaoTest {
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_28x",
 				new Double(298), new Double(1), null, new Double(3.2), "red",
 				"m9", new Double(7098), null);
-		Star starAddx4 = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.NONE.name());
+		Star starAddx4 = starDao.addStarToNonSubCluster(star, starUpdateX.getClusterToStarId());;
 		logger.info("STAR_READ_28:"+starAddx4);
 		starAddx4.setNo_planets_allowed(Boolean.TRUE);
 		Star starUpdateX4 = starDao.updateStarByStarId(starAddx4);
@@ -733,7 +733,7 @@ public class StarDaoTest {
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_21",
 				new Double(196), new Double(1), null, new Double(3), "red",
 				"m2", new Double(7096), null);
-		Star starAdd2 = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.NONE.name());
+		Star starAdd2 = starDao.addStarToNonSubCluster(star, starUpdate.getClusterToStarId());
 		logger.info("STAR_READ_21:"+starAdd2);
 		starAdd2.setNo_planets_allowed(Boolean.TRUE);
 		Star starUpdate2 = starDao.updateStarByStarId(starAdd2);
@@ -742,7 +742,7 @@ public class StarDaoTest {
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_22",
 				new Double(197), new Double(1), null, new Double(3.5), "red",
 				"m3", new Double(7097), null);
-		Star starAdd3 = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.NONE.name());
+		Star starAdd3 = starDao.addStarToNonSubCluster(star, starUpdate.getClusterToStarId());
 		logger.info("STAR_READ_22:"+starAdd3);
 		starAdd3.setNo_planets_allowed(Boolean.TRUE);
 		Star starUpdate3 = starDao.updateStarByStarId(starAdd3);
@@ -751,7 +751,7 @@ public class StarDaoTest {
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_23",
 				new Double(198), new Double(1), null, new Double(3.2), "red",
 				"m4", new Double(7098), null);
-		Star starAdd4 = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.NONE.name());
+		Star starAdd4 = starDao.addStarToNonSubCluster(star, starUpdate.getClusterToStarId());
 		logger.info("STAR_READ_23:"+starAdd4);
 		starAdd4.setNo_planets_allowed(Boolean.TRUE);
 		Star starUpdate4 = starDao.updateStarByStarId(starAdd4);
@@ -760,7 +760,7 @@ public class StarDaoTest {
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_24",
 				new Double(199), new Double(1), null, new Double(3.2), "red",
 				"m5", new Double(7099), null);
-		Star starAdd5 = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.NONE.name());
+		Star starAdd5 = starDao.addStarToNonSubCluster(star, starUpdate.getClusterToStarId());
 		logger.info("STAR_READ_24:"+starAdd5);
 		starAdd5.setNo_planets_allowed(Boolean.TRUE);
 		Star starUpdate5 = starDao.updateStarByStarId(starAdd5);
@@ -818,7 +818,7 @@ public class StarDaoTest {
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_26",
 				new Double(296), new Double(1), null, new Double(3), "red",
 				"m7", new Double(7096), null);
-		Star starAdd2 = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.NONE.name());
+		Star starAdd2 = starDao.addStarToNonSubCluster(star, starUpdate.getClusterToStarId());
 		logger.info("STAR_READ_26:"+starAdd2);
 		starAdd2.setNo_planets_allowed(Boolean.TRUE);
 		Star starUpdate2 = starDao.updateStarByStarId(starAdd2);
@@ -827,7 +827,7 @@ public class StarDaoTest {
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_27",
 				new Double(297), new Double(1), null, new Double(3.5), "red",
 				"m8", new Double(7097), null);
-		Star starAdd3 = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.NONE.name());
+		Star starAdd3 = starDao.addStarToNonSubCluster(star, starUpdate.getClusterToStarId());
 		logger.info("STAR_READ_27:"+starAdd3);
 		starAdd3.setNo_planets_allowed(Boolean.TRUE);
 		Star starUpdate3 = starDao.updateStarByStarId(starAdd3);
@@ -836,7 +836,7 @@ public class StarDaoTest {
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_28",
 				new Double(298), new Double(1), null, new Double(3.2), "red",
 				"m9", new Double(7098), null);
-		Star starAdd4 = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.NONE.name());
+		Star starAdd4 = starDao.addStarToNonSubCluster(star, starUpdate.getClusterToStarId());
 		logger.info("STAR_READ_28:"+starAdd4);
 		starAdd4.setNo_planets_allowed(Boolean.TRUE);
 		Star starUpdate4 = starDao.updateStarByStarId(starAdd4);
@@ -845,7 +845,7 @@ public class StarDaoTest {
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_29",
 				new Double(199), new Double(1), null, new Double(3.2), "red",
 				"f1", new Double(7099), null);
-		Star starAdd5 = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.NONE.name());
+		Star starAdd5 = starDao.addStarToNonSubCluster(star, starUpdate.getClusterToStarId());
 		logger.info("STAR_READ_29:"+starAdd5);
 		starAdd5.setNo_planets_allowed(Boolean.TRUE);
 		Star starUpdate5 = starDao.updateStarByStarId(starAdd5);
@@ -854,7 +854,7 @@ public class StarDaoTest {
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_30",
 				new Double(199), new Double(1), null, new Double(3.2), "red",
 				"f2", new Double(7199), null);
-		Star starAdd6 = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.NONE.name());
+		Star starAdd6 = starDao.addStarToNonSubCluster(star, starUpdate.getClusterToStarId());
 		logger.info("STAR_READ_29:"+starAdd6);
 		starAdd6.setNo_planets_allowed(Boolean.TRUE);
 		Star starUpdate6 = starDao.updateStarByStarId(starAdd6);
@@ -863,7 +863,7 @@ public class StarDaoTest {
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_25x",
 				new Double(295), new Double(1), null, new Double(2), "red",
 				"m6", new Double(7295), null);
-		Star starAddx = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.NONE.name());
+		Star starAddx = starDao.addStarToNonSubCluster(star, starUpdate.getClusterToStarId());
 		logger.info("STAR_READ_25:"+starAddx);
 		starAddx.setNo_planets_allowed(Boolean.TRUE);
 		Star starUpdateX = starDao.updateStarByStarId(starAddx);
@@ -872,7 +872,7 @@ public class StarDaoTest {
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_26x",
 				new Double(296), new Double(1), null, new Double(3), "red",
 				"m7", new Double(7096), null);
-		Star starAddx2 = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.NONE.name());
+		Star starAddx2 = starDao.addStarToNonSubCluster(star, starUpdate.getClusterToStarId());
 		logger.info("STAR_READ_26:"+starAddx2);
 		starAddx2.setNo_planets_allowed(Boolean.TRUE);
 		Star starUpdateX2 = starDao.updateStarByStarId(starAddx2);
@@ -881,7 +881,7 @@ public class StarDaoTest {
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_27x",
 				new Double(297), new Double(1), null, new Double(3.5), "red",
 				"m8", new Double(7097), null);
-		Star starAddx3 = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.NONE.name());
+		Star starAddx3 = starDao.addStarToNonSubCluster(star, starUpdate.getClusterToStarId());
 		logger.info("STAR_READ_27:"+starAddx3);
 		starAddx3.setNo_planets_allowed(Boolean.TRUE);
 		Star starUpdateX3 = starDao.updateStarByStarId(starAddx3);
@@ -890,7 +890,7 @@ public class StarDaoTest {
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_28x",
 				new Double(298), new Double(1), null, new Double(3.2), "red",
 				"m9", new Double(7098), null);
-		Star starAddx4 = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.NONE.name());
+		Star starAddx4 = starDao.addStarToNonSubCluster(star, starUpdate.getClusterToStarId());
 		logger.info("STAR_READ_28:"+starAddx4);
 		starAddx4.setNo_planets_allowed(Boolean.TRUE);
 		Star starUpdateX4 = starDao.updateStarByStarId(starAddx4);
@@ -899,7 +899,7 @@ public class StarDaoTest {
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_29x",
 				new Double(199), new Double(1), null, new Double(3.2), "red",
 				"f1", new Double(7099), null);
-		Star starAddx5 = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.NONE.name());
+		Star starAddx5 = starDao.addStarToNonSubCluster(star, starUpdate.getClusterToStarId());
 		logger.info("STAR_READ_29:"+starAddx5);
 		starAddx5.setNo_planets_allowed(Boolean.TRUE);
 		Star starUpdateX5 = starDao.updateStarByStarId(starAddx5);
@@ -908,7 +908,7 @@ public class StarDaoTest {
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_30x",
 				new Double(199), new Double(1), null, new Double(3.2), "red",
 				"f2", new Double(7199), null);
-		Star starAddx6 = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.NONE.name());
+		Star starAddx6 = starDao.addStarToNonSubCluster(star, starUpdate.getClusterToStarId());
 		logger.info("STAR_READ_29:"+starAddx6);
 		starAddx6.setNo_planets_allowed(Boolean.TRUE);
 		Star starUpdateX6 = starDao.updateStarByStarId(starAddx6);
@@ -920,6 +920,8 @@ public class StarDaoTest {
 			logger.info("STAR"+count+":" + star);
 			++count;
 		}
+
+		String s_type  = starDao.readStarsInSubCluster(starUpdateX6);
 
 
 		starDao.deleteStar(starUpdateX);
