@@ -112,6 +112,8 @@ public class StarDaoTest {
 			logger.info("STAR"+count+":" + star);
 			++count;
 		}
+		String s_type  = starDao.readStarsSubClusterDescription(starUpdate2);
+		logger.info("STAR_SUB_CLUSTER_DESCRIPTION:"+s_type);
 
 		starDao.deleteStar(starUpdate);
 		starDao.deleteStar(starUpdate2);
@@ -921,8 +923,8 @@ public class StarDaoTest {
 			++count;
 		}
 
-		String s_type  = starDao.readStarsInSubCluster(starUpdateX6);
-
+		String s_type  = starDao.readStarsSubClusterDescription(starUpdateX6);
+		logger.info("STAR_SUB_CLUSTER_DESCRIPTION:"+s_type);
 
 		starDao.deleteStar(starUpdateX);
 		starDao.deleteStar(starUpdateX2);

@@ -215,11 +215,13 @@ public class StarDao extends AbstractJDBCDao {
 	/**
 	 * 
 	 * @param star
-	 * @return list or stars in stars sub-cluster
+	 * @return sub cluster description
 	 */
-	public String readStarsInSubCluster(Star star){
-		
-		return "";
+	public String readStarsSubClusterDescription(Star star){
+		Object[] param = {star.getStarId()};
+		Map<String, Object> starSubClusterMap = null;
+		starSubClusterMap = super.jdbcSetUp().getSimpleJdbcTemplate().queryForMap(readStarsSubCluster, param);
+		return starSubClusterMap.get(SUB_CLUSTER_DESCRIPTION).toString();
 	}
 	
 	/**
