@@ -46,8 +46,8 @@ public class StarDaoTest {
 		logger.info("CLUSTER_REP_UPDATE:" + clusterRepUpdate);
 		
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_0",
-				new Double(160), new Double(1), null, new Double(2), "red",
-				"m1", new Double(7000), null);
+				new Double(160), new Double(1), null, new Double(2), StarFactory.RED__MAINS.read().read(),
+				StarFactory.RED__MAINS.code().code(), new Double(7000), null);
 		Star starAdd = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.SINGLESTAR.name());
 		logger.info("STAR_READ_0:"+starAdd);
 		starAdd.setNo_planets_allowed(Boolean.TRUE);
