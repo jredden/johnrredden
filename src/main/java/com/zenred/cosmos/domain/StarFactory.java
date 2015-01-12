@@ -856,8 +856,7 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			// TODO Auto-generated method stub
-			return null;
+			return "sg2o"+GenRandomRolls.Instance().get_D9();
 		}
 	};
 	protected static Name ltblGIII = new Name(){
@@ -866,8 +865,7 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			// TODO Auto-generated method stub
-			return null;
+			return "sg2b"+GenRandomRolls.Instance().get_D9();
 		}
 	};
 	protected static Name whitGIII = new Name(){
@@ -876,8 +874,7 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			// TODO Auto-generated method stub
-			return null;
+			return "sg2a"+GenRandomRolls.Instance().get_D9();
 		}
 	};
 	protected static Name pyrlGIII = new Name(){
@@ -886,8 +883,7 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			// TODO Auto-generated method stub
-			return null;
+			return "sg2f"+GenRandomRolls.Instance().get_D9();
 		}
 	};
 	protected static Name yeloGIII = new Name(){
@@ -896,8 +892,7 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			// TODO Auto-generated method stub
-			return null;
+			return "sg2g"+GenRandomRolls.Instance().get_D9();
 		}
 	};
 	protected static Name orngGIII = new Name(){
@@ -906,8 +901,7 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			// TODO Auto-generated method stub
-			return null;
+			return "sg2k"+GenRandomRolls.Instance().get_D9();
 		}
 	};
 	protected static Name redGIII = new Name(){
@@ -916,8 +910,7 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			// TODO Auto-generated method stub
-			return null;
+			return "sg2m"+GenRandomRolls.Instance().get_D9();
 		}
 	};
 	protected static Name blueGII = new Name(){
@@ -926,8 +919,7 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			// TODO Auto-generated method stub
-			return null;
+			return "g1o"+GenRandomRolls.Instance().get_D9();
 		}
 	};
 	protected static Name ltblGII = new Name(){
@@ -936,8 +928,7 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			// TODO Auto-generated method stub
-			return null;
+			return "g1b"+GenRandomRolls.Instance().get_D9();
 		}
 	};
 	protected static Name whitGII = new Name(){
@@ -946,8 +937,7 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			// TODO Auto-generated method stub
-			return null;
+			return "g1a"+GenRandomRolls.Instance().get_D9();
 		}
 	};
 	protected static Name pyrlGII = new Name(){
@@ -956,8 +946,7 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			// TODO Auto-generated method stub
-			return null;
+			return "g1f"+GenRandomRolls.Instance().get_D9();
 		}
 	};
 	protected static Name yeloGII = new Name(){
@@ -966,8 +955,7 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			// TODO Auto-generated method stub
-			return null;
+			return "g1g"+GenRandomRolls.Instance().get_D9();
 		}
 	};
 	protected static Name orngGII = new Name(){
@@ -976,8 +964,7 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			// TODO Auto-generated method stub
-			return null;
+			return "g1k"+GenRandomRolls.Instance().get_D9();
 		}
 	};
 	protected static Name redGII = new Name(){
@@ -986,8 +973,7 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			// TODO Auto-generated method stub
-			return null;
+			return "g1m"+GenRandomRolls.Instance().get_D9();
 		}
 	};
 	protected static Name blueSubGI = new Name(){
@@ -996,8 +982,7 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			// TODO Auto-generated method stub
-			return null;
+			return "sbgo"+GenRandomRolls.Instance().get_D9();
 		}
 	};
 	protected static Name ltblSubGI = new Name(){
@@ -1006,8 +991,7 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			// TODO Auto-generated method stub
-			return null;
+			return "sbgb"+GenRandomRolls.Instance().get_D9();
 		}
 	};
 	protected static Name whitSubGI = new Name(){
@@ -1016,8 +1000,7 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			// TODO Auto-generated method stub
-			return null;
+			return "sbga"+GenRandomRolls.Instance().get_D9();
 		}
 	};
 	protected static Name pyrlSubGI = new Name(){
@@ -1026,8 +1009,7 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			// TODO Auto-generated method stub
-			return null;
+			return "sbgf"+GenRandomRolls.Instance().get_D9();
 		}
 	};
 	protected static Name yeloSubGI = new Name(){
@@ -1036,8 +1018,7 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			// TODO Auto-generated method stub
-			return null;
+			return "sbgg"+GenRandomRolls.Instance().get_D9();
 		}
 	};
 	protected static Name orngSubGI = new Name(){
@@ -1046,8 +1027,7 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			// TODO Auto-generated method stub
-			return null;
+			return "sbgk"+GenRandomRolls.Instance().get_D9();
 		}
 	};
 	protected static Name redSubGI = new Name(){
@@ -1056,8 +1036,7 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			// TODO Auto-generated method stub
-			return null;
+			return "sbgm"+GenRandomRolls.Instance().get_D9();
 		}
 	};
 	protected static Name blueMainS = new Name(){
