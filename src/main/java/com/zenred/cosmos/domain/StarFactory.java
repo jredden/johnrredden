@@ -1362,10 +1362,7 @@ public enum StarFactory {
 	};
 	protected static Name whitGIII = new Name() {
 		private short subCode = -1;
-<<<<<<< HEAD
 		private Sequence sequence = new Sequence(LTBL_GI_II, PYEL_GI_II);
-=======
->>>>>>> eaa8ce730301743e3dc3ac06024767ebe30a8409
 
 		public String read() {
 			return "White Giant II";
@@ -1385,10 +1382,7 @@ public enum StarFactory {
 	};
 	protected static Name pyrlGIII = new Name() {
 		private short subCode = -1;
-<<<<<<< HEAD
 		private Sequence sequence = new Sequence(WHIT_GI_II, YELO_GI_II);
-=======
->>>>>>> eaa8ce730301743e3dc3ac06024767ebe30a8409
 
 		public String read() {
 			return "Pale Yellow Giant II";
@@ -1408,10 +1402,7 @@ public enum StarFactory {
 	};
 	protected static Name yeloGIII = new Name() {
 		private short subCode = -1;
-<<<<<<< HEAD
 		private Sequence sequence = new Sequence(PYEL_GI_II, ORNG_GI_II);
-=======
->>>>>>> eaa8ce730301743e3dc3ac06024767ebe30a8409
 
 		public String read() {
 			return "Yellow Giant II";
@@ -1431,10 +1422,7 @@ public enum StarFactory {
 	};
 	protected static Name orngGIII = new Name() {
 		private short subCode = -1;
-<<<<<<< HEAD
 		private Sequence sequence = new Sequence(YELO_GI_II, RED__GI_II);
-=======
->>>>>>> eaa8ce730301743e3dc3ac06024767ebe30a8409
 
 		public String read() {
 			return "Orange Giant II";
@@ -1454,10 +1442,7 @@ public enum StarFactory {
 	};
 	protected static Name redGIII = new Name() {
 		private short subCode = -1;
-<<<<<<< HEAD
 		private Sequence sequence = new Sequence(ORNG_GI_II, BLUE_GI_I);
-=======
->>>>>>> eaa8ce730301743e3dc3ac06024767ebe30a8409
 
 		public String read() {
 			return "Red Giant II";
@@ -1477,10 +1462,7 @@ public enum StarFactory {
 	};
 	protected static Name blueGII = new Name() {
 		private short subCode = -1;
-<<<<<<< HEAD
 		private Sequence sequence = new Sequence(RED__GI_II, LTBL_GI_I);
-=======
->>>>>>> eaa8ce730301743e3dc3ac06024767ebe30a8409
 
 		public String read() {
 			return "Blue Giant I";
@@ -1500,10 +1482,7 @@ public enum StarFactory {
 	};
 	protected static Name ltblGII = new Name() {
 		private short subCode = -1;
-<<<<<<< HEAD
 		private Sequence sequence = new Sequence(BLUE_GI_II, WHIT_GI_I);
-=======
->>>>>>> eaa8ce730301743e3dc3ac06024767ebe30a8409
 
 		public String read() {
 			return "Light Blue  Giant I";
@@ -1523,10 +1502,7 @@ public enum StarFactory {
 	};
 	protected static Name whitGII = new Name() {
 		private short subCode = -1;
-<<<<<<< HEAD
 		private Sequence sequence = new Sequence(LTBL_GI_II, PYEL_GI_I);
-=======
->>>>>>> eaa8ce730301743e3dc3ac06024767ebe30a8409
 
 		public String read() {
 			return "White Giant I";
