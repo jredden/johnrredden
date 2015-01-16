@@ -1482,7 +1482,7 @@ public enum StarFactory {
 	};
 	protected static Name ltblGII = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(BLUE_GI_II, WHIT_GI_I);
+		private Sequence sequence = new Sequence(BLUE_GI_I, WHIT_GI_I);
 
 		public String read() {
 			return "Light Blue  Giant I";
@@ -1502,7 +1502,7 @@ public enum StarFactory {
 	};
 	protected static Name whitGII = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(LTBL_GI_II, PYEL_GI_I);
+		private Sequence sequence = new Sequence(LTBL_GI_I, PYEL_GI_I);
 
 		public String read() {
 			return "White Giant I";
@@ -1522,6 +1522,7 @@ public enum StarFactory {
 	};
 	protected static Name pyrlGII = new Name() {
 		private short subCode = -1;
+		private Sequence sequence = new Sequence(WHIT_GI_I, YELO_GI_I);
 
 		public String read() {
 			return "Pale Yellow Giant I";
@@ -1541,6 +1542,7 @@ public enum StarFactory {
 	};
 	protected static Name yeloGII = new Name() {
 		private short subCode = -1;
+		private Sequence sequence = new Sequence(PYEL_GI_I, ORNG_GI_I);
 
 		public String read() {
 			return "Yellow Giant I";
@@ -1560,6 +1562,7 @@ public enum StarFactory {
 	};
 	protected static Name orngGII = new Name() {
 		private short subCode = -1;
+		private Sequence sequence = new Sequence(YELO_GI_I, RED__GI_I);
 
 		public String read() {
 			return "Orange Giant I";
@@ -1579,6 +1582,7 @@ public enum StarFactory {
 	};
 	protected static Name redGII = new Name() {
 		private short subCode = -1;
+		private Sequence sequence = new Sequence(ORNG_GI_I, BLUE_SUBGI);
 
 		public String read() {
 			return "Red Giant I";
@@ -1598,6 +1602,7 @@ public enum StarFactory {
 	};
 	protected static Name blueSubGI = new Name() {
 		private short subCode = -1;
+		private Sequence sequence = new Sequence(RED__GI_I, LTBL_SUBGI);
 
 		public String read() {
 			return "Blue Sub Giant";
@@ -1617,6 +1622,7 @@ public enum StarFactory {
 	};
 	protected static Name ltblSubGI = new Name() {
 		private short subCode = -1;
+		private Sequence sequence = new Sequence(BLUE_SUBGI, WHIT_SUBGI);
 
 		public String read() {
 			return "Light Blue Sub Giant";
@@ -1636,6 +1642,7 @@ public enum StarFactory {
 	};
 	protected static Name whitSubGI = new Name() {
 		private short subCode = -1;
+		private Sequence sequence = new Sequence(LTBL_SUBGI, PYEL_SUBGI);
 
 		public String read() {
 			return "White Sub Giant";
@@ -1655,6 +1662,7 @@ public enum StarFactory {
 	};
 	protected static Name pyrlSubGI = new Name() {
 		private short subCode = -1;
+		private Sequence sequence = new Sequence(WHIT_SUBGI, YELO_SUBGI);
 
 		public String read() {
 			return "Pale Yellow SubGiant";
@@ -1674,6 +1682,7 @@ public enum StarFactory {
 	};
 	protected static Name yeloSubGI = new Name() {
 		private short subCode = -1;
+		private Sequence sequence = new Sequence(PYEL_SUBGI, ORNG_SUBGI);
 
 		public String read() {
 			return "Yellow Sub Giant";
@@ -1693,6 +1702,7 @@ public enum StarFactory {
 	};
 	protected static Name orngSubGI = new Name() {
 		private short subCode = -1;
+		private Sequence sequence = new Sequence(YELO_SUBGI, RED__SUBGI);
 
 		public String read() {
 			return "Orange Sub Giant";
@@ -1712,6 +1722,7 @@ public enum StarFactory {
 	};
 	protected static Name redSubGI = new Name() {
 		private short subCode = -1;
+		private Sequence sequence = new Sequence(ORNG_SUBGI, BLUE_MAINS);
 
 		public String read() {
 			return "Red Sub Giant";
@@ -1731,6 +1742,7 @@ public enum StarFactory {
 	};
 	protected static Name blueMainS = new Name() {
 		private short subCode = -1;
+		private Sequence sequence = new Sequence(RED__SUBGI, LTBL_MAINS);
 
 		public String read() {
 			return "Blue Main Sequence";
@@ -1750,6 +1762,7 @@ public enum StarFactory {
 	};
 	protected static Name ltblMainS = new Name() {
 		private short subCode = -1;
+		private Sequence sequence = new Sequence(BLUE_MAINS, WHIT_MAINS);
 
 		public String read() {
 			return "Light Blue Main Sequence";
@@ -1769,6 +1782,7 @@ public enum StarFactory {
 	};
 	protected static Name whitMainS = new Name() {
 		private short subCode = -1;
+		private Sequence sequence = new Sequence(LTBL_MAINS, PYEL_MAINS);
 
 		public String read() {
 			return "White Main Sequence";
@@ -1788,6 +1802,7 @@ public enum StarFactory {
 	};
 	protected static Name pyrlMainS = new Name() {
 		private short subCode = -1;
+		private Sequence sequence = new Sequence(LTBL_MAINS, YELO_MAINS);
 
 		public String read() {
 			return "Pale Yellow Main Sequence";
@@ -1807,6 +1822,7 @@ public enum StarFactory {
 	};
 	protected static Name yeloMainS = new Name() {
 		private short subCode = -1;
+		private Sequence sequence = new Sequence(PYEL_MAINS, ORNG_MAINS);
 
 		public String read() {
 			return "Yellow Main Sequence";
@@ -1826,6 +1842,7 @@ public enum StarFactory {
 	};
 	protected static Name orngMainS = new Name() {
 		private short subCode = -1;
+		private Sequence sequence = new Sequence(YELO_MAINS, RED__MAINS);
 
 		public String read() {
 			return "Orange Main Sequence";
@@ -1845,6 +1862,7 @@ public enum StarFactory {
 	};
 	protected static Name redMainS = new Name() {
 		private short subCode = -1;
+		private Sequence sequence = new Sequence(ORNG_MAINS, BLUE_SUBDW);
 
 		public String read() {
 			return "Red Main Sequence";
@@ -1864,6 +1882,7 @@ public enum StarFactory {
 	};
 	protected static Name blueSubDW = new Name() {
 		private short subCode = -1;
+		private Sequence sequence = new Sequence(RED__MAINS, LTBL_SUBDW);
 
 		public String read() {
 			return "Blue Sub Dwarf";
@@ -1883,6 +1902,7 @@ public enum StarFactory {
 	};
 	protected static Name ltblSubDW = new Name() {
 		private short subCode = -1;
+		private Sequence sequence = new Sequence(BLUE_SUBDW, WHIT_SUBDW);
 
 		public String read() {
 			return "Light Blue Sub Dwarf";
@@ -1902,6 +1922,7 @@ public enum StarFactory {
 	};
 	protected static Name whitSubDW = new Name() {
 		private short subCode = -1;
+		private Sequence sequence = new Sequence(LTBL_SUBDW, PYEL_SUBDW);
 
 		public String read() {
 			return "White Sub Dwarf";
@@ -1921,6 +1942,7 @@ public enum StarFactory {
 	};
 	protected static Name pyrlSubDW = new Name() {
 		private short subCode = -1;
+		private Sequence sequence = new Sequence(WHIT_SUBDW, YELO_SUBDW);
 
 		public String read() {
 			return "Pale Yellow Sub Dwarf";
@@ -1940,6 +1962,7 @@ public enum StarFactory {
 	};
 	protected static Name yeloSubDW = new Name() {
 		private short subCode = -1;
+		private Sequence sequence = new Sequence(PYEL_SUBDW, ORNG_SUBDW);
 
 		public String read() {
 			return "Yellow Sub Dwarf";
@@ -1959,6 +1982,7 @@ public enum StarFactory {
 	};
 	protected static Name orngSubDW = new Name() {
 		private short subCode = -1;
+		private Sequence sequence = new Sequence(YELO_SUBDW, RED__SUBDW);
 
 		public String read() {
 			return "Orange Sub Dwarf";
@@ -1978,6 +2002,7 @@ public enum StarFactory {
 	};
 	protected static Name redSubDW = new Name() {
 		private short subCode = -1;
+		private Sequence sequence = new Sequence(ORNG_SUBDW, BLUE_DWARF);
 
 		public String read() {
 			return "Red Sub Dwarf";
@@ -1997,6 +2022,7 @@ public enum StarFactory {
 	};
 	protected static Name blueDwarf = new Name() {
 		private short subCode = -1;
+		private Sequence sequence = new Sequence(RED__SUBDW, LTBL_DWARF);
 
 		public String read() {
 			return "Blue Dwarf";
@@ -2016,6 +2042,7 @@ public enum StarFactory {
 	};
 	protected static Name ltblDwarf = new Name() {
 		private short subCode = -1;
+		private Sequence sequence = new Sequence(BLUE_DWARF, WHIT_DWARF);
 
 		public String read() {
 			return "Light Blue Dwarf";
@@ -2035,6 +2062,7 @@ public enum StarFactory {
 	};
 	protected static Name whitDwarf = new Name() {
 		private short subCode = -1;
+		private Sequence sequence = new Sequence(LTBL_DWARF, PYEL_DWARF);
 
 		public String read() {
 			return "White Dwarf";
@@ -2054,6 +2082,7 @@ public enum StarFactory {
 	};
 	protected static Name pyrlDwarf = new Name() {
 		private short subCode = -1;
+		private Sequence sequence = new Sequence(WHIT_DWARF, YELO_DWARF);
 
 		public String read() {
 			return "Pale Yellow Dwarf";
@@ -2073,6 +2102,7 @@ public enum StarFactory {
 	};
 	protected static Name yeloDwarf = new Name() {
 		private short subCode = -1;
+		private Sequence sequence = new Sequence(PYEL_DWARF, ORNG_DWARF);
 
 		public String read() {
 			return "Yellow Dwarf";
@@ -2092,6 +2122,7 @@ public enum StarFactory {
 	};
 	protected static Name orngDwarf = new Name() {
 		private short subCode = -1;
+		private Sequence sequence = new Sequence(YELO_DWARF, RED__DWARF);
 
 		public String read() {
 			return "Orange Dwarf";
@@ -2111,6 +2142,7 @@ public enum StarFactory {
 	};
 	protected static Name redDwarf = new Name() {
 		private short subCode = -1;
+		private Sequence sequence = new Sequence(ORNG_DWARF, PURPLE_RED);
 
 		public String read() {
 			return "Red Dwarf";
@@ -2130,6 +2162,7 @@ public enum StarFactory {
 	};
 	protected static Name purpleRed = new Name() {
 		private short subCode = -1;
+		private Sequence sequence = new Sequence(RED__DWARF, BROWN_SUBS);
 
 		public String read() {
 			return "Purple Red Dwarf";
@@ -2149,6 +2182,7 @@ public enum StarFactory {
 	};
 	protected static Name brownSubS = new Name() {
 		private short subCode = -1;
+		private Sequence sequence = new Sequence(PURPLE_RED, DRKBRN_SDW);
 
 		public String read() {
 			return "Brown Sub Star";
@@ -2168,6 +2202,7 @@ public enum StarFactory {
 	};
 	protected static Name drkBrnSDW = new Name() {
 		private short subCode = -1;
+		private Sequence sequence = new Sequence(BROWN_SUBS, null);
 
 		public String read() {
 			return "Dark Brown Sub Dwarf";
