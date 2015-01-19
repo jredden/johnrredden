@@ -115,6 +115,7 @@ public class GenRandomRolls {
    public int get_D8(){return getDraw(8.0) + 1;}
    public int get_D9(){return getDraw(9.0) + 1;}
    public int get_D10(){return getDraw(10.0) + 1;}
+   public int get_D10zero(){return getDraw(10.0);}
    public int get_D18(){return getDraw(18.0) + 1;}
 
 

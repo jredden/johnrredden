@@ -1,5 +1,8 @@
 package com.zenred.cosmos.domain;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.zenred.util.GenRandomRolls;
 
 /**
@@ -1043,19 +1046,19 @@ public enum StarFactory {
 	protected static Name blueSGII = new Name() {
 		private short subCode = -1;
 		private Sequence sequence = new Sequence(null, LTBL_SG_II);
-
+		
 		public String read() {
 			return "Blue Super Giant II";
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "sg2o" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sg2o.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1069,13 +1072,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "sg2b" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sg2b.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1089,13 +1092,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "sg2a" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sg2a.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1109,13 +1112,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "sg2f" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sg2f.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1129,13 +1132,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "sg2g" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sg2g.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1149,13 +1152,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "sg2k" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sg2k.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1169,13 +1172,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "sg2m" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sg2m.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1189,13 +1192,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "sg1o" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sg1o.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1209,13 +1212,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "sg1b" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sg1b.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1229,13 +1232,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "sg1a" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sg1a.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1249,13 +1252,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "sg1f" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sg1f.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1269,13 +1272,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "sg1g" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sg1g.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1289,13 +1292,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "sg1k" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sg1k.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1309,13 +1312,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "sg1m" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sg1m.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1329,13 +1332,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "sg2o" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.g2o.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1349,13 +1352,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "sg2b" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.g2b.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1369,13 +1372,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "sg2a" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.g2a.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1389,13 +1392,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "sg2f" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.g2f.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1409,13 +1412,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "sg2g" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.g2g.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1429,13 +1432,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "sg2k" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.g2k.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1449,13 +1452,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "sg2m" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.g2m.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1469,13 +1472,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "g1o" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.g1o.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1489,13 +1492,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "g1b" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.g1b.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1509,13 +1512,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "g1a" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.g1a.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1529,13 +1532,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "g1f" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.g1f.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1549,13 +1552,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "g1g" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.g1g.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1569,13 +1572,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "g1k" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.g1k.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1589,13 +1592,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "g1m" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.g1m.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1609,13 +1612,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "sbgo" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sbgo.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1629,13 +1632,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "sbgb" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sbgb.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1649,13 +1652,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "sbga" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sbga.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1669,13 +1672,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "sbgf" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sbgf.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1689,13 +1692,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "sbgg" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sbgg.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1709,13 +1712,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "sbgk" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sbgk.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1729,13 +1732,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "sbgm" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sbgm.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1749,13 +1752,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "o" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.o.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1769,13 +1772,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "b" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.b.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1789,13 +1792,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "a" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.a.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1809,13 +1812,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "f" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.f.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1829,13 +1832,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "g" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.g.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1849,13 +1852,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "k" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.k.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1869,13 +1872,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "m" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.m.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1889,13 +1892,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "sdo" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sdo.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1909,13 +1912,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "sdb" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sdb.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1929,13 +1932,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "sda" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sda.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1949,13 +1952,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "sdf" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sdf.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1969,13 +1972,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "sdg" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sdg.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -1989,13 +1992,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "sdk" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sdk.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -2009,13 +2012,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "sdm" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sdm.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -2029,13 +2032,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "do" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.dwo.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -2049,13 +2052,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "db" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.db.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -2069,13 +2072,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "da" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.da.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -2089,13 +2092,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "df" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.df.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -2109,13 +2112,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "dg" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.dg.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -2129,13 +2132,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "dk" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.dk.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -2149,13 +2152,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "dm" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.dm.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -2169,13 +2172,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "pmd" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.pmd.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -2189,13 +2192,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "bs" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.bs.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
@@ -2209,13 +2212,13 @@ public enum StarFactory {
 		}
 
 		public String code() {
-			subCode = (short) GenRandomRolls.Instance().get_D9();
-			return "dbs" + subCode;
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.dbs.name() + subCode;
 		}
 
 		public short subCode() {
 			if (subCode == -1) {
-				subCode = (short) GenRandomRolls.Instance().get_D9();
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
 		}
