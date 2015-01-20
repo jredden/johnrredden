@@ -154,6 +154,7 @@ public enum StarTypeFactory {
 		sg2bMap.put(new Short("7"), new Double(1.82e5));		
 		sg2bMap.put(new Short("8"), new Double(1.63e5));		
 		sg2bMap.put(new Short("9"), new Double(1.44e5));	
+<<<<<<< HEAD
 		starLum.put(StarTypeFactory.sg2b, sg2bMap);
 		Map<Short,Double> sg2aMap = new HashMap<Short, Double>();
 		sg2aMap.put(new Short("0"), new Double(1.07e5));
@@ -263,6 +264,17 @@ public enum StarTypeFactory {
 		sg1fMap.put(new Short("8"), new Double(5.5e3));		
 		sg1fMap.put(new Short("9"), new Double(5.8e3));	
 		starLum.put(StarTypeFactory.sg1f, sg1fMap);
+=======
+		Map<Short,Double> sg2aMap = new HashMap<Short, Double>();
+		Map<Short,Double> sg2fMap = new HashMap<Short, Double>();
+		Map<Short,Double> sg2gMap = new HashMap<Short, Double>();
+		Map<Short,Double> sg2kMap = new HashMap<Short, Double>();
+		Map<Short,Double> sg2mMap = new HashMap<Short, Double>();
+		Map<Short,Double> sg1oMap = new HashMap<Short, Double>();
+		Map<Short,Double> sg1bMap = new HashMap<Short, Double>();
+		Map<Short,Double> sg1aMap = new HashMap<Short, Double>();
+		Map<Short,Double> sg1fMap = new HashMap<Short, Double>();
+>>>>>>> 1513f8cdcf44bc3334f6cdad0925693037b1e111
 		Map<Short,Double> sg1gMap = new HashMap<Short, Double>();
 		Map<Short,Double> sg1kMap = new HashMap<Short, Double>();
 		Map<Short,Double> sg1mMap = new HashMap<Short, Double>();
