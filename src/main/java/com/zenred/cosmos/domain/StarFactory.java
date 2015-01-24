@@ -27,6 +27,8 @@ interface Name {
 	String code();
 
 	short subCode();
+	
+	Sequence sequence();
 }
 
 class Sequence{
@@ -1062,6 +1064,11 @@ public enum StarFactory {
 			}
 			return subCode;
 		}
+		
+		public Sequence sequence() {
+
+			return sequence;
+		}
 	};
 	protected static Name ltblSGII = new Name() {
 		private short subCode = -1;
@@ -1081,6 +1088,11 @@ public enum StarFactory {
 				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
+		}
+
+		public Sequence sequence() {
+ 
+			return sequence;
 		}
 	};
 	protected static Name whitSGII = new Name() {
@@ -1102,6 +1114,11 @@ public enum StarFactory {
 			}
 			return subCode;
 		}
+
+		public Sequence sequence() {
+ 
+			return sequence;
+		}
 	};
 	protected static Name pyrlSGII = new Name() {
 		private short subCode = -1;
@@ -1121,6 +1138,10 @@ public enum StarFactory {
 				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
 		}
 	};
 	protected static Name yeloSGII = new Name() {
@@ -1142,6 +1163,10 @@ public enum StarFactory {
 			}
 			return subCode;
 		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
 	};
 	protected static Name orngSGII = new Name() {
 		private short subCode = -1;
@@ -1161,6 +1186,10 @@ public enum StarFactory {
 				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
 		}
 	};
 	protected static Name redSGII = new Name() {
@@ -1182,6 +1211,11 @@ public enum StarFactory {
 			}
 			return subCode;
 		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
+		}
 	};
 	protected static Name blueSGI = new Name() {
 		private short subCode = -1;
@@ -1201,6 +1235,11 @@ public enum StarFactory {
 				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
+		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
 		}
 	};
 	protected static Name ltblSGI = new Name() {
@@ -1222,6 +1261,11 @@ public enum StarFactory {
 			}
 			return subCode;
 		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
+		}
 	};
 	protected static Name whitSGI = new Name() {
 		private short subCode = -1;
@@ -1241,6 +1285,11 @@ public enum StarFactory {
 				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
+		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
 		}
 	};
 	protected static Name pyrlSGI = new Name() {
@@ -1262,6 +1311,11 @@ public enum StarFactory {
 			}
 			return subCode;
 		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
+		}
 	};
 	protected static Name yeloSGI = new Name() {
 		private short subCode = -1;
@@ -1281,6 +1335,11 @@ public enum StarFactory {
 				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
+		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
 		}
 	};
 	protected static Name orngSGI = new Name() {
@@ -1302,6 +1361,11 @@ public enum StarFactory {
 			}
 			return subCode;
 		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
+		}
 	};
 	protected static Name redSGI = new Name() {
 		private short subCode = -1;
@@ -1321,6 +1385,11 @@ public enum StarFactory {
 				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
+		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
 		}
 	};
 	protected static Name blueGIII = new Name() {
@@ -1342,6 +1411,11 @@ public enum StarFactory {
 			}
 			return subCode;
 		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
+		}
 	};
 	protected static Name ltblGIII = new Name() {
 		private short subCode = -1;
@@ -1361,6 +1435,11 @@ public enum StarFactory {
 				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
+		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
 		}
 	};
 	protected static Name whitGIII = new Name() {
@@ -1382,6 +1461,11 @@ public enum StarFactory {
 			}
 			return subCode;
 		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
+		}
 	};
 	protected static Name pyrlGIII = new Name() {
 		private short subCode = -1;
@@ -1401,6 +1485,11 @@ public enum StarFactory {
 				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
+		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
 		}
 	};
 	protected static Name yeloGIII = new Name() {
@@ -1422,6 +1511,11 @@ public enum StarFactory {
 			}
 			return subCode;
 		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
+		}
 	};
 	protected static Name orngGIII = new Name() {
 		private short subCode = -1;
@@ -1441,6 +1535,11 @@ public enum StarFactory {
 				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
+		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
 		}
 	};
 	protected static Name redGIII = new Name() {
@@ -1462,6 +1561,11 @@ public enum StarFactory {
 			}
 			return subCode;
 		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
+		}
 	};
 	protected static Name blueGII = new Name() {
 		private short subCode = -1;
@@ -1481,6 +1585,11 @@ public enum StarFactory {
 				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
+		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
 		}
 	};
 	protected static Name ltblGII = new Name() {
@@ -1502,6 +1611,11 @@ public enum StarFactory {
 			}
 			return subCode;
 		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
+		}
 	};
 	protected static Name whitGII = new Name() {
 		private short subCode = -1;
@@ -1521,6 +1635,11 @@ public enum StarFactory {
 				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
+		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
 		}
 	};
 	protected static Name pyrlGII = new Name() {
@@ -1542,6 +1661,11 @@ public enum StarFactory {
 			}
 			return subCode;
 		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
+		}
 	};
 	protected static Name yeloGII = new Name() {
 		private short subCode = -1;
@@ -1561,6 +1685,11 @@ public enum StarFactory {
 				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
+		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
 		}
 	};
 	protected static Name orngGII = new Name() {
@@ -1582,6 +1711,11 @@ public enum StarFactory {
 			}
 			return subCode;
 		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
+		}
 	};
 	protected static Name redGII = new Name() {
 		private short subCode = -1;
@@ -1601,6 +1735,11 @@ public enum StarFactory {
 				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
+		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
 		}
 	};
 	protected static Name blueSubGI = new Name() {
@@ -1622,6 +1761,11 @@ public enum StarFactory {
 			}
 			return subCode;
 		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
+		}
 	};
 	protected static Name ltblSubGI = new Name() {
 		private short subCode = -1;
@@ -1641,6 +1785,11 @@ public enum StarFactory {
 				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
+		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
 		}
 	};
 	protected static Name whitSubGI = new Name() {
@@ -1662,6 +1811,11 @@ public enum StarFactory {
 			}
 			return subCode;
 		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
+		}
 	};
 	protected static Name pyrlSubGI = new Name() {
 		private short subCode = -1;
@@ -1681,6 +1835,11 @@ public enum StarFactory {
 				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
+		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
 		}
 	};
 	protected static Name yeloSubGI = new Name() {
@@ -1702,6 +1861,11 @@ public enum StarFactory {
 			}
 			return subCode;
 		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
+		}
 	};
 	protected static Name orngSubGI = new Name() {
 		private short subCode = -1;
@@ -1721,6 +1885,11 @@ public enum StarFactory {
 				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
+		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
 		}
 	};
 	protected static Name redSubGI = new Name() {
@@ -1742,6 +1911,11 @@ public enum StarFactory {
 			}
 			return subCode;
 		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
+		}
 	};
 	protected static Name blueMainS = new Name() {
 		private short subCode = -1;
@@ -1761,6 +1935,11 @@ public enum StarFactory {
 				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
+		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
 		}
 	};
 	protected static Name ltblMainS = new Name() {
@@ -1782,6 +1961,11 @@ public enum StarFactory {
 			}
 			return subCode;
 		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
+		}
 	};
 	protected static Name whitMainS = new Name() {
 		private short subCode = -1;
@@ -1801,6 +1985,11 @@ public enum StarFactory {
 				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
+		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
 		}
 	};
 	protected static Name pyrlMainS = new Name() {
@@ -1822,6 +2011,11 @@ public enum StarFactory {
 			}
 			return subCode;
 		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
+		}
 	};
 	protected static Name yeloMainS = new Name() {
 		private short subCode = -1;
@@ -1841,6 +2035,11 @@ public enum StarFactory {
 				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
+		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
 		}
 	};
 	protected static Name orngMainS = new Name() {
@@ -1862,6 +2061,11 @@ public enum StarFactory {
 			}
 			return subCode;
 		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
+		}
 	};
 	protected static Name redMainS = new Name() {
 		private short subCode = -1;
@@ -1881,6 +2085,11 @@ public enum StarFactory {
 				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
+		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
 		}
 	};
 	protected static Name blueSubDW = new Name() {
@@ -1902,6 +2111,11 @@ public enum StarFactory {
 			}
 			return subCode;
 		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
+		}
 	};
 	protected static Name ltblSubDW = new Name() {
 		private short subCode = -1;
@@ -1921,6 +2135,11 @@ public enum StarFactory {
 				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
+		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
 		}
 	};
 	protected static Name whitSubDW = new Name() {
@@ -1942,6 +2161,11 @@ public enum StarFactory {
 			}
 			return subCode;
 		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
+		}
 	};
 	protected static Name pyrlSubDW = new Name() {
 		private short subCode = -1;
@@ -1961,6 +2185,11 @@ public enum StarFactory {
 				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
+		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
 		}
 	};
 	protected static Name yeloSubDW = new Name() {
@@ -1982,6 +2211,11 @@ public enum StarFactory {
 			}
 			return subCode;
 		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
+		}
 	};
 	protected static Name orngSubDW = new Name() {
 		private short subCode = -1;
@@ -2001,6 +2235,11 @@ public enum StarFactory {
 				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
+		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
 		}
 	};
 	protected static Name redSubDW = new Name() {
@@ -2022,6 +2261,11 @@ public enum StarFactory {
 			}
 			return subCode;
 		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
+		}
 	};
 	protected static Name blueDwarf = new Name() {
 		private short subCode = -1;
@@ -2041,6 +2285,11 @@ public enum StarFactory {
 				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
+		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
 		}
 	};
 	protected static Name ltblDwarf = new Name() {
@@ -2062,6 +2311,11 @@ public enum StarFactory {
 			}
 			return subCode;
 		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
+		}
 	};
 	protected static Name whitDwarf = new Name() {
 		private short subCode = -1;
@@ -2081,6 +2335,11 @@ public enum StarFactory {
 				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
+		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
 		}
 	};
 	protected static Name pyrlDwarf = new Name() {
@@ -2102,6 +2361,11 @@ public enum StarFactory {
 			}
 			return subCode;
 		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
+		}
 	};
 	protected static Name yeloDwarf = new Name() {
 		private short subCode = -1;
@@ -2121,6 +2385,11 @@ public enum StarFactory {
 				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
+		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
 		}
 	};
 	protected static Name orngDwarf = new Name() {
@@ -2142,6 +2411,11 @@ public enum StarFactory {
 			}
 			return subCode;
 		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
+		}
 	};
 	protected static Name redDwarf = new Name() {
 		private short subCode = -1;
@@ -2161,6 +2435,11 @@ public enum StarFactory {
 				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
+		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
 		}
 	};
 	protected static Name purpleRed = new Name() {
@@ -2182,6 +2461,11 @@ public enum StarFactory {
 			}
 			return subCode;
 		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
+		}
 	};
 	protected static Name brownSubS = new Name() {
 		private short subCode = -1;
@@ -2202,6 +2486,11 @@ public enum StarFactory {
 			}
 			return subCode;
 		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
+		}
 	};
 	protected static Name drkBrnSDW = new Name() {
 		private short subCode = -1;
@@ -2221,6 +2510,11 @@ public enum StarFactory {
 				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
 			return subCode;
+		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
 		}
 	};
 	private String type;

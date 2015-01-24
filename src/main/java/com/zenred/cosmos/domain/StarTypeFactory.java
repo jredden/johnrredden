@@ -3,6 +3,8 @@ package com.zenred.cosmos.domain;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.zenred.util.GenRandomRolls;
+
 public enum StarTypeFactory {
 	sg2o("sg2o"){
 		
@@ -841,4 +843,39 @@ public enum StarTypeFactory {
 		starLum.put(StarTypeFactory.dbs, dbsMap);
 	}
 
+	public static Double genLuminsoity(short starCode,
+			StarTypeFactory starTypeFactory, StarFactory starFactory,
+			Sequence sequence) {
+		Double lumen = 0.0;
+		// edge conditions
+		if (starCode == 0 && sequence.sfup == null) {
+			lumen = starTypeFactory.starLum.get(starTypeFactory).get(starCode)
+					.doubleValue()
+					+ StarTypeFactory.valueOf(sequence.sfdown.name()).starLum
+							.get(starTypeFactory).get(sequence.sfdown.name())
+					* GenRandomRolls.Instance().getD49();
+		}else if(starCode == 9 && sequence.sfdown == null){
+			lumen = starTypeFactory.starLum.get(starTypeFactory).get(starCode)
+					.doubleValue()
+					+ StarTypeFactory.valueOf(sequence.sfup.name()).starLum
+							.get(starTypeFactory).get(sequence.sfup.name())
+					* GenRandomRolls.Instance().getD49();			
+		}
+		int flipACoin = GenRandomRolls.Instance().get_D2();
+		if(flipACoin == 1){
+			lumen = starTypeFactory.starLum.get(starTypeFactory).get(starCode)
+					.doubleValue()
+					+ StarTypeFactory.valueOf(sequence.sfdown.name()).starLum
+							.get(starTypeFactory).get(sequence.sfdown.name())
+					* GenRandomRolls.Instance().getD49();			
+		}else{
+			lumen = starTypeFactory.starLum.get(starTypeFactory).get(starCode)
+					.doubleValue()
+					+ StarTypeFactory.valueOf(sequence.sfup.name()).starLum
+							.get(starTypeFactory).get(sequence.sfup.name())
+					* GenRandomRolls.Instance().getD49();						
+		}
+		return lumen;
+	}	
+	
 }
