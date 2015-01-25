@@ -99,6 +99,14 @@ public class GenRandomRolls {
 	public double getD360() {
 		return getDraw(360.0);
 	}
+	
+	/**
+	 * 
+	 * @return draw less than 50%
+	 */
+	public double getD49(){
+		return getDraw(49.00);
+	}
 
    /**
     * @return - integer between 0 an 3
