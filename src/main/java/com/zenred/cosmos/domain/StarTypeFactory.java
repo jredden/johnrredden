@@ -842,6 +842,7 @@ public enum StarTypeFactory {
 		dbsMap.put(new Short("9"), new Double(0.05e-5));
 		starLum.put(StarTypeFactory.dbs, dbsMap);
 	}
+
 /**
  * 
  * @param starCode
@@ -850,6 +851,7 @@ public enum StarTypeFactory {
  * @param sequence
  * @return luminosity
  */
+
 	public static Double genLuminsoity(short starCode,
 			StarTypeFactory starTypeFactory, StarFactory starFactory,
 			Sequence sequence) {
@@ -865,6 +867,7 @@ public enum StarTypeFactory {
 			lumen = starTypeFactory.starLum.get(starTypeFactory).get(starCode)
 					.doubleValue()
 					- StarTypeFactory.valueOf(sequence.sfup.name()).starLum
+
 							.get(starTypeFactory).get(sequence.sfup.name())
 					* GenRandomRolls.Instance().getD49();			
 		}
@@ -878,6 +881,7 @@ public enum StarTypeFactory {
 		}else{
 			lumen = starTypeFactory.starLum.get(starTypeFactory).get(starCode)
 					.doubleValue()
+
 					- StarTypeFactory.valueOf(sequence.sfup.name()).starLum
 							.get(starTypeFactory).get(sequence.sfup.name())
 					* GenRandomRolls.Instance().getD49();						
