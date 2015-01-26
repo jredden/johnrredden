@@ -32,13 +32,14 @@ interface Name {
 }
 
 class Sequence{
-	StarFactory sfup;
-	public Sequence(StarFactory sfup, StarFactory sfdown) {
+	StarTypeFactory sfup;
+	StarTypeFactory sfdown;
+
+	public Sequence(StarTypeFactory sfup, StarTypeFactory sfdown) {
 		super();
 		this.sfup = sfup;
 		this.sfdown = sfdown;
 	}
-	StarFactory sfdown;
 }
 
 public enum StarFactory {
@@ -1047,7 +1048,7 @@ public enum StarFactory {
 
 	protected static Name blueSGII = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(null, LTBL_SG_II);
+		private Sequence sequence = new Sequence(null, StarTypeFactory.sg2b);
 		
 		public String read() {
 			return "Blue Super Giant II";
@@ -1072,7 +1073,7 @@ public enum StarFactory {
 	};
 	protected static Name ltblSGII = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(BLUE_SG_II, WHIT_SG_II);
+		private Sequence sequence = new Sequence(StarTypeFactory.sg2o, StarTypeFactory.sg2a);
 
 		public String read() {
 			return "Light Blue Super Giant II";
@@ -1097,7 +1098,7 @@ public enum StarFactory {
 	};
 	protected static Name whitSGII = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(LTBL_SG_II, PYEL_SG_II);
+		private Sequence sequence = new Sequence(StarTypeFactory.sg2b, StarTypeFactory.sg2f);
 
 		public String read() {
 			return "White Super Giant II";
@@ -1122,7 +1123,7 @@ public enum StarFactory {
 	};
 	protected static Name pyrlSGII = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(WHIT_SG_II, YELO_SG_II);
+		private Sequence sequence = new Sequence(StarTypeFactory.sg2a, StarTypeFactory.sg2g);
 
 		public String read() {
 			return "Pale Yellow Super Giant II";
@@ -1146,7 +1147,7 @@ public enum StarFactory {
 	};
 	protected static Name yeloSGII = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(PYEL_SG_II, ORNG_SG_II);
+		private Sequence sequence = new Sequence(StarTypeFactory.sg2f, StarTypeFactory.sg2k);
 
 		public String read() {
 			return "Yellow Super Giant II";
@@ -1170,7 +1171,7 @@ public enum StarFactory {
 	};
 	protected static Name orngSGII = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(YELO_SG_II, RED__SG_II);
+		private Sequence sequence = new Sequence(StarTypeFactory.sg2g, StarTypeFactory.sg2m);
 
 		public String read() {
 			return "Orange Super Giant II";
@@ -1194,7 +1195,7 @@ public enum StarFactory {
 	};
 	protected static Name redSGII = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(ORNG_SG_II, BLUE_SG_I);
+		private Sequence sequence = new Sequence(StarTypeFactory.sg2k, StarTypeFactory.sg1o);
 
 		public String read() {
 			return "Red Super Giant II";
@@ -1213,13 +1214,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name blueSGI = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(RED__SG_II, LTBL_SG_I);
+		private Sequence sequence = new Sequence(StarTypeFactory.sg2m, StarTypeFactory.sg1b);
 
 		public String read() {
 			return "Blue Super Giant I";
@@ -1238,13 +1238,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name ltblSGI = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(BLUE_SG_I, WHIT_SG_I);
+		private Sequence sequence = new Sequence(StarTypeFactory.sg1o, StarTypeFactory.sg1a);
 
 		public String read() {
 			return "Light Blue Super Giant I";
@@ -1263,13 +1262,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name whitSGI = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(LTBL_SG_I, PYEL_SG_I);
+		private Sequence sequence = new Sequence(StarTypeFactory.sg1b, StarTypeFactory.sg1f);
 
 		public String read() {
 			return "White Super Giant I";
@@ -1288,13 +1286,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name pyrlSGI = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(WHIT_SG_I, YELO_SG_I);
+		private Sequence sequence = new Sequence(StarTypeFactory.sg1a, StarTypeFactory.sg1g);
 
 		public String read() {
 			return "Pale Yellow Super Giant I";
@@ -1313,13 +1310,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name yeloSGI = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(PYEL_SG_I, ORNG_SG_I);
+		private Sequence sequence = new Sequence(StarTypeFactory.sg1f, StarTypeFactory.sg1k);
 
 		public String read() {
 			return "Yellow Super Giant I";
@@ -1338,13 +1334,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name orngSGI = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(YELO_SG_I, RED__SG_I);
+		private Sequence sequence = new Sequence(StarTypeFactory.sg1g, StarTypeFactory.sg1m);
 
 		public String read() {
 			return "Orange Super Giant I";
@@ -1363,13 +1358,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name redSGI = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(ORNG_SG_I, BLUE_GI_II);
+		private Sequence sequence = new Sequence(StarTypeFactory.sg1k, StarTypeFactory.g2o);
 
 		public String read() {
 			return "Red Super Giant I";
@@ -1388,13 +1382,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name blueGIII = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(ORNG_SG_I, LTBL_GI_II);
+		private Sequence sequence = new Sequence(StarTypeFactory.sg1m, StarTypeFactory.g2b);
 
 		public String read() {
 			return "Blue Giant II";
@@ -1413,13 +1406,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name ltblGIII = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(BLUE_GI_II, WHIT_GI_II);
+		private Sequence sequence = new Sequence(StarTypeFactory.g2o, StarTypeFactory.g2a);
 
 		public String read() {
 			return "Light Blue  Giant II";
@@ -1438,13 +1430,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name whitGIII = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(LTBL_GI_II, PYEL_GI_II);
+		private Sequence sequence = new Sequence(StarTypeFactory.g2b, StarTypeFactory.g2f);
 
 		public String read() {
 			return "White Giant II";
@@ -1463,13 +1454,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name pyrlGIII = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(WHIT_GI_II, YELO_GI_II);
+		private Sequence sequence = new Sequence(StarTypeFactory.g2a, StarTypeFactory.g2g);
 
 		public String read() {
 			return "Pale Yellow Giant II";
@@ -1488,13 +1478,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name yeloGIII = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(PYEL_GI_II, ORNG_GI_II);
+		private Sequence sequence = new Sequence(StarTypeFactory.g2f, StarTypeFactory.g2k);
 
 		public String read() {
 			return "Yellow Giant II";
@@ -1513,13 +1502,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name orngGIII = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(YELO_GI_II, RED__GI_II);
+		private Sequence sequence = new Sequence(StarTypeFactory.g2g, StarTypeFactory.g2m);
 
 		public String read() {
 			return "Orange Giant II";
@@ -1538,13 +1526,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name redGIII = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(ORNG_GI_II, BLUE_GI_I);
+		private Sequence sequence = new Sequence(StarTypeFactory.g2k, StarTypeFactory.g1o);
 
 		public String read() {
 			return "Red Giant II";
@@ -1563,13 +1550,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name blueGII = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(RED__GI_II, LTBL_GI_I);
+		private Sequence sequence = new Sequence(StarTypeFactory.g2m, StarTypeFactory.g1b);
 
 		public String read() {
 			return "Blue Giant I";
@@ -1588,13 +1574,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name ltblGII = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(BLUE_GI_I, WHIT_GI_I);
+		private Sequence sequence = new Sequence(StarTypeFactory.g1o, StarTypeFactory.g1a);
 
 		public String read() {
 			return "Light Blue  Giant I";
@@ -1613,13 +1598,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name whitGII = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(LTBL_GI_I, PYEL_GI_I);
+		private Sequence sequence = new Sequence(StarTypeFactory.g1b, StarTypeFactory.g1f);
 
 		public String read() {
 			return "White Giant I";
@@ -1638,13 +1622,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name pyrlGII = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(WHIT_GI_I, YELO_GI_I);
+		private Sequence sequence = new Sequence(StarTypeFactory.g1a, StarTypeFactory.g1g);
 
 		public String read() {
 			return "Pale Yellow Giant I";
@@ -1663,13 +1646,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name yeloGII = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(PYEL_GI_I, ORNG_GI_I);
+		private Sequence sequence = new Sequence(StarTypeFactory.g1f, StarTypeFactory.g1k);
 
 		public String read() {
 			return "Yellow Giant I";
@@ -1688,13 +1670,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name orngGII = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(YELO_GI_I, RED__GI_I);
+		private Sequence sequence = new Sequence(StarTypeFactory.g1g, StarTypeFactory.g1m);
 
 		public String read() {
 			return "Orange Giant I";
@@ -1713,13 +1694,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name redGII = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(ORNG_GI_I, BLUE_SUBGI);
+		private Sequence sequence = new Sequence(StarTypeFactory.g1k, StarTypeFactory.sbgo);
 
 		public String read() {
 			return "Red Giant I";
@@ -1738,13 +1718,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name blueSubGI = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(RED__GI_I, LTBL_SUBGI);
+		private Sequence sequence = new Sequence(StarTypeFactory.g1m, StarTypeFactory.sbgb);
 
 		public String read() {
 			return "Blue Sub Giant";
@@ -1763,13 +1742,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name ltblSubGI = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(BLUE_SUBGI, WHIT_SUBGI);
+		private Sequence sequence = new Sequence(StarTypeFactory.sbgo, StarTypeFactory.sbga);
 
 		public String read() {
 			return "Light Blue Sub Giant";
@@ -1788,13 +1766,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name whitSubGI = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(LTBL_SUBGI, PYEL_SUBGI);
+		private Sequence sequence = new Sequence(StarTypeFactory.sbgb, StarTypeFactory.sbgf);
 
 		public String read() {
 			return "White Sub Giant";
@@ -1813,13 +1790,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name pyrlSubGI = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(WHIT_SUBGI, YELO_SUBGI);
+		private Sequence sequence = new Sequence(StarTypeFactory.sbga, StarTypeFactory.sbgg);
 
 		public String read() {
 			return "Pale Yellow SubGiant";
@@ -1838,13 +1814,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name yeloSubGI = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(PYEL_SUBGI, ORNG_SUBGI);
+		private Sequence sequence = new Sequence(StarTypeFactory.sbgf, StarTypeFactory.sbgk);
 
 		public String read() {
 			return "Yellow Sub Giant";
@@ -1863,13 +1838,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name orngSubGI = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(YELO_SUBGI, RED__SUBGI);
+		private Sequence sequence = new Sequence(StarTypeFactory.sbgg, StarTypeFactory.sbgm);
 
 		public String read() {
 			return "Orange Sub Giant";
@@ -1888,13 +1862,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name redSubGI = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(ORNG_SUBGI, BLUE_MAINS);
+		private Sequence sequence = new Sequence(StarTypeFactory.sbgk, StarTypeFactory.o);
 
 		public String read() {
 			return "Red Sub Giant";
@@ -1913,13 +1886,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name blueMainS = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(RED__SUBGI, LTBL_MAINS);
+		private Sequence sequence = new Sequence(StarTypeFactory.sbgm, StarTypeFactory.a);
 
 		public String read() {
 			return "Blue Main Sequence";
@@ -1938,13 +1910,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name ltblMainS = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(BLUE_MAINS, WHIT_MAINS);
+		private Sequence sequence = new Sequence(StarTypeFactory.o, StarTypeFactory.a);
 
 		public String read() {
 			return "Light Blue Main Sequence";
@@ -1963,13 +1934,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name whitMainS = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(LTBL_MAINS, PYEL_MAINS);
+		private Sequence sequence = new Sequence(StarTypeFactory.b, StarTypeFactory.f);
 
 		public String read() {
 			return "White Main Sequence";
@@ -1988,13 +1958,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name pyrlMainS = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(LTBL_MAINS, YELO_MAINS);
+		private Sequence sequence = new Sequence(StarTypeFactory.a, StarTypeFactory.g);
 
 		public String read() {
 			return "Pale Yellow Main Sequence";
@@ -2013,13 +1982,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name yeloMainS = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(PYEL_MAINS, ORNG_MAINS);
+		private Sequence sequence = new Sequence(StarTypeFactory.f, StarTypeFactory.k);
 
 		public String read() {
 			return "Yellow Main Sequence";
@@ -2038,13 +2006,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name orngMainS = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(YELO_MAINS, RED__MAINS);
+		private Sequence sequence = new Sequence(StarTypeFactory.g, StarTypeFactory.m);
 
 		public String read() {
 			return "Orange Main Sequence";
@@ -2063,13 +2030,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name redMainS = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(ORNG_MAINS, BLUE_SUBDW);
+		private Sequence sequence = new Sequence(StarTypeFactory.k, StarTypeFactory.sdo);
 
 		public String read() {
 			return "Red Main Sequence";
@@ -2088,13 +2054,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name blueSubDW = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(RED__MAINS, LTBL_SUBDW);
+		private Sequence sequence = new Sequence(StarTypeFactory.m, StarTypeFactory.sdb);
 
 		public String read() {
 			return "Blue Sub Dwarf";
@@ -2113,13 +2078,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name ltblSubDW = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(BLUE_SUBDW, WHIT_SUBDW);
+		private Sequence sequence = new Sequence(StarTypeFactory.sdo, StarTypeFactory.sda);
 
 		public String read() {
 			return "Light Blue Sub Dwarf";
@@ -2138,13 +2102,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name whitSubDW = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(LTBL_SUBDW, PYEL_SUBDW);
+		private Sequence sequence = new Sequence(StarTypeFactory.sdb, StarTypeFactory.sdf);
 
 		public String read() {
 			return "White Sub Dwarf";
@@ -2163,13 +2126,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name pyrlSubDW = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(WHIT_SUBDW, YELO_SUBDW);
+		private Sequence sequence = new Sequence(StarTypeFactory.sda, StarTypeFactory.sdg);
 
 		public String read() {
 			return "Pale Yellow Sub Dwarf";
@@ -2188,13 +2150,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name yeloSubDW = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(PYEL_SUBDW, ORNG_SUBDW);
+		private Sequence sequence = new Sequence(StarTypeFactory.sdf, StarTypeFactory.sdk);
 
 		public String read() {
 			return "Yellow Sub Dwarf";
@@ -2213,13 +2174,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name orngSubDW = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(YELO_SUBDW, RED__SUBDW);
+		private Sequence sequence = new Sequence(StarTypeFactory.sdg, StarTypeFactory.sdm);
 
 		public String read() {
 			return "Orange Sub Dwarf";
@@ -2238,13 +2198,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name redSubDW = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(ORNG_SUBDW, BLUE_DWARF);
+		private Sequence sequence = new Sequence(StarTypeFactory.sdk, StarTypeFactory.dwo);
 
 		public String read() {
 			return "Red Sub Dwarf";
@@ -2263,13 +2222,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name blueDwarf = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(RED__SUBDW, LTBL_DWARF);
+		private Sequence sequence = new Sequence(StarTypeFactory.sdm, StarTypeFactory.db);
 
 		public String read() {
 			return "Blue Dwarf";
@@ -2288,13 +2246,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name ltblDwarf = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(BLUE_DWARF, WHIT_DWARF);
+		private Sequence sequence = new Sequence(StarTypeFactory.dwo, StarTypeFactory.da);
 
 		public String read() {
 			return "Light Blue Dwarf";
@@ -2313,13 +2270,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name whitDwarf = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(LTBL_DWARF, PYEL_DWARF);
+		private Sequence sequence = new Sequence(StarTypeFactory.db, StarTypeFactory.df);
 
 		public String read() {
 			return "White Dwarf";
@@ -2338,13 +2294,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name pyrlDwarf = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(WHIT_DWARF, YELO_DWARF);
+		private Sequence sequence = new Sequence(StarTypeFactory.da, StarTypeFactory.dg);
 
 		public String read() {
 			return "Pale Yellow Dwarf";
@@ -2363,13 +2318,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name yeloDwarf = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(PYEL_DWARF, ORNG_DWARF);
+		private Sequence sequence = new Sequence(StarTypeFactory.df, StarTypeFactory.dk);
 
 		public String read() {
 			return "Yellow Dwarf";
@@ -2388,13 +2342,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name orngDwarf = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(YELO_DWARF, RED__DWARF);
+		private Sequence sequence = new Sequence(StarTypeFactory.dg, StarTypeFactory.dm);
 
 		public String read() {
 			return "Orange Dwarf";
@@ -2413,13 +2366,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name redDwarf = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(ORNG_DWARF, PURPLE_RED);
+		private Sequence sequence = new Sequence(StarTypeFactory.dk, StarTypeFactory.pmd);
 
 		public String read() {
 			return "Red Dwarf";
@@ -2438,13 +2390,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name purpleRed = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(RED__DWARF, BROWN_SUBS);
+		private Sequence sequence = new Sequence(StarTypeFactory.dm, StarTypeFactory.bs);
 
 		public String read() {
 			return "Purple Red Dwarf";
@@ -2463,13 +2414,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name brownSubS = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(PURPLE_RED, DRKBRN_SDW);
+		private Sequence sequence = new Sequence(StarTypeFactory.pmd, StarTypeFactory.dbs);
 
 		public String read() {
 			return "Brown Sub Star";
@@ -2488,13 +2438,12 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};
 	protected static Name drkBrnSDW = new Name() {
 		private short subCode = -1;
-		private Sequence sequence = new Sequence(BROWN_SUBS, null);
+		private Sequence sequence = new Sequence(StarTypeFactory.bs, null);
 
 		public String read() {
 			return "Dark Brown Sub Dwarf";
