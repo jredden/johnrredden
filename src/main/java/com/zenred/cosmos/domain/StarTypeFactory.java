@@ -855,54 +855,79 @@ public enum StarTypeFactory {
 	public static Double genLuminsoity(short starCode,
 			StarTypeFactory starTypeFactory, StarFactory starFactory,
 			Sequence sequence) {
-		Double lumen = starTypeFactory.starLum.get(starTypeFactory).get(starCode)
-				.doubleValue();
+		Double lumen = starTypeFactory.starLum.get(starTypeFactory)
+				.get(starCode).doubleValue();
 
 		// edge conditions
 		if (starCode == 0 && sequence.sfup == null) {
-			Double mod = StarTypeFactory.starLum.get(starTypeFactory).get(starCode);
-			mod = delta(lumen, mod)	*  (GenRandomRolls.Instance().getD49()/100.0);	
+
+			Double mod = StarTypeFactory.starLum.get(starTypeFactory).get(
+					starCode);
+			mod = delta(lumen, mod)
+					* (GenRandomRolls.Instance().getD49() / 100.0);
 			lumen += mod;
-		}else if(starCode == 9 && sequence.sfdown == null){
-			Double mod = StarTypeFactory.starLum.get(starTypeFactory).get(starCode);
-			mod = delta(lumen, mod)	* (GenRandomRolls.Instance().getD49()/100.0);	
+		} else if (starCode == 9 && sequence.sfdown == null) {
+			Double mod = StarTypeFactory.starLum.get(starTypeFactory).get(
+					starCode);
+			mod = delta(lumen, mod)
+					* (GenRandomRolls.Instance().getD49() / 100.0);
+
+			lumen = starTypeFactory.starLum.get(starTypeFactory).get(starCode)
+					.doubleValue();
+			mod = StarTypeFactory.starLum.get(starTypeFactory).get(starCode);
+			mod = mod * GenRandomRolls.Instance().getD49();
+			lumen += mod;
+		} else if (starCode == 9 && sequence.sfdown == null) {
+			lumen = starTypeFactory.starLum.get(starTypeFactory).get(starCode)
+					.doubleValue();
+			Double mod = StarTypeFactory.starLum.get(starTypeFactory).get(
+					starCode);
+			mod = mod * GenRandomRolls.Instance().getD49();
+
 			lumen -= mod;
 		}
 		int flipACoin = GenRandomRolls.Instance().get_D2();
-		if(flipACoin == 1){
+		if (flipACoin == 1) {
+
+			lumen = starTypeFactory.starLum.get(starTypeFactory).get(starCode)
+					.doubleValue();
+
 			short starCode2 = nextPlusCode(starCode);
 			Double mod = null;
-			if(starCode2 == 0){
+			if (starCode2 == 0) {
 				mod = StarTypeFactory.starLum.get(sequence.sfup).get(starCode2);
 			}
-			else if(starCode2 == 9){
-				mod = StarTypeFactory.starLum.get(sequence.sfdown).get(starCode2);
+
+			else if (starCode2 == 9) {
+				mod = StarTypeFactory.starLum.get(sequence.sfdown).get(
+						starCode2);
+			} else {
+				mod = starTypeFactory.starLum.get(starTypeFactory)
+						.get(starCode2).doubleValue();
+
+				mod = delta(lumen, mod)
+						* (GenRandomRolls.Instance().getD49() / 100.0);
+				lumen += mod;
 			}
-			else{
-				mod = starTypeFactory.starLum.get(starTypeFactory).get(starCode2)
-						.doubleValue();
-			}
-			
-			mod = delta(lumen, mod)	* (GenRandomRolls.Instance().getD49()/100.0);	
-			lumen += mod;
-		}else{
-			short starCode2 = nextMinusCode(starCode);
+		} else {
+			short starCode2 = nextPlusCode(starCode);
 			Double mod = null;
-			if(starCode2 == 0){
-				mod = StarTypeFactory.starLum.get(sequence.sfdown).get(starCode2);
-			}
-			else if(starCode2 == 9){
+			if (starCode2 == 0) {
+				mod = StarTypeFactory.starLum.get(sequence.sfdown).get(
+						starCode2);
+			} else if (starCode2 == 9) {
 				mod = StarTypeFactory.starLum.get(sequence.sfup).get(starCode2);
+			} else {
+				mod = starTypeFactory.starLum.get(starTypeFactory)
+						.get(starCode2).doubleValue();
 			}
-			else{
-				mod = starTypeFactory.starLum.get(starTypeFactory).get(starCode2)
-						.doubleValue();
-			}
-			mod = delta(lumen, mod)	* (GenRandomRolls.Instance().getD49()/100.0);	
+			mod = delta(lumen, mod)
+					* (GenRandomRolls.Instance().getD49() / 100.0);
+			mod = mod * GenRandomRolls.Instance().getD49();
 			lumen -= mod;
 		}
 		return lumen;
-	}	
+	}
 	
 	private static short nextMinusCode(short starCode) {
 		short starCode2 = (short) (starCode - 1);
@@ -919,7 +944,6 @@ public enum StarTypeFactory {
 		}
 		return starCode2;
 	}
-	
 	private static Double delta(Double luman, Double mod){
 		Double answer = null;
 		if (mod < luman){
@@ -930,4 +954,5 @@ public enum StarTypeFactory {
 		}
 		return luman;
 	}
+
 }

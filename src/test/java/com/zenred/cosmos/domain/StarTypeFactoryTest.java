@@ -13,6 +13,7 @@ public class StarTypeFactoryTest {
 		Double lumen0 = StarTypeFactory.genLuminsoity((short) 0, StarTypeFactory.g, StarFactory.YELO_MAINS, StarFactory.yeloMainS.sequence());
 		logger.info("LUMEN0:"+lumen0);
 		Double lumen1 = StarTypeFactory.genLuminsoity((short) 5, StarTypeFactory.g, StarFactory.YELO_MAINS, StarFactory.yeloMainS.sequence());
+
 		logger.info("LUMEN5:"+lumen1);
 		Double lumen2 = StarTypeFactory.genLuminsoity((short) 9, StarTypeFactory.g, StarFactory.YELO_MAINS, StarFactory.yeloMainS.sequence());
 		logger.info("LUMEN9:"+lumen2);
