@@ -877,58 +877,49 @@ public enum StarTypeFactory {
 			mod = StarTypeFactory.starLum.get(starTypeFactory).get(starCode);
 			mod = mod * GenRandomRolls.Instance().getD49();
 			lumen += mod;
-		} else if (starCode == 9 && sequence.sfdown == null) {
-			lumen = starTypeFactory.starLum.get(starTypeFactory).get(starCode)
-					.doubleValue();
-			Double mod = StarTypeFactory.starLum.get(starTypeFactory).get(
-					starCode);
-			mod = mod * GenRandomRolls.Instance().getD49();
-
-			lumen -= mod;
-		}
-		int flipACoin = GenRandomRolls.Instance().get_D2();
-		if (flipACoin == 1) {
-
-			lumen = starTypeFactory.starLum.get(starTypeFactory).get(starCode)
-					.doubleValue();
-
-			short starCode2 = nextPlusCode(starCode);
-			Double mod = null;
-			if (starCode2 == 0) {
-				mod = StarTypeFactory.starLum.get(sequence.sfup).get(starCode2);
-			}
-
-			else if (starCode2 == 9) {
-				mod = StarTypeFactory.starLum.get(sequence.sfdown).get(
-						starCode2);
-			} else {
-				mod = starTypeFactory.starLum.get(starTypeFactory)
-						.get(starCode2).doubleValue();
-
-				mod = delta(lumen, mod)
-						* (GenRandomRolls.Instance().getD49() / 100.0);
-				lumen += mod;
-			}
 		} else {
-			short starCode2 = nextPlusCode(starCode);
-			Double mod = null;
-			if (starCode2 == 0) {
-				mod = StarTypeFactory.starLum.get(sequence.sfdown).get(
-						starCode2);
-			} else if (starCode2 == 9) {
-				mod = StarTypeFactory.starLum.get(sequence.sfup).get(starCode2);
-			} else {
-				mod = starTypeFactory.starLum.get(starTypeFactory)
-						.get(starCode2).doubleValue();
-			}
-			mod = delta(lumen, mod)
+			// random plus or minus lumenosity
+			int flipACoin = GenRandomRolls.Instance().get_D2();
+			if (flipACoin == 1) {
+				lumen = starTypeFactory.starLum.get(starTypeFactory)
+						.get(starCode).doubleValue();
+				short starCode2 = nextPlusCode(starCode);
+				Double mod = null;
+				if (starCode2 == 0) {
+					mod = StarTypeFactory.starLum.get(sequence.sfup).get(
+							starCode2);
+				} else if (starCode2 == 9) {
+					mod = StarTypeFactory.starLum.get(sequence.sfdown).get(
+							starCode2);
+				} else {
+					mod = starTypeFactory.starLum.get(starTypeFactory)
+							.get(starCode2).doubleValue();
+					mod = delta(lumen, mod)
+
 					* (GenRandomRolls.Instance().getD49() / 100.0);
-			mod = mod * GenRandomRolls.Instance().getD49();
-			lumen -= mod;
+				}
+				lumen += mod;
+			} else {
+				short starCode2 = nextPlusCode(starCode);
+				Double mod = null;
+				if (starCode2 == 0) {
+					mod = StarTypeFactory.starLum.get(sequence.sfdown).get(
+							starCode2);
+				} else if (starCode2 == 9) {
+					mod = StarTypeFactory.starLum.get(sequence.sfup).get(
+							starCode2);
+				} else {
+					mod = starTypeFactory.starLum.get(starTypeFactory)
+							.get(starCode2).doubleValue();
+					mod = delta(lumen, mod)
+							* (GenRandomRolls.Instance().getD49() / 100.0);
+				}
+				lumen -= mod;
+			}
 		}
 		return lumen;
 	}
-	
+
 	private static short nextMinusCode(short starCode) {
 		short starCode2 = (short) (starCode - 1);
 		if (starCode2 == -1) {
