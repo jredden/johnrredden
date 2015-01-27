@@ -117,7 +117,7 @@ public class GenRandomRolls {
     * numbers between 1 and n
     */
    public int get_D3(){return getDraw(3.0) + 1;}
-   public int get_D2(){return getDraw(1.0) + 1;}
+   public int get_D2(){return getDraw(2.0) + 1;}
    public int get_D4(){return getDraw(4.0) + 1;}
    public int get_D6(){return getDraw(6.0) + 1;}
    public int get_D8(){return getDraw(8.0) + 1;}
