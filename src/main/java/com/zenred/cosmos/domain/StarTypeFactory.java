@@ -2,6 +2,7 @@ package com.zenred.cosmos.domain;
 
 import java.util.HashMap;
 import java.util.Map;
+import org.apache.log4j.Logger;
 
 import com.zenred.util.GenRandomRolls;
 
@@ -131,6 +132,9 @@ public enum StarTypeFactory {
 	private StarTypeFactory (String type){
 		this.type = type;
 	}
+	
+	static private Logger logger = Logger.getLogger(StarTypeFactory.class);
+	
 	private static Map<StarTypeFactory,Map<Short, Double>> starLum = new HashMap<StarTypeFactory, Map<Short,Double>>();
 	static{
 		Map<Short,Double> sg2oMap = new HashMap<Short, Double>();
@@ -885,12 +889,20 @@ public enum StarTypeFactory {
 						.get(starCode).doubleValue();
 				short starCode2 = nextPlusCode(starCode);
 				Double mod = null;
-				if (starCode2 == 0) {
+				if (starCode == 0) {
 					mod = StarTypeFactory.starLum.get(sequence.sfup).get(
 							starCode2);
-				} else if (starCode2 == 9) {
+					mod = delta(lumen, mod)
+							* (GenRandomRolls.Instance().getD49() / 100.0);
+
+					logger.info("SFUP1:"+sequence.sfup);
+				} else if (starCode == 9) {
 					mod = StarTypeFactory.starLum.get(sequence.sfdown).get(
 							starCode2);
+					mod = delta(lumen, mod)
+							* (GenRandomRolls.Instance().getD49() / 100.0);
+
+					logger.info("SFDOWN1:"+sequence.sfdown);
 				} else {
 					mod = starTypeFactory.starLum.get(starTypeFactory)
 							.get(starCode2).doubleValue();
@@ -898,22 +910,32 @@ public enum StarTypeFactory {
 
 					* (GenRandomRolls.Instance().getD49() / 100.0);
 				}
+				logger.info("MOD1:"+mod);
 				lumen += mod;
 			} else {
-				short starCode2 = nextPlusCode(starCode);
+				short starCode2 = nextMinusCode(starCode);
 				Double mod = null;
-				if (starCode2 == 0) {
+				if (starCode == 0) {
 					mod = StarTypeFactory.starLum.get(sequence.sfdown).get(
 							starCode2);
-				} else if (starCode2 == 9) {
+					mod = delta(lumen, mod)
+							* (GenRandomRolls.Instance().getD49() / 100.0);
+
+					logger.info("SFDOWN2:"+sequence.sfdown);
+				} else if (starCode == 9) {
 					mod = StarTypeFactory.starLum.get(sequence.sfup).get(
 							starCode2);
+					mod = delta(lumen, mod)
+							* (GenRandomRolls.Instance().getD49() / 100.0);
+
+					logger.info("SFUP2:"+sequence.sfup);
 				} else {
 					mod = starTypeFactory.starLum.get(starTypeFactory)
 							.get(starCode2).doubleValue();
 					mod = delta(lumen, mod)
 							* (GenRandomRolls.Instance().getD49() / 100.0);
 				}
+				logger.info("MOD2:"+mod);
 				lumen -= mod;
 			}
 		}
@@ -925,6 +947,7 @@ public enum StarTypeFactory {
 		if (starCode2 == -1) {
 			starCode2 = 9;
 		}
+		logger.info("NEXT_MINUS_CODE:"+starCode2);
 		return starCode2;
 	}
 
@@ -933,6 +956,7 @@ public enum StarTypeFactory {
 		if (starCode2 == 10) {
 			starCode2 = 0;
 		}
+		logger.info("NEXT_PLUS_CODE:"+starCode2);
 		return starCode2;
 	}
 	private static Double delta(Double luman, Double mod){
@@ -943,7 +967,8 @@ public enum StarTypeFactory {
 		else{
 			answer = mod - luman;
 		}
-		return luman;
+		logger.info("DELTA.luman:"+answer);
+		return answer;
 	}
 
 }
