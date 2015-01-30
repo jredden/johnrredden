@@ -896,13 +896,6 @@ public enum StarTypeFactory {
 							* (GenRandomRolls.Instance().getD49() / 100.0);
 
 					logger.info("SFUP1:"+sequence.sfup);
-				} else if (starCode == 9) {
-					mod = StarTypeFactory.starLum.get(sequence.sfdown).get(
-							starCode2);
-					mod = delta(lumen, mod)
-							* (GenRandomRolls.Instance().getD49() / 100.0);
-
-					logger.info("SFDOWN1:"+sequence.sfdown);
 				} else {
 					mod = starTypeFactory.starLum.get(starTypeFactory)
 							.get(starCode2).doubleValue();
@@ -915,21 +908,14 @@ public enum StarTypeFactory {
 			} else {
 				short starCode2 = nextMinusCode(starCode);
 				Double mod = null;
-				if (starCode == 0) {
+				if (starCode == 9) {
 					mod = StarTypeFactory.starLum.get(sequence.sfdown).get(
 							starCode2);
 					mod = delta(lumen, mod)
 							* (GenRandomRolls.Instance().getD49() / 100.0);
 
 					logger.info("SFDOWN2:"+sequence.sfdown);
-				} else if (starCode == 9) {
-					mod = StarTypeFactory.starLum.get(sequence.sfup).get(
-							starCode2);
-					mod = delta(lumen, mod)
-							* (GenRandomRolls.Instance().getD49() / 100.0);
-
-					logger.info("SFUP2:"+sequence.sfup);
-				} else {
+				}  else {
 					mod = starTypeFactory.starLum.get(starTypeFactory)
 							.get(starCode2).doubleValue();
 					mod = delta(lumen, mod)
@@ -942,19 +928,19 @@ public enum StarTypeFactory {
 		return lumen;
 	}
 
-	private static short nextMinusCode(short starCode) {
+	private static short nextPlusCode(short starCode) {
 		short starCode2 = (short) (starCode - 1);
 		if (starCode2 == -1) {
-			starCode2 = 9;
+			starCode2 = 0;
 		}
 		logger.info("NEXT_MINUS_CODE:"+starCode2);
 		return starCode2;
 	}
 
-	private static short nextPlusCode(short starCode) {
+	private static short nextMinusCode(short starCode) {
 		short starCode2 = (short) (starCode + 1);
 		if (starCode2 == 10) {
-			starCode2 = 0;
+			starCode2 = 9;
 		}
 		logger.info("NEXT_PLUS_CODE:"+starCode2);
 		return starCode2;
