@@ -2,1143 +2,2479 @@ package com.zenred.cosmos.domain;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.apache.log4j.Logger;
 
 import com.zenred.util.GenRandomRolls;
 
-public enum StarTypeFactory {
-	sg2o("sg2o"){
-		
-	},
-	sg2b("sg2b"){
-		
-	},
-	sg2a("sg2a"){
-	},
-	sg2f("sg2f"){
-	},
-	sg2g("sg2g"){
-	},
-	sg2k("sg2k"){
-	},
-	sg2m("sg2m"){
-	},
-	sg1o("sg1o"){
-	},
-	sg1b("sg1b"){
-	},
-	sg1a("sg1a"){
-	},
-	sg1f("sg1f"){
-	},
-	sg1g("sg1g"){
-	},
-	sg1k("sg1k"){
-	},
-	sg1m("sg1m"){
-	},
-	g2o("g2o"){
-	},
-	g2b("g2b"){
-	},
-	g2a("g2a"){
-	},
-	g2f("g2f"){
-	},
-	g2g("g2g"){
-	},
-	g2k("g2k"){
-	},
-	g2m("g2m"){
-	},
-	g1o("g1o"){
-	},
-	g1b("g1b"){
-	},
-	g1a("g1a"){
-	},
-	g1f("g1f"){
-	},
-	g1g("g1g"){
-	},
-	g1k("g1k"){
-	},
-	g1m("g1m"){
-	},
-	sbgo("sbgo"){
-	},
-	sbgb("sbgb"){
-	},
-	sbga("sbga"){
-	},
-	sbgf("sbgf"){
-	},
-	sbgg("sbgg"){
-	},
-	sbgk("sbgk"){
-	},
-	sbgm("sbgm"){
-	},
-	o("o"){
-	},
-	b("b"){
-	},
-	a("a"){
-	},
-	f("f"){
-	},
-	g("g"){
-	},
-	k("k"){
-	},
-	m("m"){
-	},
-	sdo("sdo"){
-	},
-	sdb("sdb"){
-	},
-	sda("sda"){
-	},
-	sdf("sdf"){
-	},
-	sdg("sdg"){
-	},
-	sdk("sdk"){
-	},
-	sdm("sdm"){
-	},
-	dwo("do"){
-	},
-	db("db"){
-	},
-	da("da"){
-	},
-	df("df"){
-	},
-	dg("dg"){
-	},
-	dk("dk"){
-	},
-	dm("dm"){
-	},
-	pmd("pmd"){
-	},
-	bs("bs"){
-	},
-	dbs("dbs"){
-	}
-	;
-	private String type;
-	private StarTypeFactory (String type){
-		this.type = type;
-	}
-	
-	static private Logger logger = Logger.getLogger(StarTypeFactory.class);
-	
-	private static Map<StarTypeFactory,Map<Short, Double>> starLum = new HashMap<StarTypeFactory, Map<Short,Double>>();
-	static{
-		Map<Short,Double> sg2oMap = new HashMap<Short, Double>();
-		sg2oMap.put(new Short("0"), new Double(1.69e8));
-		sg2oMap.put(new Short("1"), new Double(1.21e8));
-		sg2oMap.put(new Short("2"), new Double(1.81e7));
-		sg2oMap.put(new Short("3"), new Double(1.89e6));
-		sg2oMap.put(new Short("4"), new Double(1.32e6));		
-		sg2oMap.put(new Short("5"), new Double(1.17e6));		
-		sg2oMap.put(new Short("6"), new Double(1.07e6));		
-		sg2oMap.put(new Short("7"), new Double(9.96e5));		
-		sg2oMap.put(new Short("8"), new Double(8.8e5));		
-		sg2oMap.put(new Short("9"), new Double(6.98e5));	
-		starLum.put(StarTypeFactory.sg2o, sg2oMap);
-		Map<Short,Double> sg2bMap = new HashMap<Short, Double>();
-		sg2bMap.put(new Short("0"), new Double(5.6e5));
-		sg2bMap.put(new Short("1"), new Double(4.78e5));
-		sg2bMap.put(new Short("2"), new Double(4.24e5));
-		sg2bMap.put(new Short("3"), new Double(3.78e5));
-		sg2bMap.put(new Short("4"), new Double(2.89e5));		
-		sg2bMap.put(new Short("5"), new Double(2.41e5));		
-		sg2bMap.put(new Short("6"), new Double(2.01e5));		
-		sg2bMap.put(new Short("7"), new Double(1.82e5));		
-		sg2bMap.put(new Short("8"), new Double(1.63e5));		
-		sg2bMap.put(new Short("9"), new Double(1.44e5));	
-		starLum.put(StarTypeFactory.sg2b, sg2bMap);
-		Map<Short,Double> sg2aMap = new HashMap<Short, Double>();
-		sg2aMap.put(new Short("0"), new Double(1.07e5));
-		sg2aMap.put(new Short("1"), new Double(9.56e4));
-		sg2aMap.put(new Short("2"), new Double(9.04e4));
-		sg2aMap.put(new Short("3"), new Double(8.75e4));
-		sg2aMap.put(new Short("4"), new Double(8.56e4));		
-		sg2aMap.put(new Short("5"), new Double(8.11e4));		
-		sg2aMap.put(new Short("6"), new Double(7.64e4));		
-		sg2aMap.put(new Short("7"), new Double(7.32e4));		
-		sg2aMap.put(new Short("8"), new Double(7.18e4));		
-		sg2aMap.put(new Short("9"), new Double(6.6e4));	
-		starLum.put(StarTypeFactory.sg2a, sg2aMap);
-		Map<Short,Double> sg2fMap = new HashMap<Short, Double>();
-		sg2fMap.put(new Short("0"), new Double(6.1e4));
-		sg2fMap.put(new Short("1"), new Double(5.87e4));
-		sg2fMap.put(new Short("2"), new Double(5.7e4));
-		sg2fMap.put(new Short("3"), new Double(5.5e4));
-		sg2fMap.put(new Short("4"), new Double(5.3e4));		
-		sg2fMap.put(new Short("5"), new Double(5.47e4));		
-		sg2fMap.put(new Short("6"), new Double(5.62e4));		
-		sg2fMap.put(new Short("7"), new Double(5.89e4));		
-		sg2fMap.put(new Short("8"), new Double(6.26e4));		
-		sg2fMap.put(new Short("9"), new Double(6.41e4));	
-		starLum.put(StarTypeFactory.sg2f, sg2fMap);
-		Map<Short,Double> sg2gMap = new HashMap<Short, Double>();
-		sg2gMap.put(new Short("0"), new Double(6.7e4));
-		sg2gMap.put(new Short("1"), new Double(7.1e4));
-		sg2gMap.put(new Short("2"), new Double(7.5e4));
-		sg2gMap.put(new Short("3"), new Double(7.9e4));
-		sg2gMap.put(new Short("4"), new Double(8.4e4));		
-		sg2gMap.put(new Short("5"), new Double(8.8e4));		
-		sg2gMap.put(new Short("6"), new Double(9.1e4));		
-		sg2gMap.put(new Short("7"), new Double(9.24e4));		
-		sg2gMap.put(new Short("8"), new Double(9.38e4));		
-		sg2gMap.put(new Short("9"), new Double(9.54e4));	
-		starLum.put(StarTypeFactory.sg2g, sg2gMap);
-		Map<Short,Double> sg2kMap = new HashMap<Short, Double>();
-		sg2kMap.put(new Short("0"), new Double(9.7e4));
-		sg2kMap.put(new Short("1"), new Double(9.9e4));
-		sg2kMap.put(new Short("2"), new Double(1.01e5));
-		sg2kMap.put(new Short("3"), new Double(1.03e5));
-		sg2kMap.put(new Short("4"), new Double(1.05e5));		
-		sg2kMap.put(new Short("5"), new Double(1.07e5));		
-		sg2kMap.put(new Short("6"), new Double(1.09e5));		
-		sg2kMap.put(new Short("7"), new Double(1.11e5));		
-		sg2kMap.put(new Short("8"), new Double(1.13e5));		
-		sg2kMap.put(new Short("9"), new Double(1.15e5));	
-		starLum.put(StarTypeFactory.sg2k, sg2kMap);
-		Map<Short,Double> sg2mMap = new HashMap<Short, Double>();
-		sg2mMap.put(new Short("0"), new Double(1.17e5));
-		sg2mMap.put(new Short("1"), new Double(1.19e5));
-		sg2mMap.put(new Short("2"), new Double(1.21e5));
-		sg2mMap.put(new Short("3"), new Double(1.24e5));
-		sg2mMap.put(new Short("4"), new Double(1.27e5));		
-		sg2mMap.put(new Short("5"), new Double(1.30e5));		
-		sg2mMap.put(new Short("6"), new Double(1.33e5));		
-		sg2mMap.put(new Short("7"), new Double(1.35e5));		
-		sg2mMap.put(new Short("8"), new Double(1.37e5));		
-		sg2mMap.put(new Short("9"), new Double(1.41e5));	
-		starLum.put(StarTypeFactory.sg2m, sg2mMap);
-		Map<Short,Double> sg1oMap = new HashMap<Short, Double>();
-		sg1oMap.put(new Short("0"), new Double(1.81e6));
-		sg1oMap.put(new Short("1"), new Double(1.42e6));
-		sg1oMap.put(new Short("2"), new Double(1.03e6));
-		sg1oMap.put(new Short("3"), new Double(9.8e5));
-		sg1oMap.put(new Short("4"), new Double(9.1e5));		
-		sg1oMap.put(new Short("5"), new Double(8.6e5));		
-		sg1oMap.put(new Short("6"), new Double(7.9e5));		
-		sg1oMap.put(new Short("7"), new Double(6.7e5));		
-		sg1oMap.put(new Short("8"), new Double(5.3e5));		
-		sg1oMap.put(new Short("9"), new Double(3.8e5));	
-		starLum.put(StarTypeFactory.sg1o, sg1oMap);
-		Map<Short,Double> sg1bMap = new HashMap<Short, Double>();
-		sg1bMap.put(new Short("0"), new Double(2.7e5));
-		sg1bMap.put(new Short("1"), new Double(2.34e5));
-		sg1bMap.put(new Short("2"), new Double(1.81e5));
-		sg1bMap.put(new Short("3"), new Double(1.22e5));
-		sg1bMap.put(new Short("4"), new Double(9.13e4));		
-		sg1bMap.put(new Short("5"), new Double(7.26e5));		
-		sg1bMap.put(new Short("6"), new Double(4.03e4));		
-		sg1bMap.put(new Short("7"), new Double(3.28e4));		
-		sg1bMap.put(new Short("8"), new Double(2.76e4));		
-		sg1bMap.put(new Short("9"), new Double(2.13e4));	
-		starLum.put(StarTypeFactory.sg1b, sg1bMap);
-		Map<Short,Double> sg1aMap = new HashMap<Short, Double>();
-		sg1aMap.put(new Short("0"), new Double(1.5e4));
-		sg1aMap.put(new Short("1"), new Double(1.45e4));
-		sg1aMap.put(new Short("2"), new Double(1.4e4));
-		sg1aMap.put(new Short("3"), new Double(1.3e4));
-		sg1aMap.put(new Short("4"), new Double(1.2e4));		
-		sg1aMap.put(new Short("5"), new Double(1.17e4));		
-		sg1aMap.put(new Short("6"), new Double(1.14e4));		
-		sg1aMap.put(new Short("7"), new Double(1.09e4));		
-		sg1aMap.put(new Short("8"), new Double(9.8e3));		
-		sg1aMap.put(new Short("9"), new Double(8.1e3));	
-		starLum.put(StarTypeFactory.sg1a, sg1aMap);
-		Map<Short,Double> sg1fMap = new HashMap<Short, Double>();
-		sg1fMap.put(new Short("0"), new Double(7.4e3));
-		sg1fMap.put(new Short("1"), new Double(6.8e3));
-		sg1fMap.put(new Short("2"), new Double(6.4e3));
-		sg1fMap.put(new Short("3"), new Double(5.9e3));
-		sg1fMap.put(new Short("4"), new Double(5.5e3));		
-		sg1fMap.put(new Short("5"), new Double(5.4e3));		
-		sg1fMap.put(new Short("6"), new Double(5.3e3));		
-		sg1fMap.put(new Short("7"), new Double(5.4e3));		
-		sg1fMap.put(new Short("8"), new Double(5.5e3));		
-		sg1fMap.put(new Short("9"), new Double(5.8e3));	
-		starLum.put(StarTypeFactory.sg1f, sg1fMap);
-		Map<Short,Double> sg1gMap = new HashMap<Short, Double>();
-		sg1gMap.put(new Short("0"), new Double(6.1e3));
-		sg1gMap.put(new Short("1"), new Double(6.5e3));
-		sg1gMap.put(new Short("2"), new Double(6.9e3));
-		sg1gMap.put(new Short("3"), new Double(7.4e3));
-		sg1gMap.put(new Short("4"), new Double(7.7e3));		
-		sg1gMap.put(new Short("5"), new Double(8.1e3));		
-		sg1gMap.put(new Short("6"), new Double(9.1e3));		
-		sg1gMap.put(new Short("7"), new Double(9.8e3));		
-		sg1gMap.put(new Short("8"), new Double(1.01e4));		
-		sg1gMap.put(new Short("9"), new Double(1.12e4));	
-		starLum.put(StarTypeFactory.sg1g, sg1gMap);
-		Map<Short,Double> sg1kMap = new HashMap<Short, Double>();
-		sg1kMap.put(new Short("0"), new Double(1.17e4));
-		sg1kMap.put(new Short("1"), new Double(1.23e4));
-		sg1kMap.put(new Short("2"), new Double(1.46e4));
-		sg1kMap.put(new Short("3"), new Double(1.65e4));
-		sg1kMap.put(new Short("4"), new Double(1.81e4));		
-		sg1kMap.put(new Short("5"), new Double(2.09e4));		
-		sg1kMap.put(new Short("6"), new Double(2.32e4));		
-		sg1kMap.put(new Short("7"), new Double(2.87e4));		
-		sg1kMap.put(new Short("8"), new Double(3.16e4));		
-		sg1kMap.put(new Short("9"), new Double(3.89e4));	
-		starLum.put(StarTypeFactory.sg1k, sg1kMap);
-		Map<Short,Double> sg1mMap = new HashMap<Short, Double>();
-		sg1mMap.put(new Short("0"), new Double(4.6e4));
-		sg1mMap.put(new Short("1"), new Double(5.39e4));
-		sg1mMap.put(new Short("2"), new Double(6.01e4));
-		sg1mMap.put(new Short("3"), new Double(6.95e4));
-		sg1mMap.put(new Short("4"), new Double(7.82e4));		
-		sg1mMap.put(new Short("5"), new Double(8.45e4));		
-		sg1mMap.put(new Short("6"), new Double(9.01e4));		
-		sg1mMap.put(new Short("7"), new Double(9.87e4));		
-		sg1mMap.put(new Short("8"), new Double(1.08e5));		
-		sg1mMap.put(new Short("9"), new Double(1.17e5));	
-		starLum.put(StarTypeFactory.sg1m, sg1mMap);
-		Map<Short,Double> g2oMap = new HashMap<Short, Double>();
-		g2oMap.put(new Short("0"), new Double(9.9e5));
-		g2oMap.put(new Short("1"), new Double(8.4e5));
-		g2oMap.put(new Short("2"), new Double(7.8e5));
-		g2oMap.put(new Short("3"), new Double(6.9e5));
-		g2oMap.put(new Short("4"), new Double(5.1e5));		
-		g2oMap.put(new Short("5"), new Double(4.7e5));		
-		g2oMap.put(new Short("6"), new Double(3.8e5));		
-		g2oMap.put(new Short("7"), new Double(3.3e5));		
-		g2oMap.put(new Short("8"), new Double(2.9e5));		
-		g2oMap.put(new Short("9"), new Double(2.1e5));	
-		starLum.put(StarTypeFactory.g2o, g2oMap);
-		Map<Short,Double> g2bMap = new HashMap<Short, Double>();
-		g2bMap.put(new Short("0"), new Double(1.7e5));
-		g2bMap.put(new Short("1"), new Double(1.43e5));
-		g2bMap.put(new Short("2"), new Double(1.09e5));
-		g2bMap.put(new Short("3"), new Double(8.34e4));
-		g2bMap.put(new Short("4"), new Double(4.88e4));		
-		g2bMap.put(new Short("5"), new Double(2.76e4));		
-		g2bMap.put(new Short("6"), new Double(1.53e4));		
-		g2bMap.put(new Short("7"), new Double(9.78e3));		
-		g2bMap.put(new Short("8"), new Double(8.76e3));		
-		g2bMap.put(new Short("9"), new Double(5.48e3));	
-		starLum.put(StarTypeFactory.g2b, g2bMap);
-		Map<Short,Double> g2aMap = new HashMap<Short, Double>();
-		g2aMap.put(new Short("0"), new Double(2.2e3));
-		g2aMap.put(new Short("1"), new Double(1.92e3));
-		g2aMap.put(new Short("2"), new Double(1.66e3));
-		g2aMap.put(new Short("3"), new Double(1.44e3));
-		g2aMap.put(new Short("4"), new Double(1.12e3));		
-		g2aMap.put(new Short("5"), new Double(988.0));		
-		g2aMap.put(new Short("6"), new Double(750.0));		
-		g2aMap.put(new Short("7"), new Double(701.0));		
-		g2aMap.put(new Short("8"), new Double(650.0));		
-		g2aMap.put(new Short("9"), new Double(625.0));	
-		starLum.put(StarTypeFactory.g2a, g2aMap);
-		Map<Short,Double> g2fMap = new HashMap<Short, Double>();
-		g2fMap.put(new Short("0"), new Double(600.0));
-		g2fMap.put(new Short("1"), new Double(584.0));
-		g2fMap.put(new Short("2"), new Double(564.0));
-		g2fMap.put(new Short("3"), new Double(545.0));
-		g2fMap.put(new Short("4"), new Double(531.0));		
-		g2fMap.put(new Short("5"), new Double(510.0));		
-		g2fMap.put(new Short("6"), new Double(530.0));		
-		g2fMap.put(new Short("7"), new Double(538.0));		
-		g2fMap.put(new Short("8"), new Double(545.0));		
-		g2fMap.put(new Short("9"), new Double(550.0));	
-		starLum.put(StarTypeFactory.g2f, g2fMap);
-		Map<Short,Double> g2gMap = new HashMap<Short, Double>();
-		g2gMap.put(new Short("0"), new Double(560.0));
-		g2gMap.put(new Short("1"), new Double(622.0));
-		g2gMap.put(new Short("2"), new Double(680.0));
-		g2gMap.put(new Short("3"), new Double(690.0));
-		g2gMap.put(new Short("4"), new Double(700.0));		
-		g2gMap.put(new Short("5"), new Double(740.0));		
-		g2gMap.put(new Short("6"), new Double(760.0));		
-		g2gMap.put(new Short("7"), new Double(788.0));		
-		g2gMap.put(new Short("8"), new Double(820.0));		
-		g2gMap.put(new Short("9"), new Double(850.0));	
-		starLum.put(StarTypeFactory.g2g, g2gMap);
-		Map<Short,Double> g2kMap = new HashMap<Short, Double>();
-		g2kMap.put(new Short("0"), new Double(890.0));
-		g2kMap.put(new Short("1"), new Double(1.13e3));
-		g2kMap.put(new Short("2"), new Double(1.49e3));
-		g2kMap.put(new Short("3"), new Double(1.78e3));
-		g2kMap.put(new Short("4"), new Double(2.05e3));		
-		g2kMap.put(new Short("5"), new Double(2.45e3));		
-		g2kMap.put(new Short("6"), new Double(2.9e3));		
-		g2kMap.put(new Short("7"), new Double(3.3e3));		
-		g2kMap.put(new Short("8"), new Double(3.7e3));		
-		g2kMap.put(new Short("9"), new Double(4.1e3));	
-		starLum.put(StarTypeFactory.g2k, g2kMap);
-		Map<Short,Double> g2mMap = new HashMap<Short, Double>();
-		g2mMap.put(new Short("0"), new Double(4.6e3));
-		g2mMap.put(new Short("1"), new Double(6.1e3));
-		g2mMap.put(new Short("2"), new Double(8.2e3));
-		g2mMap.put(new Short("3"), new Double(9.98e3));
-		g2mMap.put(new Short("4"), new Double(1.18e4));		
-		g2mMap.put(new Short("5"), new Double(1.34e4));		
-		g2mMap.put(new Short("6"), new Double(1.52e4));		
-		g2mMap.put(new Short("7"), new Double(1.55e4));		
-		g2mMap.put(new Short("8"), new Double(1.58e4));		
-		g2mMap.put(new Short("9"), new Double(1.63e4));	
-		starLum.put(StarTypeFactory.g2m, g2mMap);
-		Map<Short,Double> g1oMap = new HashMap<Short, Double>();
-		g1oMap.put(new Short("0"), new Double(7.1e5));
-		g1oMap.put(new Short("1"), new Double(6.21e5));
-		g1oMap.put(new Short("2"), new Double(5.38e5));
-		g1oMap.put(new Short("3"), new Double(3.89e5));
-		g1oMap.put(new Short("4"), new Double(2.11e5));		
-		g1oMap.put(new Short("5"), new Double(1.86e5));		
-		g1oMap.put(new Short("6"), new Double(1.69e5));		
-		g1oMap.put(new Short("7"), new Double(1.56e5));		
-		g1oMap.put(new Short("8"), new Double(1.42e5));		
-		g1oMap.put(new Short("9"), new Double(1.28e5));	
-		starLum.put(StarTypeFactory.g1o, g1oMap);
-		Map<Short,Double> g1bMap = new HashMap<Short, Double>();
-		g1bMap.put(new Short("0"), new Double(1.07e5));
-		g1bMap.put(new Short("1"), new Double(5.06e4));
-		g1bMap.put(new Short("2"), new Double(1.89e4));
-		g1bMap.put(new Short("3"), new Double(4.23e4));
-		g1bMap.put(new Short("4"), new Double(9.98e3));		
-		g1bMap.put(new Short("5"), new Double(6.7e3));		
-		g1bMap.put(new Short("6"), new Double(3.26e3));		
-		g1bMap.put(new Short("7"), new Double(2.82e3));		
-		g1bMap.put(new Short("8"), new Double(2.61e3));		
-		g1bMap.put(new Short("9"), new Double(1.09e3));	
-		starLum.put(StarTypeFactory.g1b, g1bMap);
-		Map<Short,Double> g1aMap = new HashMap<Short, Double>();
-		g1aMap.put(new Short("0"), new Double(280.0));
-		g1aMap.put(new Short("1"), new Double(245.0));
-		g1aMap.put(new Short("2"), new Double(199.0));
-		g1aMap.put(new Short("3"), new Double(146.7));
-		g1aMap.put(new Short("4"), new Double(110.0));		
-		g1aMap.put(new Short("5"), new Double(90.0));		
-		g1aMap.put(new Short("6"), new Double(72.0));		
-		g1aMap.put(new Short("7"), new Double(68.0));		
-		g1aMap.put(new Short("8"), new Double(62.0));		
-		g1aMap.put(new Short("9"), new Double(58.0));	
-		starLum.put(StarTypeFactory.g1a, g1aMap);
-		Map<Short,Double> g1fMap = new HashMap<Short, Double>();
-		g1fMap.put(new Short("0"), new Double(53.0));
-		g1fMap.put(new Short("1"), new Double(51.0));
-		g1fMap.put(new Short("2"), new Double(49.0));
-		g1fMap.put(new Short("3"), new Double(47.0));
-		g1fMap.put(new Short("4"), new Double(45.0));		
-		g1fMap.put(new Short("5"), new Double(43.0));		
-		g1fMap.put(new Short("6"), new Double(46.0));		
-		g1fMap.put(new Short("7"), new Double(47.5));		
-		g1fMap.put(new Short("8"), new Double(49.0));		
-		g1fMap.put(new Short("9"), new Double(50.0));	
-		starLum.put(StarTypeFactory.g1f, g1fMap);
-		Map<Short,Double> g1gMap = new HashMap<Short, Double>();
-		g1gMap.put(new Short("0"), new Double(50.2));
-		g1gMap.put(new Short("1"), new Double(54.9));
-		g1gMap.put(new Short("2"), new Double(60.0));
-		g1gMap.put(new Short("3"), new Double(65.0));
-		g1gMap.put(new Short("4"), new Double(70.0));		
-		g1gMap.put(new Short("5"), new Double(75.0));		
-		g1gMap.put(new Short("6"), new Double(79.0));		
-		g1gMap.put(new Short("7"), new Double(80.7));		
-		g1gMap.put(new Short("8"), new Double(82.0));		
-		g1gMap.put(new Short("9"), new Double(90.0));	
-		starLum.put(StarTypeFactory.g1g, g1gMap);
-		Map<Short,Double> g1kMap = new HashMap<Short, Double>();
-		g1kMap.put(new Short("0"), new Double(95.0));
-		g1kMap.put(new Short("1"), new Double(146.0));
-		g1kMap.put(new Short("2"), new Double(185.0));
-		g1kMap.put(new Short("3"), new Double(231.0));
-		g1kMap.put(new Short("4"), new Double(275.0));		
-		g1kMap.put(new Short("5"), new Double(320.0));		
-		g1kMap.put(new Short("6"), new Double(350.0));		
-		g1kMap.put(new Short("7"), new Double(381.0));		
-		g1kMap.put(new Short("8"), new Double(410.0));		
-		g1kMap.put(new Short("9"), new Double(440.0));	
-		starLum.put(StarTypeFactory.g1k, g1kMap);
-		Map<Short,Double> g1mMap = new HashMap<Short, Double>();
-		g1mMap.put(new Short("0"), new Double(470.0));
-		g1mMap.put(new Short("1"), new Double(498.0));
-		g1mMap.put(new Short("2"), new Double(1.38e3));
-		g1mMap.put(new Short("3"), new Double(1.55e3));
-		g1mMap.put(new Short("4"), new Double(1.71e3));		
-		g1mMap.put(new Short("5"), new Double(2.28e3));		
-		g1mMap.put(new Short("6"), new Double(2.37e3));		
-		g1mMap.put(new Short("7"), new Double(2.44e3));		
-		g1mMap.put(new Short("8"), new Double(2.59e3));		
-		g1mMap.put(new Short("9"), new Double(2.69e3));	
-		starLum.put(StarTypeFactory.g1m, g1mMap);
-		Map<Short,Double> sbgoMap = new HashMap<Short, Double>();
-		sbgoMap.put(new Short("0"), new Double(2.5e5));
-		sbgoMap.put(new Short("1"), new Double(1.26e5));
-		sbgoMap.put(new Short("2"), new Double(1.88e5));
-		sbgoMap.put(new Short("3"), new Double(1.72e5));
-		sbgoMap.put(new Short("4"), new Double(1.58e5));		
-		sbgoMap.put(new Short("5"), new Double(1.46e5));		
-		sbgoMap.put(new Short("6"), new Double(1.35e5));		
-		sbgoMap.put(new Short("7"), new Double(1.26e5));		
-		sbgoMap.put(new Short("8"), new Double(1.12e5));		
-		sbgoMap.put(new Short("9"), new Double(1.08e5));	
-		starLum.put(StarTypeFactory.sbgo, sbgoMap);
-		Map<Short,Double> sbgbMap = new HashMap<Short, Double>();
-		sbgbMap.put(new Short("0"), new Double(8.1e4));
-		sbgbMap.put(new Short("1"), new Double(4.5e4));
-		sbgbMap.put(new Short("2"), new Double(1.2e4));
-		sbgbMap.put(new Short("3"), new Double(8.3e3));
-		sbgbMap.put(new Short("4"), new Double(5.2e3));		
-		sbgbMap.put(new Short("5"), new Double(2.0e3));		
-		sbgbMap.put(new Short("6"), new Double(1.12e3));		
-		sbgbMap.put(new Short("7"), new Double(984.0));		
-		sbgbMap.put(new Short("8"), new Double(705.0));		
-		sbgbMap.put(new Short("9"), new Double(289.0));	
-		starLum.put(StarTypeFactory.sbgb, sbgbMap);
-		Map<Short,Double> sbgaMap = new HashMap<Short, Double>();
-		sbgaMap.put(new Short("0"), new Double(156.0));
-		sbgaMap.put(new Short("1"), new Double(135.0));
-		sbgaMap.put(new Short("2"), new Double(124.0));
-		sbgaMap.put(new Short("3"), new Double(103.0));
-		sbgaMap.put(new Short("4"), new Double(92.0));		
-		sbgaMap.put(new Short("5"), new Double(37.0));		
-		sbgaMap.put(new Short("6"), new Double(33.0));		
-		sbgaMap.put(new Short("7"), new Double(30.5));		
-		sbgaMap.put(new Short("8"), new Double(27.0));		
-		sbgaMap.put(new Short("9"), new Double(20.0));	
-		starLum.put(StarTypeFactory.sbga, sbgaMap);
-		Map<Short,Double> sbgfMap = new HashMap<Short, Double>();
-		sbgfMap.put(new Short("0"), new Double(19.0));
-		sbgfMap.put(new Short("1"), new Double(18.0));
-		sbgfMap.put(new Short("2"), new Double(17.0));
-		sbgfMap.put(new Short("3"), new Double(16.0));
-		sbgfMap.put(new Short("4"), new Double(15.0));		
-		sbgfMap.put(new Short("5"), new Double(12.0));		
-		sbgfMap.put(new Short("6"), new Double(11.0));		
-		sbgfMap.put(new Short("7"), new Double(10.5));		
-		sbgfMap.put(new Short("8"), new Double(9.0));		
-		sbgfMap.put(new Short("9"), new Double(7.0));	
-		starLum.put(StarTypeFactory.sbgf, sbgfMap);
-		Map<Short,Double> sbggMap = new HashMap<Short, Double>();
-		sbggMap.put(new Short("0"), new Double(6.5));
-		sbggMap.put(new Short("1"), new Double(6.24));
-		sbggMap.put(new Short("2"), new Double(5.9));
-		sbggMap.put(new Short("3"), new Double(5.6));
-		sbggMap.put(new Short("4"), new Double(5.3));		
-		sbggMap.put(new Short("5"), new Double(4.9));		
-		sbggMap.put(new Short("6"), new Double(4.82));		
-		sbggMap.put(new Short("7"), new Double(4.78));		
-		sbggMap.put(new Short("8"), new Double(4.73));		
-		sbggMap.put(new Short("9"), new Double(4.69));	
-		starLum.put(StarTypeFactory.sbgg, sbggMap);
-		Map<Short,Double> sbgkMap = new HashMap<Short, Double>();
-		sbgkMap.put(new Short("0"), new Double(4.67));
-		sbgkMap.put(new Short("1"), new Double(4.61));
-		sbgkMap.put(new Short("2"), new Double(4.55));
-		sbgkMap.put(new Short("3"), new Double(4.48));
-		sbgkMap.put(new Short("4"), new Double(4.41));		
-		sbgkMap.put(new Short("5"), new Double(4.40));		
-		sbgkMap.put(new Short("6"), new Double(4.39));		
-		sbgkMap.put(new Short("7"), new Double(4.37));		
-		sbgkMap.put(new Short("8"), new Double(4.35));		
-		sbgkMap.put(new Short("9"), new Double(4.33));	
-		starLum.put(StarTypeFactory.sbgk, sbgkMap);
-		Map<Short,Double> sbgmMap = new HashMap<Short, Double>();
-		sbgmMap.put(new Short("0"), new Double(4.32));
-		sbgmMap.put(new Short("1"), new Double(4.315));
-		sbgmMap.put(new Short("2"), new Double(4.31));
-		sbgmMap.put(new Short("3"), new Double(4.309));
-		sbgmMap.put(new Short("4"), new Double(4.308));		
-		sbgmMap.put(new Short("5"), new Double(4.305));		
-		sbgmMap.put(new Short("6"), new Double(4.302));		
-		sbgmMap.put(new Short("7"), new Double(4.297));		
-		sbgmMap.put(new Short("8"), new Double(4.293));		
-		sbgmMap.put(new Short("9"), new Double(4.29));	
-		starLum.put(StarTypeFactory.sbgm, sbgmMap);
-		Map<Short,Double> oMap = new HashMap<Short, Double>();
-		oMap.put(new Short("0"), new Double(1.45e5));
-		oMap.put(new Short("1"), new Double(1.41e5));
-		oMap.put(new Short("2"), new Double(1.38e5));
-		oMap.put(new Short("3"), new Double(1.27e5));
-		oMap.put(new Short("4"), new Double(1.23e5));		
-		oMap.put(new Short("5"), new Double(1.19e5));		
-		oMap.put(new Short("6"), new Double(1.16e5));		
-		oMap.put(new Short("7"), new Double(1.12e5));		
-		oMap.put(new Short("8"), new Double(1.09e5));		
-		oMap.put(new Short("9"), new Double(7.89e4));	
-		starLum.put(StarTypeFactory.o, oMap);
-		Map<Short,Double> bMap = new HashMap<Short, Double>();
-		bMap.put(new Short("0"), new Double(5.6e4));
-		bMap.put(new Short("1"), new Double(3.32e4));
-		bMap.put(new Short("2"), new Double(1.95e4));
-		bMap.put(new Short("3"), new Double(1.23e4));
-		bMap.put(new Short("4"), new Double(8.68e3));		
-		bMap.put(new Short("5"), new Double(1.410e3));		
-		bMap.put(new Short("6"), new Double(729.0));		
-		bMap.put(new Short("7"), new Double(673.0));		
-		bMap.put(new Short("8"), new Double(495.0));		
-		bMap.put(new Short("9"), new Double(281.0));	
-		starLum.put(StarTypeFactory.b, bMap);
-		Map<Short,Double> aMap = new HashMap<Short, Double>();
-		aMap.put(new Short("0"), new Double(90.0));
-		aMap.put(new Short("1"), new Double(75.0));
-		aMap.put(new Short("2"), new Double(60.0));
-		aMap.put(new Short("3"), new Double(45.0));
-		aMap.put(new Short("4"), new Double(30.0));		
-		aMap.put(new Short("5"), new Double(16.0));		
-		aMap.put(new Short("6"), new Double(14.6));		
-		aMap.put(new Short("7"), new Double(13.5));		
-		aMap.put(new Short("8"), new Double(12.1));		
-		aMap.put(new Short("9"), new Double(9.4));	
-		starLum.put(StarTypeFactory.a, aMap);
-		Map<Short,Double> fMap = new HashMap<Short, Double>();
-		fMap.put(new Short("0"), new Double(8.1));
-		fMap.put(new Short("1"), new Double(7.65));
-		fMap.put(new Short("2"), new Double(5.62));
-		fMap.put(new Short("3"), new Double(4.37));
-		fMap.put(new Short("4"), new Double(3.18));		
-		fMap.put(new Short("5"), new Double(2.76));		
-		fMap.put(new Short("6"), new Double(2.32));		
-		fMap.put(new Short("7"), new Double(1.84));		
-		fMap.put(new Short("8"), new Double(1.55));		
-		fMap.put(new Short("9"), new Double(1.52));	
-		starLum.put(StarTypeFactory.f, fMap);
-		Map<Short,Double> gMap = new HashMap<Short, Double>();
-		gMap.put(new Short("0"), new Double(1.2));
-		gMap.put(new Short("1"), new Double(1.1));
-		gMap.put(new Short("2"), new Double(1.0));
-		gMap.put(new Short("3"), new Double(.945));
-		gMap.put(new Short("4"), new Double(.814));		
-		gMap.put(new Short("5"), new Double(.712));		
-		gMap.put(new Short("6"), new Double(.610));		
-		gMap.put(new Short("7"), new Double(.558));		
-		gMap.put(new Short("8"), new Double(.501));		
-		gMap.put(new Short("9"), new Double(.408));	
-		starLum.put(StarTypeFactory.g, gMap);
-		Map<Short,Double> kMap = new HashMap<Short, Double>();
-		kMap.put(new Short("0"), new Double(.363));
-		kMap.put(new Short("1"), new Double(.333));
-		kMap.put(new Short("2"), new Double(.282));
-		kMap.put(new Short("3"), new Double(.257));
-		kMap.put(new Short("4"), new Double(.216));		
-		kMap.put(new Short("5"), new Double(.184));		
-		kMap.put(new Short("6"), new Double(.162));		
-		kMap.put(new Short("7"), new Double(.147));		
-		kMap.put(new Short("8"), new Double(.123));		
-		kMap.put(new Short("9"), new Double(.105));	
-		starLum.put(StarTypeFactory.k, kMap);
-		Map<Short,Double> mMap = new HashMap<Short, Double>();
-		mMap.put(new Short("0"), new Double(.0912));
-		mMap.put(new Short("1"), new Double(.0734));
-		mMap.put(new Short("2"), new Double(.0595));
-		mMap.put(new Short("3"), new Double(.0466));
-		mMap.put(new Short("4"), new Double(.0317));		
-		mMap.put(new Short("5"), new Double(.0276));		
-		mMap.put(new Short("6"), new Double(.0152));		
-		mMap.put(new Short("7"), new Double(.0134));		
-		mMap.put(new Short("8"), new Double(.0111));		
-		mMap.put(new Short("9"), new Double(.0096));	
-		starLum.put(StarTypeFactory.m, mMap);
-		Map<Short,Double> sdoMap = new HashMap<Short, Double>();
-		sdoMap.put(new Short("0"), new Double(11.0));
-		sdoMap.put(new Short("1"), new Double(10.5));
-		sdoMap.put(new Short("2"), new Double(10.0));
-		sdoMap.put(new Short("3"), new Double(9.5));
-		sdoMap.put(new Short("4"), new Double(9.0));		
-		sdoMap.put(new Short("5"), new Double(8.5));		
-		sdoMap.put(new Short("6"), new Double(8.0));		
-		sdoMap.put(new Short("7"), new Double(7.5));		
-		sdoMap.put(new Short("8"), new Double(7.0));		
-		sdoMap.put(new Short("9"), new Double(6.5));	
-		starLum.put(StarTypeFactory.sdo, sdoMap);
-		Map<Short,Double> sdbMap = new HashMap<Short, Double>();
-		sdbMap.put(new Short("0"), new Double(6.0));
-		sdbMap.put(new Short("1"), new Double(5.6));
-		sdbMap.put(new Short("2"), new Double(5.2));
-		sdbMap.put(new Short("3"), new Double(4.8));
-		sdbMap.put(new Short("4"), new Double(4.4));		
-		sdbMap.put(new Short("5"), new Double(4.0));		
-		sdbMap.put(new Short("6"), new Double(4.6));		
-		sdbMap.put(new Short("7"), new Double(4.2));		
-		sdbMap.put(new Short("8"), new Double(3.2));		
-		sdbMap.put(new Short("9"), new Double(3.4));	
-		starLum.put(StarTypeFactory.sdb, sdbMap);
-		Map<Short,Double> sdaMap = new HashMap<Short, Double>();
-		sdaMap.put(new Short("0"), new Double(3.0));
-		sdaMap.put(new Short("1"), new Double(2.8));
-		sdaMap.put(new Short("2"), new Double(2.6));
-		sdaMap.put(new Short("3"), new Double(2.4));
-		sdaMap.put(new Short("4"), new Double(2.2));		
-		sdaMap.put(new Short("5"), new Double(2.0));		
-		sdaMap.put(new Short("6"), new Double(1.8));		
-		sdaMap.put(new Short("7"), new Double(1.6));		
-		sdaMap.put(new Short("8"), new Double(1.4));		
-		sdaMap.put(new Short("9"), new Double(1.2));	
-		starLum.put(StarTypeFactory.sda, sdaMap);
-		Map<Short,Double> sdfMap = new HashMap<Short, Double>();
-		sdfMap.put(new Short("0"), new Double(1.0));
-		sdfMap.put(new Short("1"), new Double(.96));
-		sdfMap.put(new Short("2"), new Double(.92));
-		sdfMap.put(new Short("3"), new Double(.88));
-		sdfMap.put(new Short("4"), new Double(.84));		
-		sdfMap.put(new Short("5"), new Double(.80));		
-		sdfMap.put(new Short("6"), new Double(.76));		
-		sdfMap.put(new Short("7"), new Double(.72));		
-		sdfMap.put(new Short("8"), new Double(.68));		
-		sdfMap.put(new Short("9"), new Double(.64));	
-		starLum.put(StarTypeFactory.sdf, sdfMap);
-		Map<Short,Double> sdgMap = new HashMap<Short, Double>();
-		sdgMap.put(new Short("0"), new Double(.6));
-		sdgMap.put(new Short("1"), new Double(.5856));
-		sdgMap.put(new Short("2"), new Double(.5712));
-		sdgMap.put(new Short("3"), new Double(.5568));
-		sdgMap.put(new Short("4"), new Double(.5424));		
-		sdgMap.put(new Short("5"), new Double(.528));		
-		sdgMap.put(new Short("6"), new Double(.5084));		
-		sdgMap.put(new Short("7"), new Double(.4888));		
-		sdgMap.put(new Short("8"), new Double(.4692));		
-		sdgMap.put(new Short("9"), new Double(.4496));	
-		starLum.put(StarTypeFactory.sdg, sdgMap);
-		Map<Short,Double> sdkMap = new HashMap<Short, Double>();
-		sdkMap.put(new Short("0"), new Double(.43));
-		sdkMap.put(new Short("1"), new Double(.41));
-		sdkMap.put(new Short("2"), new Double(.39));
-		sdkMap.put(new Short("3"), new Double(.37));
-		sdkMap.put(new Short("4"), new Double(.35));		
-		sdkMap.put(new Short("5"), new Double(.33));		
-		sdkMap.put(new Short("6"), new Double(.2948));		
-		sdkMap.put(new Short("7"), new Double(.2596));		
-		sdkMap.put(new Short("8"), new Double(.2244));		
-		sdkMap.put(new Short("9"), new Double(.1892));	
-		starLum.put(StarTypeFactory.sdk, sdkMap);
-		Map<Short,Double> sdmMap = new HashMap<Short, Double>();
-		sdmMap.put(new Short("0"), new Double(.154));
-		sdmMap.put(new Short("1"), new Double(.144));
-		sdmMap.put(new Short("2"), new Double(.134));
-		sdmMap.put(new Short("3"), new Double(.124));
-		sdmMap.put(new Short("4"), new Double(.114));		
-		sdmMap.put(new Short("5"), new Double(.104));		
-		sdmMap.put(new Short("6"), new Double(.0948));		
-		sdmMap.put(new Short("7"), new Double(.0856));		
-		sdmMap.put(new Short("8"), new Double(.0764));		
-		sdmMap.put(new Short("9"), new Double(.0672));	
-		starLum.put(StarTypeFactory.sdm, sdmMap);
-		Map<Short,Double> dwoMap = new HashMap<Short, Double>();
-		dwoMap.put(new Short("0"), new Double(.392));
-		dwoMap.put(new Short("1"), new Double(.3574));
-		dwoMap.put(new Short("2"), new Double(.3228));
-		dwoMap.put(new Short("3"), new Double(.2882));
-		dwoMap.put(new Short("4"), new Double(.2536));		
-		dwoMap.put(new Short("5"), new Double(.219));		
-		dwoMap.put(new Short("6"), new Double(.1844));		
-		dwoMap.put(new Short("7"), new Double(.1498));		
-		dwoMap.put(new Short("8"), new Double(.1152));		
-		dwoMap.put(new Short("9"), new Double(.0806));	
-		starLum.put(StarTypeFactory.dwo, dwoMap);
-		Map<Short,Double> dbMap = new HashMap<Short, Double>();
-		dbMap.put(new Short("0"), new Double(.046));
-		dbMap.put(new Short("1"), new Double(.0419));
-		dbMap.put(new Short("2"), new Double(.0378));
-		dbMap.put(new Short("3"), new Double(.0337));
-		dbMap.put(new Short("4"), new Double(.0296));		
-		dbMap.put(new Short("5"), new Double(.0255));		
-		dbMap.put(new Short("6"), new Double(.0214));		
-		dbMap.put(new Short("7"), new Double(.0173));		
-		dbMap.put(new Short("8"), new Double(.0132));		
-		dbMap.put(new Short("9"), new Double(.0091));	
-		starLum.put(StarTypeFactory.db, dbMap);
-		Map<Short,Double> daMap = new HashMap<Short, Double>();
-		daMap.put(new Short("0"), new Double(5.0e-3));
-		daMap.put(new Short("1"), new Double(4.53e-3));
-		daMap.put(new Short("2"), new Double(4.06e-3));
-		daMap.put(new Short("3"), new Double(3.59e-3));
-		daMap.put(new Short("4"), new Double(3.12e-3));		
-		daMap.put(new Short("5"), new Double(2.65e-3));		
-		daMap.put(new Short("6"), new Double(2.18e-3));		
-		daMap.put(new Short("7"), new Double(1.71e-3));		
-		daMap.put(new Short("8"), new Double(1.24e-3));		
-		daMap.put(new Short("9"), new Double(7.7e-4));	
-		starLum.put(StarTypeFactory.da, daMap);
-		Map<Short,Double> dfMap = new HashMap<Short, Double>();
-		dfMap.put(new Short("0"), new Double(3.0e-4));
-		dfMap.put(new Short("1"), new Double(2.76e-4));
-		dfMap.put(new Short("2"), new Double(2.52e-4));
-		dfMap.put(new Short("3"), new Double(2.28e-4));
-		dfMap.put(new Short("4"), new Double(2.04e-4));		
-		dfMap.put(new Short("5"), new Double(1.8e-4));		
-		dfMap.put(new Short("6"), new Double(1.56e-4));		
-		dfMap.put(new Short("7"), new Double(1.32e-4));		
-		dfMap.put(new Short("8"), new Double(1.08e-4));		
-		dfMap.put(new Short("9"), new Double(8.4e-5));	
-		starLum.put(StarTypeFactory.df, dfMap);
-		Map<Short,Double> dgMap = new HashMap<Short, Double>();
-		dgMap.put(new Short("0"), new Double(6.0e-5));
-		dgMap.put(new Short("1"), new Double(5.8e-5));
-		dgMap.put(new Short("2"), new Double(5.6e-5));
-		dgMap.put(new Short("3"), new Double(5.4e-5));
-		dgMap.put(new Short("4"), new Double(5.2e-5));		
-		dgMap.put(new Short("5"), new Double(5.0e-5));		
-		dgMap.put(new Short("6"), new Double(4.8e-5));		
-		dgMap.put(new Short("7"), new Double(4.6e-5));		
-		dgMap.put(new Short("8"), new Double(4.4e-5));		
-		dgMap.put(new Short("9"), new Double(4.2e-5));	
-		starLum.put(StarTypeFactory.dg, dgMap);
-		Map<Short,Double> dkMap = new HashMap<Short, Double>();
-		dkMap.put(new Short("0"), new Double(4.0e-5));
-		dkMap.put(new Short("1"), new Double(3.95e-5));
-		dkMap.put(new Short("2"), new Double(3.9e-5));
-		dkMap.put(new Short("3"), new Double(3.85e-5));
-		dkMap.put(new Short("4"), new Double(3.8e-5));		
-		dkMap.put(new Short("5"), new Double(3.75e-5));		
-		dkMap.put(new Short("6"), new Double(3.7e-5));		
-		dkMap.put(new Short("7"), new Double(3.65e-5));		
-		dkMap.put(new Short("8"), new Double(3.6e-5));		
-		dkMap.put(new Short("9"), new Double(3.55e-5));	
-		starLum.put(StarTypeFactory.dk, dkMap);
-		Map<Short,Double> dmMap = new HashMap<Short, Double>();
-		dmMap.put(new Short("0"), new Double(3.0e-5));
-		dmMap.put(new Short("1"), new Double(2.95e-5));
-		dmMap.put(new Short("2"), new Double(2.9e-5));
-		dmMap.put(new Short("3"), new Double(2.85e-5));
-		dmMap.put(new Short("4"), new Double(2.8e-5));		
-		dmMap.put(new Short("5"), new Double(2.75e-5));		
-		dmMap.put(new Short("6"), new Double(2.7e-5));		
-		dmMap.put(new Short("7"), new Double(2.65e-5));		
-		dmMap.put(new Short("8"), new Double(2.6e-5));		
-		dmMap.put(new Short("9"), new Double(2.55e-5));	
-		starLum.put(StarTypeFactory.dm, dmMap);
-		Map<Short,Double> pmdMap = new HashMap<Short, Double>();
-		pmdMap.put(new Short("0"), new Double(2.30-5));
-		pmdMap.put(new Short("1"), new Double(2.29e-5));
-		pmdMap.put(new Short("2"), new Double(2.27e-5));
-		pmdMap.put(new Short("3"), new Double(2.25e-5));
-		pmdMap.put(new Short("4"), new Double(2.24e-5));		
-		pmdMap.put(new Short("5"), new Double(2.23e-5));		
-		pmdMap.put(new Short("6"), new Double(2.22e-5));		
-		pmdMap.put(new Short("7"), new Double(2.21e-5));		
-		pmdMap.put(new Short("8"), new Double(2.205e-5));		
-		pmdMap.put(new Short("9"), new Double(2.20e-5));
-		starLum.put(StarTypeFactory.pmd, pmdMap);
-		Map<Short,Double> bsMap = new HashMap<Short, Double>();
-		bsMap.put(new Short("0"), new Double(2.00-5));
-		bsMap.put(new Short("1"), new Double(1.95e-5));
-		bsMap.put(new Short("2"), new Double(1.90e-5));
-		bsMap.put(new Short("3"), new Double(1.85e-5));
-		bsMap.put(new Short("4"), new Double(1.80e-5));		
-		bsMap.put(new Short("5"), new Double(1.70e-5));		
-		bsMap.put(new Short("6"), new Double(1.50e-5));		
-		bsMap.put(new Short("7"), new Double(1.30e-5));		
-		bsMap.put(new Short("8"), new Double(1.15e-5));		
-		bsMap.put(new Short("9"), new Double(1.05e-5));
-		starLum.put(StarTypeFactory.bs, bsMap);
-		Map<Short,Double> dbsMap = new HashMap<Short, Double>();
-		dbsMap.put(new Short("0"), new Double(1.00-5));
-		dbsMap.put(new Short("1"), new Double(0.95e-5));
-		dbsMap.put(new Short("2"), new Double(0.90e-5));
-		dbsMap.put(new Short("3"), new Double(0.85e-5));
-		dbsMap.put(new Short("4"), new Double(0.80e-5));		
-		dbsMap.put(new Short("5"), new Double(0.70e-5));		
-		dbsMap.put(new Short("6"), new Double(0.50e-5));		
-		dbsMap.put(new Short("7"), new Double(0.30e-5));		
-		dbsMap.put(new Short("8"), new Double(0.15e-5));		
-		dbsMap.put(new Short("9"), new Double(0.05e-5));
-		starLum.put(StarTypeFactory.dbs, dbsMap);
-	}
-
-	private static Map<StarTypeFactory,Map<Short, Double>> starMass = new HashMap<StarTypeFactory, Map<Short,Double>>();
-	static{
-		Map<Short,Double> sg2oMap = new HashMap<Short, Double>();
-		sg2oMap.put(new Short("0"), new Double(160.0));
-		sg2oMap.put(new Short("1"), new Double(140.0));
-		sg2oMap.put(new Short("2"), new Double(80.0));
-		sg2oMap.put(new Short("3"), new Double(47.0));
-		sg2oMap.put(new Short("4"), new Double(12.0));		
-		sg2oMap.put(new Short("5"), new Double(18.0));		
-		sg2oMap.put(new Short("6"), new Double(23.0));		
-		sg2oMap.put(new Short("7"), new Double(26.0));		
-		sg2oMap.put(new Short("8"), new Double(28.0));		
-		sg2oMap.put(new Short("9"), new Double(30.0));	
-		starMass.put(StarTypeFactory.sg2o, sg2oMap);
-		
-		Map<Short,Double> sg2bMap = new HashMap<Short, Double>();
-		sg2bMap.put(new Short("0"), new Double(155.0));
-		sg2bMap.put(new Short("1"), new Double(135.0));
-		sg2bMap.put(new Short("2"), new Double(75.0));
-		sg2bMap.put(new Short("3"), new Double(45.0));
-		sg2bMap.put(new Short("4"), new Double(11.0));		
-		sg2bMap.put(new Short("5"), new Double(17.0));		
-		sg2bMap.put(new Short("6"), new Double(21.0));		
-		sg2bMap.put(new Short("7"), new Double(23.0));		
-		sg2bMap.put(new Short("8"), new Double(26.0));		
-		sg2bMap.put(new Short("9"), new Double(28.0));	
-		starMass.put(StarTypeFactory.sg2b, sg2bMap);
-		
-		Map<Short,Double> sg2aMap = new HashMap<Short, Double>();
-		sg2aMap.put(new Short("0"), new Double(30.0));
-		sg2aMap.put(new Short("1"), new Double(29.0));
-		sg2aMap.put(new Short("2"), new Double(28.0));
-		sg2aMap.put(new Short("3"), new Double(27.0));
-		sg2aMap.put(new Short("4"), new Double(26.0));		
-		sg2aMap.put(new Short("5"), new Double(25.0));		
-		sg2aMap.put(new Short("6"), new Double(26.0));		
-		sg2aMap.put(new Short("7"), new Double(27.0));		
-		sg2aMap.put(new Short("8"), new Double(29.0));		
-		sg2aMap.put(new Short("9"), new Double(30.0));	
-		starMass.put(StarTypeFactory.sg2a, sg2aMap);
-		
-		Map<Short,Double> sg2fMap = new HashMap<Short, Double>();
-		sg2fMap.put(new Short("0"), new Double(28.0));
-		sg2fMap.put(new Short("1"), new Double(27.0));
-		sg2fMap.put(new Short("2"), new Double(25.0));
-		sg2fMap.put(new Short("3"), new Double(23.0));
-		sg2fMap.put(new Short("4"), new Double(21.0));		
-		sg2fMap.put(new Short("5"), new Double(21.5));		
-		sg2fMap.put(new Short("6"), new Double(23.0));		
-		sg2fMap.put(new Short("7"), new Double(24.0));		
-		sg2fMap.put(new Short("8"), new Double(25.0));		
-		sg2fMap.put(new Short("9"), new Double(26.0));	
-		starMass.put(StarTypeFactory.sg2f, sg2fMap);
-		
-		Map<Short,Double> sg2gMap = new HashMap<Short, Double>();
-		sg2gMap.put(new Short("0"), new Double(24.0));
-		sg2gMap.put(new Short("1"), new Double(20.0));
-		sg2gMap.put(new Short("2"), new Double(18.0));
-		sg2gMap.put(new Short("3"), new Double(17.5));
-		sg2gMap.put(new Short("4"), new Double(17.0));		
-		sg2gMap.put(new Short("5"), new Double(16.0));		
-		sg2gMap.put(new Short("6"), new Double(17.0));		
-		sg2gMap.put(new Short("7"), new Double(21.0));		
-		sg2gMap.put(new Short("8"), new Double(23.0));		
-		sg2gMap.put(new Short("9"), new Double(26.0));	
-		starMass.put(StarTypeFactory.sg2g, sg2gMap);
-		
-		Map<Short,Double> sg2kMap = new HashMap<Short, Double>();
-		sg2kMap.put(new Short("0"), new Double(27.0));
-		sg2kMap.put(new Short("1"), new Double(25.0));
-		sg2kMap.put(new Short("2"), new Double(23.0));
-		sg2kMap.put(new Short("3"), new Double(21.0));
-		sg2kMap.put(new Short("4"), new Double(20.0));		
-		sg2kMap.put(new Short("5"), new Double(21.5));		
-		sg2kMap.put(new Short("6"), new Double(23.0));		
-		sg2kMap.put(new Short("7"), new Double(25.0));		
-		sg2kMap.put(new Short("8"), new Double(27.0));		
-		sg2kMap.put(new Short("9"), new Double(29.0));	
-		starMass.put(StarTypeFactory.sg2k, sg2kMap);
-		
-		Map<Short,Double> sg2mMap = new HashMap<Short, Double>();
-		sg2mMap.put(new Short("0"), new Double(31.0));
-		sg2mMap.put(new Short("1"), new Double(27.0));
-		sg2mMap.put(new Short("2"), new Double(26.0));
-		sg2mMap.put(new Short("3"), new Double(25.0));
-		sg2mMap.put(new Short("4"), new Double(24.5));		
-		sg2mMap.put(new Short("5"), new Double(24.0));		
-		sg2mMap.put(new Short("6"), new Double(25.0));		
-		sg2mMap.put(new Short("7"), new Double(26.0));		
-		sg2mMap.put(new Short("8"), new Double(27.0));		
-		sg2mMap.put(new Short("9"), new Double(30.0));	
-		starMass.put(StarTypeFactory.sg2m, sg2mMap);
-		
-		Map<Short,Double> sg1oMap = new HashMap<Short, Double>();
-		sg1oMap.put(new Short("0"), new Double(50.0));
-		sg1oMap.put(new Short("1"), new Double(45.0));
-		sg1oMap.put(new Short("2"), new Double(40.0));
-		sg1oMap.put(new Short("3"), new Double(35.0));
-		sg1oMap.put(new Short("4"), new Double(30.0));		
-		sg1oMap.put(new Short("5"), new Double(27.0));		
-		sg1oMap.put(new Short("6"), new Double(26.0));		
-		sg1oMap.put(new Short("7"), new Double(25.0));		
-		sg1oMap.put(new Short("8"), new Double(21.0));		
-		sg1oMap.put(new Short("9"), new Double(20.0));	
-		starMass.put(StarTypeFactory.sg1o, sg1oMap);
-		
-		Map<Short,Double> sg1bMap = new HashMap<Short, Double>();
-		sg1bMap.put(new Short("0"), new Double(45.0));
-		sg1bMap.put(new Short("1"), new Double(40.0));
-		sg1bMap.put(new Short("2"), new Double(35.0));
-		sg1bMap.put(new Short("3"), new Double(30.0));
-		sg1bMap.put(new Short("4"), new Double(28.0));		
-		sg1bMap.put(new Short("5"), new Double(24.0));		
-		sg1bMap.put(new Short("6"), new Double(23.0));		
-		sg1bMap.put(new Short("7"), new Double(20.0));		
-		sg1bMap.put(new Short("8"), new Double(19.0));		
-		sg1bMap.put(new Short("9"), new Double(18.0));	
-		starMass.put(StarTypeFactory.sg1b, sg1bMap);
-		
-		Map<Short,Double> sg1aMap = new HashMap<Short, Double>();
-		sg1aMap.put(new Short("0"), new Double(30.0));
-		sg1aMap.put(new Short("1"), new Double(27.0));
-		sg1aMap.put(new Short("2"), new Double(25.0));
-		sg1aMap.put(new Short("3"), new Double(22.0));
-		sg1aMap.put(new Short("4"), new Double(20.0));		
-		sg1aMap.put(new Short("5"), new Double(19.0));		
-		sg1aMap.put(new Short("6"), new Double(18.0));		
-		sg1aMap.put(new Short("7"), new Double(17.5));		
-		sg1aMap.put(new Short("8"), new Double(17.1));		
-		sg1aMap.put(new Short("9"), new Double(16.0));	
-		starMass.put(StarTypeFactory.sg1a, sg1aMap);
-		
-		Map<Short,Double> sg1fMap = new HashMap<Short, Double>();
-		sg1fMap.put(new Short("0"), new Double(20.0));
-		sg1fMap.put(new Short("1"), new Double(19.0));
-		sg1fMap.put(new Short("2"), new Double(17.0));
-		sg1fMap.put(new Short("3"), new Double(16.5));
-		sg1fMap.put(new Short("4"), new Double(16.0));		
-		sg1fMap.put(new Short("5"), new Double(15.5));		
-		sg1fMap.put(new Short("6"), new Double(15.0));		
-		sg1fMap.put(new Short("7"), new Double(14.6));		
-		sg1fMap.put(new Short("8"), new Double(14.1));		
-		sg1fMap.put(new Short("9"), new Double(14.0));	
-		starMass.put(StarTypeFactory.sg1f, sg1fMap);
-		
-		Map<Short,Double> sg1gMap = new HashMap<Short, Double>();
-		sg1gMap.put(new Short("0"), new Double(12.0));
-		sg1gMap.put(new Short("1"), new Double(11.0));
-		sg1gMap.put(new Short("2"), new Double(10.9));
-		sg1gMap.put(new Short("3"), new Double(10.7));
-		sg1gMap.put(new Short("4"), new Double(10.3));		
-		sg1gMap.put(new Short("5"), new Double(10.0));		
-		sg1gMap.put(new Short("6"), new Double(10.7));		
-		sg1gMap.put(new Short("7"), new Double(10.9));		
-		sg1gMap.put(new Short("8"), new Double(11.0));		
-		sg1gMap.put(new Short("9"), new Double(11.5));	
-		starMass.put(StarTypeFactory.sg1g, sg1gMap);
-		
-		Map<Short,Double> sg1kMap = new HashMap<Short, Double>();
-		sg1kMap.put(new Short("0"), new Double(14.0));
-		sg1kMap.put(new Short("1"), new Double(1.23e4));
-		sg1kMap.put(new Short("2"), new Double(1.46e4));
-		sg1kMap.put(new Short("3"), new Double(1.65e4));
-		sg1kMap.put(new Short("4"), new Double(1.81e4));		
-		sg1kMap.put(new Short("5"), new Double(2.09e4));		
-		sg1kMap.put(new Short("6"), new Double(2.32e4));		
-		sg1kMap.put(new Short("7"), new Double(2.87e4));		
-		sg1kMap.put(new Short("8"), new Double(3.16e4));		
-		sg1kMap.put(new Short("9"), new Double(16.0));	
-		starMass.put(StarTypeFactory.sg1k, sg1kMap);
-		
-		Map<Short,Double> sg1mMap = new HashMap<Short, Double>();
-		sg1mMap.put(new Short("0"), new Double(4.6e4));
-		sg1mMap.put(new Short("1"), new Double(5.39e4));
-		sg1mMap.put(new Short("2"), new Double(6.01e4));
-		sg1mMap.put(new Short("3"), new Double(6.95e4));
-		sg1mMap.put(new Short("4"), new Double(7.82e4));		
-		sg1mMap.put(new Short("5"), new Double(8.45e4));		
-		sg1mMap.put(new Short("6"), new Double(9.01e4));		
-		sg1mMap.put(new Short("7"), new Double(9.87e4));		
-		sg1mMap.put(new Short("8"), new Double(1.08e5));		
-		sg1mMap.put(new Short("9"), new Double(1.17e5));	
-		starMass.put(StarTypeFactory.sg1m, sg1mMap);
-	}
 /**
+ * BLUE_SG_II, LTBL_SG_II, WHIT_SG_II, PYEL_SG_II, YELO_SG_II, ORNG_SG_II,
+ * RED__SG_II, BLUE_SG_I, LTBL_SG_I, WHIT_SG_I, PYEL_SG_I, YELO_SG_I, ORNG_SG_I,
+ * RED__SG_I, BLUE_GI_II, LTBL_GI_II, WHIT_GI_II, PYEL_GI_II, YELO_GI_II,
+ * ORNG_GI_II, RED__GI_II, BLUE_GI_I, LTBL_GI_I, WHIT_GI_I, PYEL_GI_I,
+ * YELO_GI_I, ORNG_GI_I, RED__GI_I, BLUE_SUBGI, LTBL_SUBGI, WHIT_SUBGI,
+ * PYEL_SUBGI, YELO_SUBGI, ORNG_SUBGI, RED__SUBGI, BLUE_MAINS, LTBL_MAINS,
+ * WHIT_MAINS, PYEL_MAINS, YELO_MAINS, ORNG_MAINS, RED__MAINS, BLUE_SUBDW,
+ * LTBL_SUBDW, WHIT_SUBDW, PYEL_SUBDW, YELO_SUBDW, ORNG_SUBDW, RED__SUBDW,
+ * BLUE_DWARF, LTBL_DWARF, WHIT_DWARF, PYEL_DWARF, YELO_DWARF, ORNG_DWARF,
+ * RED__DWARF, PURPLE_RED, BROWN_SUBS, DRKBRN_SDW
  * 
- * @param starCode
- * @param starTypeFactory
- * @param starFactory
- * @param sequence
- * @return luminosity
+ * @author jredden
+ *
  */
 
-	public static Double genLuminsoity(short starCode,
-			StarTypeFactory starTypeFactory, StarFactory starFactory,
-			Sequence sequence) {
-		Double lumen = starTypeFactory.starLum.get(starTypeFactory)
-				.get(starCode).doubleValue();
+interface Name {
+	String read();
 
-		// edge conditions
-		if (starCode == 0 && sequence.sfup == null) {
+	String code();
 
-			Double mod = StarTypeFactory.starLum.get(starTypeFactory).get(
-					starCode);
-			mod = delta(lumen, mod)
-					* (GenRandomRolls.Instance().getD49() / 100.0);
-			lumen += mod;
-		} else if (starCode == 9 && sequence.sfdown == null) {
-			Double mod = StarTypeFactory.starLum.get(starTypeFactory).get(
-					starCode);
-			mod = delta(lumen, mod)
-					* (GenRandomRolls.Instance().getD49() / 100.0);
+	short subCode();
+	
+	Sequence sequence();
+}
 
-			lumen = starTypeFactory.starLum.get(starTypeFactory).get(starCode)
-					.doubleValue();
-			mod = StarTypeFactory.starLum.get(starTypeFactory).get(starCode);
-			mod = mod * GenRandomRolls.Instance().getD49();
-			lumen += mod;
-		} else {
-			// random plus or minus lumenosity
-			int flipACoin = GenRandomRolls.Instance().get_D2();
-			if (flipACoin == 1) {
-				lumen = starTypeFactory.starLum.get(starTypeFactory)
-						.get(starCode).doubleValue();
-				short starCode2 = nextPlusCode(starCode);
-				Double mod = null;
-				if (starCode == 0) {
-					mod = StarTypeFactory.starLum.get(sequence.sfup).get(
-							starCode2);
-					mod = delta(lumen, mod)
-							* (GenRandomRolls.Instance().getD49() / 100.0);
+class Sequence{
+	StarTypeFactory sfup;
+	StarTypeFactory sfdown;
 
-					logger.info("SFUP1:"+sequence.sfup);
-				} else {
-					mod = starTypeFactory.starLum.get(starTypeFactory)
-							.get(starCode2).doubleValue();
-					mod = delta(lumen, mod)
+	public Sequence(StarTypeFactory sfup, StarTypeFactory sfdown) {
+		super();
+		this.sfup = sfup;
+		this.sfdown = sfdown;
+	}
+}
 
-					* (GenRandomRolls.Instance().getD49() / 100.0);
-				}
-				logger.info("MOD1:"+mod);
-				lumen += mod;
-			} else {
-				short starCode2 = nextMinusCode(starCode);
-				Double mod = null;
-				if (starCode == 9) {
-					mod = StarTypeFactory.starLum.get(sequence.sfdown).get(
-							starCode2);
-					mod = delta(lumen, mod)
-							* (GenRandomRolls.Instance().getD49() / 100.0);
+public enum StarFactory {
 
-					logger.info("SFDOWN2:"+sequence.sfdown);
-				}  else {
-					mod = starTypeFactory.starLum.get(starTypeFactory)
-							.get(starCode2).doubleValue();
-					mod = delta(lumen, mod)
-							* (GenRandomRolls.Instance().getD49() / 100.0);
-				}
-				logger.info("MOD2:"+mod);
-				lumen -= mod;
+	BLUE_SG_II("BLUE_SG_II") {
+		Name read() {
+			return blueSGII;
+		}
+
+		@Override
+		Name code() {
+			return blueSGII;
+		}
+
+		@Override
+		Name subCode() {
+			return blueSGII;
+		}
+	},
+	LTBL_SG_II("LTBL_SG_II") {
+		Name read() {
+			return ltblSGII;
+		}
+
+		@Override
+		Name code() {
+
+			return ltblSGII;
+		}
+
+		@Override
+		Name subCode() {
+
+			return ltblSGII;
+		}
+	},
+	WHIT_SG_II("WHIT_SG_II") {
+		Name read() {
+			return whitSGII;
+		}
+
+		@Override
+		Name code() {
+
+			return whitSGII;
+		}
+
+		@Override
+		Name subCode() {
+
+			return whitSGII;
+		}
+	},
+	PYEL_SG_II("PYEL_SG_II") {
+		Name read() {
+			return pyrlSGII;
+		}
+
+		@Override
+		Name code() {
+
+			return pyrlSGII;
+		}
+
+		@Override
+		Name subCode() {
+
+			return pyrlSGII;
+		}
+	},
+	YELO_SG_II("YELO_SG_II") {
+		Name read() {
+			return yeloSGII;
+		}
+
+		@Override
+		Name code() {
+
+			return yeloSGII;
+		}
+
+		@Override
+		Name subCode() {
+
+			return yeloSGII;
+		}
+	},
+	ORNG_SG_II("ORNG_SG_II") {
+		Name read() {
+			return orngSGII;
+		}
+
+		@Override
+		Name code() {
+
+			return orngSGII;
+		}
+
+		@Override
+		Name subCode() {
+
+			return orngSGII;
+		}
+	},
+	RED__SG_II("RED__SG_II") {
+		Name read() {
+			return redSGII;
+		}
+
+		@Override
+		Name code() {
+
+			return redSGII;
+		}
+
+		@Override
+		Name subCode() {
+
+			return redSGII;
+		}
+	},
+	BLUE_SG_I("BLUE_SG_I") {
+		Name read() {
+			return blueSGI;
+		}
+
+		@Override
+		Name code() {
+
+			return blueSGI;
+		}
+
+		@Override
+		Name subCode() {
+
+			return blueSGI;
+		}
+	},
+	LTBL_SG_I("LTBL_SG_I") {
+		Name read() {
+			return ltblSGI;
+		}
+
+		@Override
+		Name code() {
+
+			return ltblSGI;
+		}
+
+		@Override
+		Name subCode() {
+
+			return ltblSGI;
+		}
+	},
+	WHIT_SG_I("WHIT_SG_I") {
+		Name read() {
+			return whitSGI;
+		}
+
+		@Override
+		Name code() {
+
+			return whitSGI;
+		}
+
+		@Override
+		Name subCode() {
+
+			return whitSGI;
+		}
+	},
+	PYEL_SG_I("PYEL_SG_I") {
+		Name read() {
+			return pyrlSGI;
+		}
+
+		@Override
+		Name code() {
+
+			return pyrlSGI;
+		}
+
+		@Override
+		Name subCode() {
+
+			return pyrlSGI;
+		}
+	},
+	YELO_SG_I("YELO_SG_I") {
+		Name read() {
+			return yeloSGI;
+		}
+
+		@Override
+		Name code() {
+
+			return yeloSGI;
+		}
+
+		@Override
+		Name subCode() {
+
+			return yeloSGI;
+		}
+	},
+	ORNG_SG_I("ORNG_SG_I") {
+		Name read() {
+			return orngSGI;
+		}
+
+		@Override
+		Name code() {
+
+			return orngSGI;
+		}
+
+		@Override
+		Name subCode() {
+
+			return orngSGI;
+		}
+	},
+	RED__SG_I("RED__SG_I") {
+		Name read() {
+			return redSGI;
+		}
+
+		@Override
+		Name code() {
+
+			return redSGI;
+		}
+
+		@Override
+		Name subCode() {
+
+			return redSGI;
+		}
+	},
+	BLUE_GI_II("BLUE_GI_II") {
+		Name read() {
+			return blueGIII;
+		}
+
+		@Override
+		Name code() {
+
+			return blueGIII;
+		}
+
+		@Override
+		Name subCode() {
+
+			return blueGIII;
+		}
+	},
+	LTBL_GI_II("LTBL_GI_II") {
+		Name read() {
+			return ltblGIII;
+		}
+
+		@Override
+		Name code() {
+
+			return ltblGIII;
+		}
+
+		@Override
+		Name subCode() {
+
+			return ltblGIII;
+		}
+	},
+	WHIT_GI_II("WHIT_GI_II") {
+		Name read() {
+			return whitGIII;
+		}
+
+		@Override
+		Name code() {
+
+			return whitGIII;
+		}
+
+		@Override
+		Name subCode() {
+
+			return whitGIII;
+		}
+	},
+	PYEL_GI_II("PYEL_GI_II") {
+		Name read() {
+			return pyrlGIII;
+		}
+
+		@Override
+		Name code() {
+
+			return pyrlGIII;
+		}
+
+		@Override
+		Name subCode() {
+
+			return pyrlGIII;
+		}
+	},
+	YELO_GI_II("YELO_GI_II") {
+		Name read() {
+			return yeloGIII;
+		}
+
+		@Override
+		Name code() {
+
+			return yeloGIII;
+		}
+
+		@Override
+		Name subCode() {
+
+			return yeloGIII;
+		}
+	},
+	ORNG_GI_II("ORNG_GI_II") {
+		Name read() {
+			return orngGIII;
+		}
+
+		@Override
+		Name code() {
+
+			return orngGIII;
+		}
+
+		@Override
+		Name subCode() {
+
+			return orngGIII;
+		}
+	},
+	RED__GI_II("RED__GI_II") {
+		Name read() {
+			return redGIII;
+		}
+
+		@Override
+		Name code() {
+
+			return redGIII;
+		}
+
+		@Override
+		Name subCode() {
+
+			return redGIII;
+		}
+	},
+	BLUE_GI_I("BLUE_GI_I") {
+		Name read() {
+			return blueGII;
+		}
+
+		@Override
+		Name code() {
+
+			return blueGII;
+		}
+
+		@Override
+		Name subCode() {
+
+			return blueGII;
+		}
+	},
+	LTBL_GI_I("LTBL_GI_I") {
+		Name read() {
+			return ltblGII;
+		}
+
+		@Override
+		Name code() {
+
+			return ltblGII;
+		}
+
+		@Override
+		Name subCode() {
+
+			return ltblGII;
+		}
+	},
+	WHIT_GI_I("WHIT_GI_I") {
+		Name read() {
+			return whitGII;
+		}
+
+		@Override
+		Name code() {
+
+			return whitGII;
+		}
+
+		@Override
+		Name subCode() {
+
+			return whitGII;
+		}
+	},
+	PYEL_GI_I("PYEL_GI_I") {
+		Name read() {
+			return pyrlGII;
+		}
+
+		@Override
+		Name code() {
+
+			return pyrlGII;
+		}
+
+		@Override
+		Name subCode() {
+
+			return pyrlGII;
+		}
+	},
+	YELO_GI_I("YELO_GI_I") {
+		Name read() {
+			return yeloGII;
+		}
+
+		@Override
+		Name code() {
+
+			return yeloGII;
+		}
+
+		@Override
+		Name subCode() {
+
+			return yeloGII;
+		}
+	},
+	ORNG_GI_I("ORNG_GI_I") {
+		Name read() {
+			return orngGII;
+		}
+
+		@Override
+		Name code() {
+
+			return orngGII;
+		}
+
+		@Override
+		Name subCode() {
+
+			return orngGII;
+		}
+	},
+	RED__GI_I("RED__GI_I") {
+		Name read() {
+			return redGII;
+		}
+
+		@Override
+		Name code() {
+
+			return redGII;
+		}
+
+		@Override
+		Name subCode() {
+
+			return redGII;
+		}
+	},
+	BLUE_SUBGI("BLUE_SUBGI") {
+		Name read() {
+			return blueSubGI;
+		}
+
+		@Override
+		Name code() {
+
+			return blueSubGI;
+		}
+
+		@Override
+		Name subCode() {
+
+			return blueSubGI;
+		}
+	},
+	LTBL_SUBGI("LTBL_SUBGI") {
+		Name read() {
+			return ltblSubGI;
+		}
+
+		@Override
+		Name code() {
+
+			return ltblSubGI;
+		}
+
+		@Override
+		Name subCode() {
+
+			return ltblSubGI;
+		}
+	},
+	WHIT_SUBGI("WHIT_SUBGI") {
+		Name read() {
+			return whitSubGI;
+		}
+
+		@Override
+		Name code() {
+
+			return whitSubGI;
+		}
+
+		@Override
+		Name subCode() {
+
+			return whitSubGI;
+		}
+	},
+	PYEL_SUBGI("PYEL_SUBGI") {
+		Name read() {
+			return pyrlSubGI;
+		}
+
+		@Override
+		Name code() {
+
+			return pyrlSubGI;
+		}
+
+		@Override
+		Name subCode() {
+
+			return pyrlSubGI;
+		}
+	},
+	YELO_SUBGI("YELO_SUBGI") {
+		Name read() {
+			return yeloSubGI;
+		}
+
+		@Override
+		Name code() {
+
+			return yeloSubGI;
+		}
+
+		@Override
+		Name subCode() {
+
+			return yeloSubGI;
+		}
+	},
+	ORNG_SUBGI("ORNG_SUBGI") {
+		Name read() {
+			return orngSubGI;
+		}
+
+		@Override
+		Name code() {
+
+			return orngSubGI;
+		}
+
+		@Override
+		Name subCode() {
+
+			return orngSubGI;
+		}
+	},
+	RED__SUBGI("RED__SUBGI") {
+		Name read() {
+			return redSubGI;
+		}
+
+		@Override
+		Name code() {
+
+			return redSubGI;
+		}
+
+		@Override
+		Name subCode() {
+
+			return redSubGI;
+		}
+	},
+	BLUE_MAINS("BLUE_MAINS") {
+		Name read() {
+			return blueMainS;
+		}
+
+		@Override
+		Name code() {
+
+			return blueMainS;
+		}
+
+		@Override
+		Name subCode() {
+
+			return blueMainS;
+		}
+	},
+	LTBL_MAINS("LTBL_MAINS") {
+		Name read() {
+			return ltblMainS;
+		}
+
+		@Override
+		Name code() {
+
+			return ltblMainS;
+		}
+
+		@Override
+		Name subCode() {
+
+			return ltblMainS;
+		}
+	},
+	WHIT_MAINS("WHIT_MAINS") {
+		Name read() {
+			return whitMainS;
+		}
+
+		@Override
+		Name code() {
+
+			return whitMainS;
+		}
+
+		@Override
+		Name subCode() {
+
+			return whitMainS;
+		}
+	},
+	PYEL_MAINS("PYEL_MAINS") {
+		Name read() {
+			return pyrlMainS;
+		}
+
+		@Override
+		Name code() {
+
+			return pyrlMainS;
+		}
+
+		@Override
+		Name subCode() {
+
+			return pyrlMainS;
+		}
+	},
+	YELO_MAINS("YELO_MAINS") {
+		Name read() {
+			return yeloMainS;
+		}
+
+		@Override
+		Name code() {
+
+			return yeloMainS;
+		}
+
+		@Override
+		Name subCode() {
+
+			return yeloMainS;
+		}
+	},
+	ORNG_MAINS("ORNG_MAINS") {
+		Name read() {
+			return orngMainS;
+		}
+
+		@Override
+		Name code() {
+
+			return orngMainS;
+		}
+
+		@Override
+		Name subCode() {
+
+			return orngMainS;
+		}
+	},
+	RED__MAINS("RED__MAINS") {
+		Name read() {
+			return redMainS;
+		}
+
+		@Override
+		Name code() {
+
+			return redMainS;
+		}
+
+		@Override
+		Name subCode() {
+
+			return redMainS;
+		}
+	},
+	BLUE_SUBDW("BLUE_SUBDW") {
+		Name read() {
+			return blueSubDW;
+		}
+
+		@Override
+		Name code() {
+
+			return blueSubDW;
+		}
+
+		@Override
+		Name subCode() {
+
+			return blueSubDW;
+		}
+	},
+	LTBL_SUBDW("LTBL_SUBDW") {
+		Name read() {
+			return ltblSubDW;
+		}
+
+		@Override
+		Name code() {
+
+			return ltblSubDW;
+		}
+
+		@Override
+		Name subCode() {
+
+			return ltblSubDW;
+		}
+	},
+	WHIT_SUBDW("WHIT_SUBDW") {
+		Name read() {
+			return whitSubDW;
+		}
+
+		@Override
+		Name code() {
+
+			return whitSubDW;
+		}
+
+		@Override
+		Name subCode() {
+
+			return whitSubDW;
+		}
+	},
+	PYEL_SUBDW("PYEL_SUBDW") {
+		Name read() {
+			return pyrlSubDW;
+		}
+
+		@Override
+		Name code() {
+
+			return pyrlSubDW;
+		}
+
+		@Override
+		Name subCode() {
+
+			return pyrlSubDW;
+		}
+	},
+	YELO_SUBDW("YELO_SUBDW") {
+		Name read() {
+			return yeloSubDW;
+		}
+
+		@Override
+		Name code() {
+
+			return yeloSubDW;
+		}
+
+		@Override
+		Name subCode() {
+
+			return yeloSubDW;
+		}
+	},
+	ORNG_SUBDW("ORNG_SUBDW") {
+		Name read() {
+			return orngSubDW;
+		}
+
+		@Override
+		Name code() {
+
+			return orngSubDW;
+		}
+
+		@Override
+		Name subCode() {
+
+			return orngSubDW;
+		}
+	},
+	RED__SUBDW("RED__SUBDW") {
+		Name read() {
+			return redSubDW;
+		}
+
+		@Override
+		Name code() {
+
+			return redSubDW;
+		}
+
+		@Override
+		Name subCode() {
+
+			return redSubDW;
+		}
+	},
+	BLUE_DWARF("BLUE_DWARF") {
+		Name read() {
+			return blueDwarf;
+		}
+
+		@Override
+		Name code() {
+
+			return blueDwarf;
+		}
+
+		@Override
+		Name subCode() {
+
+			return blueDwarf;
+		}
+	},
+	LTBL_DWARF("LTBL_DWARF") {
+		Name read() {
+			return ltblDwarf;
+		}
+
+		@Override
+		Name code() {
+
+			return ltblDwarf;
+		}
+
+		@Override
+		Name subCode() {
+
+			return ltblDwarf;
+		}
+	},
+	WHIT_DWARF("WHIT_DWARF") {
+		Name read() {
+			return whitDwarf;
+		}
+
+		@Override
+		Name code() {
+
+			return whitDwarf;
+		}
+
+		@Override
+		Name subCode() {
+
+			return whitDwarf;
+		}
+	},
+	PYEL_DWARF("PYEL_DWARF") {
+		Name read() {
+			return pyrlDwarf;
+		}
+
+		@Override
+		Name code() {
+
+			return pyrlDwarf;
+		}
+
+		@Override
+		Name subCode() {
+
+			return pyrlDwarf;
+		}
+	},
+	YELO_DWARF("YELO_DWARF") {
+		Name read() {
+			return yeloDwarf;
+		}
+
+		@Override
+		Name code() {
+
+			return yeloDwarf;
+		}
+
+		@Override
+		Name subCode() {
+
+			return yeloDwarf;
+		}
+	},
+	ORNG_DWARF("ORNG_DWARF") {
+		Name read() {
+			return orngDwarf;
+		}
+
+		@Override
+		Name code() {
+
+			return orngDwarf;
+		}
+
+		@Override
+		Name subCode() {
+
+			return orngDwarf;
+		}
+	},
+	RED__DWARF("RED__DWARF") {
+		Name read() {
+			return redDwarf;
+		}
+
+		@Override
+		Name code() {
+
+			return redDwarf;
+		}
+
+		@Override
+		Name subCode() {
+
+			return redDwarf;
+		}
+	},
+	PURPLE_RED("PURPLE_RED") {
+		Name read() {
+			return purpleRed;
+		}
+
+		@Override
+		Name code() {
+
+			return purpleRed;
+		}
+
+		@Override
+		Name subCode() {
+
+			return purpleRed;
+		}
+	},
+	BROWN_SUBS("BROWN_SUBS") {
+		Name read() {
+			return brownSubS;
+		}
+
+		@Override
+		Name code() {
+
+			return brownSubS;
+		}
+
+		@Override
+		Name subCode() {
+
+			return brownSubS;
+		}
+	},
+	DRKBRN_SDW("DRKBRN_SDW") {
+		Name read() {
+			return drkBrnSDW;
+		}
+
+		@Override
+		Name code() {
+
+			return drkBrnSDW;
+		}
+
+		@Override
+		Name subCode() {
+
+			return drkBrnSDW;
+		}
+	};
+
+	protected static Name blueSGII = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(null, StarTypeFactory.sg2b);
+		
+		public String read() {
+			return "Blue Super Giant II";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sg2o.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
 			}
+			return subCode;
 		}
-		return lumen;
+		
+		public Sequence sequence() {
+
+			return sequence;
+		}
+	};
+	protected static Name ltblSGII = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.sg2o, StarTypeFactory.sg2a);
+
+		public String read() {
+			return "Light Blue Super Giant II";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sg2b.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+ 
+			return sequence;
+		}
+	};
+	protected static Name whitSGII = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.sg2b, StarTypeFactory.sg2f);
+
+		public String read() {
+			return "White Super Giant II";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sg2a.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+ 
+			return sequence;
+		}
+	};
+	protected static Name pyrlSGII = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.sg2a, StarTypeFactory.sg2g);
+
+		public String read() {
+			return "Pale Yellow Super Giant II";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sg2f.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name yeloSGII = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.sg2f, StarTypeFactory.sg2k);
+
+		public String read() {
+			return "Yellow Super Giant II";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sg2g.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name orngSGII = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.sg2g, StarTypeFactory.sg2m);
+
+		public String read() {
+			return "Orange Super Giant II";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sg2k.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name redSGII = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.sg2k, StarTypeFactory.sg1o);
+
+		public String read() {
+			return "Red Super Giant II";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sg2m.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name blueSGI = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.sg2m, StarTypeFactory.sg1b);
+
+		public String read() {
+			return "Blue Super Giant I";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sg1o.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name ltblSGI = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.sg1o, StarTypeFactory.sg1a);
+
+		public String read() {
+			return "Light Blue Super Giant I";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sg1b.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name whitSGI = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.sg1b, StarTypeFactory.sg1f);
+
+		public String read() {
+			return "White Super Giant I";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sg1a.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name pyrlSGI = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.sg1a, StarTypeFactory.sg1g);
+
+		public String read() {
+			return "Pale Yellow Super Giant I";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sg1f.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name yeloSGI = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.sg1f, StarTypeFactory.sg1k);
+
+		public String read() {
+			return "Yellow Super Giant I";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sg1g.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name orngSGI = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.sg1g, StarTypeFactory.sg1m);
+
+		public String read() {
+			return "Orange Super Giant I";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sg1k.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name redSGI = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.sg1k, StarTypeFactory.g2o);
+
+		public String read() {
+			return "Red Super Giant I";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sg1m.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name blueGIII = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.sg1m, StarTypeFactory.g2b);
+
+		public String read() {
+			return "Blue Giant II";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.g2o.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name ltblGIII = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.g2o, StarTypeFactory.g2a);
+
+		public String read() {
+			return "Light Blue  Giant II";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.g2b.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name whitGIII = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.g2b, StarTypeFactory.g2f);
+
+		public String read() {
+			return "White Giant II";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.g2a.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name pyrlGIII = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.g2a, StarTypeFactory.g2g);
+
+		public String read() {
+			return "Pale Yellow Giant II";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.g2f.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name yeloGIII = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.g2f, StarTypeFactory.g2k);
+
+		public String read() {
+			return "Yellow Giant II";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.g2g.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name orngGIII = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.g2g, StarTypeFactory.g2m);
+
+		public String read() {
+			return "Orange Giant II";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.g2k.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name redGIII = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.g2k, StarTypeFactory.g1o);
+
+		public String read() {
+			return "Red Giant II";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.g2m.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name blueGII = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.g2m, StarTypeFactory.g1b);
+
+		public String read() {
+			return "Blue Giant I";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.g1o.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name ltblGII = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.g1o, StarTypeFactory.g1a);
+
+		public String read() {
+			return "Light Blue  Giant I";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.g1b.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name whitGII = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.g1b, StarTypeFactory.g1f);
+
+		public String read() {
+			return "White Giant I";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.g1a.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name pyrlGII = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.g1a, StarTypeFactory.g1g);
+
+		public String read() {
+			return "Pale Yellow Giant I";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.g1f.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name yeloGII = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.g1f, StarTypeFactory.g1k);
+
+		public String read() {
+			return "Yellow Giant I";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.g1g.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name orngGII = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.g1g, StarTypeFactory.g1m);
+
+		public String read() {
+			return "Orange Giant I";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.g1k.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name redGII = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.g1k, StarTypeFactory.sbgo);
+
+		public String read() {
+			return "Red Giant I";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.g1m.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name blueSubGI = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.g1m, StarTypeFactory.sbgb);
+
+		public String read() {
+			return "Blue Sub Giant";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sbgo.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name ltblSubGI = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.sbgo, StarTypeFactory.sbga);
+
+		public String read() {
+			return "Light Blue Sub Giant";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sbgb.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name whitSubGI = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.sbgb, StarTypeFactory.sbgf);
+
+		public String read() {
+			return "White Sub Giant";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sbga.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name pyrlSubGI = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.sbga, StarTypeFactory.sbgg);
+
+		public String read() {
+			return "Pale Yellow SubGiant";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sbgf.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name yeloSubGI = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.sbgf, StarTypeFactory.sbgk);
+
+		public String read() {
+			return "Yellow Sub Giant";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sbgg.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name orngSubGI = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.sbgg, StarTypeFactory.sbgm);
+
+		public String read() {
+			return "Orange Sub Giant";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sbgk.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name redSubGI = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.sbgk, StarTypeFactory.o);
+
+		public String read() {
+			return "Red Sub Giant";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sbgm.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name blueMainS = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.sbgm, StarTypeFactory.a);
+
+		public String read() {
+			return "Blue Main Sequence";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.o.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name ltblMainS = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.o, StarTypeFactory.a);
+
+		public String read() {
+			return "Light Blue Main Sequence";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.b.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name whitMainS = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.b, StarTypeFactory.f);
+
+		public String read() {
+			return "White Main Sequence";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.a.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name pyrlMainS = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.a, StarTypeFactory.g);
+
+		public String read() {
+			return "Pale Yellow Main Sequence";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.f.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name yeloMainS = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.f, StarTypeFactory.k);
+
+		public String read() {
+			return "Yellow Main Sequence";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.g.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name orngMainS = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.g, StarTypeFactory.m);
+
+		public String read() {
+			return "Orange Main Sequence";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.k.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name redMainS = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.k, StarTypeFactory.sdo);
+
+		public String read() {
+			return "Red Main Sequence";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.m.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name blueSubDW = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.m, StarTypeFactory.sdb);
+
+		public String read() {
+			return "Blue Sub Dwarf";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sdo.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name ltblSubDW = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.sdo, StarTypeFactory.sda);
+
+		public String read() {
+			return "Light Blue Sub Dwarf";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sdb.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name whitSubDW = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.sdb, StarTypeFactory.sdf);
+
+		public String read() {
+			return "White Sub Dwarf";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sda.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name pyrlSubDW = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.sda, StarTypeFactory.sdg);
+
+		public String read() {
+			return "Pale Yellow Sub Dwarf";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sdf.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name yeloSubDW = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.sdf, StarTypeFactory.sdk);
+
+		public String read() {
+			return "Yellow Sub Dwarf";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sdg.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name orngSubDW = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.sdg, StarTypeFactory.sdm);
+
+		public String read() {
+			return "Orange Sub Dwarf";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sdk.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name redSubDW = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.sdk, StarTypeFactory.dwo);
+
+		public String read() {
+			return "Red Sub Dwarf";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.sdm.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name blueDwarf = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.sdm, StarTypeFactory.db);
+
+		public String read() {
+			return "Blue Dwarf";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.dwo.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name ltblDwarf = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.dwo, StarTypeFactory.da);
+
+		public String read() {
+			return "Light Blue Dwarf";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.db.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name whitDwarf = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.db, StarTypeFactory.df);
+
+		public String read() {
+			return "White Dwarf";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.da.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name pyrlDwarf = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.da, StarTypeFactory.dg);
+
+		public String read() {
+			return "Pale Yellow Dwarf";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.df.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name yeloDwarf = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.df, StarTypeFactory.dk);
+
+		public String read() {
+			return "Yellow Dwarf";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.dg.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name orngDwarf = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.dg, StarTypeFactory.dm);
+
+		public String read() {
+			return "Orange Dwarf";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.dk.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name redDwarf = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.dk, StarTypeFactory.pmd);
+
+		public String read() {
+			return "Red Dwarf";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.dm.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name purpleRed = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.dm, StarTypeFactory.bs);
+
+		public String read() {
+			return "Purple Red Dwarf";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.pmd.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name brownSubS = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.pmd, StarTypeFactory.dbs);
+
+		public String read() {
+			return "Brown Sub Star";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.bs.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			return sequence;
+		}
+	};
+	protected static Name drkBrnSDW = new Name() {
+		private short subCode = -1;
+		private Sequence sequence = new Sequence(StarTypeFactory.bs, null);
+
+		public String read() {
+			return "Dark Brown Sub Dwarf";
+		}
+
+		public String code() {
+			subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			return StarTypeFactory.dbs.name() + subCode;
+		}
+
+		public short subCode() {
+			if (subCode == -1) {
+				subCode = (short) GenRandomRolls.Instance().get_D10zero();
+			}
+			return subCode;
+		}
+
+		public Sequence sequence() {
+			// TODO Auto-generated method stub
+			return sequence;
+		}
+	};
+	private String type;
+
+	private StarFactory(String type) {
+		this.type = type;
 	}
 
-	private static short nextPlusCode(short starCode) {
-		short starCode2 = (short) (starCode - 1);
-		if (starCode2 == -1) {
-			starCode2 = 0;
-		}
-		logger.info("NEXT_MINUS_CODE:"+starCode2);
-		return starCode2;
-	}
+	abstract Name read();
 
-	private static short nextMinusCode(short starCode) {
-		short starCode2 = (short) (starCode + 1);
-		if (starCode2 == 10) {
-			starCode2 = 9;
-		}
-		logger.info("NEXT_PLUS_CODE:"+starCode2);
-		return starCode2;
-	}
-	private static Double delta(Double luman, Double mod){
-		Double answer = null;
-		if (mod < luman){
-			answer = luman - mod;
-		}
-		else{
-			answer = mod - luman;
-		}
-		logger.info("DELTA.luman:"+answer);
-		return answer;
-	}
+	abstract Name code();
 
+	abstract Name subCode();
 }
