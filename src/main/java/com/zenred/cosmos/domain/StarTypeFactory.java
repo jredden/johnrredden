@@ -1007,29 +1007,42 @@ public enum StarTypeFactory {
 		
 		Map<Short,Double> sg1kMap = new HashMap<Short, Double>();
 		sg1kMap.put(new Short("0"), new Double(14.0));
-		sg1kMap.put(new Short("1"), new Double(1.23e4));
-		sg1kMap.put(new Short("2"), new Double(1.46e4));
-		sg1kMap.put(new Short("3"), new Double(1.65e4));
-		sg1kMap.put(new Short("4"), new Double(1.81e4));		
-		sg1kMap.put(new Short("5"), new Double(2.09e4));		
-		sg1kMap.put(new Short("6"), new Double(2.32e4));		
-		sg1kMap.put(new Short("7"), new Double(2.87e4));		
-		sg1kMap.put(new Short("8"), new Double(3.16e4));		
+		sg1kMap.put(new Short("1"), new Double(14.3));
+		sg1kMap.put(new Short("2"), new Double(14.5));
+		sg1kMap.put(new Short("3"), new Double(14.7));
+		sg1kMap.put(new Short("4"), new Double(14.9));		
+		sg1kMap.put(new Short("5"), new Double(15.0));		
+		sg1kMap.put(new Short("6"), new Double(15.3));		
+		sg1kMap.put(new Short("7"), new Double(15.5));		
+		sg1kMap.put(new Short("8"), new Double(15.9));		
 		sg1kMap.put(new Short("9"), new Double(16.0));	
 		starMass.put(StarTypeFactory.sg1k, sg1kMap);
 		
 		Map<Short,Double> sg1mMap = new HashMap<Short, Double>();
-		sg1mMap.put(new Short("0"), new Double(4.6e4));
-		sg1mMap.put(new Short("1"), new Double(5.39e4));
-		sg1mMap.put(new Short("2"), new Double(6.01e4));
-		sg1mMap.put(new Short("3"), new Double(6.95e4));
-		sg1mMap.put(new Short("4"), new Double(7.82e4));		
-		sg1mMap.put(new Short("5"), new Double(8.45e4));		
-		sg1mMap.put(new Short("6"), new Double(9.01e4));		
-		sg1mMap.put(new Short("7"), new Double(9.87e4));		
-		sg1mMap.put(new Short("8"), new Double(1.08e5));		
-		sg1mMap.put(new Short("9"), new Double(1.17e5));	
+		sg1mMap.put(new Short("0"), new Double(18.0));
+		sg1mMap.put(new Short("1"), new Double(20.0));
+		sg1mMap.put(new Short("2"), new Double(22.0));
+		sg1mMap.put(new Short("3"), new Double(24.0));
+		sg1mMap.put(new Short("4"), new Double(24.1));		
+		sg1mMap.put(new Short("5"), new Double(24.3));		
+		sg1mMap.put(new Short("6"), new Double(24.5));		
+		sg1mMap.put(new Short("7"), new Double(24.7));		
+		sg1mMap.put(new Short("8"), new Double(24.9));		
+		sg1mMap.put(new Short("9"), new Double(25.0));	
 		starMass.put(StarTypeFactory.sg1m, sg1mMap);
+		
+		Map<Short,Double> g2oMap = new HashMap<Short, Double>();
+		g2oMap.put(new Short("0"), new Double(23.0));
+		g2oMap.put(new Short("1"), new Double(8.4e5));
+		g2oMap.put(new Short("2"), new Double(7.8e5));
+		g2oMap.put(new Short("3"), new Double(6.9e5));
+		g2oMap.put(new Short("4"), new Double(5.1e5));		
+		g2oMap.put(new Short("5"), new Double(4.7e5));		
+		g2oMap.put(new Short("6"), new Double(3.8e5));		
+		g2oMap.put(new Short("7"), new Double(3.3e5));		
+		g2oMap.put(new Short("8"), new Double(2.9e5));		
+		g2oMap.put(new Short("9"), new Double(20.0));	
+		starMass.put(StarTypeFactory.g2o, g2oMap);
 	}
 /**
  * 
