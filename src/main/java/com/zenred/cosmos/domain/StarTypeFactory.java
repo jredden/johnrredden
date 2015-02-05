@@ -130,7 +130,7 @@ public enum StarTypeFactory {
 	;
 	private String type;
 	private StarTypeFactory (String type){
-		this.type = type;
+		this.setType(type);
 	}
 	
 	static private Logger logger = Logger.getLogger(StarTypeFactory.class);
@@ -1524,86 +1524,178 @@ public enum StarTypeFactory {
 		daMap.put(new Short("8"), new Double(0.49));		
 		daMap.put(new Short("9"), new Double(0.50));	
 		starMass.put(StarTypeFactory.da, daMap);
-	}
-/**
- * 
- * @param starCode
- * @param starTypeFactory
- * @param starFactory
- * @param sequence
- * @return luminosity
- */
+		
+		Map<Short,Double> dfMap = new HashMap<Short, Double>();
+		dfMap.put(new Short("0"), new Double(0.55));
+		dfMap.put(new Short("1"), new Double(0.54));
+		dfMap.put(new Short("2"), new Double(0.52));
+		dfMap.put(new Short("3"), new Double(0.51));
+		dfMap.put(new Short("4"), new Double(0.5));		
+		dfMap.put(new Short("5"), new Double(0.54));		
+		dfMap.put(new Short("6"), new Double(0.58));		
+		dfMap.put(new Short("7"), new Double(0.6));		
+		dfMap.put(new Short("8"), new Double(0.62));		
+		dfMap.put(new Short("9"), new Double(0.63));	
+		starMass.put(StarTypeFactory.df, dfMap);
 
+		Map<Short,Double> dgMap = new HashMap<Short, Double>();
+		dgMap.put(new Short("0"), new Double(0.60));
+		dgMap.put(new Short("1"), new Double(0.58));
+		dgMap.put(new Short("2"), new Double(0.55));
+		dgMap.put(new Short("3"), new Double(0.51));
+		dgMap.put(new Short("4"), new Double(0.48));		
+		dgMap.put(new Short("5"), new Double(0.51));		
+		dgMap.put(new Short("6"), new Double(0.52));		
+		dgMap.put(new Short("7"), new Double(0.54));		
+		dgMap.put(new Short("8"), new Double(0.58));		
+		dgMap.put(new Short("9"), new Double(0.60));	
+		starMass.put(StarTypeFactory.dg, dgMap);
+
+		Map<Short,Double> dkMap = new HashMap<Short, Double>();
+		dkMap.put(new Short("0"), new Double(0.65));
+		dkMap.put(new Short("1"), new Double(0.655));
+		dkMap.put(new Short("2"), new Double(0.66));
+		dkMap.put(new Short("3"), new Double(0.67));
+		dkMap.put(new Short("4"), new Double(0.69));		
+		dkMap.put(new Short("5"), new Double(0.73));		
+		dkMap.put(new Short("6"), new Double(0.78));		
+		dkMap.put(new Short("7"), new Double(0.81));		
+		dkMap.put(new Short("8"), new Double(0.9));		
+		dkMap.put(new Short("9"), new Double(0.98));	
+		starMass.put(StarTypeFactory.dk, dkMap);
+
+		Map<Short,Double> dmMap = new HashMap<Short, Double>();
+		dmMap.put(new Short("0"), new Double(0.99));
+		dmMap.put(new Short("1"), new Double(1.0));
+		dmMap.put(new Short("2"), new Double(1.02));
+		dmMap.put(new Short("3"), new Double(1.05));
+		dmMap.put(new Short("4"), new Double(1.06));		
+		dmMap.put(new Short("5"), new Double(1.08));		
+		dmMap.put(new Short("6"), new Double(1.085));		
+		dmMap.put(new Short("7"), new Double(1.09));		
+		dmMap.put(new Short("8"), new Double(1.1));		
+		dmMap.put(new Short("9"), new Double(1.11));	
+		starMass.put(StarTypeFactory.dm, dmMap);
+		
+		Map<Short,Double> pmdMap = new HashMap<Short, Double>();
+		pmdMap.put(new Short("0"), new Double(0.98));
+		pmdMap.put(new Short("1"), new Double(0.92));
+		pmdMap.put(new Short("2"), new Double(0.9));
+		pmdMap.put(new Short("3"), new Double(0.89));
+		pmdMap.put(new Short("4"), new Double(0.88));		
+		pmdMap.put(new Short("5"), new Double(0.83));		
+		pmdMap.put(new Short("6"), new Double(0.79));		
+		pmdMap.put(new Short("7"), new Double(0.77));		
+		pmdMap.put(new Short("8"), new Double(0.76));		
+		pmdMap.put(new Short("9"), new Double(0.75));
+		starMass.put(StarTypeFactory.pmd, pmdMap);
+
+		Map<Short,Double> bsMap = new HashMap<Short, Double>();
+		bsMap.put(new Short("0"), new Double(0.65));
+		bsMap.put(new Short("1"), new Double(0.45));
+		bsMap.put(new Short("2"), new Double(0.40));
+		bsMap.put(new Short("3"), new Double(0.35));
+		bsMap.put(new Short("4"), new Double(0.2));		
+		bsMap.put(new Short("5"), new Double(0.15));		
+		bsMap.put(new Short("6"), new Double(0.09));		
+		bsMap.put(new Short("7"), new Double(0.07));		
+		bsMap.put(new Short("8"), new Double(0.06));		
+		bsMap.put(new Short("9"), new Double(0.05));
+		starMass.put(StarTypeFactory.bs, bsMap);
+		
+		Map<Short,Double> dbsMap = new HashMap<Short, Double>();
+		dbsMap.put(new Short("0"), new Double(0.01));
+		dbsMap.put(new Short("1"), new Double(0.009));
+		dbsMap.put(new Short("2"), new Double(0.008));
+		dbsMap.put(new Short("3"), new Double(0.007));
+		dbsMap.put(new Short("4"), new Double(0.006));		
+		dbsMap.put(new Short("5"), new Double(0.005));		
+		dbsMap.put(new Short("6"), new Double(0.004));		
+		dbsMap.put(new Short("7"), new Double(0.003));		
+		dbsMap.put(new Short("8"), new Double(0.002));		
+		dbsMap.put(new Short("9"), new Double(0.001));
+		starMass.put(StarTypeFactory.dbs, dbsMap);
+	}
+	
 	public static Double genLuminsoity(short starCode,
 			StarTypeFactory starTypeFactory, StarFactory starFactory,
-			Sequence sequence) {
-		Double lumen = starTypeFactory.starLum.get(starTypeFactory)
-				.get(starCode).doubleValue();
+			Sequence sequence){
+		return genAttribute(starCode, starTypeFactory, starFactory, sequence, StarTypeFactory.starLum);
+	}
+	
+	public static Double genMass(short starCode,
+			StarTypeFactory starTypeFactory, StarFactory starFactory,
+			Sequence sequence){
+		return genAttribute(starCode, starTypeFactory, starFactory, sequence, StarTypeFactory.starMass);
+	}
+	
+	public static Double genAttribute(short starCode,
+			StarTypeFactory starTypeFactory, StarFactory starFactory,
+			Sequence sequence,
+			Map<StarTypeFactory, Map<Short, Double>> attributeMap) {
+		Double attribute = attributeMap.get(starTypeFactory).get(starCode)
+				.doubleValue();
 
 		// edge conditions
 		if (starCode == 0 && sequence.sfup == null) {
 
-			Double mod = StarTypeFactory.starLum.get(starTypeFactory).get(
-					starCode);
-			mod = delta(lumen, mod)
+			Double mod = attributeMap.get(starTypeFactory).get(starCode);
+			mod = delta(attribute, mod)
 					* (GenRandomRolls.Instance().getD49() / 100.0);
-			lumen += mod;
+			attribute += mod;
 		} else if (starCode == 9 && sequence.sfdown == null) {
-			Double mod = StarTypeFactory.starLum.get(starTypeFactory).get(
-					starCode);
-			mod = delta(lumen, mod)
+			Double mod = attributeMap.get(starTypeFactory).get(starCode);
+			mod = delta(attribute, mod)
 					* (GenRandomRolls.Instance().getD49() / 100.0);
 
-			lumen = starTypeFactory.starLum.get(starTypeFactory).get(starCode)
+			attribute = attributeMap.get(starTypeFactory).get(starCode)
 					.doubleValue();
-			mod = StarTypeFactory.starLum.get(starTypeFactory).get(starCode);
+			mod = attributeMap.get(starTypeFactory).get(starCode);
 			mod = mod * GenRandomRolls.Instance().getD49();
-			lumen += mod;
+			attribute += mod;
 		} else {
-			// random plus or minus lumenosity
+			// random plus or minus attribute
 			int flipACoin = GenRandomRolls.Instance().get_D2();
 			if (flipACoin == 1) {
-				lumen = starTypeFactory.starLum.get(starTypeFactory)
-						.get(starCode).doubleValue();
+				attribute = attributeMap.get(starTypeFactory).get(starCode)
+						.doubleValue();
 				short starCode2 = nextPlusCode(starCode);
 				Double mod = null;
 				if (starCode == 0) {
-					mod = StarTypeFactory.starLum.get(sequence.sfup).get(
-							starCode2);
-					mod = delta(lumen, mod)
+					mod = attributeMap.get(sequence.sfup).get(starCode2);
+					mod = delta(attribute, mod)
 							* (GenRandomRolls.Instance().getD49() / 100.0);
 
-					logger.info("SFUP1:"+sequence.sfup);
+					logger.info("SFUP1:" + sequence.sfup);
 				} else {
-					mod = starTypeFactory.starLum.get(starTypeFactory)
-							.get(starCode2).doubleValue();
-					mod = delta(lumen, mod)
+					mod = attributeMap.get(starTypeFactory).get(starCode2)
+							.doubleValue();
+					mod = delta(attribute, mod)
 
 					* (GenRandomRolls.Instance().getD49() / 100.0);
 				}
-				logger.info("MOD1:"+mod);
-				lumen += mod;
+				logger.info("MOD1:" + mod);
+				attribute += mod;
 			} else {
 				short starCode2 = nextMinusCode(starCode);
 				Double mod = null;
 				if (starCode == 9) {
-					mod = StarTypeFactory.starLum.get(sequence.sfdown).get(
-							starCode2);
-					mod = delta(lumen, mod)
+					mod = attributeMap.get(sequence.sfdown).get(starCode2);
+					mod = delta(attribute, mod)
 							* (GenRandomRolls.Instance().getD49() / 100.0);
 
-					logger.info("SFDOWN2:"+sequence.sfdown);
-				}  else {
-					mod = starTypeFactory.starLum.get(starTypeFactory)
-							.get(starCode2).doubleValue();
-					mod = delta(lumen, mod)
+					logger.info("SFDOWN2:" + sequence.sfdown);
+				} else {
+					mod = attributeMap.get(starTypeFactory).get(starCode2)
+							.doubleValue();
+					mod = delta(attribute, mod)
 							* (GenRandomRolls.Instance().getD49() / 100.0);
 				}
-				logger.info("MOD2:"+mod);
-				lumen -= mod;
+				logger.info("MOD2:" + mod);
+				attribute -= mod;
 			}
 		}
-		return lumen;
+		return attribute;
 	}
 
 	private static short nextPlusCode(short starCode) {
@@ -1631,8 +1723,16 @@ public enum StarTypeFactory {
 		else{
 			answer = mod - luman;
 		}
-		logger.info("DELTA.luman:"+answer);
+		logger.info("DELTA.attribute:"+answer);
 		return answer;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 }
