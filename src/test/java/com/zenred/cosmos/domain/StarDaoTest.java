@@ -312,7 +312,7 @@ public class StarDaoTest {
 		logger.info("CLUSTER_REP_UPDATE_4:" + clusterRepUpdate);
 
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_8",
-				new Double(160), StarTypeFactory.genLuminsoity((short) 0,
+				new Double(160), StarTypeFactory.genLuminsoity((short) 8,
 						StarTypeFactory.m, StarFactory.RED__MAINS,
 						StarFactory.redMainS.sequence()), null, new Double(2),
 				StarFactory.RED__MAINS.read().read(), StarFactory.RED__MAINS
@@ -326,7 +326,7 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_8:"+starUpdate);
 
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_25x",
-				new Double(295), StarTypeFactory.genLuminsoity((short) 0,
+				new Double(295), StarTypeFactory.genLuminsoity((short) 9,
 						StarTypeFactory.m, StarFactory.RED__MAINS,
 						StarFactory.redMainS.sequence()), null, new Double(2),
 				StarFactory.RED__MAINS.read().read(), StarFactory.RED__MAINS
@@ -354,7 +354,7 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_26:"+starUpdateX2);
 		
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_27x",
-				new Double(297), StarTypeFactory.genLuminsoity((short) 0,
+				new Double(297), StarTypeFactory.genLuminsoity((short) 1,
 						StarTypeFactory.m, StarFactory.RED__MAINS,
 						StarFactory.redMainS.sequence()), null, new Double(2),
 				StarFactory.RED__MAINS.read().read(), StarFactory.RED__MAINS
@@ -406,7 +406,7 @@ public class StarDaoTest {
 		logger.info("CLUSTER_REP_UPDATE_5:" + clusterRepUpdate);
 		
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_9",
-				new Double(169), StarTypeFactory.genLuminsoity((short) 0,
+				new Double(169), StarTypeFactory.genLuminsoity((short) 2,
 						StarTypeFactory.m, StarFactory.RED__MAINS,
 						StarFactory.redMainS.sequence()), null, new Double(2),
 				StarFactory.RED__MAINS.read().read(), StarFactory.RED__MAINS
@@ -434,7 +434,7 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_10:"+starUpdate2);
 		
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_11",
-				new Double(165), StarTypeFactory.genLuminsoity((short) 0,
+				new Double(165), StarTypeFactory.genLuminsoity((short) 1,
 						StarTypeFactory.k, StarFactory.ORNG_MAINS,
 						StarFactory.orngMainS.sequence()), null, new Double(2),
 				StarFactory.ORNG_MAINS.read().read(), StarFactory.ORNG_MAINS
@@ -487,7 +487,7 @@ public class StarDaoTest {
 		logger.info("CLUSTER_REP_UPDATE_6:" + clusterRepUpdate);
 		
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_12",
-				new Double(172), StarTypeFactory.genLuminsoity((short) 0,
+				new Double(172), StarTypeFactory.genLuminsoity((short) 2,
 						StarTypeFactory.k, StarFactory.ORNG_MAINS,
 						StarFactory.orngMainS.sequence()), null, new Double(2),
 				StarFactory.ORNG_MAINS.read().read(), StarFactory.ORNG_MAINS
