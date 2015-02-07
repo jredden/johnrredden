@@ -46,7 +46,7 @@ public class StarDaoTest {
 		logger.info("CLUSTER_REP_UPDATE:" + clusterRepUpdate);
 		
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_0",
-				new Double(160), StarTypeFactory.genMass((short) 0,
+				new Double(160), StarTypeFactory.genLuminsoity((short) 0,
 						StarTypeFactory.m, StarFactory.RED__MAINS,
 						StarFactory.redMainS.sequence()), null, new Double(2),
 				StarFactory.RED__MAINS.read().read(), StarFactory.RED__MAINS
@@ -94,7 +94,7 @@ public class StarDaoTest {
 		logger.info("CLUSTER_REP_UPDATE_1:" + clusterRepUpdate);
 		
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_1",
-				new Double(161), StarTypeFactory.genMass((short) 0,
+				new Double(161), StarTypeFactory.genLuminsoity((short) 1,
 						StarTypeFactory.m, StarFactory.RED__MAINS,
 						StarFactory.redMainS.sequence()), null, new Double(2),
 				StarFactory.RED__MAINS.read().read(), StarFactory.RED__MAINS
@@ -108,7 +108,7 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_1:"+starUpdate);
 		
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_2",
-				new Double(161), StarTypeFactory.genMass((short) 0,
+				new Double(161), StarTypeFactory.genLuminsoity((short) 2,
 						StarTypeFactory.m, StarFactory.RED__MAINS,
 						StarFactory.redMainS.sequence()), null, new Double(2),
 				StarFactory.RED__MAINS.read().read(), StarFactory.RED__MAINS
@@ -168,7 +168,7 @@ public class StarDaoTest {
 		clusterRepDao.deleteClusterRep(clusterRepUpdate);
 		
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_3",
-				new Double(162), StarTypeFactory.genMass((short) 0,
+				new Double(162), StarTypeFactory.genLuminsoity((short) 3,
 						StarTypeFactory.m, StarFactory.RED__MAINS,
 						StarFactory.redMainS.sequence()), null, new Double(2),
 				StarFactory.RED__MAINS.read().read(), StarFactory.RED__MAINS
@@ -182,7 +182,7 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_3:"+starUpdate);
 		
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_4",
-				new Double(162), StarTypeFactory.genMass((short) 0,
+				new Double(162), StarTypeFactory.genLuminsoity((short) 4,
 						StarTypeFactory.m, StarFactory.RED__MAINS,
 						StarFactory.redMainS.sequence()), null, new Double(2),
 				StarFactory.RED__MAINS.read().read(), StarFactory.RED__MAINS
@@ -232,7 +232,7 @@ public class StarDaoTest {
 		logger.info("CLUSTER_REP_UPDATE_3:" + clusterRepUpdate);
 		
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_5",
-				new Double(163), StarTypeFactory.genMass((short) 0,
+				new Double(163), StarTypeFactory.genLuminsoity((short) 5,
 						StarTypeFactory.m, StarFactory.RED__MAINS,
 						StarFactory.redMainS.sequence()), null, new Double(2),
 				StarFactory.RED__MAINS.read().read(), StarFactory.RED__MAINS
@@ -246,7 +246,7 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_5:"+starUpdate);
 		
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_6",
-				new Double(164), StarTypeFactory.genMass((short) 0,
+				new Double(164), StarTypeFactory.genLuminsoity((short) 6,
 						StarTypeFactory.m, StarFactory.RED__MAINS,
 						StarFactory.redMainS.sequence()), null, new Double(2),
 				StarFactory.RED__MAINS.read().read(), StarFactory.RED__MAINS
@@ -260,7 +260,7 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_6:"+starUpdate2);
 		
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_7",
-				new Double(165), StarTypeFactory.genMass((short) 0,
+				new Double(165), StarTypeFactory.genLuminsoity((short) 7,
 						StarTypeFactory.m, StarFactory.RED__MAINS,
 						StarFactory.redMainS.sequence()), null, new Double(2),
 				StarFactory.RED__MAINS.read().read(), StarFactory.RED__MAINS
@@ -312,7 +312,7 @@ public class StarDaoTest {
 		logger.info("CLUSTER_REP_UPDATE_4:" + clusterRepUpdate);
 
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_8",
-				new Double(160), StarTypeFactory.genMass((short) 0,
+				new Double(160), StarTypeFactory.genLuminsoity((short) 0,
 						StarTypeFactory.m, StarFactory.RED__MAINS,
 						StarFactory.redMainS.sequence()), null, new Double(2),
 				StarFactory.RED__MAINS.read().read(), StarFactory.RED__MAINS
@@ -326,7 +326,7 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_8:"+starUpdate);
 
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_25x",
-				new Double(295), StarTypeFactory.genMass((short) 0,
+				new Double(295), StarTypeFactory.genLuminsoity((short) 0,
 						StarTypeFactory.m, StarFactory.RED__MAINS,
 						StarFactory.redMainS.sequence()), null, new Double(2),
 				StarFactory.RED__MAINS.read().read(), StarFactory.RED__MAINS
@@ -340,7 +340,7 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_25:"+starUpdateX);
 		
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_26x",
-				new Double(296), StarTypeFactory.genMass((short) 0,
+				new Double(296), StarTypeFactory.genLuminsoity((short) 0,
 						StarTypeFactory.m, StarFactory.RED__MAINS,
 						StarFactory.redMainS.sequence()), null, new Double(2),
 				StarFactory.RED__MAINS.read().read(), StarFactory.RED__MAINS
@@ -354,7 +354,7 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_26:"+starUpdateX2);
 		
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_27x",
-				new Double(297), StarTypeFactory.genMass((short) 0,
+				new Double(297), StarTypeFactory.genLuminsoity((short) 0,
 						StarTypeFactory.m, StarFactory.RED__MAINS,
 						StarFactory.redMainS.sequence()), null, new Double(2),
 				StarFactory.RED__MAINS.read().read(), StarFactory.RED__MAINS
@@ -406,7 +406,7 @@ public class StarDaoTest {
 		logger.info("CLUSTER_REP_UPDATE_5:" + clusterRepUpdate);
 		
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_9",
-				new Double(169), StarTypeFactory.genMass((short) 0,
+				new Double(169), StarTypeFactory.genLuminsoity((short) 0,
 						StarTypeFactory.m, StarFactory.RED__MAINS,
 						StarFactory.redMainS.sequence()), null, new Double(2),
 				StarFactory.RED__MAINS.read().read(), StarFactory.RED__MAINS
@@ -420,7 +420,7 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_9:"+starUpdate);
 		
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_10",
-				new Double(164), StarTypeFactory.genMass((short) 0,
+				new Double(164), StarTypeFactory.genLuminsoity((short) 0,
 						StarTypeFactory.k, StarFactory.ORNG_MAINS,
 						StarFactory.orngMainS.sequence()), null, new Double(2),
 				StarFactory.ORNG_MAINS.read().read(), StarFactory.ORNG_MAINS
@@ -434,7 +434,7 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_10:"+starUpdate2);
 		
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_11",
-				new Double(165), StarTypeFactory.genMass((short) 0,
+				new Double(165), StarTypeFactory.genLuminsoity((short) 0,
 						StarTypeFactory.k, StarFactory.ORNG_MAINS,
 						StarFactory.orngMainS.sequence()), null, new Double(2),
 				StarFactory.ORNG_MAINS.read().read(), StarFactory.ORNG_MAINS
@@ -487,7 +487,7 @@ public class StarDaoTest {
 		logger.info("CLUSTER_REP_UPDATE_6:" + clusterRepUpdate);
 		
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_12",
-				new Double(172), StarTypeFactory.genMass((short) 0,
+				new Double(172), StarTypeFactory.genLuminsoity((short) 0,
 						StarTypeFactory.k, StarFactory.ORNG_MAINS,
 						StarFactory.orngMainS.sequence()), null, new Double(2),
 				StarFactory.ORNG_MAINS.read().read(), StarFactory.ORNG_MAINS
@@ -501,7 +501,7 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_12:"+starUpdate);
 		
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_25x",
-				new Double(295), StarTypeFactory.genMass((short) 0,
+				new Double(295), StarTypeFactory.genLuminsoity((short) 0,
 						StarTypeFactory.db, StarFactory.LTBL_DWARF,
 						StarFactory.ltblDwarf.sequence()), null, new Double(2),
 				StarFactory.LTBL_DWARF.read().read(), StarFactory.LTBL_DWARF
@@ -515,7 +515,7 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_25:"+starUpdateX);
 		
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_26x",
-				new Double(296), StarTypeFactory.genMass((short) 0,
+				new Double(296), StarTypeFactory.genLuminsoity((short) 0,
 						StarTypeFactory.g1f, StarFactory.PYEL_GI_I,
 						StarFactory.pyrlGII.sequence()), null, new Double(2),
 				StarFactory.PYEL_GI_I.read().read(), StarFactory.PYEL_GI_I
@@ -529,7 +529,7 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_26:"+starUpdateX2);
 		
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_27x",
-				new Double(297), StarTypeFactory.genMass((short) 0,
+				new Double(297), StarTypeFactory.genLuminsoity((short) 0,
 						StarTypeFactory.bs, StarFactory.BROWN_SUBS,
 						StarFactory.brownSubS.sequence()), null, new Double(2),
 				StarFactory.BROWN_SUBS.read().read(), StarFactory.BROWN_SUBS
@@ -583,7 +583,7 @@ public class StarDaoTest {
 
 		
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_13",
-				new Double(173), StarTypeFactory.genMass((short) 0,
+				new Double(173), StarTypeFactory.genLuminsoity((short) 0,
 						StarTypeFactory.f, StarFactory.PYEL_MAINS,
 						StarFactory.pyrlMainS.sequence()), null, new Double(2),
 				StarFactory.PYEL_MAINS.read().read(), StarFactory.PYEL_MAINS
@@ -597,7 +597,7 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_13:"+starUpdate);
 		
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_25x",
-				new Double(295), StarTypeFactory.genMass((short) 0,
+				new Double(295), StarTypeFactory.genLuminsoity((short) 0,
 						StarTypeFactory.sg2f, StarFactory.PYEL_SG_II,
 						StarFactory.pyrlSGII.sequence()), null, new Double(2),
 				StarFactory.PYEL_SG_II.read().read(), StarFactory.PYEL_SG_II
@@ -611,7 +611,7 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_25:"+starUpdateX);
 
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_14",
-				new Double(174), StarTypeFactory.genMass((short) 0,
+				new Double(174), StarTypeFactory.genLuminsoity((short) 0,
 						StarTypeFactory.sdo, StarFactory.BLUE_SUBDW,
 						StarFactory.blueSubDW.sequence()), null, new Double(2),
 				StarFactory.BLUE_SUBDW.read().read(), StarFactory.BLUE_SUBDW
@@ -625,8 +625,13 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_14:"+starUpdate2);
 
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_26x",
-				new Double(296), new Double(1), null, new Double(3), StarFactory.DRKBRN_SDW.read().read(),
-				StarFactory.DRKBRN_SDW.code().code(), new Double(7096), null);
+				new Double(296), StarTypeFactory.genLuminsoity((short) 0,
+						StarTypeFactory.dbs, StarFactory.DRKBRN_SDW,
+						StarFactory.drkBrnSDW.sequence()), null, new Double(2),
+				StarFactory.DRKBRN_SDW.read().read(), StarFactory.DRKBRN_SDW
+						.code().code(), StarTypeFactory.genMass((short) 0,
+						StarTypeFactory.dbs, StarFactory.DRKBRN_SDW,
+						StarFactory.drkBrnSDW.sequence()), null);
 		Star starAddx2 = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.FOURSTAR_2BINARIES_1.name());
 		logger.info("STAR_READ_26:"+starAddx2);
 		starAddx2.setNo_planets_allowed(Boolean.TRUE);
@@ -673,8 +678,13 @@ public class StarDaoTest {
 		logger.info("CLUSTER_REP_UPDATE_8:" + clusterRepUpdate);
 
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_15",
-				new Double(175), new Double(1), null, new Double(2), "red",
-				"k6", new Double(7015), null);
+				new Double(175), StarTypeFactory.genLuminsoity((short) 7,
+						StarTypeFactory.k, StarFactory.ORNG_MAINS,
+						StarFactory.orngMainS.sequence()), null, new Double(2),
+				StarFactory.ORNG_MAINS.read().read(), StarFactory.ORNG_MAINS
+						.code().code(), StarTypeFactory.genMass((short) 7,
+						StarTypeFactory.k, StarFactory.ORNG_MAINS,
+						StarFactory.orngMainS.sequence()), null);
 		Star starAdd = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.NONE.name());
 		logger.info("STAR_READ_15:"+starAdd);
 		starAdd.setNo_planets_allowed(Boolean.TRUE);
@@ -682,8 +692,13 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_15:"+starUpdate);
 		
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_16",
-				new Double(176), new Double(1), null, new Double(3), "red",
-				"k7", new Double(7016), null);
+				new Double(176), StarTypeFactory.genLuminsoity((short) 6,
+						StarTypeFactory.k, StarFactory.ORNG_MAINS,
+						StarFactory.orngMainS.sequence()), null, new Double(2),
+				StarFactory.ORNG_MAINS.read().read(), StarFactory.ORNG_MAINS
+						.code().code(), StarTypeFactory.genMass((short) 6,
+						StarTypeFactory.k, StarFactory.ORNG_MAINS,
+						StarFactory.orngMainS.sequence()), null);
 		Star starAdd2 = starDao.addStarToNonSubCluster(star, starUpdate.getClusterToStarId());
 		logger.info("STAR_READ_16:"+starAdd2);
 		starAdd2.setNo_planets_allowed(Boolean.TRUE);
@@ -691,8 +706,13 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_16:"+starUpdate2);
 		
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_17",
-				new Double(177), new Double(1), null, new Double(3.5), "red",
-				"k8", new Double(7017), null);
+				new Double(177), StarTypeFactory.genLuminsoity((short) 8,
+						StarTypeFactory.k, StarFactory.ORNG_MAINS,
+						StarFactory.orngMainS.sequence()), null, new Double(2),
+				StarFactory.ORNG_MAINS.read().read(), StarFactory.ORNG_MAINS
+						.code().code(), StarTypeFactory.genMass((short) 8,
+						StarTypeFactory.k, StarFactory.ORNG_MAINS,
+						StarFactory.orngMainS.sequence()), null);
 		Star starAdd3 = starDao.addStarToNonSubCluster(star, starUpdate.getClusterToStarId());
 		logger.info("STAR_READ_17:"+starAdd3);
 		starAdd3.setNo_planets_allowed(Boolean.TRUE);
@@ -700,8 +720,13 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_17:"+starUpdate3);
 
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_18",
-				new Double(178), new Double(1), null, new Double(3.5), "red",
-				"k8", new Double(7017), null);
+				new Double(178), StarTypeFactory.genLuminsoity((short) 9,
+						StarTypeFactory.k, StarFactory.ORNG_MAINS,
+						StarFactory.orngMainS.sequence()), null, new Double(2),
+				StarFactory.ORNG_MAINS.read().read(), StarFactory.ORNG_MAINS
+						.code().code(), StarTypeFactory.genMass((short) 9,
+						StarTypeFactory.k, StarFactory.ORNG_MAINS,
+						StarFactory.orngMainS.sequence()), null);
 		Star starAdd4 = starDao.addStarToNonSubCluster(star, starUpdate.getClusterToStarId());
 		logger.info("STAR_READ_18:"+starAdd4);
 		starAdd4.setNo_planets_allowed(Boolean.TRUE);
@@ -749,8 +774,13 @@ public class StarDaoTest {
 		logger.info("CLUSTER_REP_UPDATE_9:" + clusterRepUpdate);
 		
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_19",
-				new Double(179), new Double(1), null, new Double(2), "red",
-				"k9", new Double(7029), null);
+				new Double(179), StarTypeFactory.genLuminsoity((short) 1,
+						StarTypeFactory.k, StarFactory.ORNG_MAINS,
+						StarFactory.orngMainS.sequence()), null, new Double(2),
+				StarFactory.ORNG_MAINS.read().read(), StarFactory.ORNG_MAINS
+						.code().code(), StarTypeFactory.genMass((short) 1,
+						StarTypeFactory.k, StarFactory.ORNG_MAINS,
+						StarFactory.orngMainS.sequence()), null);
 		Star starAdd = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.FIVESTAR_FOURSTARSPREADPLUSONE.name());
 		logger.info("STAR_READ_19:"+starAdd);
 		starAdd.setNo_planets_allowed(Boolean.TRUE);
@@ -758,8 +788,13 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_19:"+starUpdate);
 
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_25x",
-				new Double(295), new Double(1), null, new Double(2), "red",
-				"m6", new Double(7295), null);
+				new Double(295), StarTypeFactory.genLuminsoity((short) 2,
+						StarTypeFactory.m, StarFactory.RED__MAINS,
+						StarFactory.redMainS.sequence()), null, new Double(2),
+				StarFactory.RED__MAINS.read().read(), StarFactory.RED__MAINS
+						.code().code(), StarTypeFactory.genMass((short) 2,
+						StarTypeFactory.m, StarFactory.RED__MAINS,
+						StarFactory.redMainS.sequence()), null);
 		Star starAddx = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.NONE.name());
 		logger.info("STAR_READ_25:"+starAddx);
 		starAddx.setNo_planets_allowed(Boolean.TRUE);
@@ -767,8 +802,13 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_25:"+starUpdateX);
 		
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_26x",
-				new Double(296), new Double(1), null, new Double(3), "red",
-				"m7", new Double(7096), null);
+				new Double(296), StarTypeFactory.genLuminsoity((short) 3,
+						StarTypeFactory.m, StarFactory.RED__MAINS,
+						StarFactory.redMainS.sequence()), null, new Double(2),
+				StarFactory.RED__MAINS.read().read(), StarFactory.RED__MAINS
+						.code().code(), StarTypeFactory.genMass((short) 3,
+						StarTypeFactory.m, StarFactory.RED__MAINS,
+						StarFactory.redMainS.sequence()), null);
 		Star starAddx2 = starDao.addStarToNonSubCluster(star, starUpdateX.getClusterToStarId());
 		logger.info("STAR_READ_26:"+starAddx2);
 		starAddx2.setNo_planets_allowed(Boolean.TRUE);
@@ -776,8 +816,13 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_26:"+starUpdateX2);
 		
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_27x",
-				new Double(297), new Double(1), null, new Double(3.5), "red",
-				"m8", new Double(7097), null);
+				new Double(297), StarTypeFactory.genLuminsoity((short) 4,
+						StarTypeFactory.m, StarFactory.RED__MAINS,
+						StarFactory.redMainS.sequence()), null, new Double(2),
+				StarFactory.RED__MAINS.read().read(), StarFactory.RED__MAINS
+						.code().code(), StarTypeFactory.genMass((short) 4,
+						StarTypeFactory.m, StarFactory.RED__MAINS,
+						StarFactory.redMainS.sequence()), null);
 		Star starAddx3 = starDao.addStarToNonSubCluster(star, starUpdateX.getClusterToStarId());
 		logger.info("STAR_READ_27:"+starAddx3);
 		starAddx3.setNo_planets_allowed(Boolean.TRUE);
@@ -785,8 +830,13 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_27:"+starUpdateX3);
 
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_28x",
-				new Double(298), new Double(1), null, new Double(3.2), "red",
-				"m9", new Double(7098), null);
+				new Double(298), StarTypeFactory.genLuminsoity((short) 5,
+						StarTypeFactory.m, StarFactory.RED__MAINS,
+						StarFactory.redMainS.sequence()), null, new Double(2),
+				StarFactory.RED__MAINS.read().read(), StarFactory.RED__MAINS
+						.code().code(), StarTypeFactory.genMass((short) 5,
+						StarTypeFactory.m, StarFactory.RED__MAINS,
+						StarFactory.redMainS.sequence()), null);
 		Star starAddx4 = starDao.addStarToNonSubCluster(star, starUpdateX.getClusterToStarId());;
 		logger.info("STAR_READ_28:"+starAddx4);
 		starAddx4.setNo_planets_allowed(Boolean.TRUE);
@@ -834,8 +884,13 @@ public class StarDaoTest {
 
 
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_20",
-				new Double(195), new Double(1), null, new Double(2), "red",
-				"m1", new Double(7095), null);
+				new Double(195), StarTypeFactory.genLuminsoity((short) 6,
+						StarTypeFactory.m, StarFactory.RED__MAINS,
+						StarFactory.redMainS.sequence()), null, new Double(2),
+				StarFactory.RED__MAINS.read().read(), StarFactory.RED__MAINS
+						.code().code(), StarTypeFactory.genMass((short) 6,
+						StarTypeFactory.m, StarFactory.RED__MAINS,
+						StarFactory.redMainS.sequence()), null);
 		Star starAdd = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.NONE.name());
 		logger.info("STAR_READ_20:"+starAdd);
 		starAdd.setNo_planets_allowed(Boolean.TRUE);
@@ -843,8 +898,13 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_20:"+starUpdate);
 		
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_21",
-				new Double(196), new Double(1), null, new Double(3), "red",
-				"m2", new Double(7096), null);
+				new Double(196), StarTypeFactory.genLuminsoity((short) 7,
+						StarTypeFactory.m, StarFactory.RED__MAINS,
+						StarFactory.redMainS.sequence()), null, new Double(2),
+				StarFactory.RED__MAINS.read().read(), StarFactory.RED__MAINS
+						.code().code(), StarTypeFactory.genMass((short) 7,
+						StarTypeFactory.m, StarFactory.RED__MAINS,
+						StarFactory.redMainS.sequence()), null);;
 		Star starAdd2 = starDao.addStarToNonSubCluster(star, starUpdate.getClusterToStarId());
 		logger.info("STAR_READ_21:"+starAdd2);
 		starAdd2.setNo_planets_allowed(Boolean.TRUE);
@@ -852,8 +912,13 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_21:"+starUpdate2);
 		
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_22",
-				new Double(197), new Double(1), null, new Double(3.5), "red",
-				"m3", new Double(7097), null);
+				new Double(197), StarTypeFactory.genLuminsoity((short) 8,
+						StarTypeFactory.m, StarFactory.RED__MAINS,
+						StarFactory.redMainS.sequence()), null, new Double(2),
+				StarFactory.RED__MAINS.read().read(), StarFactory.RED__MAINS
+						.code().code(), StarTypeFactory.genMass((short) 8,
+						StarTypeFactory.m, StarFactory.RED__MAINS,
+						StarFactory.redMainS.sequence()), null);
 		Star starAdd3 = starDao.addStarToNonSubCluster(star, starUpdate.getClusterToStarId());
 		logger.info("STAR_READ_22:"+starAdd3);
 		starAdd3.setNo_planets_allowed(Boolean.TRUE);
@@ -861,8 +926,13 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_22:"+starUpdate3);
 
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_23",
-				new Double(198), new Double(1), null, new Double(3.2), "red",
-				"m4", new Double(7098), null);
+				new Double(198), StarTypeFactory.genLuminsoity((short) 9,
+						StarTypeFactory.m, StarFactory.RED__MAINS,
+						StarFactory.redMainS.sequence()), null, new Double(2),
+				StarFactory.RED__MAINS.read().read(), StarFactory.RED__MAINS
+						.code().code(), StarTypeFactory.genMass((short) 9,
+						StarTypeFactory.m, StarFactory.RED__MAINS,
+						StarFactory.redMainS.sequence()), null);
 		Star starAdd4 = starDao.addStarToNonSubCluster(star, starUpdate.getClusterToStarId());
 		logger.info("STAR_READ_23:"+starAdd4);
 		starAdd4.setNo_planets_allowed(Boolean.TRUE);
@@ -919,8 +989,13 @@ public class StarDaoTest {
 		logger.info("CLUSTER_REP_UPDATE_11:" + clusterRepUpdate);
 
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_25",
-				new Double(295), new Double(1), null, new Double(2), "red",
-				"m6", new Double(7295), null);
+				new Double(295), StarTypeFactory.genLuminsoity((short) 0,
+						StarTypeFactory.m, StarFactory.RED__MAINS,
+						StarFactory.redMainS.sequence()), null, new Double(2),
+				StarFactory.RED__MAINS.read().read(), StarFactory.RED__MAINS
+						.code().code(), StarTypeFactory.genMass((short) 0,
+						StarTypeFactory.m, StarFactory.RED__MAINS,
+						StarFactory.redMainS.sequence()), null);
 		Star starAdd = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.NONE.name());
 		logger.info("STAR_READ_25:"+starAdd);
 		starAdd.setNo_planets_allowed(Boolean.TRUE);
@@ -928,8 +1003,13 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_25:"+starUpdate);
 		
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_26",
-				new Double(296), new Double(1), null, new Double(3), "red",
-				"m7", new Double(7096), null);
+				new Double(296), StarTypeFactory.genLuminsoity((short) 1,
+						StarTypeFactory.m, StarFactory.RED__MAINS,
+						StarFactory.redMainS.sequence()), null, new Double(2),
+				StarFactory.RED__MAINS.read().read(), StarFactory.RED__MAINS
+						.code().code(), StarTypeFactory.genMass((short) 1,
+						StarTypeFactory.m, StarFactory.RED__MAINS,
+						StarFactory.redMainS.sequence()), null);
 		Star starAdd2 = starDao.addStarToNonSubCluster(star, starUpdate.getClusterToStarId());
 		logger.info("STAR_READ_26:"+starAdd2);
 		starAdd2.setNo_planets_allowed(Boolean.TRUE);
@@ -937,8 +1017,13 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_26:"+starUpdate2);
 		
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_27",
-				new Double(297), new Double(1), null, new Double(3.5), "red",
-				"m8", new Double(7097), null);
+				new Double(297), StarTypeFactory.genLuminsoity((short) 2,
+						StarTypeFactory.m, StarFactory.RED__MAINS,
+						StarFactory.redMainS.sequence()), null, new Double(2),
+				StarFactory.RED__MAINS.read().read(), StarFactory.RED__MAINS
+						.code().code(), StarTypeFactory.genMass((short) 2,
+						StarTypeFactory.m, StarFactory.RED__MAINS,
+						StarFactory.redMainS.sequence()), null);
 		Star starAdd3 = starDao.addStarToNonSubCluster(star, starUpdate.getClusterToStarId());
 		logger.info("STAR_READ_27:"+starAdd3);
 		starAdd3.setNo_planets_allowed(Boolean.TRUE);
@@ -946,8 +1031,13 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_27:"+starUpdate3);
 
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_28",
-				new Double(298), new Double(1), null, new Double(3.2), "red",
-				"m9", new Double(7098), null);
+				new Double(298), StarTypeFactory.genLuminsoity((short) 3,
+						StarTypeFactory.m, StarFactory.RED__MAINS,
+						StarFactory.redMainS.sequence()), null, new Double(2),
+				StarFactory.RED__MAINS.read().read(), StarFactory.RED__MAINS
+						.code().code(), StarTypeFactory.genMass((short) 3,
+						StarTypeFactory.m, StarFactory.RED__MAINS,
+						StarFactory.redMainS.sequence()), null);
 		Star starAdd4 = starDao.addStarToNonSubCluster(star, starUpdate.getClusterToStarId());
 		logger.info("STAR_READ_28:"+starAdd4);
 		starAdd4.setNo_planets_allowed(Boolean.TRUE);
@@ -955,8 +1045,13 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_28:"+starUpdate4);
 
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_29",
-				new Double(199), new Double(1), null, new Double(3.2), "red",
-				"f1", new Double(7099), null);
+				new Double(199), StarTypeFactory.genLuminsoity((short) 4,
+						StarTypeFactory.m, StarFactory.RED__MAINS,
+						StarFactory.redMainS.sequence()), null, new Double(2),
+				StarFactory.RED__MAINS.read().read(), StarFactory.RED__MAINS
+						.code().code(), StarTypeFactory.genMass((short) 4,
+						StarTypeFactory.m, StarFactory.RED__MAINS,
+						StarFactory.redMainS.sequence()), null);
 		Star starAdd5 = starDao.addStarToNonSubCluster(star, starUpdate.getClusterToStarId());
 		logger.info("STAR_READ_29:"+starAdd5);
 		starAdd5.setNo_planets_allowed(Boolean.TRUE);
@@ -964,8 +1059,13 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_29:"+starUpdate5);
 
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_30",
-				new Double(199), new Double(1), null, new Double(3.2), "red",
-				"f2", new Double(7199), null);
+				new Double(199), StarTypeFactory.genLuminsoity((short) 5,
+						StarTypeFactory.m, StarFactory.RED__MAINS,
+						StarFactory.redMainS.sequence()), null, new Double(2),
+				StarFactory.RED__MAINS.read().read(), StarFactory.RED__MAINS
+						.code().code(), StarTypeFactory.genMass((short) 5,
+						StarTypeFactory.m, StarFactory.RED__MAINS,
+						StarFactory.redMainS.sequence()), null);
 		Star starAdd6 = starDao.addStarToNonSubCluster(star, starUpdate.getClusterToStarId());
 		logger.info("STAR_READ_29:"+starAdd6);
 		starAdd6.setNo_planets_allowed(Boolean.TRUE);
@@ -973,8 +1073,13 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_29:"+starUpdate6);
 
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_25x",
-				new Double(295), new Double(1), null, new Double(2), "red",
-				"m6", new Double(7295), null);
+				new Double(295), StarTypeFactory.genLuminsoity((short) 6,
+						StarTypeFactory.m, StarFactory.RED__MAINS,
+						StarFactory.redMainS.sequence()), null, new Double(2),
+				StarFactory.RED__MAINS.read().read(), StarFactory.RED__MAINS
+						.code().code(), StarTypeFactory.genMass((short) 6,
+						StarTypeFactory.m, StarFactory.RED__MAINS,
+						StarFactory.redMainS.sequence()), null);
 		Star starAddx = starDao.addStarToNonSubCluster(star, starUpdate.getClusterToStarId());
 		logger.info("STAR_READ_25:"+starAddx);
 		starAddx.setNo_planets_allowed(Boolean.TRUE);
@@ -982,8 +1087,13 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_25:"+starUpdateX);
 		
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_26x",
-				new Double(296), new Double(1), null, new Double(3), "red",
-				"m7", new Double(7096), null);
+				new Double(296), StarTypeFactory.genLuminsoity((short) 7,
+						StarTypeFactory.m, StarFactory.RED__MAINS,
+						StarFactory.redMainS.sequence()), null, new Double(2),
+				StarFactory.RED__MAINS.read().read(), StarFactory.RED__MAINS
+						.code().code(), StarTypeFactory.genMass((short) 7,
+						StarTypeFactory.m, StarFactory.RED__MAINS,
+						StarFactory.redMainS.sequence()), null);
 		Star starAddx2 = starDao.addStarToNonSubCluster(star, starUpdate.getClusterToStarId());
 		logger.info("STAR_READ_26:"+starAddx2);
 		starAddx2.setNo_planets_allowed(Boolean.TRUE);
@@ -991,8 +1101,13 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_26:"+starUpdateX2);
 		
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_27x",
-				new Double(297), new Double(1), null, new Double(3.5), "red",
-				"m8", new Double(7097), null);
+				new Double(297), StarTypeFactory.genLuminsoity((short) 8,
+						StarTypeFactory.m, StarFactory.RED__MAINS,
+						StarFactory.redMainS.sequence()), null, new Double(2),
+				StarFactory.RED__MAINS.read().read(), StarFactory.RED__MAINS
+						.code().code(), StarTypeFactory.genMass((short) 8,
+						StarTypeFactory.m, StarFactory.RED__MAINS,
+						StarFactory.redMainS.sequence()), null);
 		Star starAddx3 = starDao.addStarToNonSubCluster(star, starUpdate.getClusterToStarId());
 		logger.info("STAR_READ_27:"+starAddx3);
 		starAddx3.setNo_planets_allowed(Boolean.TRUE);
@@ -1000,8 +1115,13 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_27:"+starUpdateX3);
 
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_28x",
-				new Double(298), new Double(1), null, new Double(3.2), "red",
-				"m9", new Double(7098), null);
+				new Double(298), StarTypeFactory.genLuminsoity((short) 9,
+						StarTypeFactory.m, StarFactory.RED__MAINS,
+						StarFactory.redMainS.sequence()), null, new Double(2),
+				StarFactory.RED__MAINS.read().read(), StarFactory.RED__MAINS
+						.code().code(), StarTypeFactory.genMass((short) 9,
+						StarTypeFactory.m, StarFactory.RED__MAINS,
+						StarFactory.redMainS.sequence()), null);
 		Star starAddx4 = starDao.addStarToNonSubCluster(star, starUpdate.getClusterToStarId());
 		logger.info("STAR_READ_28:"+starAddx4);
 		starAddx4.setNo_planets_allowed(Boolean.TRUE);
@@ -1009,8 +1129,13 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_28:"+starUpdateX4);
 
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_29x",
-				new Double(199), new Double(1), null, new Double(3.2), "red",
-				"f1", new Double(7099), null);
+				new Double(199), StarTypeFactory.genLuminsoity((short) 0,
+						StarTypeFactory.f, StarFactory.PYEL_MAINS,
+						StarFactory.pyrlMainS.sequence()), null, new Double(2),
+				StarFactory.PYEL_MAINS.read().read(), StarFactory.PYEL_MAINS
+						.code().code(), StarTypeFactory.genMass((short) 0,
+						StarTypeFactory.f, StarFactory.PYEL_MAINS,
+						StarFactory.pyrlMainS.sequence()), null);
 		Star starAddx5 = starDao.addStarToNonSubCluster(star, starUpdate.getClusterToStarId());
 		logger.info("STAR_READ_29:"+starAddx5);
 		starAddx5.setNo_planets_allowed(Boolean.TRUE);
@@ -1018,8 +1143,13 @@ public class StarDaoTest {
 		logger.info("STAR_UPDATE_29:"+starUpdateX5);
 
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_30x",
-				new Double(199), new Double(1), null, new Double(3.2), "red",
-				"f2", new Double(7199), null);
+				new Double(199), StarTypeFactory.genLuminsoity((short) 1,
+						StarTypeFactory.f, StarFactory.PYEL_MAINS,
+						StarFactory.pyrlMainS.sequence()), null, new Double(2),
+				StarFactory.PYEL_MAINS.read().read(), StarFactory.PYEL_MAINS
+						.code().code(), StarTypeFactory.genMass((short) 1,
+						StarTypeFactory.f, StarFactory.PYEL_MAINS,
+						StarFactory.pyrlMainS.sequence()), null);
 		Star starAddx6 = starDao.addStarToNonSubCluster(star, starUpdate.getClusterToStarId());
 		logger.info("STAR_READ_29:"+starAddx6);
 		starAddx6.setNo_planets_allowed(Boolean.TRUE);
