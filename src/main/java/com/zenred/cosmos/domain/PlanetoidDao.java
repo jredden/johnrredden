@@ -12,6 +12,13 @@ public class PlanetoidDao {
 	public static  String PERCENT_WATER = "PercentWater";
 	public static  String DATESTAMP = "Datestamp";
 	
-	public static String PLANETOID_REP = "PLanetoidRep";
-
+	public static String PLANETOID_REP = "PlanetoidRep";
+	public static String PLANETOID_REP_ID = "planetoidrepId";
+	public static String DOMAIN = "domain";
+	public static String OWNER_ID = "ownerId";
+	public static  String PLANETOID_ID2 = "planetoidId"; 
+	public static  String DATESTAMP2 = "Datestamp";
+	
+	private static String lastPlanetoidInsertSql = "SELECT MAX("+PLANETOID_ID+") FROM " + PLANETOID;
+	private static String lastPlwnetoidRepInsertSql = "SELECT MAX("+PLANETOID_REP_ID+") FROM "+ PLANETOID_REP;
 }
