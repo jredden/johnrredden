@@ -1,5 +1,9 @@
 package com.zenred.cosmos.domain;
 
+import java.util.Map;
+
+import org.springframework.transaction.annotation.Transactional;
+
 public class PlanetoidDao {
 	
 	public static  String PLANETOID = "Planetoid";
@@ -21,4 +25,33 @@ public class PlanetoidDao {
 	
 	private static String lastPlanetoidInsertSql = "SELECT MAX("+PLANETOID_ID+") FROM " + PLANETOID;
 	private static String lastPlwnetoidRepInsertSql = "SELECT MAX("+PLANETOID_REP_ID+") FROM "+ PLANETOID_REP;
+	
+	private static String readPlanetoidById = "SELECT "
+			+ "plt." + PLANETOID_ID + " "
+			+ ", plt." + REP_ID + " "
+			+ ", plt." + RADIUS + " "
+			+ ", plt." + DISTANCE_TO_PRIMARY + " "
+			+ ", plt." + DEGREE + " "
+			+ ", plt." + TEMPERATURE + " "
+			+ ", plt." + PERCENT_WATER + " "
+			+ ", plt." + DATESTAMP + " "
+			+ " FROM " + PLANETOID + " plt "
+			+ " WHERE plt." + PLANETOID_ID + " = ? "
+			;
+	
+	private static String updatePlanetoidById = "UPDATE " + PLANETOID + "plt SET "
+			+ " plt." + REP_ID + " = ? "
+			+ ", plt." + RADIUS + " "
+			+ ", plt." + DISTANCE_TO_PRIMARY + " = ? "
+			+ ", plt." + DEGREE + " = ? "
+			+ ", plt." + TEMPERATURE + " = ? "
+			+ ", plt." + PERCENT_WATER + " = ? "
+			+ " WHERE plt." + PLANETOID_ID + " = ? "
+			;
+	
+	@Transactional
+	public void addClusterPlanetoid(Planetoid planetoid, ClusterRep clusterRep){
+		String domain = PlanetoidDomainFactory.planetoidDomain(clusterRep.getClass());
+		Map<String, Object> planetoidRepMap = Planetoid.getPlanetoidRepMap(domain, clusterRep.getClusterRepId());
+	}
 }

@@ -98,7 +98,7 @@ CREATE TABLE `PlanetoidRep` (
   `planetoidrepId` int unsigned NOT NULL auto_increment,
   `domain` ENUM('cluster', 'star', 'planetoid'),
   `ownerId` int unsigned NOT NULL,
-  `planetoidId` int unsigned NOT NULL,
+  `planetoidId` int unsigned NULL,
   `Datestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`planetoidrepId`),
   KEY `owner_id` (`ownerId`),

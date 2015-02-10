@@ -1,5 +1,8 @@
 package com.zenred.cosmos.domain;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Planetoid {
 	private Integer planetoidId;
 	private Integer repId;
@@ -91,7 +94,26 @@ public class Planetoid {
 	public void setDatestamp(String datestamp) {
 		this.datestamp = datestamp;
 	}
-
+	
+	/**
+	 * useed for database mapping of planetoid rep
+	 * 
+	 * @param domain
+	 * @param ownerId
+	 * @return map of attributes
+	 */
+	public static Map<String, Object> getPlanetoidRepMap(String domain, Integer ownerId){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put(PlanetoidDao.DOMAIN, domain);
+		map.put(PlanetoidDao.OWNER_ID, ownerId);
+		return map;
+	}
+	
+	public static String[] csvPlanetoidRep(){
+		return new String[] {PlanetoidDao.DOMAIN, PlanetoidDao.OWNER_ID};
+	}
+	
+	
 	@Override
 	public String toString() {
 		return "Planetoid [planetoidId=" + planetoidId + ", repId=" + repId
