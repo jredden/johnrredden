@@ -1,5 +1,8 @@
 package com.zenred.cosmos.domain;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Planetoid {
 	private Integer planetoidId;
 	private Integer repId;
@@ -91,7 +94,44 @@ public class Planetoid {
 	public void setDatestamp(String datestamp) {
 		this.datestamp = datestamp;
 	}
+	
+	/**
+	 * useed for database mapping of planetoid rep
+	 * 
+	 * @param domain
+	 * @param ownerId
+	 * @return map of attributes
+	 */
+	public static Map<String, Object> getPlanetoidRepMap(String domain, Integer ownerId){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put(PlanetoidDao.DOMAIN, domain);
+		map.put(PlanetoidDao.OWNER_ID, ownerId);
+		return map;
+	}
+	
+	public static String[] csvPlanetoidRep(){
+		return new String[] {PlanetoidDao.DOMAIN, PlanetoidDao.OWNER_ID};
+	}
+	
+	public static Map<String, Object> getPlanetoidMap(Integer repId,
+			Double radius, Double distanceToPrimary, Double degree,
+			Double temperature, Double percentWater) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put(PlanetoidDao.REP_ID, repId);
+		map.put(PlanetoidDao.RADIUS, radius);
+		map.put(PlanetoidDao.DISTANCE_TO_PRIMARY, distanceToPrimary);
+		map.put(PlanetoidDao.DEGREE, degree);
+		map.put(PlanetoidDao.TEMPERATURE, temperature);
+		map.put(PlanetoidDao.PERCENT_WATER, percentWater);
+		return map;
+	}
 
+	public static String[] csvPlanetoid() {
+		return new String[] { PlanetoidDao.REP_ID, PlanetoidDao.RADIUS,
+				PlanetoidDao.DISTANCE_TO_PRIMARY, PlanetoidDao.DEGREE,
+				PlanetoidDao.TEMPERATURE, PlanetoidDao.PERCENT_WATER };
+	}
+	
 	@Override
 	public String toString() {
 		return "Planetoid [planetoidId=" + planetoidId + ", repId=" + repId

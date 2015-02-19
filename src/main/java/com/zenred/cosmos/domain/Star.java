@@ -167,6 +167,10 @@ public class Star {
 	}
 
 	/**
+	 * refactor ... all the strings should come from immutable objects in StarDao
+	 */
+	
+	/**
 	 * 
 	 * @return database centric map used for inserts
 	 */
