@@ -57,9 +57,9 @@ DROP TABLE IF EXISTS `Planetoid`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Planetoid` (
   `planetoidId` int unsigned NOT NULL auto_increment,
-  `repId` int unsigned NOT NULL,
+  `repId` int unsigned NULL,
   `Radius` double NOT NULL,
-  `DistanceToPimary` double NOT NULL,
+  `DistanceToPrimary` double NOT NULL,
   `Degree` double NOT NULL,
   `Temperature` double NOT NULL,
   `PercentWater` double DEFAULT NULL,

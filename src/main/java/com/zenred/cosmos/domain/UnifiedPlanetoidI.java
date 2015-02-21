@@ -39,6 +39,13 @@ public interface UnifiedPlanetoidI {
 		public void setDatestamp(String datestamp) {
 			this.datestamp = datestamp;
 		}
+		@Override
+		public String toString() {
+			return "PlanetoidRep [planetoidrepId=" + planetoidrepId
+					+ ", planetoidDomainFactory=" + planetoidDomainFactory
+					+ ", ownerId=" + ownerId + ", planetoidId=" + planetoidId
+					+ ", datestamp=" + datestamp + "]";
+		}
 		
 	}
 	
@@ -62,11 +69,26 @@ public interface UnifiedPlanetoidI {
 		public void setPlanetoidRep(PlanetoidRep planetoidRep){
 			this.planetoidRep = planetoidRep;
 		}
+		@Override
+		public String toString() {
+			return "AbstractUnifiedPlanetoid [planetoid=" + planetoid
+					+ ", planetoidRep=" + planetoidRep + "]";
+		}
 	}
 	
 	class UnifiedPlanetoidImpl extends AbstractUnifiedPlanetoid{
 		public UnifiedPlanetoidImpl() {
 			super();
 		}
+
+		@Override
+		public String toString() {
+			return "UnifiedPlanetoidImpl [getPlanetoid()=" + getPlanetoid()
+					+ ", getPlanetoidRep()=" + getPlanetoidRep()
+					+ ", toString()=" + super.toString() + ", getClass()="
+					+ getClass() + ", hashCode()=" + hashCode() + "]";
+		}
+		
+		
 	}
 }

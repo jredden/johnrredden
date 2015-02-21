@@ -2,11 +2,14 @@ package com.zenred.cosmos.domain;
 
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zenred.johntredden.domain.AbstractJDBCDao;
 
 public class PlanetoidDao extends AbstractJDBCDao{
+	
+	static private Logger logger = Logger.getLogger(PlanetoidDao.class);
 	
 	public static  String PLANETOID = "Planetoid";
 	public static  String PLANETOID_ID = "planetoidId"; 
@@ -43,10 +46,12 @@ public class PlanetoidDao extends AbstractJDBCDao{
 	
 	private static String readPlanetoidRepId = "SELECT "
 			+ " pltr." + PLANETOID_REP_ID + " "
-			+ " pltr." + DOMAIN + " "
-			+ " pltr." + OWNER_ID + " "
-			+ " pltr." + PLANETOID_ID2 + " "
-			+ " pltr." + DATESTAMP2 + " "
+			+ ", pltr." + DOMAIN + " "
+			+ ", pltr." + OWNER_ID + " "
+			+ ", pltr." + PLANETOID_ID2 + " "
+			+ ", pltr." + DATESTAMP2 + " "
+			+ " FROM " + PLANETOID_REP + " pltr "
+			+ " WHERE pltr." + PLANETOID_REP_ID + " = ? "
 		;
 	private static String updatePlanetoidById = "UPDATE " + PLANETOID + " plt SET "
 			+ " plt." + REP_ID + " = ? "
@@ -131,6 +136,7 @@ public class PlanetoidDao extends AbstractJDBCDao{
 				.getSimpleJdbcTemplate()
 				.update(updatePlanetoidIdPlanetoidRepById,
 						new Object[] { planetoidId, planetoidRepId });
+		planetoid.setPlanetoidId(planetoidId);
 		return readPlanetoidUnified(planetoid);
 
 	}
@@ -157,9 +163,16 @@ public class PlanetoidDao extends AbstractJDBCDao{
 		Object[] param = {planetoidRepId};
 		Map<String, Object> planetoidRepMap = super.jdbcSetUp().getSimpleJdbcTemplate().queryForMap(readPlanetoidRepId, param);
 		UnifiedPlanetoidI.PlanetoidRep unPlanetoidRep_PlanetoidRep = new UnifiedPlanetoidI.PlanetoidRep();
+		unPlanetoidRep_PlanetoidRep.setPlanetoidrepId(planetoidRepId);
 		unPlanetoidRep_PlanetoidRep.setDatestamp(planetoidRepMap.get(DATESTAMP2).toString());
 		String s_ownerId = planetoidRepMap.get(OWNER_ID).toString();
 		unPlanetoidRep_PlanetoidRep.setOwnerId(new Integer(s_ownerId));
+		unPlanetoidRep_PlanetoidRep
+				.setPlanetoidDomainFactory(PlanetoidDomainFactory.databaseMap
+						.get(planetoidRepMap.get(DOMAIN).toString()));
+		String s_planetoidId = planetoidRepMap.get(PLANETOID_ID2).toString();
+		unPlanetoidRep_PlanetoidRep.setPlanetoidId(new Integer(s_planetoidId));
+		unPlanetoidRep_PlanetoidRep.setDatestamp(planetoidRepMap.get(DATESTAMP2).toString());
 		return unPlanetoidRep_PlanetoidRep;
 	}
 	/**
@@ -169,6 +182,7 @@ public class PlanetoidDao extends AbstractJDBCDao{
 	 */
 	public Planetoid readPlanetoidById(Integer planetoidId){
 		Object[] param = {planetoidId};
+		logger.info("SQL:"+readPlanetoidById);
 		Map<String, Object> planetoidMap = super.jdbcSetUp().getSimpleJdbcTemplate().queryForMap(readPlanetoidById, param);
 		Planetoid planetoid = new Planetoid();
 		planetoid.setDatestamp(planetoidMap.get(DATESTAMP).toString());
@@ -181,8 +195,12 @@ public class PlanetoidDao extends AbstractJDBCDao{
 		planetoid.setPlanetoidId(planetoidId);
 		String s_radius = planetoidMap.get(RADIUS).toString();
 		planetoid.setRadius(new Double(s_radius));
-		String s_repId = planetoidMap.get(PLANETOID_REP_ID).toString();
-		planetoid.setRepId(new Integer (s_repId));
+		String s_temperature = planetoidMap.get(TEMPERATURE).toString();
+		planetoid.setTemperature(new Double(s_temperature));
+		if (null != planetoidMap.get(REP_ID)) {
+			String s_repId = planetoidMap.get(REP_ID).toString();
+			planetoid.setRepId(new Integer(s_repId));
+		}
 		planetoid.setDatestamp(planetoidMap.get(DATESTAMP).toString());
 		return planetoid;
 	}

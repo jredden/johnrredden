@@ -32,4 +32,11 @@ public enum PlanetoidDomainFactory {
 	public static String planetoidDomain(Class clazz){
 		return classMap.get(clazz).type;
 	}
+	
+	public static Map<String, PlanetoidDomainFactory> databaseMap = new HashMap<String, PlanetoidDomainFactory>();
+	static{
+		databaseMap.put("cluster", CLUSTER);
+		databaseMap.put("star", STAR);
+		databaseMap.put("planetoid", PLANETOID);
+	}
 }
