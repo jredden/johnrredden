@@ -14,6 +14,7 @@ public class PlanetoidDao extends AbstractJDBCDao{
 	public static  String PLANETOID = "Planetoid";
 	public static  String PLANETOID_ID = "planetoidId"; 
 	public static  String REP_ID = "repId";
+	public static  String PLANETOID_NAME = "planetoidName";
 	public static  String RADIUS = "Radius";
 	public static  String DISTANCE_TO_PRIMARY = "DistanceToPrimary";
 	public static  String DEGREE = "Degree";
@@ -34,6 +35,7 @@ public class PlanetoidDao extends AbstractJDBCDao{
 	private static String readPlanetoidById = "SELECT "
 			+ "plt." + PLANETOID_ID + " "
 			+ ", plt." + REP_ID + " "
+			+ ", plt." + PLANETOID_NAME + " "
 			+ ", plt." + RADIUS + " "
 			+ ", plt." + DISTANCE_TO_PRIMARY + " "
 			+ ", plt." + DEGREE + " "
@@ -125,7 +127,7 @@ public class PlanetoidDao extends AbstractJDBCDao{
 				.queryForInt(lastPlwnetoidRepInsertSql);
 		planetoid.setRepId(planetoidRepId);
 		Map<String, Object> planetoidNewMap = Planetoid.getPlanetoidMap(
-				planetoidRepId, planetoid.getRadius(),
+				planetoidRepId, planetoid.getPlanetoidName(), planetoid.getRadius(),
 				planetoid.getDistanceToPrimary(), planetoid.getDegree(),
 				planetoid.getTemperature(), planetoid.getPercentWater());
 		super.jdbcInsertSetup().withTableName(PLANETOID)
@@ -202,6 +204,7 @@ public class PlanetoidDao extends AbstractJDBCDao{
 			planetoid.setRepId(new Integer(s_repId));
 		}
 		planetoid.setDatestamp(planetoidMap.get(DATESTAMP).toString());
+		planetoid.setPlanetoidName(planetoidMap.get(PLANETOID_NAME).toString());
 		return planetoid;
 	}
 	/**

@@ -58,6 +58,7 @@ DROP TABLE IF EXISTS `Planetoid`;
 CREATE TABLE `Planetoid` (
   `planetoidId` int unsigned NOT NULL auto_increment,
   `repId` int unsigned NULL,
+  `planetoidName` varchar(255),
   `Radius` double NOT NULL,
   `DistanceToPrimary` double NOT NULL,
   `Degree` double NOT NULL,

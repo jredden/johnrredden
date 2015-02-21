@@ -6,6 +6,7 @@ import java.util.Map;
 public class Planetoid {
 	private Integer planetoidId;
 	private Integer repId;
+	private String planetoidName;
 	private Double radius;
 	private Double distanceToPrimary;
 	private Double degree;  // current degree position in radians
@@ -17,12 +18,13 @@ public class Planetoid {
 		
 	}
 
-	public Planetoid(Integer planetoidId, Integer repId, Double radius,
+	public Planetoid(Integer planetoidId, Integer repId, String planetoidName, Double radius,
 			Double distanceToPrimary, Double degree, Double temperature,
 			Double percentWater, String datestamp) {
 		super();
 		this.planetoidId = planetoidId;
 		this.repId = repId;
+		this.planetoidName = planetoidName;
 		this.radius = radius;
 		this.distanceToPrimary = distanceToPrimary;
 		this.degree = degree;
@@ -95,6 +97,15 @@ public class Planetoid {
 		this.datestamp = datestamp;
 	}
 	
+	public String getPlanetoidName() {
+		return planetoidName;
+	}
+
+	public void setPlanetoidName(String planetoidName) {
+		this.planetoidName = planetoidName;
+	}
+
+	
 	/**
 	 * useed for database mapping of planetoid rep
 	 * 
@@ -113,11 +124,12 @@ public class Planetoid {
 		return new String[] {PlanetoidDao.DOMAIN, PlanetoidDao.OWNER_ID};
 	}
 	
-	public static Map<String, Object> getPlanetoidMap(Integer repId,
+	public static Map<String, Object> getPlanetoidMap(Integer repId, String planetoidName,
 			Double radius, Double distanceToPrimary, Double degree,
 			Double temperature, Double percentWater) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put(PlanetoidDao.REP_ID, repId);
+		map.put(PlanetoidDao.PLANETOID_NAME, planetoidName);
 		map.put(PlanetoidDao.RADIUS, radius);
 		map.put(PlanetoidDao.DISTANCE_TO_PRIMARY, distanceToPrimary);
 		map.put(PlanetoidDao.DEGREE, degree);
@@ -126,8 +138,9 @@ public class Planetoid {
 		return map;
 	}
 
+
 	public static String[] csvPlanetoid() {
-		return new String[] { PlanetoidDao.REP_ID, PlanetoidDao.RADIUS,
+		return new String[] { PlanetoidDao.REP_ID, PlanetoidDao.PLANETOID_NAME, PlanetoidDao.RADIUS,
 				PlanetoidDao.DISTANCE_TO_PRIMARY, PlanetoidDao.DEGREE,
 				PlanetoidDao.TEMPERATURE, PlanetoidDao.PERCENT_WATER };
 	}
@@ -135,10 +148,10 @@ public class Planetoid {
 	@Override
 	public String toString() {
 		return "Planetoid [planetoidId=" + planetoidId + ", repId=" + repId
-				+ ", radius=" + radius + ", distanceToPrimary="
-				+ distanceToPrimary + ", degree=" + degree + ", temperature="
-				+ temperature + ", percentWater=" + percentWater
-				+ ", datestamp=" + datestamp + "]";
+				+ ", planetoidName=" + planetoidName + ", radius=" + radius
+				+ ", distanceToPrimary=" + distanceToPrimary + ", degree="
+				+ degree + ", temperature=" + temperature + ", percentWater="
+				+ percentWater + ", datestamp=" + datestamp + "]";
 	}
 	
 
