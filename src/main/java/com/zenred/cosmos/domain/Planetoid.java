@@ -124,6 +124,17 @@ public class Planetoid {
 		return new String[] {PlanetoidDao.DOMAIN, PlanetoidDao.OWNER_ID};
 	}
 	
+	/**
+	 * 
+	 * @param repId
+	 * @param planetoidName
+	 * @param radius
+	 * @param distanceToPrimary
+	 * @param degree
+	 * @param temperature
+	 * @param percentWater
+	 * @return map of planetoid attributes
+	 */
 	public static Map<String, Object> getPlanetoidMap(Integer repId, String planetoidName,
 			Double radius, Double distanceToPrimary, Double degree,
 			Double temperature, Double percentWater) {

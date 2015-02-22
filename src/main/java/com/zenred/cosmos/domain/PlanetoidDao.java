@@ -184,7 +184,7 @@ public class PlanetoidDao extends AbstractJDBCDao{
 	 */
 	public Planetoid readPlanetoidById(Integer planetoidId){
 		Object[] param = {planetoidId};
-		logger.info("SQL:"+readPlanetoidById);
+		logger.debug("SQL:"+readPlanetoidById);
 		Map<String, Object> planetoidMap = super.jdbcSetUp().getSimpleJdbcTemplate().queryForMap(readPlanetoidById, param);
 		Planetoid planetoid = new Planetoid();
 		planetoid.setDatestamp(planetoidMap.get(DATESTAMP).toString());
