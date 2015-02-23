@@ -5,11 +5,28 @@ import java.util.Map;
 
 public class Atmosphere {
 	
+	
+	
+	public Atmosphere() {
+		super();
+	}
+	public Atmosphere(Integer atmosphereId, Integer planetoidId,
+			String chem_name, Double percentage, String datestamp) {
+		super();
+		this.atmosphereId = atmosphereId;
+		this.planetoidId = planetoidId;
+		this.chem_name = chem_name;
+		this.percentage = percentage;
+		this.datestamp = datestamp;
+	}
+
 	private Integer atmosphereId;
 	private Integer planetoidId;
 	private String chem_name;
 	private Double percentage;
 	private String datestamp;
+	
+	
 	public Integer getAtmosphereId() {
 		return atmosphereId;
 	}
