@@ -2,6 +2,8 @@ package com.zenred.cosmos.domain;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
@@ -49,6 +51,9 @@ public class PlanetoidDaoTest {
 		UnifiedPlanetoidI unifiedPlanetoidI =  planetoidDao.addClusterPlanetoid(planetoid, clusterRepUpdate);
 		logger.info("PLANETOID_IN_CLUSTER:"+unifiedPlanetoidI);
 		
+		List<UnifiedPlanetoidI> unifiedPlanetoidIs =  planetoidDao.readRoguePlanetoids(clusterRepUpdate);
+		logger.info("ROGUE_PLANETOIDS:" + unifiedPlanetoidIs);
+		
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_0",
 				new Double(160), StarTypeFactory.genLuminsoity((short) 0,
 						StarTypeFactory.m, StarFactory.RED__MAINS,
@@ -73,13 +78,25 @@ public class PlanetoidDaoTest {
 				starUpdate);
 		logger.info("PLANETOID_AROUND_STAR:" + unifiedPlanetoidI);
 
+		Planetoid planetoidStar2 = new Planetoid(null, null,
+				systemRead.getSystemName() + starUpdate.getName()
+						+ "_planetoid_1", new Double(7000), new Double(
+						1700000.0), new Double(3.1416 * 1.75),
+				new Double(270.0), new Double(25.0), null);
+		UnifiedPlanetoidI unifiedPlanetoidIplanet = planetoidDao.addStarPlanetoid(planetoidStar2,
+				starUpdate);
+		logger.info("PLANETOID_AROUND_STAR:" + unifiedPlanetoidI);
+		
+		unifiedPlanetoidIs =  planetoidDao.readPlanetoidsAroundStar(starUpdate);
+		logger.info("PLANETOIDS_AROUND_STAR:" + unifiedPlanetoidIs);
+
 		Planetoid planetoidMoon0 = new Planetoid(null, null,
 				systemRead.getSystemName() + planetoidStar.getPlanetoidName()
 						+ "_moon_0", new Double(2000), new Double(17000.0),
 				new Double(3.1416 * 1.25), new Double(290.0), new Double(0.1),
 				null);
 		unifiedPlanetoidI = planetoidDao.addPlanetoidPlanetoid(planetoidMoon0,
-				unifiedPlanetoidI.getPlanetoid());
+				unifiedPlanetoidIplanet.getPlanetoid());
 		logger.info("MOON 0:" + unifiedPlanetoidI);
 
 		Planetoid planetoidMoon1 = new Planetoid(null, null,
@@ -88,8 +105,11 @@ public class PlanetoidDaoTest {
 				new Double(3.1416 * 0.65), new Double(290.0), new Double(0.01),
 				null);
 		unifiedPlanetoidI = planetoidDao.addPlanetoidPlanetoid(planetoidMoon1,
-				unifiedPlanetoidI.getPlanetoid());
+				unifiedPlanetoidIplanet.getPlanetoid());
 		logger.info("MOON 1:" + unifiedPlanetoidI);
+		
+		unifiedPlanetoidIs =  planetoidDao.readMoonsAroundPlanetoid(unifiedPlanetoidIplanet.getPlanetoid());
+		logger.info("MOONS_AROUND_PLANETOID:" + unifiedPlanetoidIs);
 
 		planetoidDao.deletePlanetoid(planetoidMoon0);
 		planetoidDao.deletePlanetoid(planetoidMoon1);

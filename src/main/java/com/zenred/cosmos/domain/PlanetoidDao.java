@@ -1,5 +1,7 @@
 package com.zenred.cosmos.domain;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -69,12 +71,71 @@ public class PlanetoidDao extends AbstractJDBCDao{
 			+ " WHERE pltr." + PLANETOID_REP_ID + " = ? "
 			;
 	private static String deletePlanetoidRep = "DELETE FROM " + PLANETOID_REP + " WHERE "
-			+ PLANETOID_REP_ID + " = ?";
+			+ PLANETOID_REP_ID + " = ?"
 			;
 	private static String deletePlanetoid = "DELETE FROM " + PLANETOID + " WHERE "
-			+ PLANETOID_ID + " = ?";
+			+ PLANETOID_ID + " = ?"
 			;
+	private static String readPlanetoidsAroundStar = "SELECT "
+			+ "plt." + PLANETOID_ID + " "
+			+ ", plt." + REP_ID + " "
+			+ ", plt." + PLANETOID_NAME + " "
+			+ ", plt." + RADIUS + " "
+			+ ", plt." + DISTANCE_TO_PRIMARY + " "
+			+ ", plt." + DEGREE + " "
+			+ ", plt." + TEMPERATURE + " "
+			+ ", plt." + PERCENT_WATER + " "
+			+ ", plt." + DATESTAMP + " "
+			+ " FROM " + PLANETOID + " plt "
+			+ " INNER JOIN "
+			+ PLANETOID_REP + " pltr "
+			+ " ON plt." + REP_ID + " = pltr." + PLANETOID_REP_ID
+			+ " INNER JOIN "
+			+ StarDao.STAR + " sta "
+			+ " ON pltr." + OWNER_ID + " = sta." + StarDao.STAR_ID
+			+ " WHERE sta." + StarDao.STAR_ID + " = ? "
+			;
+	private static String readMoonsAroundPlanetoids = "SELECT "
+			+ "plt." + PLANETOID_ID + " "
+			+ ", plt." + REP_ID + " "
+			+ ", plt." + PLANETOID_NAME + " "
+			+ ", plt." + RADIUS + " "
+			+ ", plt." + DISTANCE_TO_PRIMARY + " "
+			+ ", plt." + DEGREE + " "
+			+ ", plt." + TEMPERATURE + " "
+			+ ", plt." + PERCENT_WATER + " "
+			+ ", plt." + DATESTAMP + " "
+			+ " FROM " + PLANETOID + " plt "
+			+ " INNER JOIN "
+			+ PLANETOID_REP + " pltr "
+			+ " ON plt." + REP_ID + " = pltr." + PLANETOID_REP_ID
+			+ " INNER JOIN "
+			+ PLANETOID + " plt2 "
+			+ " ON pltr." + OWNER_ID + " = plt2." + PLANETOID_ID
+			+ " WHERE plt2." + PLANETOID_ID + " = ? "			// planet that has moon
+			;
+	private static String readRoguePlanetoids = "SELECT "
+			+ "plt." + PLANETOID_ID + " "
+			+ ", plt." + REP_ID + " "
+			+ ", plt." + PLANETOID_NAME + " "
+			+ ", plt." + RADIUS + " "
+			+ ", plt." + DISTANCE_TO_PRIMARY + " "
+			+ ", plt." + DEGREE + " "
+			+ ", plt." + TEMPERATURE + " "
+			+ ", plt." + PERCENT_WATER + " "
+			+ ", plt." + DATESTAMP + " "
+			+ " FROM " + PLANETOID + " plt "
+			+ " INNER JOIN "
+			+ PLANETOID_REP + " pltr "
+			+ " ON plt." + REP_ID + " = pltr." + PLANETOID_REP_ID
+			+ " INNER JOIN "
+			+ ClusterRepDao.CLUSTER_REP + " clrp "
+			+ " ON pltr." + OWNER_ID + " = clrp." + ClusterRepDao.CLUSTER_REP_ID
+			+ " WHERE clrp." + ClusterRepDao.CLUSTER_REP_ID + " = ? "			// planet with no star and not a moon
+			;
+			
 	/**
+	 * 
 	 * 
 	 * @param planetoid
 	 * @param clusterRep
@@ -220,5 +281,56 @@ public class PlanetoidDao extends AbstractJDBCDao{
 				.getSimpleJdbcTemplate()
 				.update(deletePlanetoid,
 						new Object[] { planetoid.getPlanetoidId() });
+	}
+	/**
+	 * 
+	 * @param star
+	 * @return list of planetoids
+	 */
+	public List<UnifiedPlanetoidI> readPlanetoidsAroundStar(Star star){
+		List<UnifiedPlanetoidI> unifiedPlanetoidIs = new ArrayList<UnifiedPlanetoidI>();
+		logger.info("SQL:"+readPlanetoidsAroundStar+"::"+star.getStarId());
+		List<Map<String, Object>> planetoidListMap = super.jdbcSetUp()
+				.getSimpleJdbcTemplate()
+				.queryForList(readPlanetoidsAroundStar, star.getStarId());
+		for(Map<String, Object> planetoidMap: planetoidListMap){
+			Integer planetoidId = new Integer(planetoidMap.get(PLANETOID_ID).toString());
+			unifiedPlanetoidIs.add(readPlanetoidUnified(readPlanetoidById(planetoidId)));
+		}
+		return unifiedPlanetoidIs;
+	}
+	/**
+	 * 
+	 * @param planetoid
+	 * @return list of planetoids
+	 */
+	public List<UnifiedPlanetoidI> readMoonsAroundPlanetoid(Planetoid planetoid){
+		List<UnifiedPlanetoidI> unifiedPlanetoidIs = new ArrayList<UnifiedPlanetoidI>();
+		logger.info("SQL:"+readMoonsAroundPlanetoids+"::"+planetoid.getPlanetoidId());
+		List<Map<String, Object>> planetoidListMap = super.jdbcSetUp()
+				.getSimpleJdbcTemplate()
+				.queryForList(readMoonsAroundPlanetoids, planetoid.getPlanetoidId());
+		for(Map<String, Object> planetoidMap: planetoidListMap){
+			Integer planetoidId = new Integer(planetoidMap.get(PLANETOID_ID).toString());
+			unifiedPlanetoidIs.add(readPlanetoidUnified(readPlanetoidById(planetoidId)));
+		}
+		return unifiedPlanetoidIs;
+	}
+	/**
+	 * 
+	 * @param planetoid
+	 * @return list of planetoids
+	 */
+	public List<UnifiedPlanetoidI> readRoguePlanetoids(ClusterRep clusterRep){
+		List<UnifiedPlanetoidI> unifiedPlanetoidIs = new ArrayList<UnifiedPlanetoidI>();
+		logger.info("SQL:"+readRoguePlanetoids+"::"+clusterRep.getClusterRepId());
+		List<Map<String, Object>> planetoidListMap = super.jdbcSetUp()
+				.getSimpleJdbcTemplate()
+				.queryForList(readMoonsAroundPlanetoids, clusterRep.getClusterRepId());
+		for(Map<String, Object> planetoidMap: planetoidListMap){
+			Integer planetoidId = new Integer(planetoidMap.get(PLANETOID_ID).toString());
+			unifiedPlanetoidIs.add(readPlanetoidUnified(readPlanetoidById(planetoidId)));
+		}
+		return unifiedPlanetoidIs;
 	}
 }

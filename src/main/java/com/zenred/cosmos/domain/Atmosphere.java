@@ -72,9 +72,9 @@ public class Atmosphere {
 	 */
 	public static Map<String, Object> getAtmosphereMap(Integer planetoidId, String chem_name, Double percentage){
 		Map<String, Object> map = new HashMap<String, Object>();
+		map.put(AtmosphereDao.PLANETOID_ID, planetoidId);
 		map.put(AtmosphereDao.CHEM_NAME, chem_name);
 		map.put(AtmosphereDao.PERCENTAGE, percentage);
-		map.put(AtmosphereDao.PLANETOID_ID, percentage);
 		return map;
 	}
 	
@@ -83,7 +83,7 @@ public class Atmosphere {
 	 * @return attribute array
 	 */
 	public static String[] csvAtmosphere(){
-		return new String[] {AtmosphereDao.CHEM_NAME, AtmosphereDao.PERCENTAGE, AtmosphereDao.PLANETOID_ID};
+		return new String[] { AtmosphereDao.PLANETOID_ID,AtmosphereDao.CHEM_NAME, AtmosphereDao.PERCENTAGE};
 	}
 
 }
