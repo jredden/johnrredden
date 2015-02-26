@@ -1,8 +1,9 @@
 package com.zenred.cosmos.domain;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import org.apache.log4j.Logger;
 
+import org.apache.log4j.Logger;
 import org.junit.Test;
 
 public class SystemDaoTest {
@@ -17,6 +18,9 @@ public class SystemDaoTest {
 		Double vcoord = new Double(0);
 		Double dist = new Double(999999);
 		SystemDao systemDao = new SystemDao();
+		
+		Boolean answer = systemDao.doesSystemExist(new Double(0), new Double(0));
+		assertFalse(answer);
 
 		system = new System(null, dist, ucoord, vcoord, null);
 		System.genSystemName(system);
@@ -29,6 +33,10 @@ public class SystemDaoTest {
 		logger.info("READ_ID:"+systemReadId);
 		System systemReadName = systemDao.readSystemByName(systemReadId.getSystemName());
 		logger.info("READ_NAME:"+systemReadName);
+		
+		answer = systemDao.doesSystemExist(new Double(999999), new Double(0));
+		assertTrue(answer);
+		
 		systemDao.deleteSystem(systemReadName);
 	}
 

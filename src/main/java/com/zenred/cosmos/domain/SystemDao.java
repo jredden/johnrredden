@@ -40,6 +40,12 @@ public class SystemDao extends AbstractJDBCDao {
 			+ " WHERE sy."+SYSTEM_NAME+ " = ?"; 
 			;
 
+	private static String readSystemByCoordinates = "SELECT COUNT(*) " 
+			+ " FROM " + SYSTEM + " sy " + " WHERE sy." + UCOORDINATE
+			+ " = ? AND sy." + VCOORDINATE + " = ? "
+			;
+	
+
 	private static String updateSystemById = "UPDATE " + SYSTEM + " sy SET "
 			+ " sy."+DISTANCE_TO_GALACTIC_CENTRE+" = ?  "
 			+ ", sy."+UCOORDINATE+" = ?  "
@@ -141,5 +147,23 @@ public class SystemDao extends AbstractJDBCDao {
 	public void deleteSystem(System system) {
 		super.jdbcSetUp().getSimpleJdbcTemplate()
 				.update(deleteSystem, new Object[] { system.getSystemId() });
+	}
+	/**
+	 * 
+	 * @param ucoordinate
+	 * @param vcoordinate
+	 * @return true or false
+	 */
+	public Boolean doesSystemExist(Double ucoordinate, Double vcoordinate){
+		Boolean answer = true;
+		System system = new System();
+		Object[] param = { ucoordinate, vcoordinate};
+		
+		int count  = super.jdbcSetUp().getSimpleJdbcTemplate()
+				.queryForInt(readSystemByCoordinates, ucoordinate, vcoordinate);
+		if(0 == count ){
+			answer = false;
+		}
+		return answer;
 	}
 }
