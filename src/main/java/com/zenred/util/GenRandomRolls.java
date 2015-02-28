@@ -56,6 +56,9 @@ public class GenRandomRolls {
     public int getDraw(double ip_real){
 	return (int)(random.nextDouble() * ip_real);
     }
+    public Double  getDraw(Double ip_real){
+	return random.nextDouble() * ip_real;
+    }
 
     /**
      *

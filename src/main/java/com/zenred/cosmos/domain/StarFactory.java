@@ -2462,7 +2462,6 @@ public enum StarFactory {
 		}
 
 		public Sequence sequence() {
-			// TODO Auto-generated method stub
 			return sequence;
 		}
 	};

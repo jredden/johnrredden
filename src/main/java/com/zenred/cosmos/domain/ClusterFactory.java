@@ -22,6 +22,64 @@ interface Operation {
 
 }
 
+class DistanceDetails{
+	public DistanceDetails() {
+		super();
+	}
+	
+	public DistanceDetails(Integer numberStarsToGenerate,
+			Double mediumDistance, Double variance) {
+		super();
+		this.numberStarsToGenerate = numberStarsToGenerate;
+		this.mediumDistance = mediumDistance;
+		this.variance = variance;
+	}
+
+	protected Integer numberStarsToGenerate;
+	protected Double mediumDistance;
+	protected Double variance;
+	protected Double distanceBetweenStars;
+	
+	
+	
+	public Integer getNumberStarsToGenerate() {
+		return numberStarsToGenerate;
+	}
+	public void setNumberStarsToGenerate(Integer numberStarsToGenerate) {
+		this.numberStarsToGenerate = numberStarsToGenerate;
+	}
+	public Double getMediumDistance() {
+		return mediumDistance;
+	}
+	public void setMediumDistance(Double mediumDistance) {
+		this.mediumDistance = mediumDistance;
+	}
+	public Double getVariance() {
+		return variance;
+	}
+	public void setVariance(Double variance) {
+		this.variance = variance;
+	}
+	
+	public Double getDistanceBetweenStars() {
+		return distanceBetweenStars;
+	}
+
+	public void setDistanceBetweenStars(Double distanceBetweenStars) {
+		this.distanceBetweenStars = distanceBetweenStars;
+	}
+
+	@Override
+	public String toString() {
+		return "DistanceDetails [numberStarsToGenerate="
+				+ numberStarsToGenerate + ", mediumDistance=" + mediumDistance
+				+ ", variance=" + variance + ", distanceBetweenStars="
+				+ distanceBetweenStars + "]";
+	}
+	
+	
+}
+
 public enum ClusterFactory {
 
 	SINGLESTAR("SINGLESTAR") {
@@ -288,4 +346,60 @@ public enum ClusterFactory {
 		logger.info("draw:"+draw+" answer:"+answer);
 		return answer;
 	}
+	
+	private static Map<ClusterFactory, DistanceDetails> distanceDetailsMap = new HashMap<ClusterFactory, DistanceDetails>();
+	/**
+	 * can only assign delta for degenerate case, a single star or double stars.  Others are handled at calling level.
+	 */
+	static{
+		distanceDetailsMap.put(SINGLESTAR, new DistanceDetails(new Integer(1), new Double(0), new Double(0)));
+		
+		DistanceDetails distanceDetails = new DistanceDetails(new Integer(2), new Double(1.0E7), new Double(0.5E6));
+		Integer flipACoin = GenRandomRolls.Instance().get_D2();
+		Double delta = GenRandomRolls.Instance().getDraw(distanceDetails.getVariance());
+		if(1 == flipACoin){
+			distanceDetails.setDistanceBetweenStars(distanceDetails.getMediumDistance()+delta);
+		}
+		else{
+			distanceDetails.setDistanceBetweenStars(distanceDetails.getMediumDistance()-delta);
+		}
+		distanceDetailsMap.put(DOUBLESTAR_BINARY, distanceDetails);
+		
+		distanceDetails = new DistanceDetails(new Integer(2), new Double(1.0E9), new Double(0.5E7));
+		flipACoin = GenRandomRolls.Instance().get_D2();
+		delta = GenRandomRolls.Instance().getDraw(distanceDetails.getVariance());
+		if(1 == flipACoin){
+			distanceDetails.setDistanceBetweenStars(distanceDetails.getMediumDistance()+delta);
+		}
+		else{
+			distanceDetails.setDistanceBetweenStars(distanceDetails.getMediumDistance()-delta);
+		}
+		distanceDetailsMap.put(DOUBLESTAR_SPREAD, distanceDetails);
+		
+		distanceDetails = new DistanceDetails(new Integer(3), new Double(1.0E7), new Double(0.5E3));
+		distanceDetailsMap.put(THREESTAR_TRINARY, distanceDetails);
+
+		distanceDetails = new DistanceDetails(new Integer(3), new Double(1.0E7), new Double(0.5E3));
+		distanceDetailsMap.put(THREESTAR_BINARYPLUSONE, distanceDetails);
+		
+		distanceDetails = new DistanceDetails(new Integer(3), new Double(1.0E9), new Double(0.5E6));
+		distanceDetailsMap.put(THREESTAR_SPREAD, distanceDetails);
+		
+		distanceDetails = new DistanceDetails(new Integer(4), new Double(1.0E7), new Double(0.5E6));
+		distanceDetailsMap.put(FOURSTAR_TRINARYPLUSONE, distanceDetails);
+		
+		distanceDetails = new DistanceDetails(new Integer(4), new Double(1.0E10), new Double(0.5E3));
+		distanceDetailsMap.put(FOURSTAR_SPREAD, distanceDetails);
+		
+		distanceDetails = new DistanceDetails(new Integer(5), new Double(5.0E9), new Double(0.5E3));
+		distanceDetailsMap.put(ClusterFactory.FIVESTAR_FOURSTARSPREADPLUSONE, distanceDetails);
+		
+		distanceDetails = new DistanceDetails(new Integer(5), new Double(5.0E9), new Double(0.5E3));
+		distanceDetailsMap.put(ClusterFactory.FIVESTAR_SPREAD, distanceDetails);
+		
+		distanceDetails = new DistanceDetails(new Integer(Integer.MAX_VALUE), new Double(5.0E7), new Double(0.5E3));
+		distanceDetailsMap.put(ClusterFactory.CLUSTER_N, distanceDetails);
+
+	}
+	
 }
