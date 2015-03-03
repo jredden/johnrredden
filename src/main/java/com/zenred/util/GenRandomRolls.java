@@ -64,6 +64,10 @@ public class GenRandomRolls {
      *
      */
     public double draw_rand(){return random.nextDouble();}
+    
+    public Double getAngle(){
+    	return getDraw(new Double(360.0));
+    }
 
     /**
     *
@@ -94,6 +98,10 @@ public class GenRandomRolls {
    
    public int getD100000(){
    	return getDraw(100000.0);
+   }
+   
+   public int getD250000(){
+	   return getDraw(250000.0);
    }
    /**
     * 

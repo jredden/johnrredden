@@ -13,13 +13,18 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.zenred.cosmos.domain.Star;
 import com.zenred.cosmos.domain.StarFactory;
+import com.zenred.cosmos.domain.StarTypeFactory;
+import com.zenred.cosmos.domain.SubClusterFactory;
+import com.zenred.util.GenRandomRolls;
 
 public class GenStar {
 	
 	static private Logger logger = Logger.getLogger(GenStar.class);
 
 	private static Map<List<Integer>, StarFactory> starProbabilityMap =new HashMap<List<Integer>, StarFactory>();
+	private static Object[] intArray;
 	static{
 		List<Integer> integers = new ArrayList<Integer>();
 		integers.add(1);
@@ -316,14 +321,6 @@ public class GenStar {
 		integers.add(250000);
 		starProbabilityMap.put(integers, StarFactory.DRKBRN_SDW);
 
-}
-	
-	protected static void generateStar(){
-		List<Integer> integersKey = new ArrayList<Integer>();
-//		integersKey.add(11);
-//		integersKey.add(15);
-//		logger.info("KEY:"+starProbabilityMap.get(integersKey));
-//		logger.info("KEYS:"+starProbabilityMap.keySet());
 		Iterator<List<Integer>> iter = starProbabilityMap.keySet().iterator();
 		List<Integer> intList = new ArrayList<Integer>();
 		while(iter.hasNext()){
@@ -332,13 +329,47 @@ public class GenStar {
 			intList.add(nextInt.get(0));
 			intList.add(nextInt.get(1));
 		}
-		Object[] intArray = intList.toArray();
+		intArray = intList.toArray();
 		Arrays.sort(intArray);
-//		List sortedList = new ArrayList(starProbabilityMap.keySet());
-//		Collections.sort(sortedList);
-		for (Object obj: intArray){
-			logger.info("SORT:"+new Integer(obj.toString()));
+}
+	protected static Integer[] Search(Integer draw){
+		int end = GenStar.intArray.length;
+		int next0 = end-2;
+		int next1 = end-1;
+		int first = new Integer(intArray[next0].toString());
+		int second = new Integer(intArray[next1].toString());
+		while(!(draw >= first && draw <= second)){
+			next0 -=2;
+			next1 -=2;
+			first = new Integer(intArray[next0].toString());
+			second = new Integer(intArray[next1].toString());
 		}
+		Integer [] integers = new Integer[]{new Integer(intArray[next0].toString()), new Integer(intArray[next1].toString())};
+		return integers ;
+	}
+	protected static Star generateStar(String starName, SubClusterFactory subClusterFactory){
+		for (Object obj: GenStar.intArray){
+			logger.debug("SORT:"+new Integer(obj.toString()));
+		}
+		Integer draw = GenRandomRolls.Instance().getD250000();
+		logger.info("DRAW:"+draw);
+		Integer [] result = Search(draw);
+		List<Integer> integers = new ArrayList<Integer>();
+		integers.add(result[0]);
+		integers.add(result[1]);
+		StarFactory starFactory = starProbabilityMap.get(integers);
+		logger.info("STAR FACTORY:"+starFactory);
 		
+		// distance is 100 for now, need to mod by sub cluster factory
+	
+		Star star = new Star(null, new Integer(0), starName, new Double(100),
+				StarTypeFactory.genLuminsoity(StarFactory.getSubCode(starFactory), StarTypeFactory.m,
+						starFactory, StarFactory.getSequence(starFactory)),
+				null, new Double(Math.toRadians(GenRandomRolls.Instance()
+						.getAngle())), StarFactory.getRead(starFactory),
+				StarFactory.getCode(starFactory), StarTypeFactory.genMass(
+						StarFactory.getSubCode(starFactory), StarTypeFactory.m, starFactory,
+						StarFactory.getSequence(starFactory)), null);
+		return star;
 	}
 }
