@@ -2987,6 +2987,6 @@ public enum StarFactory {
 	}
 	
 	public static StarTypeFactory getStarTypeFactory(StarFactory starFactory){
-		return starFactory.getStarTypeFactory(starFactory);
+		return starFactory.starTypeFactory();
 	}
 }

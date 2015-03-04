@@ -187,12 +187,12 @@ public class GenStar {
 		starProbabilityMap.put(integers, StarFactory.PYEL_SUBGI);
 
 		integers = new ArrayList<Integer>();
-		integers.add(751);
-		integers.add(790);
+		integers.add(801);
+		integers.add(890);
 		starProbabilityMap.put(integers, StarFactory.YELO_SUBGI);
 
 		integers = new ArrayList<Integer>();
-		integers.add(791);
+		integers.add(891);
 		integers.add(850);
 		starProbabilityMap.put(integers, StarFactory.ORNG_SUBGI);
 
@@ -363,12 +363,12 @@ public class GenStar {
 		// distance is 100 for now, need to mod by sub cluster factory
 	
 		Star star = new Star(null, new Integer(0), starName, new Double(100),
-				StarTypeFactory.genLuminsoity(StarFactory.getSubCode(starFactory), StarTypeFactory.m,
+				StarTypeFactory.genLuminsoity(StarFactory.getSubCode(starFactory), StarFactory.getStarTypeFactory(starFactory),
 						starFactory, StarFactory.getSequence(starFactory)),
 				null, new Double(Math.toRadians(GenRandomRolls.Instance()
 						.getAngle())), StarFactory.getRead(starFactory),
 				StarFactory.getCode(starFactory), StarTypeFactory.genMass(
-						StarFactory.getSubCode(starFactory), StarTypeFactory.m, starFactory,
+						StarFactory.getSubCode(starFactory), StarFactory.getStarTypeFactory(starFactory), starFactory,
 						StarFactory.getSequence(starFactory)), null);
 		return star;
 	}
