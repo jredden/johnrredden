@@ -319,7 +319,7 @@ public class StarDaoTest {
 						.code().code(), StarTypeFactory.genMass((short) 8,
 						StarTypeFactory.m, StarFactory.RED__MAINS,
 						StarFactory.redMainS.sequence()), null);
-		Star starAdd = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.THREESTAR_BINARYPLUSONE.name());
+		Star starAdd = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.THREESTAR_BINARYPLUSONE_2.name());
 		logger.info("STAR_READ_8:"+starAdd);
 		starAdd.setNo_planets_allowed(Boolean.FALSE);
 		Star starUpdate = starDao.updateStarByStarId(starAdd);
@@ -494,7 +494,7 @@ public class StarDaoTest {
 						.code().code(), StarTypeFactory.genMass((short) 2,
 						StarTypeFactory.k, StarFactory.ORNG_MAINS,
 						StarFactory.orngMainS.sequence()), null);
-		Star starAdd = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.FOURSTAR_TRINARYPLUSONE.name());
+		Star starAdd = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.FOURSTAR_TRINARYPLUSONE_1.name());
 		logger.info("STAR_READ_12:"+starAdd);
 		starAdd.setNo_planets_allowed(Boolean.FALSE);
 		Star starUpdate = starDao.updateStarByStarId(starAdd);
@@ -590,7 +590,7 @@ public class StarDaoTest {
 						.code().code(), StarTypeFactory.genMass((short) 0,
 						StarTypeFactory.f, StarFactory.PYEL_MAINS,
 						StarFactory.pyrlMainS.sequence()), null);
-		Star starAdd = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.FOURSTAR_2BINARIES_0.name());
+		Star starAdd = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.FOURSTAR_2BINARIES_0_BINARY_0.name());
 		logger.info("STAR_READ_13:"+starAdd);
 		starAdd.setNo_planets_allowed(Boolean.FALSE);
 		Star starUpdate = starDao.updateStarByStarId(starAdd);
@@ -604,7 +604,7 @@ public class StarDaoTest {
 						.code().code(), StarTypeFactory.genMass((short) 0,
 						StarTypeFactory.sg2f, StarFactory.PYEL_SG_II,
 						StarFactory.pyrlSGII.sequence()), null);
-		Star starAddx = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.FOURSTAR_2BINARIES_0.name());
+		Star starAddx = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.FOURSTAR_2BINARIES_0_BINARY_1.name());
 		logger.info("STAR_READ_25:"+starAddx);
 		starAddx.setNo_planets_allowed(Boolean.TRUE);
 		Star starUpdateX = starDao.updateStarByStarId(starAddx);
@@ -618,7 +618,7 @@ public class StarDaoTest {
 						.code().code(), StarTypeFactory.genMass((short) 0,
 						StarTypeFactory.sdo, StarFactory.BLUE_SUBDW,
 						StarFactory.blueSubDW.sequence()), null);
-		Star starAdd2 = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.FOURSTAR_2BINARIES_1.name());
+		Star starAdd2 = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.FOURSTAR_2BINARIES_1_BINARY_0.name());
 		logger.info("STAR_READ_14:"+starAdd2);
 		starAdd2.setNo_planets_allowed(Boolean.FALSE);
 		Star starUpdate2 = starDao.updateStarByStarId(starAdd2);
@@ -632,7 +632,7 @@ public class StarDaoTest {
 						.code().code(), StarTypeFactory.genMass((short) 0,
 						StarTypeFactory.dbs, StarFactory.DRKBRN_SDW,
 						StarFactory.drkBrnSDW.sequence()), null);
-		Star starAddx2 = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.FOURSTAR_2BINARIES_1.name());
+		Star starAddx2 = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.FOURSTAR_2BINARIES_1_BINARY_1.name());
 		logger.info("STAR_READ_26:"+starAddx2);
 		starAddx2.setNo_planets_allowed(Boolean.TRUE);
 		Star starUpdateX2 = starDao.updateStarByStarId(starAddx2);
