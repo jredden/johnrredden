@@ -16,81 +16,7 @@ import com.zenred.util.GenRandomRolls;
  * @author jredden
  *
  */
-class DistanceDetails implements DistanceDetailsIF {
-	
-	private Integer numberStarsToGenerate;
-	private Double mediumDistance;
-	private Double variance;
-	Double distanceBetweenStars;
-	
-	public DistanceDetails(Integer numberStarsToGenerate,
-			Double mediumDistance, Double variance) {
-		super();
-		this.numberStarsToGenerate = numberStarsToGenerate;
-		this.mediumDistance = mediumDistance;
-		this.variance = variance;
-	}
 
-	/* (non-Javadoc)
-	 * @see com.zenred.cosmos.domain.DistanceDetailsIF#getNumberStarsToGenerate()
-	 */
-	public Integer getNumberStarsToGenerate() {
-		return numberStarsToGenerate;
-	}
-	/* (non-Javadoc)
-	 * @see com.zenred.cosmos.domain.DistanceDetailsIF#setNumberStarsToGenerate(java.lang.Integer)
-	 */
-	public void setNumberStarsToGenerate(Integer numberStarsToGenerate) {
-		this.numberStarsToGenerate = numberStarsToGenerate;
-	}
-	/* (non-Javadoc)
-	 * @see com.zenred.cosmos.domain.DistanceDetailsIF#getMediumDistance()
-	 */
-	public Double getMediumDistance() {
-		return mediumDistance;
-	}
-	/* (non-Javadoc)
-	 * @see com.zenred.cosmos.domain.DistanceDetailsIF#setMediumDistance(java.lang.Double)
-	 */
-	public void setMediumDistance(Double mediumDistance) {
-		this.mediumDistance = mediumDistance;
-	}
-	/* (non-Javadoc)
-	 * @see com.zenred.cosmos.domain.DistanceDetailsIF#getVariance()
-	 */
-	public Double getVariance() {
-		return variance;
-	}
-	/* (non-Javadoc)
-	 * @see com.zenred.cosmos.domain.DistanceDetailsIF#setVariance(java.lang.Double)
-	 */
-	public void setVariance(Double variance) {
-		this.variance = variance;
-	}
-	
-	/* (non-Javadoc)
-	 * @see com.zenred.cosmos.domain.DistanceDetailsIF#getDistanceBetweenStars()
-	 */
-	public Double getDistanceBetweenStars() {
-		return distanceBetweenStars;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.zenred.cosmos.domain.DistanceDetailsIF#setDistanceBetweenStars(java.lang.Double)
-	 */
-	public void setDistanceBetweenStars(Double distanceBetweenStars) {
-		this.distanceBetweenStars = distanceBetweenStars;
-	}
-
-	@Override
-	public String toString() {
-		return "DistanceDetails [numberStarsToGenerate="
-				+ numberStarsToGenerate + ", mediumDistance=" + mediumDistance
-				+ ", variance=" + variance + ", distanceBetweenStars="
-				+ distanceBetweenStars + "]";
-	}
-	
-}
 
 interface Operation {
 	ClusterRep process(ClusterRep clusterRep);
@@ -364,7 +290,7 @@ public enum ClusterFactory {
 		return answer;
 	}
 	
-	private static Map<ClusterFactory, Map<SubClusterFactory,DistanceDetails>> distanceDetailsMap = new HashMap<ClusterFactory, Map<SubClusterFactory,DistanceDetails>>();
+	private static Map<ClusterFactory, Map<SubClusterFactory,DistanceDetailsIF>> distanceDetailsMap = new HashMap<ClusterFactory, Map<SubClusterFactory,DistanceDetailsIF>>();
 	/**
 	 * A separate Distance Detail for each SubClusterFactor enumeration.
 	 * 
@@ -373,12 +299,12 @@ public enum ClusterFactory {
 	static{
 		// S I N G L E    S T A R
 		DistanceDetails distanceDetails = new DistanceDetails(new Integer(1), new Double(0), new Double(new Double(1.0E7)));
-		Map<SubClusterFactory,DistanceDetails> subClusterMap = new HashMap<SubClusterFactory, DistanceDetails>();
+		Map<SubClusterFactory,DistanceDetailsIF> subClusterMap = new HashMap<SubClusterFactory, DistanceDetailsIF>();
 		subClusterMap.put(SubClusterFactory.SINGLESTAR, distanceDetails);
 		distanceDetailsMap.put(SINGLESTAR, subClusterMap);
 		
 		// D O U B L E   S T A R   B I N A R Y
-		distanceDetails = new DistanceDetails(new Integer(2), new Double(1.0E7), new Double(0.5E6));
+		distanceDetails = new DistanceDetails(new Integer(1), new Double(1.0E7), new Double(0.5E6));
 		Integer flipACoin = GenRandomRolls.Instance().get_D2();
 		Double delta = GenRandomRolls.Instance().getDraw(distanceDetails.getVariance());
 		if(1 == flipACoin){
@@ -387,10 +313,10 @@ public enum ClusterFactory {
 		else{
 			distanceDetails.setDistanceBetweenStars(distanceDetails.getMediumDistance()-delta);
 		}
-		subClusterMap = new HashMap<SubClusterFactory, DistanceDetails>();
+		subClusterMap = new HashMap<SubClusterFactory, DistanceDetailsIF>();
 		subClusterMap.put(SubClusterFactory.DOUBLESTAR_BINARY_0, distanceDetails);
 		
-		distanceDetails = new DistanceDetails(new Integer(2), new Double(1.0E7), new Double(0.5E6));
+		distanceDetails = new DistanceDetails(new Integer(1), new Double(1.0E7), new Double(0.5E6));
 		flipACoin = GenRandomRolls.Instance().get_D2();
 		delta = GenRandomRolls.Instance().getDraw(distanceDetails.getVariance());
 		if(1 == flipACoin){
@@ -404,7 +330,7 @@ public enum ClusterFactory {
 		
 		// T H R E E   S T A R   T R I N A R Y
 		
-		distanceDetails = new DistanceDetails(new Integer(3), new Double(1.0E7), new Double(0.5E6));
+		distanceDetails = new DistanceDetails(new Integer(1), new Double(1.0E7), new Double(0.5E6));
 		flipACoin = GenRandomRolls.Instance().get_D2();
 		delta = GenRandomRolls.Instance().getDraw(distanceDetails.getVariance());
 		if(1 == flipACoin){
@@ -413,10 +339,10 @@ public enum ClusterFactory {
 		else{
 			distanceDetails.setDistanceBetweenStars(distanceDetails.getMediumDistance()-delta);
 		}
-		subClusterMap = new HashMap<SubClusterFactory, DistanceDetails>();
+		subClusterMap = new HashMap<SubClusterFactory, DistanceDetailsIF>();
 		subClusterMap.put(SubClusterFactory.THREESTAR_TRINARY_0, distanceDetails);
 		
-		distanceDetails = new DistanceDetails(new Integer(2), new Double(1.0E7), new Double(0.5E6));
+		distanceDetails = new DistanceDetails(new Integer(1), new Double(1.0E7), new Double(0.5E6));
 		flipACoin = GenRandomRolls.Instance().get_D2();
 		delta = GenRandomRolls.Instance().getDraw(distanceDetails.getVariance());
 		if(1 == flipACoin){
@@ -427,7 +353,7 @@ public enum ClusterFactory {
 		}
 		subClusterMap.put(SubClusterFactory.THREESTAR_TRINARY_1, distanceDetails);
 		
-		distanceDetails = new DistanceDetails(new Integer(2), new Double(1.0E7), new Double(0.5E6));
+		distanceDetails = new DistanceDetails(new Integer(1), new Double(1.0E7), new Double(0.5E6));
 		flipACoin = GenRandomRolls.Instance().get_D2();
 		delta = GenRandomRolls.Instance().getDraw(distanceDetails.getVariance());
 		if(1 == flipACoin){
@@ -442,7 +368,7 @@ public enum ClusterFactory {
 
 		// THREE STAR BINARY PLUS ONE
 		
-		distanceDetails = new DistanceDetails(new Integer(3), new Double(1.0E7), new Double(0.5E6));
+		distanceDetails = new DistanceDetails(new Integer(1), new Double(1.0E7), new Double(0.5E6));
 		flipACoin = GenRandomRolls.Instance().get_D2();
 		delta = GenRandomRolls.Instance().getDraw(distanceDetails.getVariance());
 		if(1 == flipACoin){
@@ -451,10 +377,10 @@ public enum ClusterFactory {
 		else{
 			distanceDetails.setDistanceBetweenStars(distanceDetails.getMediumDistance()-delta);
 		}
-		subClusterMap = new HashMap<SubClusterFactory, DistanceDetails>();
+		subClusterMap = new HashMap<SubClusterFactory, DistanceDetailsIF>();
 		subClusterMap.put(SubClusterFactory.THREESTAR_BINARYPLUSONE_BINARY_0, distanceDetails);
 		
-		distanceDetails = new DistanceDetails(new Integer(2), new Double(1.0E9), new Double(0.5E5));
+		distanceDetails = new DistanceDetails(new Integer(1), new Double(1.0E9), new Double(0.5E5));
 		flipACoin = GenRandomRolls.Instance().get_D2();
 		delta = GenRandomRolls.Instance().getDraw(distanceDetails.getVariance());
 		if(1 == flipACoin){
@@ -465,7 +391,7 @@ public enum ClusterFactory {
 		}
 		subClusterMap.put(SubClusterFactory.THREESTAR_BINARYPLUSONE_BINARY_1, distanceDetails);
 		
-		distanceDetails = new DistanceDetails(new Integer(2), new Double(1.0E7), new Double(0.5E6));
+		distanceDetails = new DistanceDetails(new Integer(1), new Double(1.0E7), new Double(0.5E6));
 		flipACoin = GenRandomRolls.Instance().get_D2();
 		delta = GenRandomRolls.Instance().getDraw(distanceDetails.getVariance());
 		if(1 == flipACoin){
@@ -480,7 +406,7 @@ public enum ClusterFactory {
 		
 		// F O U R   S T A R   T W O  B I N A R I E S
 		
-		distanceDetails = new DistanceDetails(new Integer(3), new Double(1.0E7), new Double(0.5E6));
+		distanceDetails = new DistanceDetails(new Integer(1), new Double(1.0E7), new Double(0.5E6));
 		flipACoin = GenRandomRolls.Instance().get_D2();
 		delta = GenRandomRolls.Instance().getDraw(distanceDetails.getVariance());
 		if(1 == flipACoin){
@@ -489,10 +415,10 @@ public enum ClusterFactory {
 		else{
 			distanceDetails.setDistanceBetweenStars(distanceDetails.getMediumDistance()-delta);
 		}
-		subClusterMap = new HashMap<SubClusterFactory, DistanceDetails>();
+		subClusterMap = new HashMap<SubClusterFactory, DistanceDetailsIF>();
 		subClusterMap.put(SubClusterFactory.FOURSTAR_2BINARIES_0_BINARY_0, distanceDetails);
 		
-		distanceDetails = new DistanceDetails(new Integer(2), new Double(1.0E9), new Double(0.5E5));
+		distanceDetails = new DistanceDetails(new Integer(1), new Double(1.0E9), new Double(0.5E5));
 		flipACoin = GenRandomRolls.Instance().get_D2();
 		delta = GenRandomRolls.Instance().getDraw(distanceDetails.getVariance());
 		if(1 == flipACoin){
@@ -503,7 +429,7 @@ public enum ClusterFactory {
 		}
 		subClusterMap.put(SubClusterFactory.FOURSTAR_2BINARIES_1_BINARY_0, distanceDetails);
 		
-		distanceDetails = new DistanceDetails(new Integer(2), new Double(1.0E7), new Double(0.5E6));
+		distanceDetails = new DistanceDetails(new Integer(1), new Double(1.0E7), new Double(0.5E6));
 		flipACoin = GenRandomRolls.Instance().get_D2();
 		delta = GenRandomRolls.Instance().getDraw(distanceDetails.getVariance());
 		if(1 == flipACoin){
@@ -514,7 +440,7 @@ public enum ClusterFactory {
 		}
 		subClusterMap.put(SubClusterFactory.FOURSTAR_2BINARIES_0_BINARY_1, distanceDetails);
 
-		distanceDetails = new DistanceDetails(new Integer(2), new Double(1.0E9), new Double(0.5E5));
+		distanceDetails = new DistanceDetails(new Integer(1), new Double(1.0E9), new Double(0.5E5));
 		flipACoin = GenRandomRolls.Instance().get_D2();
 		delta = GenRandomRolls.Instance().getDraw(distanceDetails.getVariance());
 		if(1 == flipACoin){
@@ -525,7 +451,7 @@ public enum ClusterFactory {
 		}
 		subClusterMap.put(SubClusterFactory.FOURSTAR_2BINARIES_1_BINARY_0, distanceDetails);
 		
-		distanceDetails = new DistanceDetails(new Integer(2), new Double(1.0E7), new Double(0.5E6));
+		distanceDetails = new DistanceDetails(new Integer(1), new Double(1.0E7), new Double(0.5E6));
 		flipACoin = GenRandomRolls.Instance().get_D2();
 		delta = GenRandomRolls.Instance().getDraw(distanceDetails.getVariance());
 		if(1 == flipACoin){
@@ -536,7 +462,7 @@ public enum ClusterFactory {
 		}
 		subClusterMap.put(SubClusterFactory.FOURSTAR_2BINARIES_0_BINARY_1, distanceDetails);
 		
-		distanceDetails = new DistanceDetails(new Integer(2), new Double(1.0E7), new Double(0.5E6));
+		distanceDetails = new DistanceDetails(new Integer(1), new Double(1.0E7), new Double(0.5E6));
 		flipACoin = GenRandomRolls.Instance().get_D2();
 		delta = GenRandomRolls.Instance().getDraw(distanceDetails.getVariance());
 		if(1 == flipACoin){
@@ -551,7 +477,7 @@ public enum ClusterFactory {
 		
 		//  F O U R   S T A R   T R I N A R Y    P L U S    O N E 
 		
-		distanceDetails = new DistanceDetails(new Integer(3), new Double(1.0E7), new Double(0.5E6));
+		distanceDetails = new DistanceDetails(new Integer(1), new Double(1.0E7), new Double(0.5E6));
 		flipACoin = GenRandomRolls.Instance().get_D2();
 		delta = GenRandomRolls.Instance().getDraw(distanceDetails.getVariance());
 		if(1 == flipACoin){
@@ -560,10 +486,10 @@ public enum ClusterFactory {
 		else{
 			distanceDetails.setDistanceBetweenStars(distanceDetails.getMediumDistance()-delta);
 		}
-		subClusterMap = new HashMap<SubClusterFactory, DistanceDetails>();
+		subClusterMap = new HashMap<SubClusterFactory, DistanceDetailsIF>();
 		subClusterMap.put(SubClusterFactory.FOURSTAR_TRINARYPLUSONE_TRINARY_0, distanceDetails);
 		
-		distanceDetails = new DistanceDetails(new Integer(2), new Double(1.0E7), new Double(0.5E5));
+		distanceDetails = new DistanceDetails(new Integer(1), new Double(1.0E7), new Double(0.5E5));
 		flipACoin = GenRandomRolls.Instance().get_D2();
 		delta = GenRandomRolls.Instance().getDraw(distanceDetails.getVariance());
 		if(1 == flipACoin){
@@ -574,7 +500,7 @@ public enum ClusterFactory {
 		}
 		subClusterMap.put(SubClusterFactory.FOURSTAR_TRINARYPLUSONE_TRINARY_1, distanceDetails);
 		
-		distanceDetails = new DistanceDetails(new Integer(2), new Double(1.0E7), new Double(0.5E6));
+		distanceDetails = new DistanceDetails(new Integer(1), new Double(1.0E7), new Double(0.5E6));
 		flipACoin = GenRandomRolls.Instance().get_D2();
 		delta = GenRandomRolls.Instance().getDraw(distanceDetails.getVariance());
 		if(1 == flipACoin){
@@ -585,7 +511,7 @@ public enum ClusterFactory {
 		}
 		subClusterMap.put(SubClusterFactory.FOURSTAR_TRINARYPLUSONE_TRINARY_2, distanceDetails);
 
-		distanceDetails = new DistanceDetails(new Integer(2), new Double(1.0E9), new Double(0.5E5));
+		distanceDetails = new DistanceDetails(new Integer(1), new Double(1.0E9), new Double(0.5E5));
 		flipACoin = GenRandomRolls.Instance().get_D2();
 		delta = GenRandomRolls.Instance().getDraw(distanceDetails.getVariance());
 		if(1 == flipACoin){
@@ -598,11 +524,115 @@ public enum ClusterFactory {
 		
 		distanceDetailsMap.put(FOURSTAR_TRINARYPLUSONE, subClusterMap);
 
-		// F I V E    S T A R     F O U R    S T A R   S P R E A D 
+		// F I V E    S T A R     F O U R    S T A R   S P R E A D   P L U S   O N E
 		
-		distanceDetails = new DistanceDetails(new Integer(5), new Double(5.0E9), new Double(0.5E3));
-		distanceDetailsMap.put(ClusterFactory.FIVESTAR_FOURSTARSPREADPLUSONE, null);
-				
+		distanceDetails = new DistanceDetails(new Integer(1), new Double(5.0E9), new Double(0.5E3));
+		subClusterMap = new HashMap<SubClusterFactory, DistanceDetailsIF>();
+		flipACoin = GenRandomRolls.Instance().get_D2();
+		delta = GenRandomRolls.Instance().getDraw(distanceDetails.getVariance());
+		if(1 == flipACoin){
+			distanceDetails.setDistanceBetweenStars(distanceDetails.getMediumDistance()+delta);
+		}
+		else{
+			distanceDetails.setDistanceBetweenStars(distanceDetails.getMediumDistance()-delta);
+		}
+		subClusterMap.put(SubClusterFactory.FIVESTAR_FOURSTARSPREADPLUSONE, distanceDetails);
+		
+		distanceDetails = new DistanceDetails(new Integer(4), new Double(5.0E9), new Double(0.5E7));
+		subClusterMap = new HashMap<SubClusterFactory, DistanceDetailsIF>();
+		flipACoin = GenRandomRolls.Instance().get_D2();
+		delta = GenRandomRolls.Instance().getDraw(distanceDetails.getVariance());
+		if(1 == flipACoin){
+			distanceDetails.setDistanceBetweenStars(distanceDetails.getMediumDistance()+delta);
+		}
+		else{
+			distanceDetails.setDistanceBetweenStars(distanceDetails.getMediumDistance()-delta);
+		}
+		subClusterMap.put(SubClusterFactory.NONE, distanceDetails);
+		
+		distanceDetailsMap.put(ClusterFactory.FIVESTAR_FOURSTARSPREADPLUSONE, subClusterMap);
+		
+		// D O U B L E   S T A R   S P R E A D
+		
+		distanceDetails = new DistanceDetails(new Integer(2), new Double(5.0E9), new Double(0.5E7));
+		subClusterMap = new HashMap<SubClusterFactory, DistanceDetailsIF>();
+		flipACoin = GenRandomRolls.Instance().get_D2();
+		delta = GenRandomRolls.Instance().getDraw(distanceDetails.getVariance());
+		if(1 == flipACoin){
+			distanceDetails.setDistanceBetweenStars(distanceDetails.getMediumDistance()+delta);
+		}
+		else{
+			distanceDetails.setDistanceBetweenStars(distanceDetails.getMediumDistance()-delta);
+		}
+		subClusterMap.put(SubClusterFactory.NONE, distanceDetails);
+		
+		distanceDetailsMap.put(ClusterFactory.DOUBLESTAR_SPREAD, subClusterMap);
+
+		// T H R E E   S T A R   S P R E A D
+		
+		distanceDetails = new DistanceDetails(new Integer(3), new Double(5.0E9), new Double(0.5E7));
+		subClusterMap = new HashMap<SubClusterFactory, DistanceDetailsIF>();
+		flipACoin = GenRandomRolls.Instance().get_D2();
+		delta = GenRandomRolls.Instance().getDraw(distanceDetails.getVariance());
+		if(1 == flipACoin){
+			distanceDetails.setDistanceBetweenStars(distanceDetails.getMediumDistance()+delta);
+		}
+		else{
+			distanceDetails.setDistanceBetweenStars(distanceDetails.getMediumDistance()-delta);
+		}
+		subClusterMap.put(SubClusterFactory.NONE, distanceDetails);
+		
+		distanceDetailsMap.put(ClusterFactory.THREESTAR_SPREAD, subClusterMap);
+
+		// F O U R   S T A R   S P R E A D
+		
+		distanceDetails = new DistanceDetails(new Integer(4), new Double(5.0E9), new Double(0.5E7));
+		subClusterMap = new HashMap<SubClusterFactory, DistanceDetailsIF>();
+		flipACoin = GenRandomRolls.Instance().get_D2();
+		delta = GenRandomRolls.Instance().getDraw(distanceDetails.getVariance());
+		if(1 == flipACoin){
+			distanceDetails.setDistanceBetweenStars(distanceDetails.getMediumDistance()+delta);
+		}
+		else{
+			distanceDetails.setDistanceBetweenStars(distanceDetails.getMediumDistance()-delta);
+		}
+		subClusterMap.put(SubClusterFactory.NONE, distanceDetails);
+		
+		distanceDetailsMap.put(ClusterFactory.FOURSTAR_SPREAD, subClusterMap);
+
+		// F I V E   S T A R   S P R E A D
+		
+		distanceDetails = new DistanceDetails(new Integer(5), new Double(5.0E9), new Double(0.5E7));
+		subClusterMap = new HashMap<SubClusterFactory, DistanceDetailsIF>();
+		flipACoin = GenRandomRolls.Instance().get_D2();
+		delta = GenRandomRolls.Instance().getDraw(distanceDetails.getVariance());
+		if(1 == flipACoin){
+			distanceDetails.setDistanceBetweenStars(distanceDetails.getMediumDistance()+delta);
+		}
+		else{
+			distanceDetails.setDistanceBetweenStars(distanceDetails.getMediumDistance()-delta);
+		}
+		subClusterMap.put(SubClusterFactory.NONE, distanceDetails);
+		
+		distanceDetailsMap.put(ClusterFactory.FIVESTAR_SPREAD, subClusterMap);
+
+		// C L U S T E R   N
+		
+		distanceDetails = new DistanceDetails(new Integer(5+GenRandomRolls.Instance().get_D10()), new Double(5.0E9), new Double(0.5E7));
+		subClusterMap = new HashMap<SubClusterFactory, DistanceDetailsIF>();
+		flipACoin = GenRandomRolls.Instance().get_D2();
+		delta = GenRandomRolls.Instance().getDraw(distanceDetails.getVariance());
+		if(1 == flipACoin){
+			distanceDetails.setDistanceBetweenStars(distanceDetails.getMediumDistance()+delta);
+		}
+		else{
+			distanceDetails.setDistanceBetweenStars(distanceDetails.getMediumDistance()-delta);
+		}
+		subClusterMap.put(SubClusterFactory.NONE, distanceDetails);
+		
+		distanceDetailsMap.put(ClusterFactory.CLUSTER_N, subClusterMap);
+
 	}
 	
+
 }
