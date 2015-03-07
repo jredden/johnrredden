@@ -13,6 +13,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.zenred.cosmos.domain.ClusterFactory;
 import com.zenred.cosmos.domain.Star;
 import com.zenred.cosmos.domain.StarFactory;
 import com.zenred.cosmos.domain.StarTypeFactory;
@@ -193,11 +194,11 @@ public class GenStar {
 
 		integers = new ArrayList<Integer>();
 		integers.add(891);
-		integers.add(850);
+		integers.add(900);
 		starProbabilityMap.put(integers, StarFactory.ORNG_SUBGI);
 
 		integers = new ArrayList<Integer>();
-		integers.add(851);
+		integers.add(901);
 		integers.add(920);
 		starProbabilityMap.put(integers, StarFactory.RED__SUBGI);
 
@@ -347,7 +348,13 @@ public class GenStar {
 		Integer [] integers = new Integer[]{new Integer(intArray[next0].toString()), new Integer(intArray[next1].toString())};
 		return integers ;
 	}
-	protected static Star generateStar(String starName, SubClusterFactory subClusterFactory){
+	
+	protected static List<Star> generateStarsInCluster(ClusterFactory clusterFactory){
+		List<Star> stars = new ArrayList<Star>();
+		
+		return stars;
+	}
+	protected static Star generateStar(String starName, Double distance, Double starAngle){
 		for (Object obj: GenStar.intArray){
 			logger.debug("SORT:"+new Integer(obj.toString()));
 		}
@@ -362,11 +369,11 @@ public class GenStar {
 		
 		// distance is 100 for now, need to mod by sub cluster factory
 	
-		Star star = new Star(null, new Integer(0), starName, new Double(100),
+		Star star = new Star(null, new Integer(0), starName, distance,
 				StarTypeFactory.genLuminsoity(StarFactory.getSubCode(starFactory), StarFactory.getStarTypeFactory(starFactory),
 						starFactory, StarFactory.getSequence(starFactory)),
-				null, new Double(Math.toRadians(GenRandomRolls.Instance()
-						.getAngle())), StarFactory.getRead(starFactory),
+				null, starAngle == null ? new Double(Math.toRadians(GenRandomRolls.Instance()
+						.getAngle())): starAngle, StarFactory.getRead(starFactory),
 				StarFactory.getCode(starFactory), StarTypeFactory.genMass(
 						StarFactory.getSubCode(starFactory), StarFactory.getStarTypeFactory(starFactory), starFactory,
 						StarFactory.getSequence(starFactory)), null);
