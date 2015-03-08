@@ -12,8 +12,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.zenred.cosmos.domain.ClusterFactory;
+import com.zenred.cosmos.domain.DistanceDetailsIF;
 import com.zenred.cosmos.domain.Star;
 import com.zenred.cosmos.domain.StarFactory;
 import com.zenred.cosmos.domain.StarTypeFactory;
@@ -349,11 +351,33 @@ public class GenStar {
 		return integers ;
 	}
 	
+	private static List<SubClusterFactory> closeTogetherList = new ArrayList<SubClusterFactory>();
+	private static List<SubClusterFactory> endTogetherList = new ArrayList<SubClusterFactory>();
+	static{
+		closeTogetherList.add(SubClusterFactory.DOUBLESTAR_BINARY_0);
+		endTogetherList.add(SubClusterFactory.DOUBLESTAR_BINARY_1);
+		closeTogetherList.add(SubClusterFactory.THREESTAR_TRINARY_0);
+		closeTogetherList.add(SubClusterFactory.THREESTAR_TRINARY_1);
+		endTogetherList.add(SubClusterFactory.THREESTAR_TRINARY_2);
+		closeTogetherList.add(SubClusterFactory.THREESTAR_BINARYPLUSONE_BINARY_0);
+		endTogetherList.add(SubClusterFactory.THREESTAR_BINARYPLUSONE_BINARY_1);
+	}
+	
+	/**
+	 * 
+	 *  the angles for binary and trinary clusters are close together,  
+	 *  for example a double star binary versus a double star spread
+	 * 
+	 * @param clusterFactory
+	 * @return list of stars generated for cluster
+	 */
 	protected static List<Star> generateStarsInCluster(ClusterFactory clusterFactory){
 		List<Star> stars = new ArrayList<Star>();
-		
+		Map<SubClusterFactory, List<DistanceDetailsIF>> map =  ClusterFactory.getStarToDistanceDetails(clusterFactory);
+		Set<SubClusterFactory> keys = map.keySet();
 		return stars;
 	}
+	
 	protected static Star generateStar(String starName, Double distance, Double starAngle){
 		for (Object obj: GenStar.intArray){
 			logger.debug("SORT:"+new Integer(obj.toString()));
@@ -366,8 +390,6 @@ public class GenStar {
 		integers.add(result[1]);
 		StarFactory starFactory = starProbabilityMap.get(integers);
 		logger.info("STAR FACTORY:"+starFactory);
-		
-		// distance is 100 for now, need to mod by sub cluster factory
 	
 		Star star = new Star(null, new Integer(0), starName, distance,
 				StarTypeFactory.genLuminsoity(StarFactory.getSubCode(starFactory), StarFactory.getStarTypeFactory(starFactory),
