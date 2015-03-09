@@ -351,6 +351,7 @@ public class GenStar {
 		return integers ;
 	}
 	
+	public static final Double twoDegToRadian = Math.toRadians(2.0);
 	private static List<SubClusterFactory> closeTogetherList = new ArrayList<SubClusterFactory>();
 	private static List<SubClusterFactory> endTogetherList = new ArrayList<SubClusterFactory>();
 	static{
@@ -361,6 +362,13 @@ public class GenStar {
 		endTogetherList.add(SubClusterFactory.THREESTAR_TRINARY_2);
 		closeTogetherList.add(SubClusterFactory.THREESTAR_BINARYPLUSONE_BINARY_0);
 		endTogetherList.add(SubClusterFactory.THREESTAR_BINARYPLUSONE_BINARY_1);
+		closeTogetherList.add(SubClusterFactory.FOURSTAR_TRINARYPLUSONE_TRINARY_0);
+		closeTogetherList.add(SubClusterFactory.FOURSTAR_TRINARYPLUSONE_TRINARY_1);
+		endTogetherList.add(SubClusterFactory.FOURSTAR_TRINARYPLUSONE_TRINARY_2);
+		closeTogetherList.add(SubClusterFactory.FOURSTAR_2BINARIES_0_BINARY_0);
+		closeTogetherList.add(SubClusterFactory.FOURSTAR_2BINARIES_1_BINARY_0);
+		endTogetherList.add(SubClusterFactory.FOURSTAR_2BINARIES_0_BINARY_1);
+		endTogetherList.add(SubClusterFactory.FOURSTAR_2BINARIES_1_BINARY_1);
 	}
 	
 	/**
@@ -371,10 +379,54 @@ public class GenStar {
 	 * @param clusterFactory
 	 * @return list of stars generated for cluster
 	 */
-	protected static List<Star> generateStarsInCluster(ClusterFactory clusterFactory){
+	protected static List<Star> generateStarsInCluster(
+			ClusterFactory clusterFactory, String starName) {
 		List<Star> stars = new ArrayList<Star>();
-		Map<SubClusterFactory, List<DistanceDetailsIF>> map =  ClusterFactory.getStarToDistanceDetails(clusterFactory);
+		Map<SubClusterFactory, List<DistanceDetailsIF>> map = ClusterFactory
+				.getStarToDistanceDetails(clusterFactory);
 		Set<SubClusterFactory> keys = map.keySet();
+		Iterator<SubClusterFactory> iter = keys.iterator();
+		Double lastAngleInRadians = null;
+		int idex = 0;
+		while (iter.hasNext()) {
+			SubClusterFactory subClusterFactory = iter.next();
+			logger.info("SUBCLUSTER_FACTORY:"+subClusterFactory);
+			List<DistanceDetailsIF> detailsIFs = map.get(subClusterFactory);
+			for (DistanceDetailsIF distanceDetailsIF : detailsIFs) {
+				Double distance = distanceDetailsIF.getDistanceBetweenStars();
+				Double angleInRadians = null;
+				if (null == lastAngleInRadians) {
+					angleInRadians = Math.toRadians(GenRandomRolls.Instance()
+							.getD360());
+				} else {
+					Integer flipACoin = GenRandomRolls.Instance().get_D2();
+					if (1 == flipACoin) {
+						angleInRadians = lastAngleInRadians
+								+ twoDegToRadian
+								+ (twoDegToRadian / GenRandomRolls.Instance()
+										.getDraw(100.0));
+					} else {
+						angleInRadians = lastAngleInRadians
+								- twoDegToRadian
+								+ (twoDegToRadian / GenRandomRolls.Instance()
+										.getDraw(100.0));
+					}
+				}
+				if (closeTogetherList.contains(subClusterFactory)) {
+					lastAngleInRadians = angleInRadians; // so as to keep these
+															// stars in a close
+															// cluster
+				}
+				if (endTogetherList.contains(subClusterFactory)) {
+					lastAngleInRadians = null; // reset to typical mode
+				}
+
+				Star star = GenStar.generateStar(starName + idex++, distance,
+						angleInRadians);
+				logger.info("STAR:" + star);
+				stars.add(star);
+			}
+		}
 		return stars;
 	}
 	
