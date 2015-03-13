@@ -26,7 +26,7 @@ public class System {
 	 * CTOR with all attributes
 	 * 
 	 * @param systemId
-	 * @param distance_to_galaxy_centre
+	 * @param distance_to_galaxy_centre in parsecs
 	 * @param ucoordinate
 	 * @param vcoordinate
 	 * @param datestamp

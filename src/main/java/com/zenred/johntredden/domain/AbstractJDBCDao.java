@@ -15,19 +15,20 @@ public abstract class AbstractJDBCDao {
 		if(null == driverManagerDataSource){
 			driverManagerDataSource= new DriverManagerDataSource();
 			logger.info("driverManagerDataSource estblished");
+			driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
+
+			driverManagerDataSource
+					.setUrl("jdbc:mysql://localhost/johntredden");
+			driverManagerDataSource.setUsername("jredden");
+			driverManagerDataSource
+					.setPassword("nCXL3O2GVAwLBJnT");
+
 		}
 
 	}
 	
 	public static SimpleJdbcDaoSupport jdbcSetUp() {
 		fetchDataSource();
-		driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
-
-		driverManagerDataSource
-				.setUrl("jdbc:mysql://localhost/johntredden");
-		driverManagerDataSource.setUsername("jredden");
-		driverManagerDataSource
-				.setPassword("nCXL3O2GVAwLBJnT");
 
 		Properties connectionProperties = new Properties();
 		connectionProperties.setProperty("noAccessToProcedureBodies", "true"); // *sigh*.
@@ -44,13 +45,6 @@ public abstract class AbstractJDBCDao {
 
 	public static SimpleJdbcInsert jdbcInsertSetup() {
 		fetchDataSource();
-		driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
-
-		driverManagerDataSource
-				.setUrl("jdbc:mysql://localhost/johntredden");
-		driverManagerDataSource.setUsername("jredden");
-		driverManagerDataSource
-				.setPassword("nCXL3O2GVAwLBJnT");
 		SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(
 				driverManagerDataSource);
 		return simpleJdbcInsert;
