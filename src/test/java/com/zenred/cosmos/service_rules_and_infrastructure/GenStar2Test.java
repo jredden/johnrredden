@@ -31,8 +31,8 @@ public class GenStar2Test {
 				draw = 999;
 			}
 			ClusterFactory clusterFactory = ClusterFactory.fromString(ClusterFactory.evaluateChance(draw));
-			List<Star> stars = GenStar.generateStarsInCluster(clusterFactory, "StarGen."+count+'.');
-			for(Star star : stars){
+			List<DecoratedStar> stars = GenStar.generateStarsInCluster(clusterFactory, "StarGen."+count+'.');
+			for(DecoratedStar star : stars){
 				logger.info("STAR:"+star);
 			}
 		--count;

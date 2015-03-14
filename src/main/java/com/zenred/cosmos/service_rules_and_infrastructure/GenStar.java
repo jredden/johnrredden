@@ -15,16 +15,53 @@ import java.util.Map;
 import java.util.Set;
 
 import com.zenred.cosmos.domain.ClusterFactory;
+import com.zenred.cosmos.domain.ClusterRep;
 import com.zenred.cosmos.domain.DistanceDetailsIF;
 import com.zenred.cosmos.domain.Star;
+import com.zenred.cosmos.domain.StarDao;
 import com.zenred.cosmos.domain.StarFactory;
 import com.zenred.cosmos.domain.StarTypeFactory;
 import com.zenred.cosmos.domain.SubClusterFactory;
 import com.zenred.util.GenRandomRolls;
 
+class DecoratedStar extends Star{
+	protected SubClusterFactory subClusterFactory;
+
+	public DecoratedStar(Star star) {
+		super.setAngle_in_radians_s(star.getAngle_in_radians_s());
+		super.setClusterToStarId(star.getClusterToStarId());
+		super.setDatestamp(star.getDatestamp());
+		super.setDistance_clust_virt_centre(star.getDistance_clust_virt_centre());
+		super.setLuminosity(star.getLuminosity());
+		super.setName(star.getName());
+		super.setNo_planets_allowed(star.no_planets_allowed);
+		super.setStar_color(star.getStar_color());
+		super.setStar_size(star.getStar_size());
+		super.setStar_type(star.getStar_type());
+		super.setStarId(star.getStarId());
+	}
+
+	public SubClusterFactory getSubClusterFactory() {
+		return subClusterFactory;
+	}
+
+	public void setSubClusterFactory(SubClusterFactory subClusterFactory) {
+		this.subClusterFactory = subClusterFactory;
+	}
+
+	@Override
+	public String toString() {
+		return "DecoratedStar [subClusterFactory=" + subClusterFactory
+				+ ", toString()=" + super.toString() + "]";
+	}
+	
+	
+}
+
 public class GenStar {
 	
 	static private Logger logger = Logger.getLogger(GenStar.class);
+	static private StarDao starDao = new StarDao();
 
 	private static Map<List<Integer>, StarFactory> starProbabilityMap =new HashMap<List<Integer>, StarFactory>();
 	private static Object[] intArray;
@@ -379,9 +416,9 @@ public class GenStar {
 	 * @param clusterFactory
 	 * @return list of stars generated for cluster
 	 */
-	protected static List<Star> generateStarsInCluster(
+	protected static List<DecoratedStar> generateStarsInCluster(
 			ClusterFactory clusterFactory, String starName) {
-		List<Star> stars = new ArrayList<Star>();
+		List<DecoratedStar> stars = new ArrayList<DecoratedStar>();
 		Map<SubClusterFactory, List<DistanceDetailsIF>> map = ClusterFactory
 				.getStarToDistanceDetails(clusterFactory);
 		Set<SubClusterFactory> keys = map.keySet();
@@ -400,16 +437,16 @@ public class GenStar {
 							.getD360());
 				} else {
 					Integer flipACoin = GenRandomRolls.Instance().get_D2();
+					double draw = GenRandomRolls.Instance()
+							.getDraw(100.0) + 0.05;
 					if (1 == flipACoin) {
 						angleInRadians = lastAngleInRadians
 								+ twoDegToRadian
-								+ (twoDegToRadian / GenRandomRolls.Instance()
-										.getDraw(100.0));
+								+ (twoDegToRadian / draw);
 					} else {
 						angleInRadians = lastAngleInRadians
 								- twoDegToRadian
-								+ (twoDegToRadian / GenRandomRolls.Instance()
-										.getDraw(100.0));
+								+ (twoDegToRadian / draw);
 					}
 				}
 				if (closeTogetherList.contains(subClusterFactory)) {
@@ -424,7 +461,9 @@ public class GenStar {
 				Star star = GenStar.generateStar(starName + idex++, distance,
 						angleInRadians);
 				logger.info("STAR:" + star);
-				stars.add(star);
+				DecoratedStar decoratedStar = new DecoratedStar(star);
+				decoratedStar.setSubClusterFactory(subClusterFactory);
+				stars.add(decoratedStar);
 			}
 		}
 		return stars;
@@ -452,5 +491,16 @@ public class GenStar {
 						StarFactory.getSubCode(starFactory), StarFactory.getStarTypeFactory(starFactory), starFactory,
 						StarFactory.getSequence(starFactory)), null);
 		return star;
+	}
+	
+	public static List<Star> persistStars(ClusterFactory clusterFactory,
+			ClusterRep clusterRep) {
+		List<DecoratedStar> stars = generateStarsInCluster(clusterFactory,
+				"Star." + clusterRep.getClusterName());
+		List<Star> plainStars = new ArrayList<Star>();
+		for (DecoratedStar star : stars) {
+			plainStars.add(starDao.addStar(star, clusterRep, star.getSubClusterFactory().name()));
+		}
+		return plainStars;
 	}
 }

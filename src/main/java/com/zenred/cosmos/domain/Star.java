@@ -10,7 +10,7 @@ public class Star {
 	private String name;
 	private Double distance_clust_virt_centre;
 	private Double luminosity;
-	private Boolean no_planets_allowed;
+	public Boolean no_planets_allowed;
 	private Double angle_in_radians_s;
 	private String star_color;
 	private String star_type;

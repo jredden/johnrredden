@@ -300,17 +300,26 @@ public enum ClusterFactory {
 	 */
 	static{
 		// S I N G L E    S T A R
-		DistanceDetails distanceDetails = new DistanceDetails(new Integer(1), new Double(0), new Double(new Double(1.0E7)));
+		DistanceDetails distanceDetails = new DistanceDetails(new Integer(1), new Double(1.0), new Double(new Double(1.0E7)));
+
 		Map<SubClusterFactory,List<DistanceDetailsIF>> subClusterMap = new HashMap<SubClusterFactory, List<DistanceDetailsIF>>();
 		List<DistanceDetailsIF> detailList = new ArrayList<DistanceDetailsIF>();
+		Integer flipACoin = GenRandomRolls.Instance().get_D2();
+		Double delta = GenRandomRolls.Instance().getDraw(distanceDetails.getVariance());
+		if(1 == flipACoin){
+			distanceDetails.setDistanceBetweenStars(distanceDetails.getMediumDistance()+delta);
+		}
+		else{
+			distanceDetails.setDistanceBetweenStars(distanceDetails.getMediumDistance()-delta);
+		}
 		detailList.add(distanceDetails);
 		subClusterMap.put(SubClusterFactory.SINGLESTAR, detailList);
 		distanceDetailsMap.put(SINGLESTAR, subClusterMap);
 		
 		// D O U B L E   S T A R   B I N A R Y
 		distanceDetails = new DistanceDetails(new Integer(1), new Double(1.0E7), new Double(0.5E6));
-		Integer flipACoin = GenRandomRolls.Instance().get_D2();
-		Double delta = GenRandomRolls.Instance().getDraw(distanceDetails.getVariance());
+		flipACoin = GenRandomRolls.Instance().get_D2();
+		delta = GenRandomRolls.Instance().getDraw(distanceDetails.getVariance());
 		if(1 == flipACoin){
 			distanceDetails.setDistanceBetweenStars(distanceDetails.getMediumDistance()+delta);
 		}
