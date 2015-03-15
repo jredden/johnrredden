@@ -39,8 +39,8 @@ public class GenStar3Test {
 			systems.add(readSystem);
 			ClusterFactory clusterFactory = ClusterFactory.fromString(clusterRep.getCluster_description());
 			List<Star> starsInCluster = GenStar.persistStars(clusterFactory, readClusterRep);
-			for(Star star : stars){
-				logger.info("STAR:"+starsInCluster);
+			for(Star star : starsInCluster){
+				logger.info("STAR:"+star);
 			}
 			stars.addAll(starsInCluster);
 		}
