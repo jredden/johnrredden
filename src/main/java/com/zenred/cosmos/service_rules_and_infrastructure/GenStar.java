@@ -474,6 +474,9 @@ public class GenStar {
 			logger.debug("SORT:"+new Integer(obj.toString()));
 		}
 		Integer draw = GenRandomRolls.Instance().getD250000();
+		if(draw == 0){
+			draw = new Integer(2);
+		}
 		logger.info("DRAW:"+draw);
 		Integer [] result = Search(draw);
 		List<Integer> integers = new ArrayList<Integer>();
