@@ -1,5 +1,8 @@
 package com.zenred.cosmos.domain;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 'SINGLESTAR' , 'DOUBLESTAR_BINARY_0' , 'DOUBLESTAR_BINARY_1' ,
  * 'THREESTAR_TRINARY_0' , 'THREESTAR_TRINARY_1' , 'THREESTAR_TRINARY_2' ,
@@ -12,51 +15,13 @@ package com.zenred.cosmos.domain;
  * These are the sub cluster configurations with non-rogue planets.
  *
  */
-class PlanetConstraints{
-	Double startBodeSequence;
-	Double endBodeSequence;
-	Integer minNumberPlanets;
-	Integer maxNumberPlanets;
-	public Double getStartBodeSequence() {
-		return startBodeSequence;
-	}
-	public void setStartBodeSequence(Double startBodeSequence) {
-		this.startBodeSequence = startBodeSequence;
-	}
-	public Double getEndBodeSequence() {
-		return endBodeSequence;
-	}
-	public void setEndBodeSequence(Double endBodeSequence) {
-		this.endBodeSequence = endBodeSequence;
-	}
-	public Integer getMinNumberPlanets() {
-		return minNumberPlanets;
-	}
-	public void setMinNumberPlanets(Integer minNumberPlanets) {
-		this.minNumberPlanets = minNumberPlanets;
-	}
-	public Integer getMaxNumberPlanets() {
-		return maxNumberPlanets;
-	}
-	public void setMaxNumberPlanets(Integer maxNumberPlanets) {
-		this.maxNumberPlanets = maxNumberPlanets;
-	}
-	@Override
-	public String toString() {
-		return "PlanetConstraints [startBodeSequence=" + startBodeSequence
-				+ ", endBodeSequence=" + endBodeSequence
-				+ ", minNumberPlanets=" + minNumberPlanets
-				+ ", maxNumberPlanets=" + maxNumberPlanets + "]";
-	}
-	
-	
-}
+
+
 
 
 public enum SubClusterFactory {
 	
 	SINGLESTAR("SINGLESTAR"){
-		
 		
 
 		@Override
@@ -266,8 +231,9 @@ public enum SubClusterFactory {
 
 		@Override
 		PlanetConstraints planetConstraints() {
-			// TODO Auto-generated method stub
-			return null;
+			PlanetConstraints planetConstraints = new PlanetConstraints();
+			planetConstraints.none = true;
+			return planetConstraints;
 		}
 		
 	},
@@ -287,8 +253,9 @@ public enum SubClusterFactory {
 
 		@Override
 		PlanetConstraints planetConstraints() {
-			// TODO Auto-generated method stub
-			return null;
+			PlanetConstraints planetConstraints = new PlanetConstraints();
+			planetConstraints.none = true;
+			return planetConstraints;
 		}
 		
 	}
@@ -300,5 +267,48 @@ public enum SubClusterFactory {
 	
 	private SubClusterFactory (String type){
 		this.type = type;
+	}
+	
+	private static Map<String,SubClusterFactory> map = new HashMap<String, SubClusterFactory>();
+	static{
+		map.put("SINGLESTAR", SINGLESTAR);
+		map.put("DOUBLESTAR_BINARY_0", DOUBLESTAR_BINARY_0);
+		map.put("DOUBLESTAR_BINARY_1", DOUBLESTAR_BINARY_1);
+		map.put("THREESTAR_TRINARY_0", THREESTAR_TRINARY_0);
+		map.put("THREESTAR_TRINARY_1", THREESTAR_TRINARY_1);
+		map.put("THREESTAR_TRINARY_2", THREESTAR_TRINARY_2);
+		map.put("THREESTAR_BINARYPLUSONE_2", THREESTAR_BINARYPLUSONE_2);
+		map.put("THREESTAR_BINARYPLUSONE_BINARY_0", THREESTAR_BINARYPLUSONE_BINARY_0);
+		map.put("THREESTAR_BINARYPLUSONE_BINARY_1", THREESTAR_BINARYPLUSONE_BINARY_1);
+		map.put("FOURSTAR_TRINARYPLUSONE_1", FOURSTAR_TRINARYPLUSONE_1);
+		map.put("FOURSTAR_TRINARYPLUSONE_TRINARY_0", FOURSTAR_TRINARYPLUSONE_TRINARY_0);
+		map.put("FOURSTAR_TRINARYPLUSONE_TRINARY_1", FOURSTAR_TRINARYPLUSONE_TRINARY_1);
+		map.put("FOURSTAR_TRINARYPLUSONE_TRINARY_2", FOURSTAR_TRINARYPLUSONE_TRINARY_2);
+		map.put("FOURSTAR_2BINARIES_0_BINARY_0", FOURSTAR_2BINARIES_0_BINARY_0);
+		map.put("FOURSTAR_2BINARIES_1_BINARY_0", FOURSTAR_2BINARIES_1_BINARY_0);
+		map.put("FOURSTAR_2BINARIES_0_BINARY_1", FOURSTAR_2BINARIES_0_BINARY_1);
+		map.put("FOURSTAR_2BINARIES_1_BINARY_1", FOURSTAR_2BINARIES_1_BINARY_1);
+		map.put("FIVESTAR_FOURSTARSPREADPLUSONE", FIVESTAR_FOURSTARSPREADPLUSONE);
+		map.put("FIVESTAR_FOURSTARSPREADPLUSONE_1", FIVESTAR_FOURSTARSPREADPLUSONE_1);
+		map.put("NONE", NONE);
+	}
+	/**
+	 * Used to map database element to enumeration Object
+	 * 
+	 * @param subCluster
+	 * @return SubClusterFactory
+	 */
+	public static SubClusterFactory mapSubCluster(String subCluster){
+		return map.get(subCluster);
+	}
+	
+	/**
+	 * public accessor
+	 * 
+	 * @param subClusterFactory
+	 * @return constraints
+	 */
+	public static PlanetConstraints getPlanetConstraints(SubClusterFactory subClusterFactory){
+		return subClusterFactory.planetConstraints();
 	}
 }

@@ -105,6 +105,14 @@ public class GenRandomRolls {
    }
    /**
     * 
+    * @param x
+    * @return value based on x
+    */
+   public int getDX(Integer x){
+	   return getDraw(new Double(x).doubleValue());
+   }
+   /**
+    * 
     * @return random angle
     */
 	public double getD360() {
