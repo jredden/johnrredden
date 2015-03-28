@@ -1695,6 +1695,9 @@ public enum StarTypeFactory {
 				attribute -= mod;
 			}
 		}
+		if(attribute < 0){	// because the transition is uneven
+			attribute = Math.abs(attribute);
+		}
 		return attribute;
 	}
 

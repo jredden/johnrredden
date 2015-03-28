@@ -1,10 +1,13 @@
 package com.zenred.cosmos.service_rules_and_infrastructure;
 
+import org.apache.log4j.Logger;
+
 import com.zenred.cosmos.domain.PlanetConstraints;
 import com.zenred.util.GenRandomRolls;
 
 public class PlanetoidDistances {
 
+	static private Logger logger = Logger.getLogger(PlanetoidDistances.class);
 	/**
 	 * s = the primary radius, star for a planet, planet for moon y = a random
 	 * draw where to start the sequence. See wikipedia extra terrestrial planets
@@ -24,6 +27,10 @@ public class PlanetoidDistances {
 		Double titusBodeConstant = new Double(1.5);
 		Double variableY = new Double(GenRandomRolls.Instance().getDraw(
 				starBodeSequence + (endBodeSequence - starBodeSequence)));
+		logger.info("BODE:"+variableY+":::"+starBodeSequence+":::"+endBodeSequence+":::"+radius);
+		if(variableY == 0.0){
+			variableY = 1.0;
+		}
 		Double answer = (Math.pow(1.5 * radius, planetNumber - 1)) / variableY;
 		return answer;
 	}

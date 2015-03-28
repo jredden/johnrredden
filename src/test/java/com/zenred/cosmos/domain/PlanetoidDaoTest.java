@@ -113,6 +113,7 @@ public class PlanetoidDaoTest {
 
 		planetoidDao.deletePlanetoid(planetoidMoon0);
 		planetoidDao.deletePlanetoid(planetoidMoon1);
+		planetoidDao.deletePlanetoid(planetoidStar2);		
 		planetoidDao.deletePlanetoid(planetoidStar);		
 		planetoidDao.deletePlanetoid(planetoid);
 		starDao.deleteStar(starUpdate);
