@@ -34,5 +34,15 @@ public class PlanetoidDistances {
 		Double answer = (Math.pow(1.5 * radius, planetNumber - 1)) / variableY;
 		return answer;
 	}
+	
+	/**
+	 * 
+	 * @param radiusPrimary
+	 * @param radiusSecondary
+	 * @return roache radius approximation
+	 */
+	public static Double approxRoacheRadius(Double radiusPrimary, Double radiusSecondary){
+		return 1.26*radiusPrimary*(Math.pow(radiusPrimary/radiusSecondary,1.0/3.0));
+	}
 
 }
