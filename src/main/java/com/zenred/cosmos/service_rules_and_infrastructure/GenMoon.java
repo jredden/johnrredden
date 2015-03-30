@@ -100,7 +100,7 @@ public class GenMoon {
 			planetoid2.setDistanceToPrimary(PlanetoidDistances
 					.titusBodeApproximater(planetConstraints,
 							planetoid.getRadius(), idex)
-					* AstronomicalUnits.MINIMUM_RADIUS_FOR_MOONS);
+					* AstronomicalUnits.MINIMUM_RADIUS_FOR_MOONS);  // scale in terms of minimum radius for moons
 			planetoid2.setRadius(AstronomicalUnits.SMALL_MOON_RADIUS
 					+ GenRandomRolls.Instance().getDraw(
 							planetoid.getRadius() * 0.75));
