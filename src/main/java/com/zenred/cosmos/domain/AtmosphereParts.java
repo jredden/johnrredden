@@ -813,5 +813,1003 @@ public enum AtmosphereParts {
 		starToChemicalProfile.setWeightDuringAnalysis(2.0);
 		starToAtmosphere.get(StarFactory.LTBL_SG_I).add(starToChemicalProfile);
 
+		starToAtmosphere.put(StarFactory.WHIT_SG_I, new ArrayList<StarToChemicalProfile>());
+		// WHIT_SG_I
+
+		// uv and reducing: 01 is extreme UV and 99 is extreme reducing
+		
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Argon);
+		starToChemicalProfile.setUltraVioletReducingScale(60.0);
+		starToChemicalProfile.setWeightDuringAnalysis(7.0); // high rates more
+															// probable
+		starToAtmosphere.get(StarFactory.WHIT_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Carbon);
+		starToChemicalProfile.setUltraVioletReducingScale(51.0);
+		starToChemicalProfile.setWeightDuringAnalysis(15.0);
+		starToAtmosphere.get(StarFactory.WHIT_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Helium);
+		starToChemicalProfile.setUltraVioletReducingScale(7.0);
+		starToChemicalProfile.setWeightDuringAnalysis(70.0);
+		starToAtmosphere.get(StarFactory.WHIT_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Hydrogen);
+		starToChemicalProfile.setUltraVioletReducingScale(4.0);
+		starToChemicalProfile.setWeightDuringAnalysis(99.0);
+		starToAtmosphere.get(StarFactory.WHIT_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Neon);
+		starToChemicalProfile.setUltraVioletReducingScale(52.0);
+		starToChemicalProfile.setWeightDuringAnalysis(5.0);
+		starToAtmosphere.get(StarFactory.WHIT_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Nitrogen);
+		starToChemicalProfile.setUltraVioletReducingScale(10.0);
+		starToChemicalProfile.setWeightDuringAnalysis(84.0);
+		starToAtmosphere.get(StarFactory.WHIT_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Oxygen);
+		starToChemicalProfile.setUltraVioletReducingScale(22.0);
+		starToChemicalProfile.setWeightDuringAnalysis(18.0);
+		starToAtmosphere.get(StarFactory.WHIT_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Silicon);
+		starToChemicalProfile.setUltraVioletReducingScale(38.0);
+		starToChemicalProfile.setWeightDuringAnalysis(10.0);
+		starToAtmosphere.get(StarFactory.WHIT_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Water);
+		starToChemicalProfile.setUltraVioletReducingScale(34.0);
+		starToChemicalProfile.setWeightDuringAnalysis(4.0);
+		starToAtmosphere.get(StarFactory.WHIT_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.CarbonDioxide);
+		starToChemicalProfile.setUltraVioletReducingScale(2.0);
+		starToChemicalProfile.setWeightDuringAnalysis(5.0);
+		starToAtmosphere.get(StarFactory.WHIT_SG_I).add(starToChemicalProfile);
+
+		starToAtmosphere.put(StarFactory.PYEL_SG_I, new ArrayList<StarToChemicalProfile>());
+		// PYEL_SG_I
+
+		// uv and reducing: 01 is extreme UV and 99 is extreme reducing
+		
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Argon);
+		starToChemicalProfile.setUltraVioletReducingScale(58.0);
+		starToChemicalProfile.setWeightDuringAnalysis(8.0); // high rates more
+															// likely
+		starToAtmosphere.get(StarFactory.PYEL_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Carbon);
+		starToChemicalProfile.setUltraVioletReducingScale(38.0);
+		starToChemicalProfile.setWeightDuringAnalysis(11.0);
+		starToAtmosphere.get(StarFactory.PYEL_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Helium);
+		starToChemicalProfile.setUltraVioletReducingScale(10.0);
+		starToChemicalProfile.setWeightDuringAnalysis(72.0);
+		starToAtmosphere.get(StarFactory.PYEL_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Hydrogen);
+		starToChemicalProfile.setUltraVioletReducingScale(10.0);
+		starToChemicalProfile.setWeightDuringAnalysis(96.0);
+		starToAtmosphere.get(StarFactory.PYEL_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Neon);
+		starToChemicalProfile.setUltraVioletReducingScale(48.0);
+		starToChemicalProfile.setWeightDuringAnalysis(6.0);
+		starToAtmosphere.get(StarFactory.PYEL_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Nitrogen);
+		starToChemicalProfile.setUltraVioletReducingScale(19.0);
+		starToChemicalProfile.setWeightDuringAnalysis(90.0);
+		starToAtmosphere.get(StarFactory.PYEL_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Oxygen);
+		starToChemicalProfile.setUltraVioletReducingScale(30.0);
+		starToChemicalProfile.setWeightDuringAnalysis(32.0);
+		starToAtmosphere.get(StarFactory.PYEL_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Silicon);
+		starToChemicalProfile.setUltraVioletReducingScale(40.0);
+		starToChemicalProfile.setWeightDuringAnalysis(6.0);
+		starToAtmosphere.get(StarFactory.PYEL_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Water);
+		starToChemicalProfile.setUltraVioletReducingScale(40.0);
+		starToChemicalProfile.setWeightDuringAnalysis(10.0);
+		starToAtmosphere.get(StarFactory.PYEL_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Potassium);
+		starToChemicalProfile.setUltraVioletReducingScale(2.0);
+		starToChemicalProfile.setWeightDuringAnalysis(5.0);
+		starToAtmosphere.get(StarFactory.PYEL_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Sodium);
+		starToChemicalProfile.setUltraVioletReducingScale(2.0);
+		starToChemicalProfile.setWeightDuringAnalysis(5.0);
+		starToAtmosphere.get(StarFactory.PYEL_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Sulfur);
+		starToChemicalProfile.setUltraVioletReducingScale(2.0);
+		starToChemicalProfile.setWeightDuringAnalysis(5.0);
+		starToAtmosphere.get(StarFactory.PYEL_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.SulfuricAcid);
+		starToChemicalProfile.setUltraVioletReducingScale(2.0);
+		starToChemicalProfile.setWeightDuringAnalysis(5.0);
+		starToAtmosphere.get(StarFactory.PYEL_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.CarbonDioxide);
+		starToChemicalProfile.setUltraVioletReducingScale(2.0);
+		starToChemicalProfile.setWeightDuringAnalysis(5.0);
+		starToAtmosphere.get(StarFactory.PYEL_SG_I).add(starToChemicalProfile);
+		
+		starToAtmosphere.put(StarFactory.YELO_SG_I, new ArrayList<StarToChemicalProfile>());
+		// YELO_SG_I
+
+		// uv and reducing: 01 is extreme UV and 99 is extreme reducing
+		
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Argon);
+		starToChemicalProfile.setUltraVioletReducingScale(58.0);
+		starToChemicalProfile.setWeightDuringAnalysis(8.0); // high rates more
+															// likely
+		starToAtmosphere.get(StarFactory.YELO_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Carbon);
+		starToChemicalProfile.setUltraVioletReducingScale(38.0);
+		starToChemicalProfile.setWeightDuringAnalysis(11.0);
+		starToAtmosphere.get(StarFactory.YELO_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Helium);
+		starToChemicalProfile.setUltraVioletReducingScale(10.0);
+		starToChemicalProfile.setWeightDuringAnalysis(72.0);
+		starToAtmosphere.get(StarFactory.YELO_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Hydrogen);
+		starToChemicalProfile.setUltraVioletReducingScale(10.0);
+		starToChemicalProfile.setWeightDuringAnalysis(96.0);
+		starToAtmosphere.get(StarFactory.YELO_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Neon);
+		starToChemicalProfile.setUltraVioletReducingScale(48.0);
+		starToChemicalProfile.setWeightDuringAnalysis(6.0);
+		starToAtmosphere.get(StarFactory.YELO_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Nitrogen);
+		starToChemicalProfile.setUltraVioletReducingScale(19.0);
+		starToChemicalProfile.setWeightDuringAnalysis(90.0);
+		starToAtmosphere.get(StarFactory.YELO_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Oxygen);
+		starToChemicalProfile.setUltraVioletReducingScale(30.0);
+		starToChemicalProfile.setWeightDuringAnalysis(32.0);
+		starToAtmosphere.get(StarFactory.YELO_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Silicon);
+		starToChemicalProfile.setUltraVioletReducingScale(40.0);
+		starToChemicalProfile.setWeightDuringAnalysis(6.0);
+		starToAtmosphere.get(StarFactory.YELO_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Water);
+		starToChemicalProfile.setUltraVioletReducingScale(40.0);
+		starToChemicalProfile.setWeightDuringAnalysis(10.0);
+		starToAtmosphere.get(StarFactory.YELO_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Potassium);
+		starToChemicalProfile.setUltraVioletReducingScale(2.0);
+		starToChemicalProfile.setWeightDuringAnalysis(5.0);
+		starToAtmosphere.get(StarFactory.YELO_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Sodium);
+		starToChemicalProfile.setUltraVioletReducingScale(2.0);
+		starToChemicalProfile.setWeightDuringAnalysis(5.0);
+		starToAtmosphere.get(StarFactory.YELO_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Sulfur);
+		starToChemicalProfile.setUltraVioletReducingScale(2.0);
+		starToChemicalProfile.setWeightDuringAnalysis(5.0);
+		starToAtmosphere.get(StarFactory.YELO_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.SulfuricAcid);
+		starToChemicalProfile.setUltraVioletReducingScale(2.0);
+		starToChemicalProfile.setWeightDuringAnalysis(5.0);
+		starToAtmosphere.get(StarFactory.YELO_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.CarbonDioxide);
+		starToChemicalProfile.setUltraVioletReducingScale(2.0);
+		starToChemicalProfile.setWeightDuringAnalysis(5.0);
+		starToAtmosphere.get(StarFactory.YELO_SG_I).add(starToChemicalProfile);
+		
+		starToAtmosphere.put(StarFactory.ORNG_SG_I, new ArrayList<StarToChemicalProfile>());
+
+		// ORNG_SG_I
+
+		// uv and reducing: 01 is extreme UV and 99 is extreme reducing
+		
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Argon);
+		starToChemicalProfile.setUltraVioletReducingScale(60.0);
+		starToChemicalProfile.setWeightDuringAnalysis(5.0); // high rates more
+															// higher
+															// probability
+		starToAtmosphere.get(StarFactory.ORNG_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Carbon);
+		starToChemicalProfile.setUltraVioletReducingScale(47.0);
+		starToChemicalProfile.setWeightDuringAnalysis(15.0);
+		starToAtmosphere.get(StarFactory.ORNG_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Helium);
+		starToChemicalProfile.setUltraVioletReducingScale(4.0);
+		starToChemicalProfile.setWeightDuringAnalysis(68.0);
+		starToAtmosphere.get(StarFactory.ORNG_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Hydrogen);
+		starToChemicalProfile.setUltraVioletReducingScale(1.0);
+		starToChemicalProfile.setWeightDuringAnalysis(98.0);
+		starToAtmosphere.get(StarFactory.ORNG_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Neon);
+		starToChemicalProfile.setUltraVioletReducingScale(52.0);
+		starToChemicalProfile.setWeightDuringAnalysis(2.0);
+		starToAtmosphere.get(StarFactory.ORNG_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Nitrogen);
+		starToChemicalProfile.setUltraVioletReducingScale(6.0);
+		starToChemicalProfile.setWeightDuringAnalysis(88.0);
+		starToAtmosphere.get(StarFactory.ORNG_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Oxygen);
+		starToChemicalProfile.setUltraVioletReducingScale(18.0);
+		starToChemicalProfile.setWeightDuringAnalysis(15.0);
+		starToAtmosphere.get(StarFactory.ORNG_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Silicon);
+		starToChemicalProfile.setUltraVioletReducingScale(30.0);
+		starToChemicalProfile.setWeightDuringAnalysis(10.0);
+		starToAtmosphere.get(StarFactory.ORNG_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Water);
+		starToChemicalProfile.setUltraVioletReducingScale(30.0);
+		starToChemicalProfile.setWeightDuringAnalysis(5.0);
+		starToAtmosphere.get(StarFactory.ORNG_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Potassium);
+		starToChemicalProfile.setUltraVioletReducingScale(2.0);
+		starToChemicalProfile.setWeightDuringAnalysis(5.0);
+		starToAtmosphere.get(StarFactory.ORNG_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Sodium);
+		starToChemicalProfile.setUltraVioletReducingScale(2.0);
+		starToChemicalProfile.setWeightDuringAnalysis(5.0);
+		starToAtmosphere.get(StarFactory.ORNG_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Sulfur);
+		starToChemicalProfile.setUltraVioletReducingScale(2.0);
+		starToChemicalProfile.setWeightDuringAnalysis(5.0);
+		starToAtmosphere.get(StarFactory.ORNG_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.SulfuricAcid);
+		starToChemicalProfile.setUltraVioletReducingScale(2.0);
+		starToChemicalProfile.setWeightDuringAnalysis(5.0);
+		starToAtmosphere.get(StarFactory.ORNG_SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.CarbonDioxide);
+		starToChemicalProfile.setUltraVioletReducingScale(2.0);
+		starToChemicalProfile.setWeightDuringAnalysis(5.0);
+		starToAtmosphere.get(StarFactory.ORNG_SG_I).add(starToChemicalProfile);
+		
+		starToAtmosphere.put(StarFactory.RED__SG_I, new ArrayList<StarToChemicalProfile>());
+		// RED__SG_I
+
+		// uv and reducing: 01 is extreme UV and 99 is extreme reducing
+		
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Argon);
+		starToChemicalProfile.setUltraVioletReducingScale(58.0);
+		starToChemicalProfile.setWeightDuringAnalysis(6.0); // high means
+															// increased
+															// probability
+		starToAtmosphere.get(StarFactory.RED__SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Carbon);
+		starToChemicalProfile.setUltraVioletReducingScale(40.0);
+		starToChemicalProfile.setWeightDuringAnalysis(3.0);
+		starToAtmosphere.get(StarFactory.RED__SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Helium);
+		starToChemicalProfile.setUltraVioletReducingScale(4.0);
+		starToChemicalProfile.setWeightDuringAnalysis(68.0);
+		starToAtmosphere.get(StarFactory.RED__SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Hydrogen);
+		starToChemicalProfile.setUltraVioletReducingScale(1.0);
+		starToChemicalProfile.setWeightDuringAnalysis(99.0);
+		starToAtmosphere.get(StarFactory.RED__SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Neon);
+		starToChemicalProfile.setUltraVioletReducingScale(52.0);
+		starToChemicalProfile.setWeightDuringAnalysis(2.0);
+		starToAtmosphere.get(StarFactory.RED__SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Nitrogen);
+		starToChemicalProfile.setUltraVioletReducingScale(6.0);
+		starToChemicalProfile.setWeightDuringAnalysis(88.0);
+		starToAtmosphere.get(StarFactory.RED__SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Oxygen);
+		starToChemicalProfile.setUltraVioletReducingScale(18.0);
+		starToChemicalProfile.setWeightDuringAnalysis(15.0);
+		starToAtmosphere.get(StarFactory.RED__SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Silicon);
+		starToChemicalProfile.setUltraVioletReducingScale(34.0);
+		starToChemicalProfile.setWeightDuringAnalysis(1.0);
+		starToAtmosphere.get(StarFactory.RED__SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Water);
+		starToChemicalProfile.setUltraVioletReducingScale(30.0);
+		starToChemicalProfile.setWeightDuringAnalysis(18.0);
+		starToAtmosphere.get(StarFactory.RED__SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Potassium);
+		starToChemicalProfile.setUltraVioletReducingScale(20.0);
+		starToChemicalProfile.setWeightDuringAnalysis(12.0);
+		starToAtmosphere.get(StarFactory.RED__SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Sodium);
+		starToChemicalProfile.setUltraVioletReducingScale(20.0);
+		starToChemicalProfile.setWeightDuringAnalysis(15.0);
+		starToAtmosphere.get(StarFactory.RED__SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Sulfur);
+		starToChemicalProfile.setUltraVioletReducingScale(20.0);
+		starToChemicalProfile.setWeightDuringAnalysis(15.0);
+		starToAtmosphere.get(StarFactory.RED__SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.SulfuricAcid);
+		starToChemicalProfile.setUltraVioletReducingScale(20.0);
+		starToChemicalProfile.setWeightDuringAnalysis(15.0);
+		starToAtmosphere.get(StarFactory.RED__SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.CarbonDioxide);
+		starToChemicalProfile.setUltraVioletReducingScale(2.0);
+		starToChemicalProfile.setWeightDuringAnalysis(17.0);
+		starToAtmosphere.get(StarFactory.RED__SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Methane);
+		starToChemicalProfile.setUltraVioletReducingScale(20.0);
+		starToChemicalProfile.setWeightDuringAnalysis(15.0);
+		starToAtmosphere.get(StarFactory.RED__SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Ethane);
+		starToChemicalProfile.setUltraVioletReducingScale(26.0);
+		starToChemicalProfile.setWeightDuringAnalysis(8.0);
+		starToAtmosphere.get(StarFactory.RED__SG_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile
+				.setAtmosphereParts(AtmosphereParts.HydrogenSulfide);
+		starToChemicalProfile.setUltraVioletReducingScale(38.0);
+		starToChemicalProfile.setWeightDuringAnalysis(7.0);
+		starToAtmosphere.get(StarFactory.RED__SG_I).add(starToChemicalProfile);
+
+		starToAtmosphere.put(StarFactory.BLUE_GI_II, new ArrayList<StarToChemicalProfile>());
+		// uv and reducing: 01 is extreme UV and 99 is extreme reducing
+
+		// BLUE_GI_II
+		
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Argon);
+		starToChemicalProfile.setUltraVioletReducingScale(70.0);
+		starToChemicalProfile.setWeightDuringAnalysis(6.0); // high means
+															// greater
+															// probability
+		starToAtmosphere.get(StarFactory.BLUE_GI_II).add(starToChemicalProfile);
+
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Carbon);
+		starToChemicalProfile.setUltraVioletReducingScale(43.0);
+		starToChemicalProfile.setWeightDuringAnalysis(10.0);
+		starToAtmosphere.get(StarFactory.BLUE_GI_II).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Helium);
+		starToChemicalProfile.setUltraVioletReducingScale(8.0);
+		starToChemicalProfile.setWeightDuringAnalysis(70.0);
+		starToAtmosphere.get(StarFactory.BLUE_GI_II).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Hydrogen);
+		starToChemicalProfile.setUltraVioletReducingScale(4.0);
+		starToChemicalProfile.setWeightDuringAnalysis(96.0);
+		starToAtmosphere.get(StarFactory.BLUE_GI_II).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Neon);
+		starToChemicalProfile.setUltraVioletReducingScale(52.0);
+		starToChemicalProfile.setWeightDuringAnalysis(2.0);
+		starToAtmosphere.get(StarFactory.BLUE_GI_II).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Nitrogen);
+		starToChemicalProfile.setUltraVioletReducingScale(8.0);
+		starToChemicalProfile.setWeightDuringAnalysis(88.0);
+		starToAtmosphere.get(StarFactory.BLUE_GI_II).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Oxygen);
+		starToChemicalProfile.setUltraVioletReducingScale(21.0);
+		starToChemicalProfile.setWeightDuringAnalysis(14.0);
+		starToAtmosphere.get(StarFactory.BLUE_GI_II).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Silicon);
+		starToChemicalProfile.setUltraVioletReducingScale(34.0);
+		starToChemicalProfile.setWeightDuringAnalysis(13.0);
+		starToAtmosphere.get(StarFactory.BLUE_GI_II).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Water);
+		starToChemicalProfile.setUltraVioletReducingScale(33.0);
+		starToChemicalProfile.setWeightDuringAnalysis(5.0);
+		starToAtmosphere.get(StarFactory.BLUE_GI_II).add(starToChemicalProfile);
+		
+		starToAtmosphere.put(StarFactory.BLUE_GI_I, new ArrayList<StarToChemicalProfile>());
+		// uv and reducing: 01 is extreme UV and 99 is extreme reducing
+
+		// BLUE_GI_I
+		
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Argon);
+		starToChemicalProfile.setUltraVioletReducingScale(70.0);
+		starToChemicalProfile.setWeightDuringAnalysis(6.0); // high means
+															// greater
+															// probability
+		starToAtmosphere.get(StarFactory.BLUE_GI_I).add(starToChemicalProfile);
+
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Carbon);
+		starToChemicalProfile.setUltraVioletReducingScale(43.0);
+		starToChemicalProfile.setWeightDuringAnalysis(10.0);
+		starToAtmosphere.get(StarFactory.BLUE_GI_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Helium);
+		starToChemicalProfile.setUltraVioletReducingScale(8.0);
+		starToChemicalProfile.setWeightDuringAnalysis(70.0);
+		starToAtmosphere.get(StarFactory.BLUE_GI_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Hydrogen);
+		starToChemicalProfile.setUltraVioletReducingScale(4.0);
+		starToChemicalProfile.setWeightDuringAnalysis(96.0);
+		starToAtmosphere.get(StarFactory.BLUE_GI_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Neon);
+		starToChemicalProfile.setUltraVioletReducingScale(52.0);
+		starToChemicalProfile.setWeightDuringAnalysis(2.0);
+		starToAtmosphere.get(StarFactory.BLUE_GI_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Nitrogen);
+		starToChemicalProfile.setUltraVioletReducingScale(8.0);
+		starToChemicalProfile.setWeightDuringAnalysis(88.0);
+		starToAtmosphere.get(StarFactory.BLUE_GI_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Oxygen);
+		starToChemicalProfile.setUltraVioletReducingScale(21.0);
+		starToChemicalProfile.setWeightDuringAnalysis(14.0);
+		starToAtmosphere.get(StarFactory.BLUE_GI_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Silicon);
+		starToChemicalProfile.setUltraVioletReducingScale(34.0);
+		starToChemicalProfile.setWeightDuringAnalysis(13.0);
+		starToAtmosphere.get(StarFactory.BLUE_GI_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Water);
+		starToChemicalProfile.setUltraVioletReducingScale(33.0);
+		starToChemicalProfile.setWeightDuringAnalysis(5.0);
+		starToAtmosphere.get(StarFactory.BLUE_GI_I).add(starToChemicalProfile);
+		
+		starToAtmosphere.put(StarFactory.LTBL_GI_II, new ArrayList<StarToChemicalProfile>());
+		// LTBL_GI_II
+
+		// uv and reducing: 01 is extreme UV and 99 is extreme reducing
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Argon);
+		starToChemicalProfile.setUltraVioletReducingScale(58.0);
+		starToChemicalProfile.setWeightDuringAnalysis(4.0); // high rates more
+		starToAtmosphere.get(StarFactory.LTBL_GI_II).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Carbon);
+		starToChemicalProfile.setUltraVioletReducingScale(43.0);
+		starToChemicalProfile.setWeightDuringAnalysis(16.0);
+		starToAtmosphere.get(StarFactory.LTBL_GI_II).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Helium);
+		starToChemicalProfile.setUltraVioletReducingScale(6.0);
+		starToChemicalProfile.setWeightDuringAnalysis(66.0);
+		starToAtmosphere.get(StarFactory.LTBL_GI_II).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Hydrogen);
+		starToChemicalProfile.setUltraVioletReducingScale(2.0);
+		starToChemicalProfile.setWeightDuringAnalysis(96.0);
+		starToAtmosphere.get(StarFactory.LTBL_GI_II).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Neon);
+		starToChemicalProfile.setUltraVioletReducingScale(50.0);
+		starToChemicalProfile.setWeightDuringAnalysis(4.0);
+		starToAtmosphere.get(StarFactory.LTBL_GI_II).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Nitrogen);
+		starToChemicalProfile.setUltraVioletReducingScale(8.0);
+		starToChemicalProfile.setWeightDuringAnalysis(90.0);
+		starToAtmosphere.get(StarFactory.LTBL_GI_II).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Oxygen);
+		starToChemicalProfile.setUltraVioletReducingScale(22.0);
+		starToChemicalProfile.setWeightDuringAnalysis(16.0);
+		starToAtmosphere.get(StarFactory.LTBL_GI_II).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Silicon);
+		starToChemicalProfile.setUltraVioletReducingScale(36.0);
+		starToChemicalProfile.setWeightDuringAnalysis(11.0);
+		starToAtmosphere.get(StarFactory.LTBL_GI_II).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Water);
+		starToChemicalProfile.setUltraVioletReducingScale(33.0);
+		starToChemicalProfile.setWeightDuringAnalysis(4.0);
+		starToAtmosphere.get(StarFactory.LTBL_GI_II).add(starToChemicalProfile);
+		
+		starToAtmosphere.put(StarFactory.LTBL_GI_I, new ArrayList<StarToChemicalProfile>());
+		// LTBL_GI_I
+
+		// uv and reducing: 01 is extreme UV and 99 is extreme reducing
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Argon);
+		starToChemicalProfile.setUltraVioletReducingScale(58.0);
+		starToChemicalProfile.setWeightDuringAnalysis(4.0); // high rates more
+		starToAtmosphere.get(StarFactory.LTBL_GI_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Carbon);
+		starToChemicalProfile.setUltraVioletReducingScale(43.0);
+		starToChemicalProfile.setWeightDuringAnalysis(16.0);
+		starToAtmosphere.get(StarFactory.LTBL_GI_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Helium);
+		starToChemicalProfile.setUltraVioletReducingScale(6.0);
+		starToChemicalProfile.setWeightDuringAnalysis(66.0);
+		starToAtmosphere.get(StarFactory.LTBL_GI_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Hydrogen);
+		starToChemicalProfile.setUltraVioletReducingScale(2.0);
+		starToChemicalProfile.setWeightDuringAnalysis(96.0);
+		starToAtmosphere.get(StarFactory.LTBL_GI_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Neon);
+		starToChemicalProfile.setUltraVioletReducingScale(50.0);
+		starToChemicalProfile.setWeightDuringAnalysis(4.0);
+		starToAtmosphere.get(StarFactory.LTBL_GI_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Nitrogen);
+		starToChemicalProfile.setUltraVioletReducingScale(8.0);
+		starToChemicalProfile.setWeightDuringAnalysis(90.0);
+		starToAtmosphere.get(StarFactory.LTBL_GI_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Oxygen);
+		starToChemicalProfile.setUltraVioletReducingScale(22.0);
+		starToChemicalProfile.setWeightDuringAnalysis(16.0);
+		starToAtmosphere.get(StarFactory.LTBL_GI_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Silicon);
+		starToChemicalProfile.setUltraVioletReducingScale(36.0);
+		starToChemicalProfile.setWeightDuringAnalysis(11.0);
+		starToAtmosphere.get(StarFactory.LTBL_GI_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Water);
+		starToChemicalProfile.setUltraVioletReducingScale(33.0);
+		starToChemicalProfile.setWeightDuringAnalysis(4.0);
+		starToAtmosphere.get(StarFactory.LTBL_GI_I).add(starToChemicalProfile);
+
+		starToAtmosphere.put(StarFactory.WHIT_GI_II, new ArrayList<StarToChemicalProfile>());
+		// WHIT_GI_II
+
+		// uv and reducing: 01 is extreme UV and 99 is extreme reducing
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Argon);
+		starToChemicalProfile.setUltraVioletReducingScale(56.0);
+		starToChemicalProfile.setWeightDuringAnalysis(7.0); // high rates more
+															// probable
+		starToAtmosphere.get(StarFactory.WHIT_GI_II).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Carbon);
+		starToChemicalProfile.setUltraVioletReducingScale(48.0);
+		starToChemicalProfile.setWeightDuringAnalysis(18.0);
+		starToAtmosphere.get(StarFactory.WHIT_GI_II).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Helium);
+		starToChemicalProfile.setUltraVioletReducingScale(8.0);
+		starToChemicalProfile.setWeightDuringAnalysis(72.0);
+		starToAtmosphere.get(StarFactory.WHIT_GI_II).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Hydrogen);
+		starToChemicalProfile.setUltraVioletReducingScale(4.0);
+		starToChemicalProfile.setWeightDuringAnalysis(99.0);
+		starToAtmosphere.get(StarFactory.WHIT_GI_II).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Neon);
+		starToChemicalProfile.setUltraVioletReducingScale(52.0);
+		starToChemicalProfile.setWeightDuringAnalysis(5.0);
+		starToAtmosphere.get(StarFactory.WHIT_GI_II).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Nitrogen);
+		starToChemicalProfile.setUltraVioletReducingScale(10.0);
+		starToChemicalProfile.setWeightDuringAnalysis(86.0);
+		starToAtmosphere.get(StarFactory.WHIT_GI_II).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Oxygen);
+		starToChemicalProfile.setUltraVioletReducingScale(22.0);
+		starToChemicalProfile.setWeightDuringAnalysis(20.0);
+		starToAtmosphere.get(StarFactory.WHIT_GI_II).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Silicon);
+		starToChemicalProfile.setUltraVioletReducingScale(30.0);
+		starToChemicalProfile.setWeightDuringAnalysis(10.0);
+		starToAtmosphere.get(StarFactory.WHIT_GI_II).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Water);
+		starToChemicalProfile.setUltraVioletReducingScale(34.0);
+		starToChemicalProfile.setWeightDuringAnalysis(6.0);
+		starToAtmosphere.get(StarFactory.WHIT_GI_II).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.CarbonDioxide);
+		starToChemicalProfile.setUltraVioletReducingScale(4.0);
+		starToChemicalProfile.setWeightDuringAnalysis(5.0);
+		starToAtmosphere.get(StarFactory.WHIT_GI_II).add(starToChemicalProfile);
+
+		starToAtmosphere.put(StarFactory.WHIT_GI_I, new ArrayList<StarToChemicalProfile>());
+		// WHIT_GI_I
+
+		// uv and reducing: 01 is extreme UV and 99 is extreme reducing
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Argon);
+		starToChemicalProfile.setUltraVioletReducingScale(56.0);
+		starToChemicalProfile.setWeightDuringAnalysis(7.0); // high rates more
+															// probable
+		starToAtmosphere.get(StarFactory.WHIT_GI_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Carbon);
+		starToChemicalProfile.setUltraVioletReducingScale(48.0);
+		starToChemicalProfile.setWeightDuringAnalysis(18.0);
+		starToAtmosphere.get(StarFactory.WHIT_GI_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Helium);
+		starToChemicalProfile.setUltraVioletReducingScale(8.0);
+		starToChemicalProfile.setWeightDuringAnalysis(72.0);
+		starToAtmosphere.get(StarFactory.WHIT_GI_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Hydrogen);
+		starToChemicalProfile.setUltraVioletReducingScale(4.0);
+		starToChemicalProfile.setWeightDuringAnalysis(99.0);
+		starToAtmosphere.get(StarFactory.WHIT_GI_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Neon);
+		starToChemicalProfile.setUltraVioletReducingScale(52.0);
+		starToChemicalProfile.setWeightDuringAnalysis(5.0);
+		starToAtmosphere.get(StarFactory.WHIT_GI_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Nitrogen);
+		starToChemicalProfile.setUltraVioletReducingScale(10.0);
+		starToChemicalProfile.setWeightDuringAnalysis(86.0);
+		starToAtmosphere.get(StarFactory.WHIT_GI_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Oxygen);
+		starToChemicalProfile.setUltraVioletReducingScale(22.0);
+		starToChemicalProfile.setWeightDuringAnalysis(20.0);
+		starToAtmosphere.get(StarFactory.WHIT_GI_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Silicon);
+		starToChemicalProfile.setUltraVioletReducingScale(30.0);
+		starToChemicalProfile.setWeightDuringAnalysis(10.0);
+		starToAtmosphere.get(StarFactory.WHIT_GI_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Water);
+		starToChemicalProfile.setUltraVioletReducingScale(34.0);
+		starToChemicalProfile.setWeightDuringAnalysis(6.0);
+		starToAtmosphere.get(StarFactory.WHIT_GI_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.CarbonDioxide);
+		starToChemicalProfile.setUltraVioletReducingScale(4.0);
+		starToChemicalProfile.setWeightDuringAnalysis(5.0);
+		starToAtmosphere.get(StarFactory.WHIT_GI_I).add(starToChemicalProfile);
+
+		starToAtmosphere.put(StarFactory.YELO_GI_II, new ArrayList<StarToChemicalProfile>());
+		// YELO_GI_II
+
+		// uv and reducing: 01 is extreme UV and 99 is extreme reducing
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Argon);
+		starToChemicalProfile.setUltraVioletReducingScale(58.0);
+		starToChemicalProfile.setWeightDuringAnalysis(10.0); // high rates more
+																// likely
+		starToAtmosphere.get(StarFactory.YELO_GI_II).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Carbon);
+		starToChemicalProfile.setUltraVioletReducingScale(36.0);
+		starToChemicalProfile.setWeightDuringAnalysis(13.0);
+		starToAtmosphere.get(StarFactory.YELO_GI_II).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Helium);
+		starToChemicalProfile.setUltraVioletReducingScale(14.0);
+		starToChemicalProfile.setWeightDuringAnalysis(75.0);
+		starToAtmosphere.get(StarFactory.YELO_GI_II).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Hydrogen);
+		starToChemicalProfile.setUltraVioletReducingScale(12.0);
+		starToChemicalProfile.setWeightDuringAnalysis(97.0);
+		starToAtmosphere.get(StarFactory.YELO_GI_II).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Neon);
+		starToChemicalProfile.setUltraVioletReducingScale(48.0);
+		starToChemicalProfile.setWeightDuringAnalysis(8.0);
+		starToAtmosphere.get(StarFactory.YELO_GI_II).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Nitrogen);
+		starToChemicalProfile.setUltraVioletReducingScale(22.0);
+		starToChemicalProfile.setWeightDuringAnalysis(90.0);
+		starToAtmosphere.get(StarFactory.YELO_GI_II).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Oxygen);
+		starToChemicalProfile.setUltraVioletReducingScale(33.0);
+		starToChemicalProfile.setWeightDuringAnalysis(35.0);
+		starToAtmosphere.get(StarFactory.YELO_GI_II).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Silicon);
+		starToChemicalProfile.setUltraVioletReducingScale(42.0);
+		starToChemicalProfile.setWeightDuringAnalysis(8.0);
+		starToAtmosphere.get(StarFactory.YELO_GI_II).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Water);
+		starToChemicalProfile.setUltraVioletReducingScale(44.0);
+		starToChemicalProfile.setWeightDuringAnalysis(14.0);
+		starToAtmosphere.get(StarFactory.YELO_GI_II).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Potassium);
+		starToChemicalProfile.setUltraVioletReducingScale(5.0);
+		starToChemicalProfile.setWeightDuringAnalysis(6.0);
+		starToAtmosphere.get(StarFactory.YELO_GI_II).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Sodium);
+		starToChemicalProfile.setUltraVioletReducingScale(5.0);
+		starToChemicalProfile.setWeightDuringAnalysis(6.0);
+		starToAtmosphere.get(StarFactory.YELO_GI_II).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Sulfur);
+		starToChemicalProfile.setUltraVioletReducingScale(5.0);
+		starToChemicalProfile.setWeightDuringAnalysis(6.0);
+		starToAtmosphere.get(StarFactory.YELO_GI_II).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.SulfuricAcid);
+		starToChemicalProfile.setUltraVioletReducingScale(5.0);
+		starToChemicalProfile.setWeightDuringAnalysis(6.0);
+		starToAtmosphere.get(StarFactory.YELO_GI_II).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.CarbonDioxide);
+		starToChemicalProfile.setUltraVioletReducingScale(5.0);
+		starToChemicalProfile.setWeightDuringAnalysis(15.0);
+		starToAtmosphere.get(StarFactory.YELO_GI_II).add(starToChemicalProfile);
+
+		starToAtmosphere.put(StarFactory.YELO_GI_I, new ArrayList<StarToChemicalProfile>());
+		// YELO_GI_I
+
+		// uv and reducing: 01 is extreme UV and 99 is extreme reducing
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Argon);
+		starToChemicalProfile.setUltraVioletReducingScale(58.0);
+		starToChemicalProfile.setWeightDuringAnalysis(10.0); // high rates more
+																// likely
+		starToAtmosphere.get(StarFactory.YELO_GI_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Carbon);
+		starToChemicalProfile.setUltraVioletReducingScale(36.0);
+		starToChemicalProfile.setWeightDuringAnalysis(13.0);
+		starToAtmosphere.get(StarFactory.YELO_GI_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Helium);
+		starToChemicalProfile.setUltraVioletReducingScale(14.0);
+		starToChemicalProfile.setWeightDuringAnalysis(75.0);
+		starToAtmosphere.get(StarFactory.YELO_GI_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Hydrogen);
+		starToChemicalProfile.setUltraVioletReducingScale(12.0);
+		starToChemicalProfile.setWeightDuringAnalysis(97.0);
+		starToAtmosphere.get(StarFactory.YELO_GI_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Neon);
+		starToChemicalProfile.setUltraVioletReducingScale(48.0);
+		starToChemicalProfile.setWeightDuringAnalysis(8.0);
+		starToAtmosphere.get(StarFactory.YELO_GI_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Nitrogen);
+		starToChemicalProfile.setUltraVioletReducingScale(22.0);
+		starToChemicalProfile.setWeightDuringAnalysis(90.0);
+		starToAtmosphere.get(StarFactory.YELO_GI_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Oxygen);
+		starToChemicalProfile.setUltraVioletReducingScale(33.0);
+		starToChemicalProfile.setWeightDuringAnalysis(35.0);
+		starToAtmosphere.get(StarFactory.YELO_GI_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Silicon);
+		starToChemicalProfile.setUltraVioletReducingScale(42.0);
+		starToChemicalProfile.setWeightDuringAnalysis(8.0);
+		starToAtmosphere.get(StarFactory.YELO_GI_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Water);
+		starToChemicalProfile.setUltraVioletReducingScale(44.0);
+		starToChemicalProfile.setWeightDuringAnalysis(14.0);
+		starToAtmosphere.get(StarFactory.YELO_GI_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Potassium);
+		starToChemicalProfile.setUltraVioletReducingScale(5.0);
+		starToChemicalProfile.setWeightDuringAnalysis(6.0);
+		starToAtmosphere.get(StarFactory.YELO_GI_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Sodium);
+		starToChemicalProfile.setUltraVioletReducingScale(5.0);
+		starToChemicalProfile.setWeightDuringAnalysis(6.0);
+		starToAtmosphere.get(StarFactory.YELO_GI_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Sulfur);
+		starToChemicalProfile.setUltraVioletReducingScale(5.0);
+		starToChemicalProfile.setWeightDuringAnalysis(6.0);
+		starToAtmosphere.get(StarFactory.YELO_GI_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.SulfuricAcid);
+		starToChemicalProfile.setUltraVioletReducingScale(5.0);
+		starToChemicalProfile.setWeightDuringAnalysis(6.0);
+		starToAtmosphere.get(StarFactory.YELO_GI_I).add(starToChemicalProfile);
+
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.CarbonDioxide);
+		starToChemicalProfile.setUltraVioletReducingScale(5.0);
+		starToChemicalProfile.setWeightDuringAnalysis(15.0);
+		starToAtmosphere.get(StarFactory.YELO_GI_I).add(starToChemicalProfile);
+
 	}
 }
