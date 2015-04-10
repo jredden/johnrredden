@@ -7,7 +7,7 @@ public class Planetoid {
 	private Integer planetoidId;
 	private Integer repId;
 	private String planetoidName;
-	private Double radius;
+	private Double radius;	// in kilometers
 	private Double distanceToPrimary;
 	private Double degree;  // current degree position in radians
 	private Double temperature; 
