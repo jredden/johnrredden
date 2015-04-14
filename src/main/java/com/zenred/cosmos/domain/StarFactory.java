@@ -3,6 +3,9 @@ package com.zenred.cosmos.domain;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
+import com.zenred.cosmos.service_rules_and_infrastructure.GenAtmosphere;
 import com.zenred.util.GenRandomRolls;
 
 /**
@@ -2988,5 +2991,17 @@ public enum StarFactory {
 	
 	public static StarTypeFactory getStarTypeFactory(StarFactory starFactory){
 		return starFactory.starTypeFactory();
+	}
+	private static Logger logger = Logger.getLogger(StarFactory.class);
+	private static StarFactory[] starColors = StarFactory.values();
+	private static Map<String, StarFactory> normalizedStarColors = new HashMap<String, StarFactory>();
+	static{
+		for (int idex = 0; idex < starColors.length; idex ++){
+			normalizedStarColors.put(starColors[idex].name(), starColors[idex]);
+		}
+		logger.info("NORMALIZED STAR COLORS:"+normalizedStarColors);
+	}
+	public static StarFactory accessByString(String starColor){
+		return normalizedStarColors.get(starColor);
 	}
 }
