@@ -103,7 +103,7 @@ public enum AtmosphereParts {
 		starToChemicalProfile = new StarToChemicalProfile();
 		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Oxygen);
 		starToChemicalProfile.setUltraVioletReducingScale(20.0);
-		starToChemicalProfile.setWeightDuringAnalysis(12.0);
+		starToChemicalProfile.setWeightDuringAnalysis(1.0);
 		starToAtmosphere.get(StarFactory.BLUE_SG_II).add(starToChemicalProfile);
 
 		starToChemicalProfile = new StarToChemicalProfile();
@@ -4691,5 +4691,14 @@ public enum AtmosphereParts {
 		starToChemicalProfile.setWeightDuringAnalysis(3.0);
 		starToAtmosphere.get(StarFactory.DRKBRN_SDW).add(starToChemicalProfile);
 
+
+	}
+	/**
+	 * 
+	 * @param starFactory
+	 * @return a list of potential atmosphere components, their weight, and an ultra-violet / reducing scalar
+	 */
+	public static List<StarToChemicalProfile> starToAtmosphereList(StarFactory starFactory){
+		return starToAtmosphere.get(starFactory);
 	}
 }
