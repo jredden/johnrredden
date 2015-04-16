@@ -59,35 +59,73 @@ public class GenAtmosphere {
 		}
 	}
 
+	private static List<Atmosphere> normalize(List<Atmosphere> atmospheres){
+		
+		Double divisor = 0.0;
+		for(Atmosphere atmosphere : atmospheres){
+			divisor += atmosphere.getPercentage();
+		}
+		for(Atmosphere atmosphere : atmospheres){
+			atmosphere.setPercentage(atmosphere.getPercentage()/divisor);
+		}
+		return atmospheres;
+	}
+	
+	private static List<Atmosphere> common(String operation, Double uvScalar,
+			Double changeScalar, StarFactory starFactory) {
+		List<Atmosphere> atmospheres = new ArrayList<Atmosphere>();
+		List<StarToChemicalProfile> profileList = AtmosphereParts
+				.starToAtmosphereList(starFactory);
+		for (StarToChemicalProfile starToChemicalProfile : profileList) {
+			Atmosphere atmosphere = new Atmosphere();
+			if (operation.equals("LT")) {
+				if (starToChemicalProfile.getUltraVioletReducingScale() < uvScalar) {
+					Double newWeight = starToChemicalProfile
+							.getWeightDuringAnalysis()
+							* (100.0 + GenRandomRolls.Instance().getDraw(
+									changeScalar));
+					atmosphere.setPercentage(newWeight);
+					atmosphere.setChem_name(starToChemicalProfile
+							.getAtmosphereParts().name());
+				} else {
+					Double newWeight = starToChemicalProfile
+							.getWeightDuringAnalysis()
+							* GenRandomRolls.Instance().getDraw(100.0);
+					atmosphere.setPercentage(newWeight);
+					atmosphere.setChem_name(starToChemicalProfile
+							.getAtmosphereParts().name());
+				}
+
+			} else {
+				if (starToChemicalProfile.getUltraVioletReducingScale() >= uvScalar) {
+					Double newWeight = starToChemicalProfile
+							.getWeightDuringAnalysis()
+							* (100.0 + GenRandomRolls.Instance().getDraw(
+									changeScalar));
+					atmosphere.setPercentage(newWeight);
+					atmosphere.setChem_name(starToChemicalProfile
+							.getAtmosphereParts().name());
+				} else {
+					Double newWeight = starToChemicalProfile
+							.getWeightDuringAnalysis()
+							* GenRandomRolls.Instance().getDraw(100.0);
+					atmosphere.setPercentage(newWeight);
+					atmosphere.setChem_name(starToChemicalProfile
+							.getAtmosphereParts().name());
+				}
+			}
+
+			atmospheres.add(atmosphere);
+		}
+		return normalize(atmospheres);
+	}
+	
 	private static Map<String, AtmosphereResolutionIF> ruleMap = new HashMap<String, GenAtmosphere.AtmosphereResolutionIF>();
 	static {
 		// a cryogenic dwarf planetoid with Blue Super Giant
 		ruleMap.put("BLUE_SG_II" + "0" + "0", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				List<Atmosphere> atmospheres = new ArrayList<Atmosphere>();
-				List<StarToChemicalProfile> profileList = AtmosphereParts
-						.starToAtmosphereList(starFactory);
-				for (StarToChemicalProfile starToChemicalProfile : profileList) {
-					Atmosphere atmosphere = new Atmosphere();
-					if (starToChemicalProfile.getUltraVioletReducingScale() < 30) {
-						Double newWeight = starToChemicalProfile
-								.getWeightDuringAnalysis()
-								* (100.0 + GenRandomRolls.Instance().getDraw(
-										5.0));
-						atmosphere.setPercentage(newWeight);
-						atmosphere.setChem_name(starToChemicalProfile
-								.getAtmosphereParts().name());
-					} else {
-						Double newWeight = starToChemicalProfile
-								.getWeightDuringAnalysis()
-								* GenRandomRolls.Instance().getDraw(100.0);
-						atmosphere.setPercentage(newWeight);
-						atmosphere.setChem_name(starToChemicalProfile
-								.getAtmosphereParts().name());
-					}
-					atmospheres.add(atmosphere);
-				}
-				return null;
+				return common("<", 30.0, 5.0, starFactory);
 			}
 		});
 

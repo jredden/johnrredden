@@ -124,7 +124,7 @@ public enum AtmosphereParts {
 		// uv and reducing: 01 is extreme UV and 99 is extreme reducing
 
 		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Argon);
-		starToChemicalProfile.setUltraVioletReducingScale(64.0);
+		starToChemicalProfile.setUltraVioletReducingScale(50.0);
 		starToChemicalProfile.setWeightDuringAnalysis(4.0); // high rates more
 		starToAtmosphere.get(StarFactory.LTBL_SG_II).add(starToChemicalProfile);
 
