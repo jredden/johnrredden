@@ -97,7 +97,7 @@ public enum AtmosphereParts {
 		starToChemicalProfile = new StarToChemicalProfile();
 		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Nitrogen);
 		starToChemicalProfile.setUltraVioletReducingScale(6.0);
-		starToChemicalProfile.setWeightDuringAnalysis(86.0);
+		starToChemicalProfile.setWeightDuringAnalysis(6.0);
 		starToAtmosphere.get(StarFactory.BLUE_SG_II).add(starToChemicalProfile);
 
 		starToChemicalProfile = new StarToChemicalProfile();
@@ -137,13 +137,13 @@ public enum AtmosphereParts {
 		starToChemicalProfile = new StarToChemicalProfile();
 		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Helium);
 		starToChemicalProfile.setUltraVioletReducingScale(5.0);
-		starToChemicalProfile.setWeightDuringAnalysis(64.0);
+		starToChemicalProfile.setWeightDuringAnalysis(66.0);
 		starToAtmosphere.get(StarFactory.LTBL_SG_II).add(starToChemicalProfile);
 
 		starToChemicalProfile = new StarToChemicalProfile();
 		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Hydrogen);
 		starToChemicalProfile.setUltraVioletReducingScale(2.0);
-		starToChemicalProfile.setWeightDuringAnalysis(96.0);
+		starToChemicalProfile.setWeightDuringAnalysis(94.0);
 		starToAtmosphere.get(StarFactory.LTBL_SG_II).add(starToChemicalProfile);
 
 		starToChemicalProfile = new StarToChemicalProfile();
@@ -155,13 +155,13 @@ public enum AtmosphereParts {
 		starToChemicalProfile = new StarToChemicalProfile();
 		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Nitrogen);
 		starToChemicalProfile.setUltraVioletReducingScale(8.0);
-		starToChemicalProfile.setWeightDuringAnalysis(88.0);
+		starToChemicalProfile.setWeightDuringAnalysis(8.0);
 		starToAtmosphere.get(StarFactory.LTBL_SG_II).add(starToChemicalProfile);
 
 		starToChemicalProfile = new StarToChemicalProfile();
 		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Oxygen);
 		starToChemicalProfile.setUltraVioletReducingScale(22.0);
-		starToChemicalProfile.setWeightDuringAnalysis(14.0);
+		starToChemicalProfile.setWeightDuringAnalysis(2.0);
 		starToAtmosphere.get(StarFactory.LTBL_SG_II).add(starToChemicalProfile);
 
 		starToChemicalProfile = new StarToChemicalProfile();

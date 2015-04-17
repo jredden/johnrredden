@@ -125,100 +125,100 @@ public class GenAtmosphere {
 		// a cryogenic dwarf planetoid with Blue Super Giant
 		ruleMap.put("BLUE_SG_II" + "0" + "0", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return common("<", 30.0, 5.0, starFactory);
+				return common("<", 25.0, 5.0, starFactory);
 			}
 		});
-
+		// ice dwarf planetoid with Blue Super Giant
 		ruleMap.put("BLUE_SG_II" + "0" + "1", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 30.0, 6.0, starFactory);
 			}
 		});
-
+		// rocky dwarf palentoid with Blue Super Giant
 		ruleMap.put("BLUE_SG_II" + "0" + "2", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 30.0, 6.0, starFactory);
 			}
 		});
-
+		// cythinan dwarf planetoid with Blue Super Giant
 		ruleMap.put("BLUE_SG_II" + "0" + "3", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 32.0, 10.0, starFactory);
 			}
 		});
-
+		// molten dwarf planetoid with Blue Super Giant
 		ruleMap.put("BLUE_SG_II" + "0" + "4", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 50.0, 2.0, starFactory);
 			}
 		});
 
 		ruleMap.put("BLUE_SG_II" + "0" + "5", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				throw new RuntimeException("Cannot be ...");
 			}
 		});
-
+		// cryogenic mini planetoid with Blue Super Giant 
 		ruleMap.put("BLUE_SG_II" + "1" + "0", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 25.0, 8.0, starFactory);
 			}
 		});
-
+		// ice mini planetoid with Blue Super Giant
 		ruleMap.put("BLUE_SG_II" + "1" + "1", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 28.0, 10.0, starFactory);
 			}
 		});
-
+		// rocky mini planetoid with Blue Super Giant
 		ruleMap.put("BLUE_SG_II" + "1" + "2", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 30.0, 11.0, starFactory);
 			}
 		});
-
+		// cythian mini planetoid with Blue Super Giant
 		ruleMap.put("BLUE_SG_II" + "1" + "3", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 35.0, 12.0, starFactory);
 			}
 		});
-
+		// molten mini planetoid with Blue Super Giant
 		ruleMap.put("BLUE_SG_II" + "1" + "4", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 40.0, 15.0, starFactory);
 			}
 		});
 
 		ruleMap.put("BLUE_SG_II" + "1" + "5", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				throw new RuntimeException("Cannot be ...");
 			}
 		});
-
+		// cryogenic terran planetoid with Blue Super Giant
 		ruleMap.put("BLUE_SG_II" + "2" + "0", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 15.0, 10.0, starFactory);
 			}
 		});
-
+		// ice terran planetoid with Blue Super Giant 
 		ruleMap.put("BLUE_SG_II" + "2" + "1", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 20.0, 15.0, starFactory);
 			}
 		});
-
+		// rocky terran planetoid witih Blue Super Giant
 		ruleMap.put("BLUE_SG_II" + "2" + "2", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 40.0, 5.0, starFactory);
 			}
 		});
-
+		// cythian terran planetoid with Blue Super Giant
 		ruleMap.put("BLUE_SG_II" + "2" + "3", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 45.0, 4.0, starFactory);
 			}
 		});
-
+		// molten terran planetoid with Blue Super Giant
 		ruleMap.put("BLUE_SG_II" + "2" + "4", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
 				return null;
@@ -227,13 +227,13 @@ public class GenAtmosphere {
 
 		ruleMap.put("BLUE_SG_II" + "2" + "5", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				throw new RuntimeException("Cannot be ...");
 			}
 		});
-
+		// cryogenic super earth or mini gas giant with Blue Super Giant
 		ruleMap.put("BLUE_SG_II" + "3" + "0", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 8.0, 40.0, starFactory);
 			}
 		});
 
