@@ -195,7 +195,7 @@ public enum AtmosphereParts {
 
 		starToChemicalProfile = new StarToChemicalProfile();
 		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Helium);
-		starToChemicalProfile.setUltraVioletReducingScale(7.0);
+		starToChemicalProfile.setUltraVioletReducingScale(5.0);
 		starToChemicalProfile.setWeightDuringAnalysis(68.0);
 		starToAtmosphere.get(StarFactory.WHIT_SG_II).add(starToChemicalProfile);
 
@@ -237,7 +237,7 @@ public enum AtmosphereParts {
 
 		starToChemicalProfile = new StarToChemicalProfile();
 		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.CarbonDioxide);
-		starToChemicalProfile.setUltraVioletReducingScale(2.0);
+		starToChemicalProfile.setUltraVioletReducingScale(22.0);
 		starToChemicalProfile.setWeightDuringAnalysis(5.0);
 		starToAtmosphere.get(StarFactory.WHIT_SG_II).add(starToChemicalProfile);
 

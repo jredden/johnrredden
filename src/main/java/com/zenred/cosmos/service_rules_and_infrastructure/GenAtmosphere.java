@@ -554,184 +554,148 @@ public class GenAtmosphere {
 				throw new RuntimeException(" cannot be ...");
 			}
 		});
-
+		// cryogenic gas giant
 		ruleMap.put("LTBL_SG_II" + "5" + "0", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 7.0, 30.0, starFactory);
 			}
 		});
-
+		// ice gas giant
 		ruleMap.put("LTBL_SG_II" + "5" + "1", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 9.0, 20.0, starFactory);
 			}
 		});
-
+		// gas poor puffy gas giant or supper super terran
 		ruleMap.put("LTBL_SG_II" + "5" + "2", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common(">", 5.0, 5.0, starFactory);
 			}
 		});
-
+		// hot gas giant
 		ruleMap.put("LTBL_SG_II" + "5" + "3", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 9.0, 20.0, starFactory);
 			}
 		});
-
+		// very hot gas giant
 		ruleMap.put("LTBL_SG_II" + "5" + "4", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 5.0, 35.0, starFactory);
 			}
 		});
 
 		ruleMap.put("LTBL_SG_II" + "5" + "5", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				throw new RuntimeException("cannot be");
 			}
 		});
-
+		// cryogenic super gas giant
 		ruleMap.put("LTBL_SG_II" + "6" + "0", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 32.0, 12.0, starFactory);
 			}
 		});
-
+		// ice super gas giant
 		ruleMap.put("LTBL_SG_II" + "6" + "1", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 28.0, 12.0, starFactory);
 			}
 		});
-
+		// gas poor super gas giant
 		ruleMap.put("LTBL_SG_II" + "6" + "2", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common(">", 1.0, 5.0, starFactory);
 			}
 		});
-
+		// hot super gas giant
 		ruleMap.put("LTBL_SG_II" + "6" + "3", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 5.0, 32.0, starFactory);
 			}
 		});
-
+		// very hot super gas giant
 		ruleMap.put("LTBL_SG_II" + "6" + "4", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 4.0, 40.0, starFactory);
 			}
 		});
 
 		ruleMap.put("LTBL_SG_II" + "6" + "5", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				throw new RuntimeException("cannot be ...");
 			}
 		});
-
-		ruleMap.put("LTBL_SG_II" + "7" + "0", new AtmosphereResolutionIF() {
-			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
-			}
-		});
-
-		ruleMap.put("LTBL_SG_II" + "7" + "1", new AtmosphereResolutionIF() {
-			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
-			}
-		});
-
-		ruleMap.put("LTBL_SG_II" + "7" + "2", new AtmosphereResolutionIF() {
-			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
-			}
-		});
-
-		ruleMap.put("LTBL_SG_II" + "7" + "3", new AtmosphereResolutionIF() {
-			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
-			}
-		});
-
-		ruleMap.put("LTBL_SG_II" + "7" + "4", new AtmosphereResolutionIF() {
-			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
-			}
-		});
-
-		ruleMap.put("LTBL_SG_II" + "7" + "5", new AtmosphereResolutionIF() {
-			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
-			}
-		});
-
+		// cryogenic dwarf
 		ruleMap.put("WHIT_SG_II" + "0" + "0", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 26.0, 8.0, starFactory);
 			}
 		});
-
+		// ice dwarf
 		ruleMap.put("WHIT_SG_II" + "0" + "1", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 32.0, 10.0, starFactory);
 			}
 		});
-
+		// rocky dwarf
 		ruleMap.put("WHIT_SG_II" + "0" + "2", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 34.0, 10.0, starFactory);
 			}
 		});
-
+		// cythian dwarf
 		ruleMap.put("WHIT_SG_II" + "0" + "3", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 35.0, 11.0, starFactory);
 			}
 		});
-
+		// molten dwarf
 		ruleMap.put("WHIT_SG_II" + "0" + "4", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common(">", 10.0, 4.0, starFactory);
 			}
 		});
 
 		ruleMap.put("WHIT_SG_II" + "0" + "5", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				throw new RuntimeException("can't be ...");
 			}
 		});
-
+		// cryogenic mini planetoid
 		ruleMap.put("WHIT_SG_II" + "1" + "0", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 28.0, 8.0, starFactory);
 			}
 		});
-
+		// ice mini planetoid
 		ruleMap.put("WHIT_SG_II" + "1" + "1", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 31.0, 12.0, starFactory);
 			}
 		});
-
+		// rock mini planetoid
 		ruleMap.put("WHIT_SG_II" + "1" + "2", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 35.0, 14.0, starFactory);
 			}
 		});
-
+		// cythian mini planetoid
 		ruleMap.put("WHIT_SG_II" + "1" + "3", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 41.0, 16.0, starFactory);
 			}
 		});
-
+		// molten mini planetoid
 		ruleMap.put("WHIT_SG_II" + "1" + "4", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common(">", 15.0, 9.0, starFactory);
 			}
 		});
 
 		ruleMap.put("WHIT_SG_II" + "1" + "5", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				throw new RuntimeException("can't be ...");
 			}
 		});
 
