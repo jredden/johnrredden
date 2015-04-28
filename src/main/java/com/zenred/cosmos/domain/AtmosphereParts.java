@@ -336,26 +336,26 @@ public enum AtmosphereParts {
 		// uv and reducing: 01 is extreme UV and 99 is extreme reducing
 		starToChemicalProfile = new StarToChemicalProfile();
 		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Argon);
-		starToChemicalProfile.setUltraVioletReducingScale(60.0);
+		starToChemicalProfile.setUltraVioletReducingScale(50.0);
 		starToChemicalProfile.setWeightDuringAnalysis(6.0); // high rates more
 															// likely
 		starToAtmosphere.get(StarFactory.YELO_SG_II).add(starToChemicalProfile);
 
 		starToChemicalProfile = new StarToChemicalProfile();
 		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Carbon);
-		starToChemicalProfile.setUltraVioletReducingScale(40.0);
+		starToChemicalProfile.setUltraVioletReducingScale(30.0);
 		starToChemicalProfile.setWeightDuringAnalysis(11.0);
 		starToAtmosphere.get(StarFactory.YELO_SG_II).add(starToChemicalProfile);
 
 		starToChemicalProfile = new StarToChemicalProfile();
 		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Helium);
-		starToChemicalProfile.setUltraVioletReducingScale(10.0);
+		starToChemicalProfile.setUltraVioletReducingScale(4.0);
 		starToChemicalProfile.setWeightDuringAnalysis(69.0);
 		starToAtmosphere.get(StarFactory.YELO_SG_II).add(starToChemicalProfile);
 
 		starToChemicalProfile = new StarToChemicalProfile();
 		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Hydrogen);
-		starToChemicalProfile.setUltraVioletReducingScale(10.0);
+		starToChemicalProfile.setUltraVioletReducingScale(3.0);
 		starToChemicalProfile.setWeightDuringAnalysis(96.0);
 		starToAtmosphere.get(StarFactory.YELO_SG_II).add(starToChemicalProfile);
 
@@ -385,7 +385,7 @@ public enum AtmosphereParts {
 
 		starToChemicalProfile = new StarToChemicalProfile();
 		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Water);
-		starToChemicalProfile.setUltraVioletReducingScale(40.0);
+		starToChemicalProfile.setUltraVioletReducingScale(35.0);
 		starToChemicalProfile.setWeightDuringAnalysis(10.0);
 		starToAtmosphere.get(StarFactory.YELO_SG_II).add(starToChemicalProfile);
 
@@ -410,13 +410,13 @@ public enum AtmosphereParts {
 		starToChemicalProfile = new StarToChemicalProfile();
 		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.SulfuricAcid);
 		starToChemicalProfile.setUltraVioletReducingScale(2.0);
-		starToChemicalProfile.setWeightDuringAnalysis(5.0);
+		starToChemicalProfile.setWeightDuringAnalysis(3.0);
 		starToAtmosphere.get(StarFactory.YELO_SG_II).add(starToChemicalProfile);
 
 		starToChemicalProfile = new StarToChemicalProfile();
 		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.CarbonDioxide);
 		starToChemicalProfile.setUltraVioletReducingScale(2.0);
-		starToChemicalProfile.setWeightDuringAnalysis(5.0);
+		starToChemicalProfile.setWeightDuringAnalysis(10.0);
 		starToAtmosphere.get(StarFactory.YELO_SG_II).add(starToChemicalProfile);
 
 		starToAtmosphere.put(StarFactory.ORNG_SG_II, new ArrayList<StarToChemicalProfile>());
