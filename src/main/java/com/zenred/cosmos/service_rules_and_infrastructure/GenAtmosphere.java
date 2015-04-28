@@ -1130,6 +1130,10 @@ public class GenAtmosphere {
 				throw new RuntimeException("can't be ...");
 			}
 		});
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0569e8da99b655f6bad0654a4dada13e3b52e41c
 
 		// cryogenic dwarf planetoid
 		ruleMap.put("YELO_SG_II" + "0" + "0", new AtmosphereResolutionIF() {
