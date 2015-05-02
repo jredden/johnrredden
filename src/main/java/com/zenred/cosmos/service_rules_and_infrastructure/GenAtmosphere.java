@@ -1635,40 +1635,40 @@ public class GenAtmosphere {
 				throw new RuntimeException("can't be ...");
 			}
 		});
-
+		// cryogenic dwarf planetoid 
 		ruleMap.put("RED__SG_II" + "0" + "0", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 13.0, 11.0, starFactory);
 			}
 		});
-
+		// ice dwarf planetoid
 		ruleMap.put("RED__SG_II" + "0" + "1", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 13.0, 13.0, starFactory);
 			}
 		});
-
+		// rock dwarf planetoid
 		ruleMap.put("RED__SG_II" + "0" + "2", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 25.0, 14.0, starFactory);
 			}
 		});
-
+		// cythian dwarf planetoid
 		ruleMap.put("RED__SG_II" + "0" + "3", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 33.0, 14.0, starFactory);
 			}
 		});
-
+		// molten dwarf planetoid
 		ruleMap.put("RED__SG_II" + "0" + "4", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 10.0, 4.0, starFactory);
 			}
 		});
 
 		ruleMap.put("RED__SG_II" + "0" + "5", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				throw new RuntimeException("can't be");
 			}
 		});
 
