@@ -2247,40 +2247,40 @@ public class GenAtmosphere {
 				throw new RuntimeException("cannot be ...");
 			}
 		});
-
+		// cryogenic super terran planetoid
 		ruleMap.put("LTBL_SG_I" + "3" + "0", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 60.0, 42.0, starFactory);
 			}
 		});
-
+		// ice super terran planetoid
 		ruleMap.put("LTBL_SG_I" + "3" + "1", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 58.0, 38.0, starFactory);
 			}
 		});
-
+		// rock super terran planetoid
 		ruleMap.put("LTBL_SG_I" + "3" + "2", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 54.0, 30.0, starFactory);
 			}
 		});
-
+		// hot super terran planetoid
 		ruleMap.put("LTBL_SG_I" + "3" + "3", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 45.0, 20.0, starFactory);
 			}
 		});
-
+`		// molten super terran planetoid
 		ruleMap.put("LTBL_SG_I" + "3" + "4", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 40.0, 15.0, starFactory);
 			}
 		});
-
+	
 		ruleMap.put("LTBL_SG_I" + "3" + "5", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				throw new RuntimeException("cannot be ...");
 			}
 		});
 
