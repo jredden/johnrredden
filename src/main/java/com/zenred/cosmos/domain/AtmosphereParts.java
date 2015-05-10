@@ -813,6 +813,12 @@ public enum AtmosphereParts {
 		starToChemicalProfile.setWeightDuringAnalysis(2.0);
 		starToAtmosphere.get(StarFactory.LTBL_SG_I).add(starToChemicalProfile);
 
+		starToChemicalProfile = new StarToChemicalProfile();
+		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.CarbonDioxide);
+		starToChemicalProfile.setUltraVioletReducingScale(2.0);
+		starToChemicalProfile.setWeightDuringAnalysis(15.0);
+		starToAtmosphere.get(StarFactory.LTBL_SG_I).add(starToChemicalProfile);
+		
 		starToAtmosphere.put(StarFactory.WHIT_SG_I, new ArrayList<StarToChemicalProfile>());
 		// WHIT_SG_I
 
@@ -827,32 +833,32 @@ public enum AtmosphereParts {
 
 		starToChemicalProfile = new StarToChemicalProfile();
 		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Carbon);
-		starToChemicalProfile.setUltraVioletReducingScale(51.0);
+		starToChemicalProfile.setUltraVioletReducingScale(41.0);
 		starToChemicalProfile.setWeightDuringAnalysis(15.0);
 		starToAtmosphere.get(StarFactory.WHIT_SG_I).add(starToChemicalProfile);
 
 		starToChemicalProfile = new StarToChemicalProfile();
 		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Helium);
-		starToChemicalProfile.setUltraVioletReducingScale(7.0);
+		starToChemicalProfile.setUltraVioletReducingScale(6.0);
 		starToChemicalProfile.setWeightDuringAnalysis(70.0);
 		starToAtmosphere.get(StarFactory.WHIT_SG_I).add(starToChemicalProfile);
 
 		starToChemicalProfile = new StarToChemicalProfile();
 		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Hydrogen);
-		starToChemicalProfile.setUltraVioletReducingScale(4.0);
-		starToChemicalProfile.setWeightDuringAnalysis(99.0);
+		starToChemicalProfile.setUltraVioletReducingScale(2.0);
+		starToChemicalProfile.setWeightDuringAnalysis(97.0);
 		starToAtmosphere.get(StarFactory.WHIT_SG_I).add(starToChemicalProfile);
 
 		starToChemicalProfile = new StarToChemicalProfile();
 		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Neon);
-		starToChemicalProfile.setUltraVioletReducingScale(52.0);
+		starToChemicalProfile.setUltraVioletReducingScale(50.0);
 		starToChemicalProfile.setWeightDuringAnalysis(5.0);
 		starToAtmosphere.get(StarFactory.WHIT_SG_I).add(starToChemicalProfile);
 
 		starToChemicalProfile = new StarToChemicalProfile();
 		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Nitrogen);
-		starToChemicalProfile.setUltraVioletReducingScale(10.0);
-		starToChemicalProfile.setWeightDuringAnalysis(84.0);
+		starToChemicalProfile.setUltraVioletReducingScale(8.0);
+		starToChemicalProfile.setWeightDuringAnalysis(88.0);
 		starToAtmosphere.get(StarFactory.WHIT_SG_I).add(starToChemicalProfile);
 
 		starToChemicalProfile = new StarToChemicalProfile();
@@ -863,20 +869,20 @@ public enum AtmosphereParts {
 
 		starToChemicalProfile = new StarToChemicalProfile();
 		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Silicon);
-		starToChemicalProfile.setUltraVioletReducingScale(38.0);
-		starToChemicalProfile.setWeightDuringAnalysis(10.0);
+		starToChemicalProfile.setUltraVioletReducingScale(36.0);
+		starToChemicalProfile.setWeightDuringAnalysis(12.0);
 		starToAtmosphere.get(StarFactory.WHIT_SG_I).add(starToChemicalProfile);
 
 		starToChemicalProfile = new StarToChemicalProfile();
 		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.Water);
-		starToChemicalProfile.setUltraVioletReducingScale(34.0);
-		starToChemicalProfile.setWeightDuringAnalysis(4.0);
+		starToChemicalProfile.setUltraVioletReducingScale(32.0);
+		starToChemicalProfile.setWeightDuringAnalysis(3.0);
 		starToAtmosphere.get(StarFactory.WHIT_SG_I).add(starToChemicalProfile);
 
 		starToChemicalProfile = new StarToChemicalProfile();
 		starToChemicalProfile.setAtmosphereParts(AtmosphereParts.CarbonDioxide);
 		starToChemicalProfile.setUltraVioletReducingScale(2.0);
-		starToChemicalProfile.setWeightDuringAnalysis(5.0);
+		starToChemicalProfile.setWeightDuringAnalysis(15.0);
 		starToAtmosphere.get(StarFactory.WHIT_SG_I).add(starToChemicalProfile);
 
 		starToAtmosphere.put(StarFactory.PYEL_SG_I, new ArrayList<StarToChemicalProfile>());
