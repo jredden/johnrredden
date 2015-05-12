@@ -2644,76 +2644,76 @@ public class GenAtmosphere {
 			}
 		});
 
-
+		// cryogenic dwarf planetoid
 		ruleMap.put("PYEL_SG_I" + "0" + "0", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 27.0, 9.0, starFactory);
 			}
 		});
-
+		// ice dwarf planetoid
 		ruleMap.put("PYEL_SG_I" + "0" + "1", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 33.0, 11.0, starFactory);
 			}
 		});
-
+		// rocky dwarf planetoid
 		ruleMap.put("PYEL_SG_I" + "0" + "2", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 36.0, 11.0, starFactory);
 			}
 		});
-
+		// cythian dwarf planetoid
 		ruleMap.put("PYEL_SG_I" + "0" + "3", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 40.0, 11.0, starFactory);
 			}
 		});
-
+		// molten dwarf planetoid
 		ruleMap.put("PYEL_SG_I" + "0" + "4", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 11.0, 3.0, starFactory);
 			}
 		});
 
 		ruleMap.put("PYEL_SG_I" + "0" + "5", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				throw new RuntimeException("cannot be ...");
 			}
 		});
-
+		// cryogenic mini planetoid
 		ruleMap.put("PYEL_SG_I" + "1" + "0", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 29.0, 8.0, starFactory);
 			}
 		});
-
+		// ice mini planetoid
 		ruleMap.put("PYEL_SG_I" + "1" + "1", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 31.0, 10.0, starFactory);
 			}
 		});
-
+		// rock mini planetoid
 		ruleMap.put("PYEL_SG_I" + "1" + "2", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 36.0, 12.0, starFactory);
 			}
 		});
-
+		// cythian mini planetoid
 		ruleMap.put("PYEL_SG_I" + "1" + "3", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 42.0, 18.0, starFactory);
 			}
 		});
-
+		// molten mini planetoid
 		ruleMap.put("PYEL_SG_I" + "1" + "4", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				return common("<", 15.0, 10.0, starFactory);
 			}
 		});
 
 		ruleMap.put("PYEL_SG_I" + "1" + "5", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
-				return null;
+				throw new RuntimeException("cannot be ...");
 			}
 		});
 
