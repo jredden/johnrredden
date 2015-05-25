@@ -5670,7 +5670,9 @@ public class GenAtmosphere {
 				throw new RuntimeException("cannot be ...");
 			}
 		});
+
 		// cryogenic dwarf planetoid
+
 		ruleMap.put("LTBL_GI_I" + "0" + "0", new AtmosphereResolutionIF() {
 			public List<Atmosphere> resolve(StarFactory starFactory) {
 				return common("<", 25.0, 8.0, starFactory);
