@@ -9,6 +9,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import com.zenred.cosmos.domain.Atmosphere;
+import com.zenred.cosmos.domain.AtmosphereDao;
 import com.zenred.cosmos.domain.AtmosphereParts;
 import com.zenred.cosmos.domain.Planetoid;
 import com.zenred.cosmos.domain.Star;
@@ -15004,7 +15005,7 @@ public class GenAtmosphere {
 	private static GenAtmosphere genAtmosphere = new GenAtmosphere();
 	private static List<RadiusRange> planetsRadius = new ArrayList<RadiusRange>();
 	static {
-		planetsRadius.add(genAtmosphere.new RadiusRange(new Double(300.0),
+		planetsRadius.add(genAtmosphere.new RadiusRange(new Double(0.0),
 				"dwarf planetoid", 0)); // dwarf planetoid start range
 		planetsRadius.add(genAtmosphere.new RadiusRange(new Double(1500.0),
 				"mini planetoid", 1)); // mini planetoid start range
@@ -15044,15 +15045,17 @@ public class GenAtmosphere {
 	List<Atmosphere> persistAtmosphere(Star star, Planetoid planetoid) {
 		List<Atmosphere> atmospheres = null;
 
-		StarFactory starFactory = StarFactory.accessByString(star
+		StarFactory starFactory = StarFactory.accessByFullName(star
 				.getStar_color());
 		Double planetoidTemperature = planetoid.getTemperature();
 		Double planetoidRadius = planetoid.getRadius();
+		logger.info("PLANETOID RADIUS:"+planetoidRadius);
 		Integer radiusKey = null;
 		for (int idex = 0;; idex++) {
 			if (planetoidRadius >= planetsRadius.get(idex).radius
 					&& planetoidRadius < planetsRadius.get(idex + 1).radius) {
 				radiusKey = planetsRadius.get(idex).key;
+				logger.info("PLANET_SIZE:"+planetsRadius.get(idex).description);
 				break;
 			}
 		}
@@ -15061,14 +15064,21 @@ public class GenAtmosphere {
 			if (planetoidTemperature >= temperaturesRange.get(idex).temperature
 					&& planetoidTemperature < temperaturesRange.get(idex + 1).temperature) {
 				temperatureKey = temperaturesRange.get(idex).key;
+				logger.info("TEMPERATURE_TYPE:"+temperaturesRange.get(idex).description);
 				break;
 			}
 		}
 
-		String key = StarFactory.getRead(starFactory) + radiusKey
+		String key = starFactory.name() + radiusKey
 				+ temperatureKey;
 
 		atmospheres = ruleMap.get(key).resolve(starFactory);
-		return atmospheres;
+		List<Atmosphere> savedAtmospheres = new ArrayList<Atmosphere>();
+		AtmosphereDao atmosphereDao = new AtmosphereDao();
+		for(Atmosphere atmosphere : atmospheres){
+			atmosphere.setPlanetoidId(planetoid.getPlanetoidId());
+			savedAtmospheres.add(atmosphereDao.addAtmosphere(atmosphere));
+		}
+		return savedAtmospheres;
 	}
 }

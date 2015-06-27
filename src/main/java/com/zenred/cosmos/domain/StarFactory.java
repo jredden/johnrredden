@@ -2995,13 +2995,22 @@ public enum StarFactory {
 	private static Logger logger = Logger.getLogger(StarFactory.class);
 	private static StarFactory[] starColors = StarFactory.values();
 	private static Map<String, StarFactory> normalizedStarColors = new HashMap<String, StarFactory>();
+	private static Map<String, StarFactory> fullNameStarColors = new HashMap<String, StarFactory>();
 	static{
 		for (int idex = 0; idex < starColors.length; idex ++){
 			normalizedStarColors.put(starColors[idex].name(), starColors[idex]);
 		}
 		logger.info("NORMALIZED STAR COLORS:"+normalizedStarColors);
+		for (int idex = 0; idex < starColors.length; idex ++){
+			fullNameStarColors.put(starColors[idex].read().read(), starColors[idex]);
+		}
+		logger.info("FULL NAME STAR_COLORS:"+fullNameStarColors);
 	}
 	public static StarFactory accessByString(String starColor){
 		return normalizedStarColors.get(starColor);
+	}
+	
+	public static StarFactory accessByFullName(String fullColorName){
+		return fullNameStarColors.get(fullColorName);
 	}
 }
