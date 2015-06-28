@@ -15,6 +15,12 @@ public class GenSystem {
 	public static System genSystem() {
 		Double ucoordinate = new Double(GenRandomRolls.Instance().getD100000());
 		Double vcoordinate = new Double(GenRandomRolls.Instance().getD100000());
+		System system = genSystemFromOrigin(ucoordinate, vcoordinate);
+		return system;
+	}
+	
+	// generate a system from a distinct origin
+	public static System genSystemFromOrigin(Double ucoordinate, Double vcoordinate){
 		Double distance_rel = Math.sqrt(Math.pow(ucoordinate, 2.0)
 				+ Math.pow(vcoordinate, 2.0));
 		Double distance_abs = Math.abs(galacticCentre - distance_rel);
@@ -22,7 +28,7 @@ public class GenSystem {
 				vcoordinate, null);
 		system.setSystemName("System." + ucoordinate.intValue() + '.'
 				+ vcoordinate.intValue());
-		return system;
+		return system;		
 	}
 
 	/**
