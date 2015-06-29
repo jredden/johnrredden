@@ -45,7 +45,11 @@ public class SystemDao extends AbstractJDBCDao {
 			+ " = ? AND sy." + VCOORDINATE + " = ? "
 			;
 	
-
+	
+	private static String readNumberOfSystems = "SELECT COUNT(*) "
+			+  " FROM " + SYSTEM 
+			;
+	
 	private static String updateSystemById = "UPDATE " + SYSTEM + " sy SET "
 			+ " sy."+DISTANCE_TO_GALACTIC_CENTRE+" = ?  "
 			+ ", sy."+UCOORDINATE+" = ?  "
@@ -156,7 +160,6 @@ public class SystemDao extends AbstractJDBCDao {
 	 */
 	public Boolean doesSystemExist(Double ucoordinate, Double vcoordinate){
 		Boolean answer = true;
-		System system = new System();
 		Object[] param = { ucoordinate, vcoordinate};
 		
 		int count  = super.jdbcSetUp().getSimpleJdbcTemplate()
@@ -165,5 +168,15 @@ public class SystemDao extends AbstractJDBCDao {
 			answer = false;
 		}
 		return answer;
+	}
+	
+	/**
+	 * 
+	 * @return number of systems in the database
+	 */
+	public Long numberOfSystems(){
+		long count  = super.jdbcSetUp().getSimpleJdbcTemplate()
+				.queryForInt(readNumberOfSystems);
+		return count;
 	}
 }

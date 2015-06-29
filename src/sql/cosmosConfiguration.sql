@@ -1,0 +1,1 @@
+INSERT INTO `Configuration` (`starDensity`) VALUES (0.30);

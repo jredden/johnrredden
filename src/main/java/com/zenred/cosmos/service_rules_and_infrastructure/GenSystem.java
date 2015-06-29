@@ -33,21 +33,32 @@ public class GenSystem {
 
 	/**
 	 * generates a system where one does not exist
+	 * Here is where you actually persist the system.
 	 * 
 	 * @param system
 	 * @return
 	 */
 	public static System candidate(System system) {
 		System candidate = system;
-		long checkForFull = 0;
-		while (systemDao.doesSystemExist(candidate.getUcoordinate(),
+		long checkForFull = systemDao.numberOfSystems();
+		if(!systemDao.doesSystemExist(candidate.getUcoordinate(),
 				candidate.getVcoordinate())) {
-			if (checkForFull++ >= dataBaseFull) {
+			if (checkForFull >= dataBaseFull) {
 				throw new RuntimeException("All Systems generated");
 			}
 			candidate = genSystem();
+			return systemDao.addSystem(candidate);
 		}
-		return systemDao.addSystem(candidate);
+		return candidate;
+	}
+	
+	/**
+	 * 
+	 * @param system
+	 * @return does it exist or not
+	 */
+	public static Boolean doesSystemExist(System system){
+		return systemDao.doesSystemExist(system.getUcoordinate(), system.getVcoordinate());
 	}
 
 }
