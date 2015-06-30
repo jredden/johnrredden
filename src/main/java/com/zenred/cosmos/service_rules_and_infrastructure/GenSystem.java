@@ -32,7 +32,6 @@ public class GenSystem {
 	}
 
 	/**
-	 * generates a system where one does not exist
 	 * Here is where you actually persist the system.
 	 * 
 	 * @param system
@@ -46,7 +45,6 @@ public class GenSystem {
 			if (checkForFull >= dataBaseFull) {
 				throw new RuntimeException("All Systems generated");
 			}
-			candidate = genSystem();
 			return systemDao.addSystem(candidate);
 		}
 		return candidate;

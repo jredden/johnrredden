@@ -55,6 +55,10 @@ public class ClusterRepDao extends AbstractJDBCDao{
 	private static String deleteClusterRep = "DELETE FROM " + CLUSTER_REP + " WHERE "
 			+ CLUSTER_REP_ID + " = ?";
 	
+	private static String areThereStarsInTheSystem = "SELECT COUNT(*) FROM " + CLUSTER_REP 
+			+ " WHERE " + SYSTEM_ID + " = ?"
+			;
+	
 	/**
 	 * create a cluster representation
 	 * 
@@ -149,5 +153,20 @@ public class ClusterRepDao extends AbstractJDBCDao{
 				.getSimpleJdbcTemplate()
 				.update(deleteClusterRep,
 						new Object[] { clusterRep.getClusterRepId() });
+	}
+	
+	/**
+	 * 
+	 * @param system
+	 * @return whether there are stars in the system
+	 */
+	public Boolean areThereStarsInSystem(System system){
+		Boolean answer = false;
+		Integer numberOfClusters = super.jdbcSetUp().getSimpleJdbcTemplate()
+				.queryForInt(areThereStarsInTheSystem, system.getSystemId());
+		if(numberOfClusters > 0){
+			answer = true;
+		}
+		return answer;
 	}
 }
