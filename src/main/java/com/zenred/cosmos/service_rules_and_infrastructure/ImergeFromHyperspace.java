@@ -1,5 +1,7 @@
 package com.zenred.cosmos.service_rules_and_infrastructure;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -10,6 +12,9 @@ import com.zenred.cosmos.domain.ClusterRep;
 import com.zenred.cosmos.domain.ConfigurationDao;
 import com.zenred.cosmos.domain.Planetoid;
 import com.zenred.cosmos.domain.Star;
+import com.zenred.cosmos.domain.SystemDao;
+import com.zenred.cosmos.vizualization.SystemResponse;
+import com.zenred.cosmos.vizualization.SystemVizCentric;
 import com.zenred.util.GenRandomRolls;
 
 public class ImergeFromHyperspace {
@@ -20,13 +25,16 @@ public class ImergeFromHyperspace {
 	public static int uDistribution = 5;
 	public static int vDistribution = 5;
 		
-	public static void dontKnowWhereShipIs(){
-		 doesKnowWhereShipIs(GenSystem.genSystem());
+	public static SystemResponse dontKnowWhereShipIs(){
+		 return doesKnowWhereShipIs(GenSystem.genSystem());
 	}
 	
-	public static void doesKnowWhereShipIs(com.zenred.cosmos.domain.System system){
+	public static SystemResponse doesKnowWhereShipIs(com.zenred.cosmos.domain.System system){
 		ConfigurationDao configurationDao = new ConfigurationDao();
 		Double target = configurationDao.starDensity();
+		SystemDao systemDao = new SystemDao();
+		
+		List<SystemVizCentric> systemVizCentrics = new ArrayList<SystemVizCentric>();
 
 		
 		Double startU = system.getUcoordinate()-2; // centre on initial U,V coordinate
@@ -37,10 +45,13 @@ public class ImergeFromHyperspace {
 				com.zenred.cosmos.domain.System nextSystem = GenSystem.genSystemFromOrigin(startU, startV);
 				if(GenSystem.doesSystemExist(nextSystem)){
 					logger.info("EXISTING SYSTEM_"+nextSystem);
+					com.zenred.cosmos.domain.System existingSystem = systemDao.readSystemByName(nextSystem.getSystemName());
+					addVizCentricSystem(systemVizCentrics, existingSystem);
 					continue;
 				}
 				com.zenred.cosmos.domain.System readSystem = GenSystem.candidate(nextSystem);
 				logger.info("NEW SYSTEM_"+readSystem);
+				addVizCentricSystem(systemVizCentrics, readSystem);
 				startV += 1.0;
 				Double draw = GenRandomRolls.Instance().draw_rand();
 				if(draw <= target){
@@ -50,6 +61,8 @@ public class ImergeFromHyperspace {
 			startV = system.getVcoordinate()-2;
 			startU += 1.0;
 		}
+		
+		return buildSystemResponse(systemVizCentrics);
 	}
 	
 	/**
@@ -82,4 +95,27 @@ public class ImergeFromHyperspace {
 			}
 		}
 	}
+	
+	private static void addVizCentricSystem(List<SystemVizCentric> systemVizCentrics, com.zenred.cosmos.domain.System system){
+		SystemVizCentric systemVizCentric = new SystemVizCentric();
+		systemVizCentric.setDistance_to_galaxy_centre(system.getDistance_to_galaxy_centre());
+		systemVizCentric.setSystemName(system.getSystemName());
+		systemVizCentric.setUcoordinate(system.getUcoordinate());
+		systemVizCentric.setVcoordinate(system.getVcoordinate());
+		systemVizCentrics.add(systemVizCentric);
+	}
+	
+	private static SystemResponse buildSystemResponse( List<SystemVizCentric> systemVizCentrics){
+		SystemResponse systemResponse = new SystemResponse();
+		Object[] stuff =  systemVizCentrics.toArray();
+		SystemVizCentric [] systemVizCentricArray = new SystemVizCentric[stuff.length];
+		int idex = 0;
+		for(Object thingie : stuff){
+			systemVizCentricArray[idex] = (SystemVizCentric) stuff[idex];
+			++idex;
+		}
+		systemResponse.setSystemVizCentrics(systemVizCentricArray);
+		return systemResponse;
+	}
+	
 }
