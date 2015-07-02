@@ -17,6 +17,7 @@
 	<bean id="firstAccess" class="com.zenred.johntredden.controller.FirstAccess"/>
 	<bean id="answerQuestion1" class="com.zenred.johntredden.controller.AnswerQuestion1"/>
 	<bean id="createLogin" class="com.zenred.johntredden.controller.CreateLogin"/>
+	<bean id="starSystems" class="com.zenred.cosmos.controller.StarSystems"/>
 	
 	<bean id="urlMapping"
 		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
@@ -26,6 +27,7 @@
 				<prop key="/firstAccess.html">firstAccess</prop>
 				<prop key="/answerQuestion1.html">answerQuestion1</prop>
 				<prop key="/createLogin.html">createLogin</prop>
+				<prop key="/starSystems.html">starSystems</prop>
 			</props>
 		</property>
 	</bean>
