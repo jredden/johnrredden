@@ -2,6 +2,8 @@ package com.zenred.cosmos.vizualization;
 
 import java.util.Arrays;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+@XStreamAlias("systems")
 public class SystemResponse {
 	
 	// An array of visualization centric star systems.

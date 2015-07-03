@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="keywords"
+	content="Hawaii, 
+Globalization, 
+ScienceFiction, 
+Coffee",
+ZenredComputing" />
+
+<link href="css/main.css" rel="stylesheet" type="text/css">
+
+<script src="../js/jquery-1.8.1.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="../js/jquery.form.js"></script>
+<script type="text/javascript">
+
+var tagOperations = (function(){
+	// private
+	var showOperations = [
+	                  	];
+	var hideOperations = [
+	                  	];
+	var references = {	
+	}
+	
+	// public 
+	return {
+		show: function(showList){ 
+			for(var idex = 0; idex < showList.length; idex++){
+				console.log("show:" + showList[idex]);
+				var token2 = references[showList[idex]];
+				showOperations[token2]();
+			}
+		},
+		hide: function(hideList){
+			for (var idex = 0; idex < hideList.length; idex++){
+				console.log("hide:" + hideList[idex]);
+				var token2 = references[hideList[idex]];
+				hideOperations[token2]();
+			}
+		},
+		hideAll: function(){
+			for(token in hideOperations){ 
+				console.log("token:" + token);
+				var op = hideOperations[token];
+				op();
+			}
+		},
+		both: function(showList, hideList){
+			tagOperations.show(showList);
+			tagOperations.hide(hideList);
+		}
+		
+	}
+}());	
+	
+$(document).ready(function() {
+	console.log("in ready");
+	
+	$("#home").click(function(){
+		window.location = "http://www.johntredden.com";
+	});
+}); <!-- end ready -->
+
+</script>
+
+<title>Cosmos Website</title>
+</head>
+<body id="cosmosspace">
+	<div id="wrapperspace">
+			<header id="topHeader">
+			<hgroup>
+				<nav id="topNav">
+					<button id="home">Home</button>
+					<button id="jump">Activate Starships Star Drive</button>
+					<span style="color:lightyellow;font-weight:bold">To travel to a new star system activate the Star Drive</span>
+				</nav>
+			</hgroup>
+		</header>
+	</div> <!--  wrapperspace -->
+	<section id="cosmosspacedetail">
+	
+	</section> <!-- end cosmosspacedetail -->
+</body>
+</html>
