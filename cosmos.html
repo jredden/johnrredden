@@ -15,6 +15,8 @@ ZenredComputing" />
 <script type="text/javascript" src="../js/jquery.form.js"></script>
 <script type="text/javascript">
 
+const CHANCE_FOR_STAR_ON_START = 0.1;	// one in ten
+
 var tagOperations = (function(){
 	// private
 	var showOperations = [
@@ -61,8 +63,68 @@ $(document).ready(function() {
 	$("#home").click(function(){
 		window.location = "http://www.johntredden.com";
 	});
+	
+	firstStop.ship();
 }); <!-- end ready -->
 
+/**
+ * used to draw the initial canvas
+ */
+var draw = (function(){
+	
+	// private
+	var sizes = [5,4,3,2];
+	var colors = ['white', 'lightblue', 'blue', 'lightyellow', 'yellow', 'orange', 'red', '#580058']
+	var sizesLength = sizes.length;
+	var colorsLength = colors.length;
+	
+	// public
+	return {
+		size: function(){
+			var index_s = Math.floor(Math.random() * sizesLength);
+			return sizes[index_s];
+		},
+		color: function(){
+			var index_c = Math.floor(Math.random() * colors.length);
+			return colors[index_c];
+		},
+		chance: function(){
+			if(Math.floor(Math.random())< CHANCE_FOR_STAR_ON_START){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+	}
+}); <!-- end draw -->
+
+/*
+ * When opening the page, this is the start point
+ */
+var firstStop = (function () {
+	return{
+		ship: function(){
+			console.log("ship outside cosmos");
+			var canvas = document.getElementById("firstposition");
+			var ctx = canvas.getContext("2d");
+			ctx.canvas.width = window.innerWidth;
+			ctx.canvas.height = window.innerHeight;
+			ctx.fillStyle = "#00003D";
+			ctx.fillRect(0,20,window.innerWidth, window.innerHeight);
+			
+			var centreX = canvas.width/10;
+			var centreY = canvas.height/10;
+			var radius = 5;
+			ctx.beginPath();
+			ctx.arc(centreX, centreY, radius, 0, 2*Math.PI, false);
+			ctx.fillStyle = 'lightyellow';
+			ctx.fill();
+			ctx.lineWidth=0;
+			ctx.stroke();
+		}
+	}
+})();
 </script>
 
 <title>Cosmos Website</title>
@@ -74,7 +136,7 @@ $(document).ready(function() {
 				<nav id="topNav">
 					<button id="home">Home</button>
 					<button id="jump">Activate Starships Star Drive</button>
-					<span style="color:lightyellow;font-weight:bold">To travel to a new star system activate the Star Drive</span>
+					<span id="jumphint" style="color:lightyellow;font-weight:bold">To travel to a new star system activate the Star Drive</span>
 				</nav>
 			</hgroup>
 		</header>
@@ -82,5 +144,11 @@ $(document).ready(function() {
 	<section id="cosmosspacedetail">
 	
 	</section> <!-- end cosmosspacedetail -->
+	<section id="shipstart">
+	<canvas id="firstposition">
+	Your browser does not support the HTML5 canvas tag.
+	</canvas>
+	
+	</section> <!--  end shipstart -->
 </body>
 </html>

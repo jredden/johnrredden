@@ -296,6 +296,10 @@ nav:#topNav {
 	background-color: #B8B3B3;
 }
 
+canvas:#firstposition{
+	style: border:1px solid #c3c3c3;
+}
+
 .button{
 	margin-left: 107px;
 	background-color:orange;
