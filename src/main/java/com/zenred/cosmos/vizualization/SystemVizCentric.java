@@ -35,10 +35,10 @@ public class SystemVizCentric {
 	}
 	@Override
 	public String toString() {
-		return "SystemVizCentric [distance_to_galaxy_centre="
-				+ distance_to_galaxy_centre + ", ucoordinate=" + ucoordinate
-				+ ", vcoordinate=" + vcoordinate + ", systemName=" + systemName
-				+ "]";
+		return "SystemVizCentric {\"distance_to_galaxy_centre:\"="
+				+ distance_to_galaxy_centre + "}, {\"ucoordinate:\"=" + ucoordinate
+				+ "}, {\"vcoordinate\"}=" + vcoordinate + "}, {\"systemName\"=\"" + systemName
+				+ "\"}";
 	}
 	
 	

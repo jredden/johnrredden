@@ -20,10 +20,27 @@ const CHANCE_FOR_STAR_ON_START = 0.1;	// one in ten
 var tagOperations = (function(){
 	// private
 	var showOperations = [
+	  	       			function shipStartSect(){
+		   					$('#shipStart').show();
+		   					$('#firstposition').show();
+		   				},
+		   				function cosmosSpaceDetail(){
+		   					$('#cosmosspacedetail').show();
+		   				}
+
 	                  	];
 	var hideOperations = [
+		  	       			function shipStartSect(){
+			   					$('#shipStart').hide();
+			   					$('#firstposition').hide();
+			   				},
+			   				function cosmosSpaceDetail(){
+			   					$('#cosmosspacedetail').hide();
+			   				}
 	                  	];
 	var references = {	
+			"shipStart" : 0,
+			"cosmosSpaceDetail" : 1
 	}
 	
 	// public 
@@ -59,13 +76,48 @@ var tagOperations = (function(){
 	
 $(document).ready(function() {
 	console.log("in ready");
+	tagOperations.hideAll();
 	
 	$("#home").click(function(){
 		window.location = "http://www.johntredden.com";
 	});
-	
+	var showList = ['shipStart'];
+	tagOperations.show(showList);
 	firstStop.ship();
+	
+	$("#jump").click(function(){
+		jumpRequest.jsonCall();
+	});
+
 }); <!-- end ready -->
+
+/**
+ *  when the star ship activates it's drive
+ */
+var jumpRequest = (function () {
+	return{
+		jsonCall: function(){
+			console.log("start jumpRequest");
+			$.getJSON("http://www.johntreddenlocal.com:8080/starSystems.html",
+					function(json){           // callback
+						console.log("in jumpRequest");
+						processJump.jsonProcess(json);
+					}		
+			);
+		}
+	}
+})();
+
+var processJump = (function () {
+	return{
+		jsonProcess: function(json){
+			print_recursive(json);
+			var showList = ['cosmosSpaceDetail'];
+			var hideList = ['shipStart'];
+			tagOperations.both(showList, hideList);
+		}
+	}
+})();
 
 /**
  * used to draw the initial canvas
@@ -80,7 +132,7 @@ var draw = (function(){
 	
 	// public
 	return {
-		size: function(){
+		sizeStar: function(){
 			var index_s = Math.floor(Math.random() * sizesLength);
 			return sizes[index_s];
 		},
@@ -89,7 +141,9 @@ var draw = (function(){
 			return colors[index_c];
 		},
 		chance: function(){
-			if(Math.floor(Math.random())< CHANCE_FOR_STAR_ON_START){
+			var randomNumber = Math.random();
+			console.log("randomNumber:"+randomNumber);
+			if(randomNumber < CHANCE_FOR_STAR_ON_START){
 				return true;
 			}
 			else{
@@ -97,7 +151,7 @@ var draw = (function(){
 			}
 		}
 	}
-}); <!-- end draw -->
+}()); <!-- end draw -->
 
 /*
  * When opening the page, this is the start point
@@ -113,18 +167,46 @@ var firstStop = (function () {
 			ctx.fillStyle = "#00003D";
 			ctx.fillRect(0,20,window.innerWidth, window.innerHeight);
 			
-			var centreX = canvas.width/10;
-			var centreY = canvas.height/10;
-			var radius = 5;
-			ctx.beginPath();
-			ctx.arc(centreX, centreY, radius, 0, 2*Math.PI, false);
-			ctx.fillStyle = 'lightyellow';
-			ctx.fill();
-			ctx.lineWidth=0;
-			ctx.stroke();
+			var startx = 5;
+			var starty = 15;
+			
+			while (starty < canvas.height){
+				while(startx < canvas.width){
+					var chance = draw.chance();
+					if(chance){
+						var size = draw.sizeStar();
+						var color = draw.color();
+						console.log("size:" + size+ " color:" + color + " chance:" + chance);
+						ctx.beginPath();
+						ctx.arc(startx, starty, size, 0, 2*Math.PI, false);
+						ctx.fillStyle = color;
+						ctx.fill();
+						ctx.lineWidth=0;
+						ctx.stroke();
+					}
+					startx += 7;
+				}
+				startx = 5;
+				starty += 7;
+			}
 		}
 	}
 })();
+
+//for debugging
+function print_recursive(printthis) {
+    var output = '';
+
+    if($.isArray(printthis) || typeof(printthis) == 'object') {
+        for(var i in printthis) {
+        	console.log("??:"+printthis[i]+"::"+i);
+            output += i + ' : ' + print_recursive(printthis[i]) + '\n';
+        }
+    }else {
+        output += printthis;
+    }
+    console.log("PRINT:"+output);
+}
 </script>
 
 <title>Cosmos Website</title>
@@ -147,6 +229,7 @@ var firstStop = (function () {
 	<section id="shipstart">
 	<canvas id="firstposition">
 	Your browser does not support the HTML5 canvas tag.
+	Please upgrade to a version with full support for HTML5.
 	</canvas>
 	
 	</section> <!--  end shipstart -->
