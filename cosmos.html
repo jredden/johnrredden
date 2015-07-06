@@ -73,6 +73,45 @@ var tagOperations = (function(){
 		
 	}
 }());	
+/**
+ * top object of a star system
+ */
+var systemVizCentric = (function(){
+	// private 
+	var distanceToGalacticCentre;
+	var uCoordinate;
+	var vCoordinate;
+	var systemName;
+	
+	// public
+	return {
+		setDistanceToGalacticCentre: function(distance){
+			distanceToGalacticCentre = distance;
+		},
+		getDistanceToGalaticCentre: function(){
+			return distanceToGalacticCentre;
+		},
+		setUCoordinate: function(ucoord){
+			uCoordinate = ucoord;
+		},
+		getUCoordinate: function(){
+			return uCoordinate;
+		},
+		setVCoordinate: function(vcoord){
+			vCoordinate = vcoord;
+		},
+		getVCoordinate: function(){
+			return vCoordinate;
+		},
+		setSystemName(name){
+			systemName = name;
+		},
+		getSystemName(){
+			return systemName;
+		}
+	}
+	
+});
 	
 $(document).ready(function() {
 	console.log("in ready");
@@ -107,11 +146,62 @@ var jumpRequest = (function () {
 		}
 	}
 })();
-
+/**
+ * returned JSON is broken.  A package name is embeded in the message so
+ * it has to be parsed and fixed.
+ */
 var processJump = (function () {
+	var doOperation = function(key, value, systemVizCentricInstance){
+		
+		// private
+
+		var systemsOperations = [
+			function distance(instance, val){
+				instance.setDistanceToGalacticCentre(val);
+			},
+			function ucoord(instance, val){
+				instance.setUCoordinate(val);
+			},
+			function vcoord(instance, val){
+				instance.setVCoordinate(val);
+			},
+			function name(instance, val){
+				instance.setSystemName(val);
+			}
+		                      ]
+		var operationArray = {
+				"distance_to_galaxy_centre" : 0,
+				"ucoordinate" : 1,
+				"vcoordinate" : 2,
+				"systemName" : 3
+		}
+		
+		return systemsOperations[operationArray[key]](systemVizCentricInstance, value);
+	}
+	
+	
+	var systemVizCentricArray = new Array();
+	
+	var parseBroken = function(printthis){
+	    if($.isArray(printthis) || typeof(printthis) == 'object') {
+	        for(var i in printthis) {
+	        	var element = "::"+printthis[i]+"::"+i+"::";
+	        	var a_match = element.toString().match("[object Object]");
+	        	// console.log("MATCH:"+a_match);
+	        	if(a_match != 'o'){
+	        		var entry = element.split("::");
+		        	console.log("ENTRY"+ entry[0]+ "|" + entry[1]+ "|" + entry[2]);
+		        	var instance = doOperation(entry[2], entry[1], new systemVizCentric());
+		        	systemVizCentricArray.push(instance);
+	        	}
+	            parseBroken(printthis[i]);
+	        }
+	    }
+	}
+	
 	return{
 		jsonProcess: function(json){
-			print_recursive(json);
+			parseBroken(json);
 			var showList = ['cosmosSpaceDetail'];
 			var hideList = ['shipStart'];
 			tagOperations.both(showList, hideList);
@@ -119,13 +209,15 @@ var processJump = (function () {
 	}
 })();
 
+
+
 /**
  * used to draw the initial canvas
  */
 var draw = (function(){
 	
 	// private
-	var sizes = [5,4,3,2];
+	var sizes = [5,4,4,3,3,3,3,2,2,2,2,2];
 	var colors = ['white', 'lightblue', 'blue', 'lightyellow', 'yellow', 'orange', 'red', '#580058']
 	var sizesLength = sizes.length;
 	var colorsLength = colors.length;
@@ -142,7 +234,7 @@ var draw = (function(){
 		},
 		chance: function(){
 			var randomNumber = Math.random();
-			console.log("randomNumber:"+randomNumber);
+			// console.log("randomNumber:"+randomNumber);
 			if(randomNumber < CHANCE_FOR_STAR_ON_START){
 				return true;
 			}
