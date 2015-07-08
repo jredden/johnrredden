@@ -26,6 +26,9 @@ var tagOperations = (function(){
 		   				},
 		   				function cosmosSpaceDetail(){
 		   					$('#cosmosspacedetail').show();
+		   				},
+		   				function jumping(){
+		   					$('#jumping').show();
 		   				}
 
 	                  	];
@@ -36,11 +39,16 @@ var tagOperations = (function(){
 			   				},
 			   				function cosmosSpaceDetail(){
 			   					$('#cosmosspacedetail').hide();
+			   				},
+			   				function jumping(){
+			   					$('#jumping').hide();
 			   				}
+
 	                  	];
 	var references = {	
 			"shipStart" : 0,
-			"cosmosSpaceDetail" : 1
+			"cosmosSpaceDetail" : 1,
+			"jumping" : 2
 	}
 	
 	// public 
@@ -137,6 +145,10 @@ var jumpRequest = (function () {
 	return{
 		jsonCall: function(){
 			console.log("start jumpRequest");
+			var showList = ['jumping'];
+			var hideList = ['shipStart','cosmosSpaceDetail'];
+			tagOperations.both(showList, hideList);
+
 			$.getJSON("http://www.johntreddenlocal.com:8080/starSystems.html",
 					function(json){           // callback
 						console.log("in jumpRequest");
@@ -212,7 +224,7 @@ var processJump = (function () {
 			systemVizCentricArray = [];
 			parseBroken(json);
 			var showList = ['cosmosSpaceDetail'];
-			var hideList = ['shipStart'];
+			var hideList = ['shipStart','jumping'];
 			tagOperations.both(showList, hideList);
 			starSystems.visualize(systemVizCentricArray);
 		}
@@ -332,6 +344,10 @@ var starSystems = (function () {
 				ctx.strokeStyle= "lightblue";
 				ctx.stroke();
 				
+				var header = "U"+systemVizCentricArray[idex].getUCoordinate()+":V"+systemVizCentricArray[idex].getVCoordinate();
+				console.log("HEADER:"+header);
+				ctx.font="16px Verdana";
+				ctx.strokeText(header, runningX+2, runningY+15);
 				runningY += incrementHeaderX;
 				
 				if(flipFlop == 0){
@@ -402,6 +418,7 @@ function print_recursive(printthis) {
 	</canvas>
 	
 	</section> <!-- end cosmosspacedetail -->
+	
 	<section id="shipstart">
 	<canvas id="firstposition">
 	Your browser does not support the HTML5 canvas tag.
@@ -409,5 +426,10 @@ function print_recursive(printthis) {
 	</canvas>
 	
 	</section> <!--  end shipstart -->
+	<section>
+	<div id="jumping">
+	<img src="./JumpingToLightSpeed.gif" width="1360" height="1000" />
+	</div>
+	</section>
 </body>
 </html>
