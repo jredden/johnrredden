@@ -8,10 +8,11 @@ import com.zenred.cosmos.domain.ClusterRepDao;
 import com.zenred.cosmos.domain.Star;
 import com.zenred.cosmos.domain.StarDao;
 import com.zenred.cosmos.domain.SystemDao;
+import com.zenred.cosmos.vizualization.ClusterResponse;
 
 public class ExamineSystems {
 	
-	public static List<String> startWithCluster(String systemName){
+	protected static List<String> startWithCluster(String systemName){
 		SystemDao systemDao = new SystemDao();
 		ClusterRepDao clusterRepDao = new ClusterRepDao();
 		com.zenred.cosmos.domain.System system = systemDao.readSystemByName(systemName);
@@ -39,6 +40,23 @@ public class ExamineSystems {
 			keyValuePairs.add(keyValuePair.toString());
 		}
 		return keyValuePairs;
+	}
+	/**
+	 * builds message with all the stars in the system
+	 * 
+	 * @param systemName
+	 * @return
+	 */
+	public static ClusterResponse starsInCluster(String systemName){
+		List<String> keyValuePairs = startWithCluster(systemName);
+		String [] keyValueArray = new String[keyValuePairs.size()];
+		int idex = 0;
+		for (String keyValue : keyValuePairs){
+			keyValueArray[idex++] = keyValue;
+		}
+		ClusterResponse clusterResponse = new ClusterResponse();
+		clusterResponse.setStars(keyValueArray);
+		return clusterResponse;
 	}
 
 }
