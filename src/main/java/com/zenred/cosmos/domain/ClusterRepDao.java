@@ -43,6 +43,18 @@ public class ClusterRepDao extends AbstractJDBCDao{
 			+ " WHERE cr."+CLUSTER_NAME+ " = ?" 
 			;
 	
+	private static String readClusterRepBySystemId = "SELECT "
+			+ "cr."+CLUSTER_REP_ID+" "
+			+ ", cr."+SYSTEM_ID+" "
+			+ ", cr."+CLUSTER_NAME+" "
+			+ ", cr."+DISTANCE_SYS_VIRT_CENTRE+" "
+			+ ", cr."+ANGLE_IN_RADIANS+" "
+			+ ", cr."+CLUSTER_DESCRIPTION+" "
+			+ ", cr."+DATESTAMP+" "
+			+ " FROM " + CLUSTER_REP + " cr "
+			+ " WHERE cr."+SYSTEM_ID+ " = ?" 
+			;
+	
 	private static String updateClusterRepById = "UPDATE "+ CLUSTER_REP + " cr SET "
 			+ " cr."+SYSTEM_ID+" = ? "
 			+ ", cr."+CLUSTER_NAME+" = ? "
@@ -121,6 +133,28 @@ public class ClusterRepDao extends AbstractJDBCDao{
 		clusterRep.setSystemId(new Integer(s_systemId));
 		String s_clusterRep_id = clusterRepMap.get(CLUSTER_REP_ID).toString();
 		clusterRep.setClusterRepId(new Integer(s_clusterRep_id));
+		return clusterRep;
+	}
+	
+	public ClusterRep readClusterRepBySystemId(System system){
+		
+		ClusterRep clusterRep = new ClusterRep();
+		Object[] param = { system.getSystemId()};
+		Map<String, Object> clusterRepMap = null;
+		clusterRepMap = super.jdbcSetUp().getSimpleJdbcTemplate()
+				.queryForMap(readClusterRepBySystemId, param);
+		String s_angleInRadians = clusterRepMap.get(ANGLE_IN_RADIANS).toString();
+		clusterRep.setAngle_in_radians(new Double(s_angleInRadians));
+		clusterRep.setCluster_description(clusterRepMap.get(CLUSTER_DESCRIPTION).toString());
+		clusterRep.setClusterName(clusterRepMap.get(CLUSTER_NAME).toString());
+		clusterRep.setDateStamp(clusterRepMap.get(DATESTAMP).toString());
+		String s_distance_sys_virt_centre = clusterRepMap.get(DISTANCE_SYS_VIRT_CENTRE).toString();
+		clusterRep.setDistance_sys_virt_centre(new Double(s_distance_sys_virt_centre));
+		String s_systemId = clusterRepMap.get(SYSTEM_ID).toString();
+		clusterRep.setSystemId(new Integer(s_systemId));
+		String s_clusterRep_id = clusterRepMap.get(CLUSTER_REP_ID).toString();
+		clusterRep.setClusterRepId(new Integer(s_clusterRep_id));
+
 		return clusterRep;
 	}
 	

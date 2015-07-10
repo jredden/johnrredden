@@ -23,20 +23,20 @@ public class ExamineSystems {
 		StarDao starDao = new StarDao();
 		ClusterRep clusterRep = new ClusterRep();
 		clusterRep.setSystemId(system.getSystemId());
-		clusterRep = clusterRepDao.updateClusterRepBySystemId(clusterRep);
+		clusterRep = clusterRepDao.readClusterRepBySystemId(system);
 		List<Star> stars = starDao.readStarsInCluster(clusterRep);
 		List<String> keyValuePairs = new ArrayList<String>();
 		for(Star star : stars){
 			StringBuilder keyValuePair = new StringBuilder();
 			String subClusterdescription = starDao.readStarsSubClusterDescription(star);
 			keyValuePair.append(StarDao.SUB_CLUSTER_DESCRIPTION).append("=").append(subClusterdescription);
-			keyValuePair.append(StarDao.ANGLE_IN_RADIANS_S).append("=").append(star.getAngle_in_radians_s());
-			keyValuePair.append(StarDao.DISTANCE_CLUST_VIRT_CENTRE).append("=").append(star.getDistance_clust_virt_centre());
-			keyValuePair.append(StarDao.LUMINOSITY).append("=").append(star.getLuminosity());
-			keyValuePair.append(StarDao.NAME).append("=").append(star.getName());
-			keyValuePair.append(StarDao.STAR_COLOR).append("=").append(star.getStar_color());
-			keyValuePair.append(StarDao.STAR_SIZE).append("=").append(star.getStar_size());
-			keyValuePair.append(StarDao.STAR_TYPE).append("=").append(star.getStar_type());
+			keyValuePair.append(";"+StarDao.ANGLE_IN_RADIANS_S).append("=").append(star.getAngle_in_radians_s());
+			keyValuePair.append(";"+StarDao.DISTANCE_CLUST_VIRT_CENTRE).append("=").append(star.getDistance_clust_virt_centre());
+			keyValuePair.append(";"+StarDao.LUMINOSITY).append("=").append(star.getLuminosity());
+			keyValuePair.append(";"+StarDao.NAME).append("=").append(star.getName());
+			keyValuePair.append(";"+StarDao.STAR_COLOR).append("=").append(star.getStar_color());
+			keyValuePair.append(";"+StarDao.STAR_SIZE).append("=").append(star.getStar_size());
+			keyValuePair.append(";"+StarDao.STAR_TYPE).append("=").append(star.getStar_type());
 			keyValuePairs.add(keyValuePair.toString());
 		}
 		return keyValuePairs;

@@ -81,8 +81,11 @@ var tagOperations = (function(){
 		
 	}
 }());	
+
 /**
  * top object of a star system
+ * view centric domain object
+ * not "static" has to be instantiated
  */
 var systemVizCentric = (function(){
 	// private 
@@ -118,9 +121,78 @@ var systemVizCentric = (function(){
 			return systemName;
 		}
 	}
-	
 });
+
+/**
+ * cluster of stars
+ * view centric domain object
+ * not "static" has to be instantiated
+ */
+var clusterVizCentric  = (function(){
+	// private 
+	var sub_cluster_description;
+	var angle_in_radians_s;
+	var distance_clust_virt_centre;
+	var luminosity;
+	var Name;
+	var star_color;
+	var star_size;
+	var star_type;
 	
+	// public
+	return {
+		setSubClusterDescription(sCDescription){
+			sub_cluster_description = sCDescription;
+		},
+		getSubClusterDescription(){
+			return sub_cluster_description;
+		},
+		setAnglenInRadians(angInRadians){
+			angle_in_radians_s = angInRadians;
+		},
+		getAnglenInRadians(){
+			return angle_in_radians_s;
+		},
+		setDistanceClusterVirtCentre(distClustVirtCentre){
+			distance_clust_virt_centre = distClustVirtCentre;
+		},
+		getDistanceClusterVirtCentre(){
+			return distance_clust_virt_centre;
+		},
+		setLuminosity(lumin){
+			luminosity= lumin;
+		},
+		getLuminosity(){
+			return luminosity;
+		},
+		setStarName(SName){
+			Name = SName;
+		},
+		getStarName(){
+			return Name;
+		},
+		setStarColor(starColor){
+			star_color = starColor;
+		},
+		getStarColor(){
+			return star_color;
+		},
+		setStarSize(starSize){
+			star_size = starSize;
+		},
+		getStarSize(){
+			return star_size;
+		},
+		setStarType(starType){
+			star_type = starType;
+		},
+		getStarType(){
+			return star_type;
+		}
+		
+	}
+});
+
 $(document).ready(function() {
 	console.log("in ready");
 	tagOperations.hideAll();
@@ -158,6 +230,9 @@ var jumpRequest = (function () {
 		}
 	}
 })();
+
+
+
 /**
  * returned JSON is broken.  A package name is embeded in the message so
  * it has to be parsed and fixed.
@@ -231,7 +306,29 @@ var processJump = (function () {
 	}
 })();
 
+var clusterDetailReuquest = (function () {
+	return{
+		jsonCall: function(systemName){
+			$.getJSON("http://www.johntreddenlocal.com:8080/starCluster.html?systemName="+systemName,
+					function(json){           // callback
+						console.log("in clusterDetailRequest");
+						processClusterDetail.jsonProcess(json);
+					}		
+			);
+		}
+	}
+})();
 
+var processClusterDetail = (function () {
+	return{
+		jsonProcess: function(json){
+			// console.log("STARS IN CLUSTER:"+json);
+			print_recursive(json);
+		}
+
+	}
+	
+})();
 
 /**
  * used to draw the initial canvas
@@ -348,6 +445,9 @@ var starSystems = (function () {
 				console.log("HEADER:"+header);
 				ctx.font="16px Verdana";
 				ctx.strokeText(header, runningX+2, runningY+15);
+				
+				clusterDetailReuquest.jsonCall(systemVizCentricArray[idex].getSystemName());
+				
 				runningY += incrementHeaderX;
 				
 				if(flipFlop == 0){
