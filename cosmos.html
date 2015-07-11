@@ -193,6 +193,62 @@ var clusterVizCentric  = (function(){
 	}
 });
 
+/**
+ * keep x, y coordinates of a system/cluster
+ * not "static" has to be instantiated
+ */
+var clusterViewCoordinates  = (function(){
+	// private
+	
+	var topLeftX;
+	var topLeftY;
+	var bottomLeftX;
+	var bottomLeftY;
+	var topRightX;
+	var topRightY;
+	var bottomRightX;
+	var bottomRightY;
+	
+	// public
+	return {
+		setAttributesFromRectangle(runningX, runningY, widthBoxX, widthBoxY){
+			topLeftX = runningX;
+			topLeftY = runningY;
+			bottomLeftX = runningX;
+			bottomLeftY = runningY + widthBoxY;
+			topRightX = runningX + widthBoxX;
+			topRightY = runningY;
+			bottomRightX = runningX + widthBoxX;
+			bottomRightY = runningY + widthBoxY;
+		},
+		getTopLeftX(){
+			return topLeftX;
+		},
+		getTopLeftY(){
+			return topLeftY;
+		},
+		getBottomLeftX(){
+			return bottomLeftX;
+		},
+		getBottomLeftY(){
+			return bottomLeftY;
+		},
+		getTopRightX(){
+			return topRightX;
+		},
+		getTopRightY(){
+			return topRightY;
+		},
+		getBottomRightX(){
+			return bottomRightX;
+		},
+		getBottomRightY(){
+			return bottomRightY;
+		}
+	}
+	
+});
+
 $(document).ready(function() {
 	console.log("in ready");
 	tagOperations.hideAll();
@@ -322,8 +378,11 @@ var clusterDetailReuquest = (function () {
 var processClusterDetail = (function () {
 	return{
 		jsonProcess: function(json){
-			// console.log("STARS IN CLUSTER:"+json);
-			print_recursive(json);
+			for (var idex = 0; idex < json.stars.stars.length; idex++){
+				if(json.stars.stars[idex].string != undefined){
+					console.log("STARS IN CLUSTER:"+json.stars.stars[idex].string);
+				}
+			}
 		}
 
 	}
@@ -441,8 +500,15 @@ var starSystems = (function () {
 				ctx.strokeStyle= "lightblue";
 				ctx.stroke();
 				
+				var cvCoordinates = new clusterViewCoordinates();
+				cvCoordinates.setAttributesFromRectangle(runningX, runningY, widthBoxX, widthBoxY);
+				console.log("CVCOORDINATES:"+cvCoordinates.getTopLeftX()
+						+"|"+cvCoordinates.getTopLeftY()
+						+"|"+cvCoordinates.getBottomRightX()
+						+"|"+cvCoordinates.getBottomRightY());
+				
 				var header = "U"+systemVizCentricArray[idex].getUCoordinate()+":V"+systemVizCentricArray[idex].getVCoordinate();
-				console.log("HEADER:"+header);
+				// console.log("HEADER:"+header);
 				ctx.font="16px Verdana";
 				ctx.strokeText(header, runningX+2, runningY+15);
 				
