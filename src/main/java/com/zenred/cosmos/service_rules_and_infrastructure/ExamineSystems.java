@@ -31,7 +31,7 @@ public class ExamineSystems {
 			String subClusterdescription = starDao.readStarsSubClusterDescription(star);
 			keyValuePair.append(StarDao.SUB_CLUSTER_DESCRIPTION).append("=").append(subClusterdescription);
 			keyValuePair.append(";"+StarDao.ANGLE_IN_RADIANS_S).append("=").append(star.getAngle_in_radians_s());
-			keyValuePair.append(";"+StarDao.DISTANCE_CLUST_VIRT_CENTRE).append("=").append(star.getDistance_clust_virt_centre());
+			keyValuePair.append(";"+StarDao.DISTANCE_CLUST_VIRT_CENTRE).append("=").append(Math.abs(star.getDistance_clust_virt_centre()));
 			keyValuePair.append(";"+StarDao.LUMINOSITY).append("=").append(star.getLuminosity());
 			keyValuePair.append(";"+StarDao.NAME).append("=").append(star.getName());
 			keyValuePair.append(";"+StarDao.STAR_COLOR).append("=").append(star.getStar_color());

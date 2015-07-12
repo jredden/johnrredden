@@ -141,52 +141,52 @@ var clusterVizCentric  = (function(){
 	
 	// public
 	return {
-		setSubClusterDescription(sCDescription){
+		setSubClusterDescription: function(sCDescription){
 			sub_cluster_description = sCDescription;
 		},
-		getSubClusterDescription(){
+		getSubClusterDescription: function(){
 			return sub_cluster_description;
 		},
-		setAnglenInRadians(angInRadians){
+		setAnglenInRadians: function(angInRadians){
 			angle_in_radians_s = angInRadians;
 		},
-		getAnglenInRadians(){
+		getAnglenInRadians: function(){
 			return angle_in_radians_s;
 		},
-		setDistanceClusterVirtCentre(distClustVirtCentre){
+		setDistanceClusterVirtCentre: function(distClustVirtCentre){
 			distance_clust_virt_centre = distClustVirtCentre;
 		},
-		getDistanceClusterVirtCentre(){
+		getDistanceClusterVirtCentre: function(){
 			return distance_clust_virt_centre;
 		},
-		setLuminosity(lumin){
+		setLuminosity: function(lumin){
 			luminosity= lumin;
 		},
-		getLuminosity(){
+		getLuminosity: function(){
 			return luminosity;
 		},
-		setStarName(SName){
+		setStarName: function(SName){
 			Name = SName;
 		},
-		getStarName(){
+		getStarName: function(){
 			return Name;
 		},
-		setStarColor(starColor){
+		setStarColor: function(starColor){
 			star_color = starColor;
 		},
-		getStarColor(){
+		getStarColor: function(){
 			return star_color;
 		},
-		setStarSize(starSize){
+		setStarSize: function(starSize){
 			star_size = starSize;
 		},
-		getStarSize(){
+		getStarSize: function(){
 			return star_size;
 		},
-		setStarType(starType){
+		setStarType: function(starType){
 			star_type = starType;
 		},
-		getStarType(){
+		getStarType: function(){
 			return star_type;
 		}
 		
@@ -211,7 +211,7 @@ var clusterViewCoordinates  = (function(){
 	
 	// public
 	return {
-		setAttributesFromRectangle(runningX, runningY, widthBoxX, widthBoxY){
+		setAttributesFromRectangle: function(runningX, runningY, widthBoxX, widthBoxY){
 			topLeftX = runningX;
 			topLeftY = runningY;
 			bottomLeftX = runningX;
@@ -221,28 +221,28 @@ var clusterViewCoordinates  = (function(){
 			bottomRightX = runningX + widthBoxX;
 			bottomRightY = runningY + widthBoxY;
 		},
-		getTopLeftX(){
+		getTopLeftX: function(){
 			return topLeftX;
 		},
-		getTopLeftY(){
+		getTopLeftY: function(){
 			return topLeftY;
 		},
-		getBottomLeftX(){
+		getBottomLeftX: function(){
 			return bottomLeftX;
 		},
-		getBottomLeftY(){
+		getBottomLeftY: function(){
 			return bottomLeftY;
 		},
-		getTopRightX(){
+		getTopRightX: function(){
 			return topRightX;
 		},
-		getTopRightY(){
+		getTopRightY: function(){
 			return topRightY;
 		},
-		getBottomRightX(){
+		getBottomRightX: function(){
 			return bottomRightX;
 		},
-		getBottomRightY(){
+		getBottomRightY: function(){
 			return bottomRightY;
 		}
 	}
@@ -357,7 +357,12 @@ var processJump = (function () {
 			var showList = ['cosmosSpaceDetail'];
 			var hideList = ['shipStart','jumping'];
 			tagOperations.both(showList, hideList);
+			clusterValues.initArrays();
 			starSystems.visualize(systemVizCentricArray);
+			
+		},
+		getSystemVizCentricArrayLength: function(){
+			return systemVizCentricArray.length;
 		}
 	}
 })();
@@ -376,14 +381,109 @@ var clusterDetailReuquest = (function () {
 })();
 
 var processClusterDetail = (function () {
+	
+	// private
+	var keyValuepairs = [];
+	
+	// public
 	return{
 		jsonProcess: function(json){
 			for (var idex = 0; idex < json.stars.stars.length; idex++){
 				if(json.stars.stars[idex].string != undefined){
 					console.log("STARS IN CLUSTER:"+json.stars.stars[idex].string);
+					keyValuepairs.push(orderedPairToArray.getOrderedPair(json.stars.stars[idex].string));
 				}
 			}
+		},
+		getKeyValuePairs: function(){
+			return keyValuepairs;
 		}
+
+	}
+	
+})();
+
+/**
+ * musst be reinitliazed for each jump into a star system
+ *
+ * cvCoordinates has already been instantiated an initialized.
+ */
+var clusterViewCoordinatesToSystemName = (function (){
+	// private
+	var clusterViewCoosrdinatesArray;
+	var systemNameCoordinatesArray;
+	
+	return {
+		initArrays: function(){
+			clusterViewCoosrdinatesArray = [];
+			systemNameCoordinatesArray = [];
+		},
+		process: function(systemName, cvCoordinates){
+			clusterViewCoosrdinatesArray.push(cvCoordinates);
+			systemNameCoordinatesArray.push(systemName);
+		}
+	}
+	
+})();
+
+/**
+ * build cluster values for visualizatrion after system matrix visualized.
+ */
+var clusterValues = (function () {
+	// private
+	var clusterVizCentricArray;
+	var systemNameArray;
+	
+	var setOperations = [
+	                     function setSystemName(name){
+	                    	 systemNameArray.push(name);
+	                     },
+	                     function setInstance(instance){
+	                    	 clusterVizCentricArray.push(instance);
+	                     },
+	                     function setSubClusterDescription(description){
+	                    	 clusterVizCentricArray[clusterVizCentricArray.length-1].setSubClusterDescription(description);
+	                     },
+	                     function setAnglenInRadians(angle){
+	                    	 clusterVizCentricArray[clusterVizCentricArray.length-1].setAnglenInRadians(angle);
+	                     },
+	                     function setDistanceClusterVirtCentre(distance){
+	                    	 clusterVizCentricArray[clusterVizCentricArray.length-1].setDistanceClusterVirtCentre(distance);
+	                     },
+	                     function setLuminosity(lumens){
+	                    	 clusterVizCentricArray[clusterVizCentricArray.length-1].setLuminosity(lumens);
+	                     },
+	                     function setStarName(name){
+	                    	 clusterVizCentricArray[clusterVizCentricArray.length-1].setStarName(name);
+	                     },
+	                     function setStarColor(color){
+	                    	 clusterVizCentricArray[clusterVizCentricArray.length-1].setStarColor(color);
+	                     },
+	                     function setStarSize(size){
+	                    	 clusterVizCentricArray[clusterVizCentricArray.length-1].setStarSize(size);
+	                     },
+	                     function setStarType(type){
+	                    	 clusterVizCentricArray[clusterVizCentricArray.length-1].setStarType(type);
+	                     }
+	                    ];
+	
+						var references = {
+								"systemName" : 0,
+								"instance" : 1,
+								"sub_cluster_description" : 2,
+								"angle_in_radians_s" : 3,
+								"distance_clust_virt_centre" : 4,
+								"luminosity" : 5,
+								"Name" : 6,
+								"star_color" : 7,
+								"star_size" : 8,
+								"star_type" : 9
+						}
+	return{
+		initArrays: function(){
+			clusterVizCentricArray = [];
+			systemNameArray = [];
+		},
 
 	}
 	
@@ -466,6 +566,7 @@ var firstStop = (function () {
 var starSystems = (function () {
 	return{
 		visualize: function(systemVizCentricArray){
+			clusterViewCoordinatesToSystemName.initArrays();
 			var canvas = document.getElementById("starsystems");
 			var ctx = canvas.getContext("2d");
 			ctx.canvas.width = window.innerWidth/2;
@@ -506,6 +607,7 @@ var starSystems = (function () {
 						+"|"+cvCoordinates.getTopLeftY()
 						+"|"+cvCoordinates.getBottomRightX()
 						+"|"+cvCoordinates.getBottomRightY());
+				clusterViewCoordinatesToSystemName.process(systemVizCentricArray[idex].getSystemName(),cvCoordinates);
 				
 				var header = "U"+systemVizCentricArray[idex].getUCoordinate()+":V"+systemVizCentricArray[idex].getVCoordinate();
 				// console.log("HEADER:"+header);
@@ -540,11 +642,27 @@ var starSystems = (function () {
 					runningY += widthBoxY;
 				}
 			}
+			var clusterKeyValuePairs = processClusterDetail.getKeyValuePairs();
 
 		}
 	}
 })();
 
+/**
+ * builds array of arrays holding ordered pairs
+ */
+var orderedPairToArray = (function (){
+	return{
+		getOrderedPair: function (oneString){
+			var result = [];
+			var arrayOfUnsplitOrderedPairs = oneString.toString().split(";");
+			for(var idex = 0; idex < arrayOfUnsplitOrderedPairs.length; idex++){
+				result.push(arrayOfUnsplitOrderedPairs[idex].split("="));
+			}
+			return result;
+		}
+	}
+})();
 
 //for debugging
 function print_recursive(printthis) {
