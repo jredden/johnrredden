@@ -349,6 +349,18 @@ var processJump = (function () {
 	        }
 	    }
 	}
+	/**
+	* wait for Cluster key values pairs from domain tier.  Hey.  It's AJAX.  
+	*/
+	var clusterTimerLoop = function(clusterTimer){
+		console.log("WAITING FOR CLUSTER DATA");
+		if(clusterValues.getClusterVizCentricArraySize() != 0){
+			window.clearInterval(clusterTimer)
+			console.log("CLUSTER VALUES SIZE:"+clusterValues.getClusterVizCentricArraySize());
+			console.log("SYSTEM TO CLUSTER SIZE:"+clusterValues.getSystemNameArraySize());
+			clusterValues.builder();
+		}
+	}
 	// public
 	return{
 		jsonProcess: function(json){
@@ -357,8 +369,9 @@ var processJump = (function () {
 			var showList = ['cosmosSpaceDetail'];
 			var hideList = ['shipStart','jumping'];
 			tagOperations.both(showList, hideList);
-			clusterValues.initArrays();
+			clusterValues.initArrays();  // async returns go into this object
 			starSystems.visualize(systemVizCentricArray);
+			var clusterTimer = setInterval(function () {clusterTimerLoop(clusterTimer)}, 1000);
 			
 		},
 		getSystemVizCentricArrayLength: function(){
@@ -373,7 +386,7 @@ var clusterDetailReuquest = (function () {
 			$.getJSON("http://www.johntreddenlocal.com:8080/starCluster.html?systemName="+systemName,
 					function(json){           // callback
 						console.log("in clusterDetailRequest");
-						processClusterDetail.jsonProcess(json);
+						processClusterDetail.jsonProcess(json, systemName);
 					}		
 			);
 		}
@@ -383,22 +396,19 @@ var clusterDetailReuquest = (function () {
 var processClusterDetail = (function () {
 	
 	// private
-	var keyValuepairs = [];
+	
 	
 	// public
 	return{
-		jsonProcess: function(json){
+		jsonProcess: function(json, systemName){
 			for (var idex = 0; idex < json.stars.stars.length; idex++){
 				if(json.stars.stars[idex].string != undefined){
-					console.log("STARS IN CLUSTER:"+json.stars.stars[idex].string);
-					keyValuepairs.push(orderedPairToArray.getOrderedPair(json.stars.stars[idex].string));
+					console.log(systemName + " STARS IN CLUSTER:"+json.stars.stars[idex].string);
+					clusterValues.addTosystemNameArray(systemName);
+					clusterValues.addToclusterVizCentricArray(orderedPairToArray.getOrderedPair(json.stars.stars[idex].string));
 				}
 			}
 		},
-		getKeyValuePairs: function(){
-			return keyValuepairs;
-		}
-
 	}
 	
 })();
@@ -433,37 +443,39 @@ var clusterValues = (function () {
 	// private
 	var clusterVizCentricArray;
 	var systemNameArray;
+	var clusterVizCentricArray2;
+	var systemNameArray2;
 	
 	var setOperations = [
 	                     function setSystemName(name){
-	                    	 systemNameArray.push(name);
+	                    	 systemNameArray2.push(name);
 	                     },
 	                     function setInstance(instance){
-	                    	 clusterVizCentricArray.push(instance);
+	                    	 clusterVizCentricArray2.push(instance);  // instance of clusterVizCentric
 	                     },
 	                     function setSubClusterDescription(description){
-	                    	 clusterVizCentricArray[clusterVizCentricArray.length-1].setSubClusterDescription(description);
+	                    	 clusterVizCentricArray2[clusterVizCentricArray2.length-1].setSubClusterDescription(description);
 	                     },
 	                     function setAnglenInRadians(angle){
-	                    	 clusterVizCentricArray[clusterVizCentricArray.length-1].setAnglenInRadians(angle);
+	                    	 clusterVizCentricArray2[clusterVizCentricArray2.length-1].setAnglenInRadians(angle);
 	                     },
 	                     function setDistanceClusterVirtCentre(distance){
-	                    	 clusterVizCentricArray[clusterVizCentricArray.length-1].setDistanceClusterVirtCentre(distance);
+	                    	 clusterVizCentricArray2[clusterVizCentricArray2.length-1].setDistanceClusterVirtCentre(distance);
 	                     },
 	                     function setLuminosity(lumens){
-	                    	 clusterVizCentricArray[clusterVizCentricArray.length-1].setLuminosity(lumens);
+	                    	 clusterVizCentricArray2[clusterVizCentricArray2.length-1].setLuminosity(lumens);
 	                     },
 	                     function setStarName(name){
-	                    	 clusterVizCentricArray[clusterVizCentricArray.length-1].setStarName(name);
+	                    	 clusterVizCentricArray2[clusterVizCentricArray2.length-1].setStarName(name);
 	                     },
 	                     function setStarColor(color){
-	                    	 clusterVizCentricArray[clusterVizCentricArray.length-1].setStarColor(color);
+	                    	 clusterVizCentricArray2[clusterVizCentricArray2.length-1].setStarColor(color);
 	                     },
 	                     function setStarSize(size){
-	                    	 clusterVizCentricArray[clusterVizCentricArray.length-1].setStarSize(size);
+	                    	 clusterVizCentricArray2[clusterVizCentricArray2.length-1].setStarSize(size);
 	                     },
 	                     function setStarType(type){
-	                    	 clusterVizCentricArray[clusterVizCentricArray.length-1].setStarType(type);
+	                    	 clusterVizCentricArray2[clusterVizCentricArray2.length-1].setStarType(type);
 	                     }
 	                    ];
 	
@@ -484,6 +496,36 @@ var clusterValues = (function () {
 			clusterVizCentricArray = [];
 			systemNameArray = [];
 		},
+		addTosystemNameArray: function (systemName){
+			systemNameArray.push(systemName);
+		},
+		addToclusterVizCentricArray: function(keyValuePair){
+			console.log("ADDING KEYVALUE:"+keyValuePair+" SIZE:"+clusterVizCentricArray.length);
+			clusterVizCentricArray.push(keyValuePair);
+		},
+		getClusterVizCentricArraySize(){
+			return clusterVizCentricArray.length;
+		},
+		getSystemNameArraySize(){
+			return systemNameArray.length;
+		},
+		builder(){
+			if(clusterVizCentricArray.length != systemNameArray.length){
+				throw "Cluster Lengths not equal"+clusterVizCentricArray.length+"::"+systemNameArray.length;
+			}
+			clusterVizCentricArray2 = [];
+			systemNameArray2 = [];
+	
+			for(var idex = 0; idex <  systemNameArray.length; idex++){
+				
+				setOperations[references["systemName"]](systemNameArray[idex]);
+				setOperations[references["instance"]](new clusterVizCentric());
+				for(var idex2 = 0; idex2 < clusterVizCentricArray.length; idex2++){  // number stars in cluster
+					var pair = clusterVizCentricArray[idex2];
+					setOperations[references[pair[0]]](pair[1]);
+				}
+			}
+		}
 
 	}
 	
@@ -642,7 +684,6 @@ var starSystems = (function () {
 					runningY += widthBoxY;
 				}
 			}
-			var clusterKeyValuePairs = processClusterDetail.getKeyValuePairs();
 
 		}
 	}
