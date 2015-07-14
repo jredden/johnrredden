@@ -248,6 +248,31 @@ var clusterViewCoordinates  = (function(){
 	}
 	
 });
+/**
+ * not static, has to be instantiated
+ */
+var keyValuePair  = (function(){
+	// private
+	var key;
+	var value;
+	
+	return{
+		setKey : function(s_key){
+			key = s_key;
+		},
+		setValue: function(s_value){
+			value = s_value;
+		},
+		getKey : function(){
+			return key;
+		},
+		getValue : function(){
+			return value;
+		}
+	}
+	
+});
+
 
 $(document).ready(function() {
 	console.log("in ready");
@@ -359,6 +384,7 @@ var processJump = (function () {
 			console.log("CLUSTER VALUES SIZE:"+clusterValues.getClusterVizCentricArraySize());
 			console.log("SYSTEM TO CLUSTER SIZE:"+clusterValues.getSystemNameArraySize());
 			clusterValues.builder();
+			visualizeClusters.display();
 		}
 	}
 	// public
@@ -376,6 +402,28 @@ var processJump = (function () {
 		},
 		getSystemVizCentricArrayLength: function(){
 			return systemVizCentricArray.length;
+		}
+	}
+})();
+
+var visualizeClusters = (function (){
+	
+	// public
+	return{
+		display : function(){
+			var systemsWithClusters = clusterValues.fetchSystemsWithClusters();
+			var clusterVizCentrics = clusterValues.fetchProcessedCluster();
+			for(var idex = 0; idex < systemsWithClusters.length; idex++){
+				console.log("SYSTEM WITH CLUSTER:"+systemsWithClusters[idex]);
+				console.log("SubClusterDescription:"+clusterVizCentrics[idex].getSubClusterDescription());
+				console.log("AnglenInRadians:"+clusterVizCentrics[idex].getAnglenInRadians());
+				console.log("DistanceClusterVirtCentre:"+clusterVizCentrics[idex].getDistanceClusterVirtCentre());
+				console.log("Luminosity:"+clusterVizCentrics[idex].getLuminosity());
+				console.log("StarName:"+clusterVizCentrics[idex].getStarName());
+				console.log("StarColor"+clusterVizCentrics[idex].getStarColor());
+				console.log("StarSize:"+clusterVizCentrics[idex].getStarSize());
+				console.log("StarType:"+clusterVizCentrics[idex].getStarType());
+			}
 		}
 	}
 })();
@@ -403,7 +451,7 @@ var processClusterDetail = (function () {
 		jsonProcess: function(json, systemName){
 			for (var idex = 0; idex < json.stars.stars.length; idex++){
 				if(json.stars.stars[idex].string != undefined){
-					console.log(systemName + " STARS IN CLUSTER:"+json.stars.stars[idex].string);
+					// console.log(systemName + " STARS IN CLUSTER:"+json.stars.stars[idex].string);
 					clusterValues.addTosystemNameArray(systemName);
 					clusterValues.addToclusterVizCentricArray(orderedPairToArray.getOrderedPair(json.stars.stars[idex].string));
 				}
@@ -500,7 +548,7 @@ var clusterValues = (function () {
 			systemNameArray.push(systemName);
 		},
 		addToclusterVizCentricArray: function(keyValuePair){
-			console.log("ADDING KEYVALUE:"+keyValuePair+" SIZE:"+clusterVizCentricArray.length);
+			// console.log("ADDING KEYVALUE:"+keyValuePair+" SIZE:"+clusterVizCentricArray.length);
 			clusterVizCentricArray.push(keyValuePair);
 		},
 		getClusterVizCentricArraySize(){
@@ -521,10 +569,21 @@ var clusterValues = (function () {
 				setOperations[references["systemName"]](systemNameArray[idex]);
 				setOperations[references["instance"]](new clusterVizCentric());
 				for(var idex2 = 0; idex2 < clusterVizCentricArray.length; idex2++){  // number stars in cluster
-					var pair = clusterVizCentricArray[idex2];
-					setOperations[references[pair[0]]](pair[1]);
+					
+					var pairs = clusterVizCentricArray[idex2];
+					for(var idex3 = 0; idex3 < pairs.length; idex3++ ){
+						var pair = pairs[idex3];
+						setOperations[references[pair.getKey()]](pair.getValue());
+					}
+					
 				}
 			}
+		},
+		fetchProcessedCluster(){
+			return clusterVizCentricArray2;
+		},
+		fetchSystemsWithClusters(){
+			return systemNameArray2;
 		}
 
 	}
@@ -588,7 +647,7 @@ var firstStop = (function () {
 					if(chance){
 						var size = draw.sizeStar();
 						var color = draw.color();
-						console.log("size:" + size+ " color:" + color + " chance:" + chance);
+						// console.log("size:" + size+ " color:" + color + " chance:" + chance);
 						ctx.beginPath();
 						ctx.arc(startx, starty, size, 0, 2*Math.PI, false);
 						ctx.fillStyle = color;
@@ -698,7 +757,12 @@ var orderedPairToArray = (function (){
 			var result = [];
 			var arrayOfUnsplitOrderedPairs = oneString.toString().split(";");
 			for(var idex = 0; idex < arrayOfUnsplitOrderedPairs.length; idex++){
-				result.push(arrayOfUnsplitOrderedPairs[idex].split("="));
+				var kvPair = new keyValuePair();
+				var kvArray = arrayOfUnsplitOrderedPairs[idex].split("=");
+				kvPair.setKey(kvArray[0]);
+				kvPair.setValue(kvArray[1]);
+				// console.log("KVPAIR:"+kvPair.getKey()+"::"+kvPair.getValue());
+				result.push(kvPair);
 			}
 			return result;
 		}
