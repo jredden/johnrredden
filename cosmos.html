@@ -29,6 +29,9 @@ var tagOperations = (function(){
 		   				},
 		   				function jumping(){
 		   					$('#jumping').show();
+		   				},
+		   				function starsinclustertext(){
+		   					$('#starsinclustertext').show();
 		   				}
 
 	                  	];
@@ -42,13 +45,18 @@ var tagOperations = (function(){
 			   				},
 			   				function jumping(){
 			   					$('#jumping').hide();
+			   				},
+			   				function starsinclustertext(){
+			   					$('#starsinclustertext').hide();
 			   				}
+			   				
 
 	                  	];
 	var references = {	
 			"shipStart" : 0,
 			"cosmosSpaceDetail" : 1,
-			"jumping" : 2
+			"jumping" : 2,
+			"starsinclustertext" : 3
 	}
 	
 	// public 
@@ -299,7 +307,7 @@ var jumpRequest = (function () {
 		jsonCall: function(){
 			console.log("start jumpRequest");
 			var showList = ['jumping'];
-			var hideList = ['shipStart','cosmosSpaceDetail'];
+			var hideList = ['shipStart','cosmosSpaceDetail', 'starsinclustertext'];
 			tagOperations.both(showList, hideList);
 
 			$.getJSON("http://www.johntreddenlocal.com:8080/starSystems.html",
@@ -393,7 +401,7 @@ var processJump = (function () {
 			systemVizCentricArray = [];
 			parseBroken(json);
 			var showList = ['cosmosSpaceDetail'];
-			var hideList = ['shipStart','jumping'];
+			var hideList = ['shipStart','jumping', 'starsinclustertext'];
 			tagOperations.both(showList, hideList);
 			clusterValues.initArrays();  // async returns go into this object
 			starSystems.visualize(systemVizCentricArray);
@@ -420,10 +428,19 @@ var visualizeClusters = (function (){
 				console.log("DistanceClusterVirtCentre:"+clusterVizCentrics[idex].getDistanceClusterVirtCentre());
 				console.log("Luminosity:"+clusterVizCentrics[idex].getLuminosity());
 				console.log("StarName:"+clusterVizCentrics[idex].getStarName());
-				console.log("StarColor"+clusterVizCentrics[idex].getStarColor());
+				console.log("StarColor:"+clusterVizCentrics[idex].getStarColor());
 				console.log("StarSize:"+clusterVizCentrics[idex].getStarSize());
 				console.log("StarType:"+clusterVizCentrics[idex].getStarType());
 			}
+			var canvas = document.getElementById("starsinclustertext");
+			var ctx = canvas.getContext("2d");
+			ctx.canvas.width = window.innerWidth/2;
+			ctx.canvas.height = window.innerHeight;
+			ctx.fillStyle = "#00003D";
+			ctx.fillRect(window.innerWidth/2,20,window.innerWidth/2, window.innerHeight);
+			var showList = ['starsinclustertext'];
+			tagOperations.show(showList);
+
 		}
 	}
 })();
@@ -462,7 +479,7 @@ var processClusterDetail = (function () {
 })();
 
 /**
- * musst be reinitliazed for each jump into a star system
+ * must be reinitliazed for each jump into a star system
  *
  * cvCoordinates has already been instantiated an initialized.
  */
@@ -575,7 +592,7 @@ var clusterValues = (function () {
 						var pair = pairs[idex3];
 						setOperations[references[pair.getKey()]](pair.getValue());
 					}
-					
+					setOperations[references["instance"]](new clusterVizCentric());
 				}
 			}
 		},
@@ -801,6 +818,11 @@ function print_recursive(printthis) {
 	</div> <!--  wrapperspace -->
 	<section id="cosmosspacedetail">
 	<canvas id="starsystems">
+	Your browser does not support the HTML5 canvas tag.
+	Please upgrade to a version with full support for HTML5.
+	
+	</canvas>
+	<canvas id="starsinclustertext">
 	Your browser does not support the HTML5 canvas tag.
 	Please upgrade to a version with full support for HTML5.
 	
