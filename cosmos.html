@@ -432,15 +432,46 @@ var visualizeClusters = (function (){
 				console.log("StarSize:"+clusterVizCentrics[idex].getStarSize());
 				console.log("StarType:"+clusterVizCentrics[idex].getStarType());
 			}
-			var canvas = document.getElementById("starsinclustertext");
+			var canvas = document.getElementById("starsinclustertextcanvas");
 			var ctx = canvas.getContext("2d");
 			ctx.canvas.width = window.innerWidth/2;
 			ctx.canvas.height = window.innerHeight;
 			ctx.fillStyle = "#00003D";
 			ctx.fillRect(window.innerWidth/2,20,window.innerWidth/2, window.innerHeight);
+			ctx.beginPath();
 			var showList = ['starsinclustertext'];
 			tagOperations.show(showList);
+			var startX = 50;
+			var startY = 50;
+			var runningX = startX;
+			var runningY = startY;
+			var incrementY = 20;
 
+			for(var idex = 0; idex < systemsWithClusters.length; idex++){
+				ctx.font="16px Verdana";
+				ctx.strokeStyle = "lightblue";
+				ctx.strokeText("SYSTEM WITH CLUSTER:"+systemsWithClusters[idex], runningX, runningY);
+				runningY += incrementY;
+				ctx.strokeText("SubClusterDescription:"+clusterVizCentrics[idex].getSubClusterDescription(), runningX, runningY);
+				runningY += incrementY;
+				ctx.strokeText("AnglenInRadians:"+clusterVizCentrics[idex].getAnglenInRadians(), runningX, runningY);
+				runningY += incrementY;
+				ctx.strokeText("DistanceClusterVirtCentre:"+clusterVizCentrics[idex].getDistanceClusterVirtCentre(), runningX, runningY);
+				runningY += incrementY;
+				ctx.strokeText("Luminosity:"+clusterVizCentrics[idex].getLuminosity(), runningX, runningY);
+				runningY += incrementY;
+				ctx.strokeText("StarName:"+clusterVizCentrics[idex].getStarName(), runningX, runningY);
+				runningY += incrementY;
+				ctx.strokeText("StarColor:"+clusterVizCentrics[idex].getStarColor(), runningX, runningY);
+				runningY += incrementY;
+				ctx.strokeText("StarSize:"+clusterVizCentrics[idex].getStarSize(), runningX, runningY);
+				runningY += incrementY;
+				ctx.strokeText("StarType:"+clusterVizCentrics[idex].getStarType(), runningX, runningY);
+				runningY += incrementY;
+				runningY += incrementY;
+
+			}
+			ctx.closePath();
 		}
 	}
 })();
@@ -760,7 +791,7 @@ var starSystems = (function () {
 					runningY += widthBoxY;
 				}
 			}
-
+			ctx.closePath();
 		}
 	}
 })();
@@ -822,12 +853,14 @@ function print_recursive(printthis) {
 	Please upgrade to a version with full support for HTML5.
 	
 	</canvas>
-	<canvas id="starsinclustertext">
+	<div id="starsinclustertext">
+	Star Systems in this Sector
+	<canvas id="starsinclustertextcanvas">
 	Your browser does not support the HTML5 canvas tag.
 	Please upgrade to a version with full support for HTML5.
 	
 	</canvas>
-	
+	</div> <!-- end starsinclustertext -->
 	</section> <!-- end cosmosspacedetail -->
 	
 	<section id="shipstart">
