@@ -281,6 +281,52 @@ var keyValuePair  = (function(){
 	
 });
 
+/**
+ * canvas holding area
+ */
+var canvasas = (function(){
+	
+	var starsystemscanvas;
+	var starsinclustertextcanvas;
+	var starsystemscanvasContext;
+	var starsinclustertextcanvasContext;
+	
+	function buildCanvasas(){
+		starsystemscanvas = document.getElementById("starsystems");
+		starsystemscanvasContext = starsystemscanvas.getContext("2d");
+		starsystemscanvasContext.canvas.width = window.innerWidth/2;
+		starsystemscanvasContext.canvas.height = window.innerHeight;
+		starsystemscanvasContext.fillStyle = "#00003D";
+
+		
+		starsinclustertextcanvas = document.getElementById("starsinclustertextcanvas");
+		starsinclustertextcanvasContext = starsinclustertextcanvas.getContext("2d");
+		starsinclustertextcanvasContext.canvas.width = window.innerWidth/4;
+		starsinclustertextcanvasContext.canvas.height = window.innerHeight;
+		starsinclustertextcanvasContext.canvas.style.position = 'left';
+		starsinclustertextcanvasContext.fillStyle = "#00003D";
+
+	}
+	
+	return{
+		init: function(){
+			buildCanvasas();
+		},
+		fetchStarSystemsCanvas(){
+			return starsystemscanvas;
+		},
+		fetchStarSystemsCanvasContext(){
+			return starsystemscanvasContext;
+		},
+		fetchStarsInClusterTextCanvas(){
+			return starsinclustertextcanvas;
+		},
+		fetchStarsInClusterTextCanvasContext(){
+			return starsinclustertextcanvasContext;
+		}
+	}
+})();
+
 
 $(document).ready(function() {
 	console.log("in ready");
@@ -432,11 +478,7 @@ var visualizeClusters = (function (){
 				console.log("StarSize:"+clusterVizCentrics[idex].getStarSize());
 				console.log("StarType:"+clusterVizCentrics[idex].getStarType());
 			}
-			var canvas = document.getElementById("starsinclustertextcanvas");
-			var ctx = canvas.getContext("2d");
-			ctx.canvas.width = window.innerWidth/2;
-			ctx.canvas.height = window.innerHeight;
-			ctx.fillStyle = "#00003D";
+			var ctx = canvasas.fetchStarsInClusterTextCanvasContext();
 			ctx.fillRect(window.innerWidth/2,20,window.innerWidth/2, window.innerHeight);
 			ctx.beginPath();
 			var showList = ['starsinclustertext'];
@@ -471,7 +513,6 @@ var visualizeClusters = (function (){
 				runningY += incrementY;
 
 			}
-			ctx.closePath();
 		}
 	}
 })();
@@ -716,11 +757,8 @@ var starSystems = (function () {
 	return{
 		visualize: function(systemVizCentricArray){
 			clusterViewCoordinatesToSystemName.initArrays();
-			var canvas = document.getElementById("starsystems");
-			var ctx = canvas.getContext("2d");
-			ctx.canvas.width = window.innerWidth/2;
-			ctx.canvas.height = window.innerHeight;
-			ctx.fillStyle = "#00003D";
+			canvasas.init();
+			var ctx = canvasas.fetchStarSystemsCanvasContext();
 			ctx.fillRect(0,20,window.innerWidth/2, window.innerHeight);
 			
 			var lineWidth = 2;
