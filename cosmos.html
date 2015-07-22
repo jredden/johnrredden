@@ -31,7 +31,7 @@ var tagOperations = (function(){
 		   					$('#jumping').show();
 		   				},
 		   				function starsinclustertext(){
-		   					$('#starsinclustertext').show();
+		   					$('#starsinclustertextcanvas').show();
 		   				}
 
 	                  	];
@@ -47,7 +47,7 @@ var tagOperations = (function(){
 			   					$('#jumping').hide();
 			   				},
 			   				function starsinclustertext(){
-			   					$('#starsinclustertext').hide();
+			   					$('#starsinclustertextcanvas').hide();
 			   				}
 			   				
 
@@ -301,8 +301,11 @@ var canvasas = (function(){
 		
 		starsinclustertextcanvas = document.getElementById("starsinclustertextcanvas");
 		starsinclustertextcanvasContext = starsinclustertextcanvas.getContext("2d");
-		starsinclustertextcanvasContext.canvas.width = window.innerWidth/4;
-		starsinclustertextcanvasContext.canvas.height = window.innerHeight;
+		var wi = window.innerWidth/3;
+		var hi = window.innerHeight;
+		console.log("HEIGHT AND WIDTH:"+wi+"::"+hi+"::");
+		starsinclustertextcanvasContext.canvas.width = wi;
+		starsinclustertextcanvasContext.canvas.height = hi ;
 		starsinclustertextcanvasContext.canvas.style.position = 'left';
 		starsinclustertextcanvasContext.fillStyle = "#00003D";
 
@@ -479,11 +482,11 @@ var visualizeClusters = (function (){
 				console.log("StarType:"+clusterVizCentrics[idex].getStarType());
 			}
 			var ctx = canvasas.fetchStarsInClusterTextCanvasContext();
-			ctx.fillRect(window.innerWidth/2,20,window.innerWidth/2, window.innerHeight);
+			ctx.fillRect(5,20,700, window.innerHeight);
 			ctx.beginPath();
 			var showList = ['starsinclustertext'];
 			tagOperations.show(showList);
-			var startX = 50;
+			var startX = 5;
 			var startY = 50;
 			var runningX = startX;
 			var runningY = startY;
@@ -491,27 +494,29 @@ var visualizeClusters = (function (){
 
 			for(var idex = 0; idex < systemsWithClusters.length; idex++){
 				ctx.font="16px Verdana";
-				ctx.strokeStyle = "lightblue";
+				ctx.strokeStyle = "yellow";
 				ctx.strokeText("SYSTEM WITH CLUSTER:"+systemsWithClusters[idex], runningX, runningY);
 				runningY += incrementY;
+				ctx.font="10px Verdana";
+				ctx.strokeStyle = "lightblue";
 				ctx.strokeText("SubClusterDescription:"+clusterVizCentrics[idex].getSubClusterDescription(), runningX, runningY);
 				runningY += incrementY;
-				ctx.strokeText("AnglenInRadians:"+clusterVizCentrics[idex].getAnglenInRadians(), runningX, runningY);
-				runningY += incrementY;
-				ctx.strokeText("DistanceClusterVirtCentre:"+clusterVizCentrics[idex].getDistanceClusterVirtCentre(), runningX, runningY);
-				runningY += incrementY;
-				ctx.strokeText("Luminosity:"+clusterVizCentrics[idex].getLuminosity(), runningX, runningY);
-				runningY += incrementY;
+//				ctx.strokeText("AnglenInRadians:"+clusterVizCentrics[idex].getAnglenInRadians(), runningX, runningY);
+//				runningY += incrementY;
+//				ctx.strokeText("DistanceClusterVirtCentre:"+clusterVizCentrics[idex].getDistanceClusterVirtCentre(), runningX, runningY);
+//				runningY += incrementY;
 				ctx.strokeText("StarName:"+clusterVizCentrics[idex].getStarName(), runningX, runningY);
 				runningY += incrementY;
 				ctx.strokeText("StarColor:"+clusterVizCentrics[idex].getStarColor(), runningX, runningY);
-				runningY += incrementY;
+				runningX += (clusterVizCentrics[idex].getStarColor().length *12);
 				ctx.strokeText("StarSize:"+clusterVizCentrics[idex].getStarSize(), runningX, runningY);
+				runningX += (clusterVizCentrics[idex].getStarSize().length * 12);
+				ctx.strokeText("Luminosity:"+clusterVizCentrics[idex].getLuminosity(), runningX, runningY);
 				runningY += incrementY;
-				ctx.strokeText("StarType:"+clusterVizCentrics[idex].getStarType(), runningX, runningY);
+//				ctx.strokeText("StarType:"+clusterVizCentrics[idex].getStarType(), runningX, runningY);
+//				runningY += incrementY;
 				runningY += incrementY;
-				runningY += incrementY;
-
+				runningX = startX;
 			}
 		}
 	}
@@ -891,14 +896,14 @@ function print_recursive(printthis) {
 	Please upgrade to a version with full support for HTML5.
 	
 	</canvas>
-	<div id="starsinclustertext">
+	
 	Star Systems in this Sector
 	<canvas id="starsinclustertextcanvas">
 	Your browser does not support the HTML5 canvas tag.
 	Please upgrade to a version with full support for HTML5.
 	
 	</canvas>
-	</div> <!-- end starsinclustertext -->
+	
 	</section> <!-- end cosmosspacedetail -->
 	
 	<section id="shipstart">
