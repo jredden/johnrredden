@@ -493,25 +493,35 @@ var visualizeClusters = (function (){
 			var incrementY = 20;
 
 			for(var idex = 0; idex < systemsWithClusters.length; idex++){
+				var starSystemsWithClusters = systemsWithClusters[idex];
+				var subClusterDescription = clusterVizCentrics[idex].getSubClusterDescription();
+				var starName = "StarName:"+clusterVizCentrics[idex].getStarName();
+				var starColor = "StarColor:"+clusterVizCentrics[idex].getStarColor()+ " ";
+				var starSize = "StarSize:"+clusterVizCentrics[idex].getStarSize() + " ";
+				var starLuminosity = "Luminosity:"+clusterVizCentrics[idex].getLuminosity();
 				ctx.font="16px Verdana";
 				ctx.strokeStyle = "yellow";
-				ctx.strokeText("SYSTEM WITH CLUSTER:"+systemsWithClusters[idex], runningX, runningY);
+				ctx.strokeText("SYSTEM WITH CLUSTER:"+starSystemsWithClusters, runningX, runningY);
 				runningY += incrementY;
 				ctx.font="10px Verdana";
 				ctx.strokeStyle = "lightblue";
-				ctx.strokeText("SubClusterDescription:"+clusterVizCentrics[idex].getSubClusterDescription(), runningX, runningY);
+				ctx.strokeText("SubClusterDescription:"+subClusterDescription, runningX, runningY);
 				runningY += incrementY;
 //				ctx.strokeText("AnglenInRadians:"+clusterVizCentrics[idex].getAnglenInRadians(), runningX, runningY);
 //				runningY += incrementY;
 //				ctx.strokeText("DistanceClusterVirtCentre:"+clusterVizCentrics[idex].getDistanceClusterVirtCentre(), runningX, runningY);
 //				runningY += incrementY;
-				ctx.strokeText("StarName:"+clusterVizCentrics[idex].getStarName(), runningX, runningY);
+				ctx.strokeText(starName, runningX, runningY);
 				runningY += incrementY;
-				ctx.strokeText("StarColor:"+clusterVizCentrics[idex].getStarColor(), runningX, runningY);
-				runningX += (clusterVizCentrics[idex].getStarColor().length *12);
-				ctx.strokeText("StarSize:"+clusterVizCentrics[idex].getStarSize(), runningX, runningY);
-				runningX += (clusterVizCentrics[idex].getStarSize().length * 12);
-				ctx.strokeText("Luminosity:"+clusterVizCentrics[idex].getLuminosity(), runningX, runningY);
+				ctx.strokeText(starColor, runningX, runningY);
+				var colorWidth = ctx.measureText(starColor).width;
+//				console.log("STAR COLOR WIDTH:"+ colorWidth);
+				runningX += colorWidth ;
+				ctx.strokeText(starSize, runningX, runningY);
+				var luminosityWidth = ctx.measureText(starSize).width;
+//				console.log("LUMINOSITY WIDTH:"+ luminosityWidth);
+				runningX += luminosityWidth;
+				ctx.strokeText(starLuminosity, runningX, runningY);
 				runningY += incrementY;
 //				ctx.strokeText("StarType:"+clusterVizCentrics[idex].getStarType(), runningX, runningY);
 //				runningY += incrementY;
@@ -545,7 +555,7 @@ var processClusterDetail = (function () {
 		jsonProcess: function(json, systemName){
 			for (var idex = 0; idex < json.stars.stars.length; idex++){
 				if(json.stars.stars[idex].string != undefined){
-					// console.log(systemName + " STARS IN CLUSTER:"+json.stars.stars[idex].string);
+					console.log(systemName + " STARS IN CLUSTER:"+json.stars.stars[idex].string);
 					clusterValues.addTosystemNameArray(systemName);
 					clusterValues.addToclusterVizCentricArray(orderedPairToArray.getOrderedPair(json.stars.stars[idex].string));
 				}
