@@ -458,7 +458,7 @@ public class GenStar {
 					lastAngleInRadians = null; // reset to typical mode
 				}
 
-				Star star = GenStar.generateStar(starName + idex++, distance,
+				Star star = GenStar.generateStar(starName + '.' + idex++, distance,
 						angleInRadians);
 				logger.info("STAR:" + star);
 				DecoratedStar decoratedStar = new DecoratedStar(star);
