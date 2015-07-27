@@ -146,6 +146,7 @@ var clusterVizCentric  = (function(){
 	var star_color;
 	var star_size;
 	var star_type;
+	var system_name;
 	
 	// public
 	return {
@@ -196,6 +197,12 @@ var clusterVizCentric  = (function(){
 		},
 		getStarType: function(){
 			return star_type;
+		},
+		setSystemName: function(systemName){	// used to identify set of attributes
+			system_name = systemName;
+		},
+		getSystemName: function(){
+			return system_name;
 		}
 		
 	}
@@ -276,6 +283,9 @@ var keyValuePair  = (function(){
 		},
 		getValue : function(){
 			return value;
+		},
+		logPrint: function(){
+			console.log("KEY:"+key+" VALUE:"+value);
 		}
 	}
 	
@@ -472,14 +482,20 @@ var visualizeClusters = (function (){
 			var clusterVizCentrics = clusterValues.fetchProcessedCluster();
 			for(var idex = 0; idex < systemsWithClusters.length; idex++){
 				console.log("SYSTEM WITH CLUSTER:"+systemsWithClusters[idex]);
-				console.log("SubClusterDescription:"+clusterVizCentrics[idex].getSubClusterDescription());
-				console.log("AnglenInRadians:"+clusterVizCentrics[idex].getAnglenInRadians());
-				console.log("DistanceClusterVirtCentre:"+clusterVizCentrics[idex].getDistanceClusterVirtCentre());
-				console.log("Luminosity:"+clusterVizCentrics[idex].getLuminosity());
-				console.log("StarName:"+clusterVizCentrics[idex].getStarName());
-				console.log("StarColor:"+clusterVizCentrics[idex].getStarColor());
-				console.log("StarSize:"+clusterVizCentrics[idex].getStarSize());
-				console.log("StarType:"+clusterVizCentrics[idex].getStarType());
+				for(var idex2 = 0; idex2 < clusterVizCentrics.length; idex2++){
+					var name1 = clusterVizCentrics[idex2].getSystemName();
+					var name2 = systemsWithClusters[idex];
+					if(name1 == name2){
+						console.log("SubClusterDescription:"+clusterVizCentrics[idex2].getSubClusterDescription());
+						console.log("AnglenInRadians:"+clusterVizCentrics[idex2].getAnglenInRadians());
+						console.log("DistanceClusterVirtCentre:"+clusterVizCentrics[idex2].getDistanceClusterVirtCentre());
+						console.log("Luminosity:"+clusterVizCentrics[idex2].getLuminosity());
+						console.log("StarName:"+clusterVizCentrics[idex2].getStarName());
+						console.log("StarColor:"+clusterVizCentrics[idex2].getStarColor());
+						console.log("StarSize:"+clusterVizCentrics[idex2].getStarSize());
+						console.log("StarType:"+clusterVizCentrics[idex2].getStarType());
+					}
+				}
 			}
 			var ctx = canvasas.fetchStarsInClusterTextCanvasContext();
 			ctx.fillRect(5,20,700, window.innerHeight);
@@ -557,7 +573,7 @@ var processClusterDetail = (function () {
 				if(json.stars.stars[idex].string != undefined){
 					console.log(systemName + " STARS IN CLUSTER:"+json.stars.stars[idex].string);
 					clusterValues.addTosystemNameArray(systemName);
-					clusterValues.addToclusterVizCentricArray(orderedPairToArray.getOrderedPair(json.stars.stars[idex].string));
+					clusterValues.addToclusterVizCentricArray(orderedPairToArray.getOrderedPair(json.stars.stars[idex].string, systemName));
 				}
 			}
 		},
@@ -597,48 +613,51 @@ var clusterValues = (function () {
 	var systemNameArray;
 	var clusterVizCentricArray2;
 	var systemNameArray2;
+	var systemName;
 	
 	var setOperations = [
 	                     function setSystemName(name){
-	                    	 systemNameArray2.push(name);
-	                     	 console.log("SYSTEM_NAME"+name+"::"+systemNameArray2.length-1);
+	                    	 systemNameArray2.push(name.toString());
+	                    	 systemName = name.toString();
+	                     	 console.log("SYSTEM_NAME:"+name.toString());
 	                  	   
 	                     },
 	                     function setInstance(instance){
 	                    	 clusterVizCentricArray2.push(instance);  // instance of clusterVizCentric
-	                    	 console.log("CLUSTER_VIZ_CENTRIC.length"+clusterVizCentricArray2.length);
+	                    	 console.log("CLUSTER_VIZ_CENTRIC.length"+clusterVizCentricArray2.length+"::"+systemName);
+	                    	 clusterVizCentricArray2[clusterVizCentricArray2.length-1].setSystemName(systemName);
 	                     },
 	                     function setSubClusterDescription(description){
 	                    	 clusterVizCentricArray2[clusterVizCentricArray2.length-1].setSubClusterDescription(description);
-	                    	 console.log("SUBCLUSTER_DESCRIPTION"+description+"::"+clusterVizCentricArray2.length-1);
+	                    	 console.log("SUBCLUSTER_DESCRIPTION"+description.toString());
 	                     },
 	                     function setAnglenInRadians(angle){
 	                    	 clusterVizCentricArray2[clusterVizCentricArray2.length-1].setAnglenInRadians(angle);
-	                     	 console.log("ANGLE_IN_RADIANS:"+angle+"::"+clusterVizCentricArray2.length-1);
+	                     	 console.log("ANGLE_IN_RADIANS:"+angle.toString());
 	                  	                     },
 	                     function setDistanceClusterVirtCentre(distance){
 	                    	 clusterVizCentricArray2[clusterVizCentricArray2.length-1].setDistanceClusterVirtCentre(distance);
-	                    	 console.log("DISTANCE CENTRE:"+distance+"::"+clusterVizCentricArray2.length-1);
+	                    	 console.log("DISTANCE CENTRE:"+distance.toString());
 	                     },
 	                     function setLuminosity(lumens){
 	                    	 clusterVizCentricArray2[clusterVizCentricArray2.length-1].setLuminosity(lumens);
-	                    	 console.log("LUMENS:"+lumens+"::"+clusterVizCentricArray2.length-1);
+	                    	 console.log("LUMENS:"+lumens.toString());
 	                     },
 	                     function setStarName(name){
 	                    	 clusterVizCentricArray2[clusterVizCentricArray2.length-1].setStarName(name);
-	                    	 console.log("STAR_NAME:"+name+"::"+clusterVizCentricArray2.length-1);
+	                    	 console.log("STAR_NAME:"+name.toString());
 	                     },
 	                     function setStarColor(color){
 	                    	 clusterVizCentricArray2[clusterVizCentricArray2.length-1].setStarColor(color);
-	                    	 console.log("STAR_COLOR:"+color+"::"+clusterVizCentricArray2.length-1);
+	                    	 console.log("STAR_COLOR:"+color.toString());
 	                     },
 	                     function setStarSize(size){
 	                    	 clusterVizCentricArray2[clusterVizCentricArray2.length-1].setStarSize(size);
-	                    	 console.log("STAR_SIZE:"+size+"::"+clusterVizCentricArray2.length-1);
+	                    	 console.log("STAR_SIZE:"+size.toString());
 	                     },
 	                     function setStarType(type){
 	                    	 clusterVizCentricArray2[clusterVizCentricArray2.length-1].setStarType(type);
-	                    	 console.log("STAR_TYPE:"+type+"::"+clusterVizCentricArray2.length-1);
+	                    	 console.log("STAR_TYPE:"+type.toString());
 	                     }
 	                    ];
 	
@@ -663,7 +682,7 @@ var clusterValues = (function () {
 			systemNameArray.push(systemName);
 		},
 		addToclusterVizCentricArray: function(keyValuePair){
-			// console.log("ADDING KEYVALUE:"+keyValuePair+" SIZE:"+clusterVizCentricArray.length);
+			console.log("ADDING KEYVALUE:"+keyValuePair.toString()+" SIZE:"+clusterVizCentricArray.length);
 			clusterVizCentricArray.push(keyValuePair);
 		},
 		getClusterVizCentricArraySize(){
@@ -680,17 +699,30 @@ var clusterValues = (function () {
 			systemNameArray2 = [];
 	
 			for(var idex = 0; idex <  systemNameArray.length; idex++){
-				
+				console.log('STAR_COUNT:'+idex);
+
 				setOperations[references["systemName"]](systemNameArray[idex]);
-				setOperations[references["instance"]](new clusterVizCentric());
+				var inOneSystem = false;
+//				setOperations[references["instance"]](new clusterVizCentric());
 				for(var idex2 = 0; idex2 < clusterVizCentricArray.length; idex2++){  // number stars in cluster
-//					console.log('STAR_COUNT:'+idex);
 					var pairs = clusterVizCentricArray[idex2];
 					for(var idex3 = 0; idex3 < pairs.length; idex3++ ){
 						var pair = pairs[idex3];
-						setOperations[references[pair.getKey()]](pair.getValue());
+						var currentKey = pair.getKey();
+						var currentValue = pair.getValue();
+						var currentSystem = systemNameArray[idex];
+						if(currentKey == "systemName" &&  currentValue == currentSystem){
+							inOneSystem = true;
+							setOperations[references["instance"]](new clusterVizCentric());
+						}
+						if(currentKey == "systemName" && currentValue != currentSystem){
+							inOneSystem = false;
+						}
+						if(inOneSystem){
+							pair.logPrint();
+							setOperations[references[pair.getKey()]](pair.getValue());
+						}
 					}
-					setOperations[references["instance"]](new clusterVizCentric());
 				}
 			}
 		},
@@ -865,11 +897,16 @@ var starSystems = (function () {
  */
 var orderedPairToArray = (function (){
 	return{
-		getOrderedPair: function (oneString){
+		getOrderedPair: function (oneString, systemName){
 			var result = [];
+			var kvPair = new keyValuePair();
+			kvPair.setKey("systemName");
+			kvPair.setValue(systemName);
+			result.push(kvPair);
+			
 			var arrayOfUnsplitOrderedPairs = oneString.toString().split(";");
 			for(var idex = 0; idex < arrayOfUnsplitOrderedPairs.length; idex++){
-				var kvPair = new keyValuePair();
+				kvPair = new keyValuePair();
 				var kvArray = arrayOfUnsplitOrderedPairs[idex].split("=");
 				kvPair.setKey(kvArray[0]);
 				kvPair.setValue(kvArray[1]);
