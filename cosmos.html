@@ -463,7 +463,7 @@ var processJump = (function () {
 			var showList = ['cosmosSpaceDetail'];
 			var hideList = ['shipStart','jumping', 'starsinclustertext'];
 			tagOperations.both(showList, hideList);
-			clusterValues.initArrays();  // async returns go into this object
+			clusterValues.reset();  // async returns go into this object
 			starSystems.visualize(systemVizCentricArray);
 			var clusterTimer = setInterval(function () {clusterTimerLoop(clusterTimer)}, 1000);
 			
@@ -479,24 +479,7 @@ var visualizeClusters = (function (){
 	// public
 	return{
 		display : function(){
-			var systemsWithClusters = clusterValues.fetchSystemsWithClusters();
-			var dictionary = clusterValues.fetchProcessedCluster();
 			
-			for(var idex = 0; idex < systemsWithClusters.length; idex++){
-				var clusterVizCentrics = dictionary.get(systemsWithClusters[idex]);
-				console.log("SYSTEM WITH CLUSTER:"+systemsWithClusters[idex]);
-				for(var idex2 = 0; idex2 < clusterVizCentrics.length; idex2++){
-						
-					console.log("SubClusterDescription:"+clusterVizCentrics[idex2].getSubClusterDescription());
-					console.log("AnglenInRadians:"+clusterVizCentrics[idex2].getAnglenInRadians());
-					console.log("DistanceClusterVirtCentre:"+clusterVizCentrics[idex2].getDistanceClusterVirtCentre());
-					console.log("Luminosity:"+clusterVizCentrics[idex2].getLuminosity());
-					console.log("StarName:"+clusterVizCentrics[idex2].getStarName());
-					console.log("StarColor:"+clusterVizCentrics[idex2].getStarColor());
-					console.log("StarSize:"+clusterVizCentrics[idex2].getStarSize());
-					console.log("StarType:"+clusterVizCentrics[idex2].getStarType());
-				}
-			}
 			var ctx = canvasas.fetchStarsInClusterTextCanvasContext();
 			ctx.fillRect(5,20,700, window.innerHeight);
 			ctx.beginPath();
@@ -513,53 +496,58 @@ var visualizeClusters = (function (){
 			var starSize;
 			var starLuminosity;
 
-
+			
+			var dictionary = clusterValues.fetchProcessedCluster();
+			var systemsWithClusters = dictionary.keys();
+			
 			for(var idex = 0; idex < systemsWithClusters.length; idex++){
-				var starSystemsWithClusters = systemsWithClusters[idex];
-				var clusterVizCentrics = dictionary.get(starSystemsWithClusters);
-				for(var idex2 = 0; idex2 < clusterVizCentrics.length; idex2++){
-
-					subClusterDescription = clusterVizCentrics[idex2].getSubClusterDescription();
-					starName = "StarName:"+clusterVizCentrics[idex2].getStarName();
-					console.log("StarName2:"+starName);
-
-					starColor = "StarColor:"+clusterVizCentrics[idex2].getStarColor()+ " ";
-					starSize = "StarSize:"+clusterVizCentrics[idex2].getStarSize() + " ";
-					starLuminosity = "Luminosity:"+clusterVizCentrics[idex2].getLuminosity();
+				var clusterVizCentrics = dictionary.get(systemsWithClusters[idex]);
+				console.log("SYSTEM WITH CLUSTER:"+systemsWithClusters[idex]);
+				var system = systemsWithClusters[idex];
+				var stars = dictionary.get(system).keys();
+				for(var idex2 = 0; idex2 < stars.length; idex2++){
+					var oneClusterVizCentric = dictionary.get(system).get(stars[idex2]);	
+					console.log("SubClusterDescription:"+oneClusterVizCentric.getSubClusterDescription());
+					console.log("AnglenInRadians:"+oneClusterVizCentric.getAnglenInRadians());
+					console.log("DistanceClusterVirtCentre:"+oneClusterVizCentric.getDistanceClusterVirtCentre());
+					console.log("Luminosity:"+oneClusterVizCentric.getLuminosity());
+					console.log("StarName:"+oneClusterVizCentric.getStarName());
+					console.log("StarColor:"+oneClusterVizCentric.getStarColor());
+					console.log("StarSize:"+oneClusterVizCentric.getStarSize());
+					console.log("StarType:"+oneClusterVizCentric.getStarType());
+					
+					subClusterDescription = oneClusterVizCentric.getSubClusterDescription();
+					starName = "StarName:"+oneClusterVizCentric.getStarName();
+					starColor = "StarColor:"+oneClusterVizCentric.getStarColor()+ " ";
+					starSize = "StarSize:"+oneClusterVizCentric.getStarSize() + " ";
+					starLuminosity = "Luminosity:"+oneClusterVizCentric.getLuminosity();
 					ctx.font="16px Verdana";
 					ctx.strokeStyle = "yellow";
-					ctx.strokeText("SYSTEM WITH CLUSTER:"+starSystemsWithClusters, runningX, runningY);
+					ctx.strokeText("SYSTEM WITH CLUSTER:"+system, runningX, runningY);
 					runningY += incrementY;
 					ctx.font="10px Verdana";
 					ctx.strokeStyle = "lightblue";
 					ctx.strokeText("SubClusterDescription:"+subClusterDescription, runningX, runningY);
 					runningY += incrementY;
-//				ctx.strokeText("AnglenInRadians:"+clusterVizCentrics[idex].getAnglenInRadians(), runningX, runningY);
-//				runningY += incrementY;
-//				ctx.strokeText("DistanceClusterVirtCentre:"+clusterVizCentrics[idex].getDistanceClusterVirtCentre(), runningX, runningY);
-//				runningY += incrementY;
 					ctx.strokeText(starName, runningX, runningY);
 					runningY += incrementY;
 					ctx.strokeText(starColor, runningX, runningY);
 					var colorWidth = ctx.measureText(starColor).width;
-//				console.log("STAR COLOR WIDTH:"+ colorWidth);
 					runningX += colorWidth ;
 					ctx.strokeText(starSize, runningX, runningY);
 					var luminosityWidth = ctx.measureText(starSize).width;
-//				console.log("LUMINOSITY WIDTH:"+ luminosityWidth);
 					runningX += luminosityWidth;
 					ctx.strokeText(starLuminosity, runningX, runningY);
 					runningY += incrementY;
-//				ctx.strokeText("StarType:"+clusterVizCentrics[idex].getStarType(), runningX, runningY);
-//				runningY += incrementY;
+
 					runningY += incrementY;
 					runningX = startX;
-					
-				}
 
+				}
 			}
 		}
 	}
+	
 })();
 
 var clusterDetailReuquest = (function () {
@@ -586,8 +574,8 @@ var processClusterDetail = (function () {
 			for (var idex = 0; idex < json.stars.stars.length; idex++){
 				if(json.stars.stars[idex].string != undefined){
 					console.log(systemName + " STARS IN CLUSTER:"+json.stars.stars[idex].string);
-					clusterValues.addTosystemNameArray(systemName);
 					clusterValues.addToclusterVizCentricArray(orderedPairToArray.getOrderedPair(json.stars.stars[idex].string, systemName));
+					clusterValues.storeVizCentricArray(systemName);
 				}
 			}
 		},
@@ -624,115 +612,111 @@ var clusterViewCoordinatesToSystemName = (function (){
 var clusterValues = (function () {
 	// private
 	var clusterVizCentricArray;
-	var systemNameArray;
-	var clusterVizCentricArray2;
-	var systemNameArray2;
-	var systemName;
-	var dictionary;
+	var systemDictionary = new buckets.Dictionary();
+	var starDictionary;
+	var rawDictionary;
+	
+	var currentSystem;
+	var workingClusterVizCentric;
+	var currentStarKey;
 	
 	var setOperations = [
-	                     function setSystemName(name){
-	                    	 systemNameArray2.push(name.toString());
-	                    	 systemName = name.toString();
-	                     	 console.log("SYSTEM_NAME:"+name.toString());
-	                  	   
-	                     },
-	                     function setInstance(instance){
-	                    	 clusterVizCentricArray2.push(instance);  // instance of clusterVizCentric
+	                     function setInstance(systemName){
+	                    	 starDictionary = new buckets.Dictionary();
+	                    	 rawDictionary = new buckets.Dictionary();
+	                    	 systemDictionary.set(systemName, starDictionary);
+	                    	 console.log("SYSTEM DICTIONARY init for:" + systemName + "starDictionary:" + systemDictionary.get(systemName));
 	                     },
 	                     function setSubClusterDescription(description){
-	                    	 clusterVizCentricArray2[clusterVizCentricArray2.length-1].setSubClusterDescription(description);
+	                    	 workingClusterVizCentric = new clusterVizCentric();  // the first star attribute
+	                    	 workingClusterVizCentric.setSubClusterDescription(description);
 	                    	 console.log("SUBCLUSTER_DESCRIPTION:"+description.toString());
 	                     },
 	                     function setAnglenInRadians(angle){
-	                    	 clusterVizCentricArray2[clusterVizCentricArray2.length-1].setAnglenInRadians(angle);
+	                    	 workingClusterVizCentric.setAnglenInRadians(angle);
 	                     	 console.log("ANGLE_IN_RADIANS:"+angle.toString());
 	                  	                     },
 	                     function setDistanceClusterVirtCentre(distance){
-	                    	 clusterVizCentricArray2[clusterVizCentricArray2.length-1].setDistanceClusterVirtCentre(distance);
+	                  	     workingClusterVizCentric.setDistanceClusterVirtCentre(distance);
 	                    	 console.log("DISTANCE CENTRE:"+distance.toString());
 	                     },
 	                     function setLuminosity(lumens){
-	                    	 clusterVizCentricArray2[clusterVizCentricArray2.length-1].setLuminosity(lumens);
+	                    	 workingClusterVizCentric.setLuminosity(lumens);
 	                    	 console.log("LUMENS:"+lumens.toString());
 	                     },
 	                     function setStarName(name){
-	                    	 clusterVizCentricArray2[clusterVizCentricArray2.length-1].setStarName(name);
+	                    	 workingClusterVizCentric.setStarName(name);
+	                    	 currentStarKey = name;
 	                    	 console.log("STAR_NAME:"+name.toString());
 	                     },
 	                     function setStarColor(color){
-	                    	 clusterVizCentricArray2[clusterVizCentricArray2.length-1].setStarColor(color);
+	                    	 workingClusterVizCentric.setStarColor(color);
 	                    	 console.log("STAR_COLOR:"+color.toString());
 	                     },
 	                     function setStarSize(size){
-	                    	 clusterVizCentricArray2[clusterVizCentricArray2.length-1].setStarSize(size);
+	                    	 workingClusterVizCentric.setStarSize(size);
 	                    	 console.log("STAR_SIZE:"+size.toString());
 	                     },
 	                     function setStarType(type){
-	                    	 clusterVizCentricArray2[clusterVizCentricArray2.length-1].setStarType(type);
+	                    	 workingClusterVizCentric.setStarType(type);  // last star attribute, save cluster viz centric
+	                    	 var starDict = systemDictionary.get(currentSystem);
+	                    	 starDict.set(currentStarKey, workingClusterVizCentric);
 	                    	 console.log("STAR_TYPE:"+type.toString());
 	                     }
 	                    ];
 	
 						var references = {
-								"systemName" : 0,
-								"instance" : 1,
-								"sub_cluster_description" : 2,
-								"angle_in_radians_s" : 3,
-								"distance_clust_virt_centre" : 4,
-								"luminosity" : 5,
-								"Name" : 6,
-								"star_color" : 7,
-								"star_size" : 8,
-								"star_type" : 9
+								"instance" : 0,
+								"sub_cluster_description" : 1,
+								"angle_in_radians_s" : 2,
+								"distance_clust_virt_centre" : 3,
+								"luminosity" : 4,
+								"Name" : 5,
+								"star_color" : 6,
+								"star_size" : 7,
+								"star_type" : 8
 						}
 	return{
-		initArrays: function(){
+		initArrays: function(systemName){
+			setOperations[references["instance"]](systemName);
 			clusterVizCentricArray = [];
-			systemNameArray = [];
-		},
-		addTosystemNameArray: function (systemName){
-			console.log("ADDED SYSTEM:"+systemName);
-			systemNameArray.push(systemName);
 		},
 		addToclusterVizCentricArray: function(keyValuePair){
 			console.log("VIZ CENTRIC SIZE:"+clusterVizCentricArray.length);
 			clusterVizCentricArray.push(keyValuePair);
 		},
+		storeVizCentricArray: function(systemName){
+			rawDictionary.set(systemName, clusterVizCentricArray);
+		},
 		getClusterVizCentricArraySize(){
 			return clusterVizCentricArray.length;
 		},
 		getSystemNameArraySize(){
-			return systemNameArray.length;
+			return rawDictionary.size();
 		},
 		builder(){
-			clusterVizCentricArray2 = [];
-			systemNameArray2 = [];
-			dictionary = new buckets.Dictionary();
 			
+			var systemNameArray =  rawDictionary.keys();
 			for(var idex = 0; idex <  systemNameArray.length; idex++){
-				console.log('SYSTEM_COUNT:'+idex);
+				currentSystem = systemNameArray[idex];
+				console.log('SYSTEM_COUNT:'+idex+" SYSTEM:" + currentSystem);
+				var rawClusterArray = rawDictionary.get(currentSystem);
 
-				for(var idex2 = 0; idex2 < clusterVizCentricArray.length; idex2++){  // number stars in cluster
+				for(var idex2 = 0; idex2 < rawClusterArray.length; idex2++){  // number stars in cluster
 					var pairs = clusterVizCentricArray[idex2];
-					setOperations[references["instance"]](new clusterVizCentric());
+					// setOperations[references["instance"]](new clusterVizCentric());
 					for(var idex3 = 0; idex3 < pairs.length; idex3++ ){
 						var pair = pairs[idex3];
-						var currentKey = pair.getKey();
-						var currentValue = pair.getValue();
-						var currentSystem = systemNameArray[idex];
 						setOperations[references[pair.getKey()]](pair.getValue());
 					}
 				}
-				dictionary.set(currentSystem, clusterVizCentricArray2);
-				clusterVizCentricArray2 = [];
 			}
 		},
 		fetchProcessedCluster(){
-			return dictionary;
+			return systemDictionary;
 		},
-		fetchSystemsWithClusters(){
-			return systemNameArray2;
+		reset(){
+			systemDictionary = new buckets.Dictionary();
 		}
 
 	}
@@ -901,12 +885,11 @@ var orderedPairToArray = (function (){
 	return{
 		getOrderedPair: function (oneString, systemName){
 			var result = [];
-			var kvPair = new keyValuePair();
-			kvPair.setKey("systemName");
-			kvPair.setValue(systemName);
-			result.push(kvPair);
+			var stars = [];
+			clusterValues.initArrays(systemName);  // inits both dictionaries
 			
 			var arrayOfUnsplitOrderedPairs = oneString.toString().split(";");
+
 			for(var idex = 0; idex < arrayOfUnsplitOrderedPairs.length; idex++){
 				kvPair = new keyValuePair();
 				var kvArray = arrayOfUnsplitOrderedPairs[idex].split("=");
