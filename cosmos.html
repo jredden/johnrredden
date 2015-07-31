@@ -447,7 +447,7 @@ var processJump = (function () {
 	*/
 	var clusterTimerLoop = function(clusterTimer){
 		console.log("WAITING FOR CLUSTER DATA");
-		if(clusterValues.getClusterVizCentricArraySize() != 0){
+		if(clusterValues.getDone()){
 			window.clearInterval(clusterTimer)
 			console.log("CLUSTER VALUES SIZE:"+clusterValues.getClusterVizCentricArraySize());
 			console.log("SYSTEM TO CLUSTER SIZE:"+clusterValues.getSystemNameArraySize());
@@ -463,7 +463,7 @@ var processJump = (function () {
 			var showList = ['cosmosSpaceDetail'];
 			var hideList = ['shipStart','jumping', 'starsinclustertext'];
 			tagOperations.both(showList, hideList);
-			clusterValues.reset();  // async returns go into this object
+			// async returns go into this object
 			starSystems.visualize(systemVizCentricArray);
 			var clusterTimer = setInterval(function () {clusterTimerLoop(clusterTimer)}, 1000);
 			
@@ -555,7 +555,7 @@ var clusterDetailReuquest = (function () {
 		jsonCall: function(systemName){
 			$.getJSON("http://www.johntreddenlocal.com:8080/starCluster.html?systemName="+systemName,
 					function(json){           // callback
-						console.log("in clusterDetailRequest");
+						console.log("in clusterDetailRequest for :" + systemName);
 						processClusterDetail.jsonProcess(json, systemName);
 					}		
 			);
@@ -571,14 +571,16 @@ var processClusterDetail = (function () {
 	// public
 	return{
 		jsonProcess: function(json, systemName){
+			clusterValues.initArrays(systemName);
 			for (var idex = 0; idex < json.stars.stars.length; idex++){
 				if(json.stars.stars[idex].string != undefined){
-					console.log(systemName + " STARS IN CLUSTER:"+json.stars.stars[idex].string);
+					console.log(systemName + " STARS IN CLUSTER:"+systemName+ ":: "+ json.stars.stars[idex].string);
 					clusterValues.addToclusterVizCentricArray(orderedPairToArray.getOrderedPair(json.stars.stars[idex].string, systemName));
 					clusterValues.storeVizCentricArray(systemName);
 				}
 			}
-		},
+			clusterValues.setDone();
+		}
 	}
 	
 })();
@@ -619,6 +621,8 @@ var clusterValues = (function () {
 	var currentSystem;
 	var workingClusterVizCentric;
 	var currentStarKey;
+	
+	var done;
 	
 	var setOperations = [
 	                     function setInstance(systemName){
@@ -661,7 +665,7 @@ var clusterValues = (function () {
 	                    	 workingClusterVizCentric.setStarType(type);  // last star attribute, save cluster viz centric
 	                    	 var starDict = systemDictionary.get(currentSystem);
 	                    	 starDict.set(currentStarKey, workingClusterVizCentric);
-	                    	 console.log("STAR_TYPE:"+type.toString());
+	                    	 console.log("STAR_TYPE:"+type.toString()+" ADDING:"+currentStarKey+":: "+workingClusterVizCentric.getStarName());
 	                     }
 	                    ];
 	
@@ -687,6 +691,8 @@ var clusterValues = (function () {
 		},
 		storeVizCentricArray: function(systemName){
 			rawDictionary.set(systemName, clusterVizCentricArray);
+			console.log("SAVING clusterVizCentricArray for SYSTEM:"+systemName);
+			clusterVizCentricArray = [];
 		},
 		getClusterVizCentricArraySize(){
 			return clusterVizCentricArray.length;
@@ -704,7 +710,6 @@ var clusterValues = (function () {
 
 				for(var idex2 = 0; idex2 < rawClusterArray.length; idex2++){  // number stars in cluster
 					var pairs = clusterVizCentricArray[idex2];
-					// setOperations[references["instance"]](new clusterVizCentric());
 					for(var idex3 = 0; idex3 < pairs.length; idex3++ ){
 						var pair = pairs[idex3];
 						setOperations[references[pair.getKey()]](pair.getValue());
@@ -717,6 +722,15 @@ var clusterValues = (function () {
 		},
 		reset(){
 			systemDictionary = new buckets.Dictionary();
+		},
+		clearDone(){
+			done = false;
+		},
+		setDone(){
+			done = true;
+		},
+		getDone(){
+			return done;
 		}
 
 	}
@@ -800,7 +814,9 @@ var firstStop = (function () {
 var starSystems = (function () {
 	return{
 		visualize: function(systemVizCentricArray){
+			clusterValues.reset();  // reinitilizes top dictionary
 			clusterViewCoordinatesToSystemName.initArrays();
+			
 			canvasas.init();
 			var ctx = canvasas.fetchStarSystemsCanvasContext();
 			ctx.fillRect(0,20,window.innerWidth/2, window.innerHeight);
@@ -819,6 +835,7 @@ var starSystems = (function () {
 			console.log("LENGTH:"+systemVizCentricArray.length);
 			ctx.beginPath();
 			for(var idex = 0; idex < systemVizCentricArray.length; ){
+				clusterValues.initArrays(systemVizCentricArray[idex].getSystemName());
 				if(flipFlop == 0){
 					fillStyle = 'darkblue';
 				}
@@ -844,7 +861,7 @@ var starSystems = (function () {
 				// console.log("HEADER:"+header);
 				ctx.font="16px Verdana";
 				ctx.strokeText(header, runningX+2, runningY+15);
-				
+				clusterValues.clearDone();
 				clusterDetailReuquest.jsonCall(systemVizCentricArray[idex].getSystemName());
 				
 				runningY += incrementHeaderX;
@@ -886,7 +903,7 @@ var orderedPairToArray = (function (){
 		getOrderedPair: function (oneString, systemName){
 			var result = [];
 			var stars = [];
-			clusterValues.initArrays(systemName);  // inits both dictionaries
+			// clusterValues.initArrays(systemName);  // inits both dictionaries
 			
 			var arrayOfUnsplitOrderedPairs = oneString.toString().split(";");
 
