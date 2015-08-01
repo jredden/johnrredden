@@ -504,9 +504,11 @@ var visualizeClusters = (function (){
 				var clusterVizCentrics = dictionary.get(systemsWithClusters[idex]);
 				console.log("SYSTEM WITH CLUSTER:"+systemsWithClusters[idex]);
 				var system = systemsWithClusters[idex];
-				var stars = dictionary.get(system).keys();
+				var starDict = dictionary.get(system);
+				var stars = starDict.keys();
 				for(var idex2 = 0; idex2 < stars.length; idex2++){
-					var oneClusterVizCentric = dictionary.get(system).get(stars[idex2]);	
+					console.log("STAR WITH VIZ CENTRIC:"+stars[idex2]);
+					var oneClusterVizCentric = starDict.get(stars[idex2]);	
 					console.log("SubClusterDescription:"+oneClusterVizCentric.getSubClusterDescription());
 					console.log("AnglenInRadians:"+oneClusterVizCentric.getAnglenInRadians());
 					console.log("DistanceClusterVirtCentre:"+oneClusterVizCentric.getDistanceClusterVirtCentre());
@@ -575,7 +577,9 @@ var processClusterDetail = (function () {
 			for (var idex = 0; idex < json.stars.stars.length; idex++){
 				if(json.stars.stars[idex].string != undefined){
 					console.log(systemName + " STARS IN CLUSTER:"+systemName+ ":: "+ json.stars.stars[idex].string);
-					clusterValues.addToclusterVizCentricArray(orderedPairToArray.getOrderedPair(json.stars.stars[idex].string, systemName));
+					var orderedPairArray = orderedPairToArray.getOrderedPair(json.stars.stars[idex].string, systemName);
+					// console.log("ORDERED PAIR ARRAY:"+orderedPairArray);
+					clusterValues.addToclusterVizCentricArray(orderedPairArray);
 					clusterValues.storeVizCentricArray(systemName);
 				}
 			}
@@ -627,13 +631,12 @@ var clusterValues = (function () {
 	var setOperations = [
 	                     function setInstance(systemName){
 	                    	 starDictionary = new buckets.Dictionary();
-	                    	 rawDictionary = new buckets.Dictionary();
 	                    	 systemDictionary.set(systemName, starDictionary);
 	                    	 console.log("SYSTEM DICTIONARY init for:" + systemName + "starDictionary:" + systemDictionary.get(systemName));
 	                     },
 	                     function setSubClusterDescription(description){
-	                    	 workingClusterVizCentric = new clusterVizCentric();  // the first star attribute
-	                    	 workingClusterVizCentric.setSubClusterDescription(description);
+	                    	 // the first star attribute
+	                    	 workingClusterVizCentric.setSubClusterDescription(description.toString());
 	                    	 console.log("SUBCLUSTER_DESCRIPTION:"+description.toString());
 	                     },
 	                     function setAnglenInRadians(angle){
@@ -666,6 +669,7 @@ var clusterValues = (function () {
 	                    	 var starDict = systemDictionary.get(currentSystem);
 	                    	 starDict.set(currentStarKey, workingClusterVizCentric);
 	                    	 console.log("STAR_TYPE:"+type.toString()+" ADDING:"+currentStarKey+":: "+workingClusterVizCentric.getStarName());
+	                    	 workingClusterVizCentric = new clusterVizCentric();
 	                     }
 	                    ];
 	
@@ -684,10 +688,11 @@ var clusterValues = (function () {
 		initArrays: function(systemName){
 			setOperations[references["instance"]](systemName);
 			clusterVizCentricArray = [];
+			workingClusterVizCentric = new clusterVizCentric();
 		},
-		addToclusterVizCentricArray: function(keyValuePair){
-			console.log("VIZ CENTRIC SIZE:"+clusterVizCentricArray.length);
-			clusterVizCentricArray.push(keyValuePair);
+		addToclusterVizCentricArray: function(keyValuePairArray){
+			console.log("KEY VALUE PAIR ARRAY:"+keyValuePairArray[0].getKey()+":: "+ keyValuePairArray[0].getValue());
+			clusterVizCentricArray.push(keyValuePairArray);
 		},
 		storeVizCentricArray: function(systemName){
 			rawDictionary.set(systemName, clusterVizCentricArray);
@@ -705,23 +710,24 @@ var clusterValues = (function () {
 			var systemNameArray =  rawDictionary.keys();
 			for(var idex = 0; idex <  systemNameArray.length; idex++){
 				currentSystem = systemNameArray[idex];
-				console.log('SYSTEM_COUNT:'+idex+" SYSTEM:" + currentSystem);
+				console.log(" BUILD SYSTEM:" + currentSystem);
 				var rawClusterArray = rawDictionary.get(currentSystem);
 
-				for(var idex2 = 0; idex2 < rawClusterArray.length; idex2++){  // number stars in cluster
-					var pairs = clusterVizCentricArray[idex2];
-					for(var idex3 = 0; idex3 < pairs.length; idex3++ ){
-						var pair = pairs[idex3];
-						setOperations[references[pair.getKey()]](pair.getValue());
+				for(var idex2 = 0; idex2 < rawClusterArray.length; idex2++){  
+					var pairs = rawClusterArray[idex2];
+					for(var idex3 = 0; idex3 < pairs.length; idex3++){
+						setOperations[references[pairs[idex3].getKey()]](pairs[idex3].getValue());
 					}
 				}
 			}
+			console.log("ALL SYSTEMS BUILT");
 		},
 		fetchProcessedCluster(){
 			return systemDictionary;
 		},
 		reset(){
 			systemDictionary = new buckets.Dictionary();
+			rawDictionary = new buckets.Dictionary();
 		},
 		clearDone(){
 			done = false;
@@ -912,7 +918,7 @@ var orderedPairToArray = (function (){
 				var kvArray = arrayOfUnsplitOrderedPairs[idex].split("=");
 				kvPair.setKey(kvArray[0]);
 				kvPair.setValue(kvArray[1]);
-				// console.log("KVPAIR:"+kvPair.getKey()+"::"+kvPair.getValue());
+				console.log("KVPAIR:"+kvPair.getKey()+"::"+kvPair.getValue());
 				result.push(kvPair);
 			}
 			return result;
