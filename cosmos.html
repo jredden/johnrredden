@@ -155,6 +155,7 @@ var clusterVizCentric  = (function(){
 			sub_cluster_description = sCDescription;
 		},
 		getSubClusterDescription: function(){
+			console.log("GETTING SUB CLUSTER DESCRIPTION:"+sub_cluster_description);
 			return sub_cluster_description;
 		},
 		setAnglenInRadians: function(angInRadians){
@@ -341,6 +342,37 @@ var canvasas = (function(){
 	}
 })();
 
+var point = (function(){
+	var xcoordinate;
+	var ycoordinate;
+	return{
+		setXandY: function(xcoord, ycoord){
+			xcoordinate = xcoord;
+			ycoordinate = ycoord;
+		},
+		getX: function(){
+			return xcoordinate;
+		},
+		getY: function(){
+			return ycoordinate;
+		}
+	}
+});
+var scaledXandY = (function(){
+	
+	return{
+		scaleToAngle: function(angleInRadians, magnitude){
+			var cosAngle = Math.cos(angleInRadians);
+			var sinAngle = Math.sin(angleInRadians);
+			var xcoordinate = cosAngle * magnitude;
+			var ycoordinate = sinAngle * magnitude;
+			var a_point = new point();
+			a_point.SetXandY(xcoordinate, ycoordinate);
+			return a_point;
+		}
+	}
+	
+})();
 
 $(document).ready(function() {
 	console.log("in ready");
@@ -474,83 +506,6 @@ var processJump = (function () {
 	}
 })();
 
-var visualizeClusters = (function (){
-	
-	// public
-	return{
-		display : function(){
-			
-			var ctx = canvasas.fetchStarsInClusterTextCanvasContext();
-			ctx.fillRect(5,20,700, window.innerHeight);
-			ctx.beginPath();
-			var showList = ['starsinclustertext'];
-			tagOperations.show(showList);
-			var startX = 5;
-			var startY = 50;
-			var runningX = startX;
-			var runningY = startY;
-			var incrementY = 20;
-			var subClusterDescription;
-			var starName;
-			var starColor;
-			var starSize;
-			var starLuminosity;
-
-			
-			var dictionary = clusterValues.fetchProcessedCluster();
-			var systemsWithClusters = dictionary.keys();
-			
-			for(var idex = 0; idex < systemsWithClusters.length; idex++){
-				var clusterVizCentrics = dictionary.get(systemsWithClusters[idex]);
-				console.log("SYSTEM WITH CLUSTER:"+systemsWithClusters[idex]);
-				var system = systemsWithClusters[idex];
-				var starDict = dictionary.get(system);
-				var stars = starDict.keys();
-				for(var idex2 = 0; idex2 < stars.length; idex2++){
-					console.log("STAR WITH VIZ CENTRIC:"+stars[idex2]);
-					var oneClusterVizCentric = starDict.get(stars[idex2]);	
-					console.log("SubClusterDescription:"+oneClusterVizCentric.getSubClusterDescription());
-					console.log("AnglenInRadians:"+oneClusterVizCentric.getAnglenInRadians());
-					console.log("DistanceClusterVirtCentre:"+oneClusterVizCentric.getDistanceClusterVirtCentre());
-					console.log("Luminosity:"+oneClusterVizCentric.getLuminosity());
-					console.log("StarName:"+oneClusterVizCentric.getStarName());
-					console.log("StarColor:"+oneClusterVizCentric.getStarColor());
-					console.log("StarSize:"+oneClusterVizCentric.getStarSize());
-					console.log("StarType:"+oneClusterVizCentric.getStarType());
-					
-					subClusterDescription = oneClusterVizCentric.getSubClusterDescription();
-					starName = "StarName:"+oneClusterVizCentric.getStarName();
-					starColor = "StarColor:"+oneClusterVizCentric.getStarColor()+ " ";
-					starSize = "StarSize:"+oneClusterVizCentric.getStarSize() + " ";
-					starLuminosity = "Luminosity:"+oneClusterVizCentric.getLuminosity();
-					ctx.font="16px Verdana";
-					ctx.strokeStyle = "yellow";
-					ctx.strokeText("SYSTEM WITH CLUSTER:"+system, runningX, runningY);
-					runningY += incrementY;
-					ctx.font="10px Verdana";
-					ctx.strokeStyle = "lightblue";
-					ctx.strokeText("SubClusterDescription:"+subClusterDescription, runningX, runningY);
-					runningY += incrementY;
-					ctx.strokeText(starName, runningX, runningY);
-					runningY += incrementY;
-					ctx.strokeText(starColor, runningX, runningY);
-					var colorWidth = ctx.measureText(starColor).width;
-					runningX += colorWidth ;
-					ctx.strokeText(starSize, runningX, runningY);
-					var luminosityWidth = ctx.measureText(starSize).width;
-					runningX += luminosityWidth;
-					ctx.strokeText(starLuminosity, runningX, runningY);
-					runningY += incrementY;
-
-					runningY += incrementY;
-					runningX = startX;
-
-				}
-			}
-		}
-	}
-	
-})();
 
 var clusterDetailReuquest = (function () {
 	return{
@@ -577,7 +532,7 @@ var processClusterDetail = (function () {
 			for (var idex = 0; idex < json.stars.stars.length; idex++){
 				if(json.stars.stars[idex].string != undefined){
 					console.log(systemName + " STARS IN CLUSTER:"+systemName+ ":: "+ json.stars.stars[idex].string);
-					var orderedPairArray = orderedPairToArray.getOrderedPair(json.stars.stars[idex].string, systemName);
+					var orderedPairArray = orderedPairToArray.getOrderedPair(json.stars.stars[idex].string);
 					// console.log("ORDERED PAIR ARRAY:"+orderedPairArray);
 					clusterValues.addToclusterVizCentricArray(orderedPairArray);
 					clusterValues.storeVizCentricArray(systemName);
@@ -742,6 +697,83 @@ var clusterValues = (function () {
 	}
 	
 })();
+var visualizeClusters = (function (){
+	
+	// public
+	return{
+		display : function(){
+			
+			var ctx = canvasas.fetchStarsInClusterTextCanvasContext();
+			ctx.fillRect(5,20,700, window.innerHeight);
+			ctx.beginPath();
+			var showList = ['starsinclustertext'];
+			tagOperations.show(showList);
+			var startX = 5;
+			var startY = 50;
+			var runningX = startX;
+			var runningY = startY;
+			var incrementY = 20;
+			var subClusterDescription;
+			var starName;
+			var starColor;
+			var starSize;
+			var starLuminosity;
+
+			
+			var dictionary = clusterValues.fetchProcessedCluster();
+			var systemsWithClusters = dictionary.keys();
+			
+			for(var idex = 0; idex < systemsWithClusters.length; idex++){
+				var clusterVizCentrics = dictionary.get(systemsWithClusters[idex]);
+				console.log("SYSTEM WITH CLUSTER:"+systemsWithClusters[idex]);
+				var system = systemsWithClusters[idex];
+				var starDict = dictionary.get(system);
+				var stars = starDict.keys();
+				for(var idex2 = 0; idex2 < stars.length; idex2++){
+					console.log("STAR WITH VIZ CENTRIC:"+stars[idex2]);
+					var oneClusterVizCentric = starDict.get(stars[idex2]);	
+					console.log("SubClusterDescription:"+oneClusterVizCentric.getSubClusterDescription());
+					console.log("AnglenInRadians:"+oneClusterVizCentric.getAnglenInRadians());
+					console.log("DistanceClusterVirtCentre:"+oneClusterVizCentric.getDistanceClusterVirtCentre());
+					console.log("Luminosity:"+oneClusterVizCentric.getLuminosity());
+					console.log("StarName:"+oneClusterVizCentric.getStarName());
+					console.log("StarColor:"+oneClusterVizCentric.getStarColor());
+					console.log("StarSize:"+oneClusterVizCentric.getStarSize());
+					console.log("StarType:"+oneClusterVizCentric.getStarType());
+					
+					subClusterDescription = oneClusterVizCentric.getSubClusterDescription();
+					starName = "StarName:"+oneClusterVizCentric.getStarName();
+					starColor = "StarColor:"+oneClusterVizCentric.getStarColor()+ " ";
+					starSize = "StarSize:"+oneClusterVizCentric.getStarSize() + " ";
+					starLuminosity = "Luminosity:"+oneClusterVizCentric.getLuminosity();
+					ctx.font="16px Verdana";
+					ctx.strokeStyle = "yellow";
+					ctx.strokeText("SYSTEM WITH CLUSTER:"+system, runningX, runningY);
+					runningY += incrementY;
+					ctx.font="10px Verdana";
+					ctx.strokeStyle = "lightblue";
+					ctx.strokeText("SubClusterDescription:"+subClusterDescription, runningX, runningY);
+					runningY += incrementY;
+					ctx.strokeText(starName, runningX, runningY);
+					runningY += incrementY;
+					ctx.strokeText(starColor, runningX, runningY);
+					var colorWidth = ctx.measureText(starColor).width;
+					runningX += colorWidth ;
+					ctx.strokeText(starSize, runningX, runningY);
+					var luminosityWidth = ctx.measureText(starSize).width;
+					runningX += luminosityWidth;
+					ctx.strokeText(starLuminosity, runningX, runningY);
+					runningY += incrementY;
+
+					runningY += incrementY;
+					runningX = startX;
+
+				}
+			}
+		}
+	}
+	
+})();
 
 /**
  * used to draw the initial canvas
@@ -901,15 +933,42 @@ var starSystems = (function () {
 	}
 })();
 
+var visualizeOneClusterOnCanvas = (function () {
+	
+	// private
+	
+	var distancePartitionMinConstant = 904398;  // sample closest cluster to centre
+	var distancePartitionMaxConstant = 5004938249;  // sample farthest cluster from centre 
+	var distanceIncrement = Math.floor(distancePartitionMaxConstant/distancePartitionMinConstant);
+	
+	var dictionaryPartitioning = 30;
+	var distanceStep = distanceIncrement/dictionaryPartitioning;
+	var pixelIncrement = 5;
+	var incrementsDictionary = new buckets.Dictionary();
+	
+	// public
+	
+	return{
+		init: function(){
+			var increment = 0;
+			for (var idex = 0; idex < dictionaryPartitioning; idex++){
+				increment += pixelIncrement;
+				nextKey = distanceStep *  distancePartitionMinConstant * idex;
+				incrementsDictionary.set(nextKey, increment);
+			}
+		}
+	}
+	
+})();
+
 /**
  * builds array of arrays holding ordered pairs
  */
 var orderedPairToArray = (function (){
 	return{
-		getOrderedPair: function (oneString, systemName){
+		getOrderedPair: function (oneString){
 			var result = [];
 			var stars = [];
-			// clusterValues.initArrays(systemName);  // inits both dictionaries
 			
 			var arrayOfUnsplitOrderedPairs = oneString.toString().split(";");
 
@@ -963,7 +1022,7 @@ function print_recursive(printthis) {
 	
 	</canvas>
 	
-	Star Systems in this Sector
+	<span id="ssits"> Star Systems in this Sector</span>
 	<canvas id="starsinclustertextcanvas">
 	Your browser does not support the HTML5 canvas tag.
 	Please upgrade to a version with full support for HTML5.
