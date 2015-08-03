@@ -26,9 +26,14 @@ public class ExamineSystems {
 		clusterRep = clusterRepDao.readClusterRepBySystemId(system);
 		List<Star> stars = starDao.readStarsInCluster(clusterRep);
 		List<String> keyValuePairs = new ArrayList<String>();
+		
+		int count = 0; // used for initial ";"
 		for(Star star : stars){
 			StringBuilder keyValuePair = new StringBuilder();
 			String subClusterdescription = starDao.readStarsSubClusterDescription(star);
+			if(count > 0){
+				keyValuePair.append(';');
+			}
 			keyValuePair.append(StarDao.SUB_CLUSTER_DESCRIPTION).append("=").append(subClusterdescription);
 			keyValuePair.append(";"+StarDao.ANGLE_IN_RADIANS_S).append("=").append(star.getAngle_in_radians_s());
 			keyValuePair.append(";"+StarDao.DISTANCE_CLUST_VIRT_CENTRE).append("=").append(Math.abs(star.getDistance_clust_virt_centre()));
@@ -38,6 +43,7 @@ public class ExamineSystems {
 			keyValuePair.append(";"+StarDao.STAR_SIZE).append("=").append(star.getStar_size());
 			keyValuePair.append(";"+StarDao.STAR_TYPE).append("=").append(star.getStar_type());
 			keyValuePairs.add(keyValuePair.toString());
+			++count;
 		}
 		return keyValuePairs;
 	}
