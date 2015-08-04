@@ -351,7 +351,9 @@ var canvasas = (function(){
 		}
 	}
 })();
-
+/*
+ *  2D 
+ */
 var point = (function(){
 	var xcoordinate;
 	var ycoordinate;
@@ -368,6 +370,27 @@ var point = (function(){
 		}
 	}
 });
+
+var relativeSystemVector  = (function(){
+	
+	var scalarX;
+	var scalarY;
+	
+	return {
+		setScalarXandY: function(sX, sY){
+			scalarX = sX;
+			scalarY = sY;
+		},
+		getScalarX: function(){
+			return scalarX;
+		},
+		getScalarY: function(){
+			return scalarY;
+		}
+	}
+	
+});
+
 var scaledXandY = (function(){
 	
 	return{
@@ -387,8 +410,8 @@ var scaledXandY = (function(){
 $(document).ready(function() {
 	console.log("in ready");
 	tagOperations.hideAll();
-	visualizeOneClusterOnCanvas.init();
-	visualizeOneClusterOnCanvas.logPrint();  // sanity check
+	visualizeClustersOnCanvas.init();
+	visualizeClustersOnCanvas.logPrint();  // sanity check
 	
 	$("#home").click(function(){
 		window.location = "http://www.johntredden.com";
@@ -563,8 +586,7 @@ var processClusterDetail = (function () {
  */
 var clusterViewCoordinatesToSystemName = (function (){
 	// private
-	var clusterViewCoosrdinatesArray;
-	var systemNameCoordinatesArray;
+	var systemNameCoordinatesDictionary;
 	
 	return {
 		initArrays: function(){	// sic ... dictionaries
@@ -751,9 +773,10 @@ var visualizeClusters = (function (){
 					console.log("StarSize:"+oneClusterVizCentric.getStarSize());
 					console.log("StarType:"+oneClusterVizCentric.getStarType());
 					
-					var starPoint = visualizeOneClusterOnCanvas.locateScaleUsingDistance(oneClusterVizCentric.getDistanceClusterVirtCentre(), oneClusterVizCentric.getAnglenInRadians());
+					var starPoint = visualizeClustersOnCanvas.locateScaleUsingDistance(oneClusterVizCentric.getDistanceClusterVirtCentre(), oneClusterVizCentric.getAnglenInRadians());
 					var starPointXVector = starPoint.getX();
 					var starPointYVector = starPoint.getY();
+					visualizeClustersOnCanvas.saveSystemClusterVizScalar(starPointXVector, starPointYVector, system);
 					console.log("STAR POINTS " + starPointXVector + " AND " + starPointYVector + " IN " + system + " SYSTEM");
 					
 					subClusterDescription = oneClusterVizCentric.getSubClusterDescription();
@@ -952,7 +975,7 @@ var starSystems = (function () {
 	}
 })();
 
-var visualizeOneClusterOnCanvas = (function () {
+var visualizeClustersOnCanvas = (function () {
 	
 	// private
 	
@@ -964,16 +987,18 @@ var visualizeOneClusterOnCanvas = (function () {
 	var distanceStep = distanceIncrement/dictionaryPartitioning;
 	var pixelIncrement = 5;
 	var incrementsDictionary;
+	var clustersDictionary;
 	
 	// public
 	
 	return{
 		init: function(){
 			incrementsDictionary = new buckets.Dictionary();
+			clustersDictionary = new buckets.Dictionary();
 			var increment = 0;
 			for (var idex = 0; idex < dictionaryPartitioning; idex++){
 				increment += pixelIncrement;
-				var nextKey = Math.floor(distanceStep *  distancePartitionMinConsetXandYstant * idex);
+				var nextKey = Math.floor(distanceStep *  distancePartitionMinConstant * idex);
 				incrementsDictionary.set(nextKey, increment);
 			}
 		},
@@ -985,7 +1010,7 @@ var visualizeOneClusterOnCanvas = (function () {
 				console.log("CLUSTER PARITION:"+value + " INCREMENT:" + key);
 			}
 		},
-		locateScaleUsingDistance(distance, angle){	// distance in kilometers, angle in radians
+		locateScaleUsingDistance: function(distance, angle){	// distance in kilometers, angle in radians
 			var pixelScalar;
 			var keys = incrementsDictionary.keys();
 			for(var idex = 0; idex < keys.length; idex++){
@@ -1002,6 +1027,14 @@ var visualizeOneClusterOnCanvas = (function () {
 			pixelScalar = Math.floor(pixelScalar / 2);  // so as to compute from middle of the system visual.
 			var pointFromCentre = scaledXandY.scaleToAngle(angle, pixelScalar);
 			return pointFromCentre;
+		},
+		saveSystemClusterVizScalar: function(scalarX, scalarY, systemName){
+			var a_relativeSystemVector = new relativeSystemVector();
+			a_relativeSystemVector.setScalarXandY(scalarX, scalarY);
+			clustersDictionary.set(systemName, a_relativeSystemVector);
+		},
+		fetchSystemClusterVizScalar: function(systemName){
+			var scalar = clustersDictionary.get(systemName);
 		}
 	}
 	
