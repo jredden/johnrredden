@@ -371,6 +371,218 @@ var point = (function(){
 	}
 });
 
+var vizStarSizes = (function(){
+	
+	var smallSize;
+	var bigSize;
+	var color;
+	
+	return {
+		init: function(i_smallSize, i_bigSize, s_color){
+			smallSize = i_smallSize;
+			bigSize = i_bigSize;
+			color = s_color;
+		},
+		fetchSmallSize: function(){
+			return smallSize;
+		},
+		fetchBigSize: function(){
+			return bigSize;
+		}
+	}
+	
+});
+
+var vizStars = (function(){
+	// private 
+	
+	var starColorDictionary;
+	var starSize;
+	return {
+		init: function(){
+			starColorDictionary = new buckets.Dictionary();
+			starSize = new vizStarSizes();
+			starSize.init(5, 14, 'blue');
+			starColorDictionary.set('Blue Super Giant II', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(5, 14, 'lightblue');
+			starColorDictionary.set('Light Blue Super Giant II', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(5, 14, 'white');
+			starColorDictionary.set('White Super Giant II', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(5, 14, 'lightyellow');
+			starColorDictionary.set('Pale Yellow Super Giant II', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(5, 14, 'yellow');
+			starColorDictionary.set('Yellow Super Giant II', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(5, 14, 'orange');
+			starColorDictionary.set('Orange Super Giant II', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(5, 14, 'orange');
+			starColorDictionary.set('Red Super Giant II', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(5, 14, 'blue');
+			starColorDictionary.set('Blue Super Giant I', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(5, 14, 'lightblue');
+			starColorDictionary.set('Light Blue Super Giant I', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(5, 14, 'white');
+			starColorDictionary.set('White Super Giant I', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(5, 14, 'lightyellow');
+			starColorDictionary.set('Pale Yellow Super Giant I', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(5, 14, 'yellow');
+			starColorDictionary.set('Yellow Super Giant I', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(5, 14, 'orange');
+			starColorDictionary.set('Orange Super Giant I', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(5, 14, 'orange');
+			starColorDictionary.set('Red Super Giant I', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(5, 12, 'blue');
+			starColorDictionary.set('Blue Giant II', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(5, 12, 'lightblue');
+			starColorDictionary.set('Light Blue  Giant II', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(5, 12, 'white');
+			starColorDictionary.set('White Giant II', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(5, 12, 'lightyellow');
+			starColorDictionary.set('Pale Yellow Giant II', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(5, 12, 'yellow');
+			starColorDictionary.set('Yellow Giant II', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(5, 12, 'orange');
+			starColorDictionary.set('Orange Giant II', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(5, 12, 'red');
+			starColorDictionary.set('Red Giant II', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(5, 12, 'blue');
+			starColorDictionary.set('Blue Giant I', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(5, 12, 'lightblue');
+			starColorDictionary.set('Light Blue  Giant I', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(5, 12, 'white');
+			starColorDictionary.set('White Giant I', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(5, 12, 'lightyellow');
+			starColorDictionary.set('Pale Yellow Giant I', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(5, 12, 'yellow');
+			starColorDictionary.set('Yellow Giant I', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(5, 12, 'orange');
+			starColorDictionary.set('Orange Giant I', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(5, 12, 'red');
+			starColorDictionary.set('Red Giant I', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(4, 9, 'blue');
+			starColorDictionary.set('Blue Sub Giant', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(4, 9, 'lightblue');
+			starColorDictionary.set('Light Blue Sub Giant', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(4, 9, 'white');
+			starColorDictionary.set('White Sub Giant', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(4, 9, 'lightyellow');
+			starColorDictionary.set('Pale Yellow SubGiant', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(4, 9, 'yellow');
+			starColorDictionary.set('Yellow Sub Giant', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(4, 9, 'orange');
+			starColorDictionary.set('Orange Sub Giant', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(4, 9, 'red');
+			starColorDictionary.set('Red Sub Giant', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(3, 7, 'blue');
+			starColorDictionary.set('Blue Main Sequence', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(3, 7, 'lightblue');
+			starColorDictionary.set('Light Blue Main Sequence', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(3, 7, 'white');
+			starColorDictionary.set('White Main Sequence', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(3, 7, 'lightyellow');
+			starColorDictionary.set('Pale Yellow Main Sequence', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(3, 7, 'yellow');
+			starColorDictionary.set('Yellow Main Sequence', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(3, 7, 'orange');
+			starColorDictionary.set('Orange Main Sequence', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(3, 7, 'red');
+			starColorDictionary.set('Red Main Sequence', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(2, 6, 'blue');
+			starColorDictionary.set('Blue Sub Dwarf', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(2, 6, 'lightblue');
+			starColorDictionary.set('Light Blue Sub Dwarf', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(2, 6, 'white');
+			starColorDictionary.set('White Sub Dwarf', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(2, 6, 'lightyellow');
+			starColorDictionary.set('Pale Yellow Sub Dwarf', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(2, 6, 'yellow');
+			starColorDictionary.set('Yellow Sub Dwarf', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(2, 6, 'orange');
+			starColorDictionary.set('Orange Sub Dwarf', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(2, 6, 'red');
+			starColorDictionary.set('Red Sub Dwarf', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(2, 5, 'blue');
+			starColorDictionary.set('Blue Dwarf', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(2, 5, 'lightblue');
+			starColorDictionary.set('Light Blue Dwarf', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(2, 5, 'white');
+			starColorDictionary.set('White Dwarf', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(2, 5, 'lightyellow');
+			starColorDictionary.set('Pale Yellow Dwarf', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(2, 5, 'yellow');
+			starColorDictionary.set('Yellow Dwarf', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(2, 5, 'orange');
+			starColorDictionary.set('Orange Dwarf', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(2, 5, 'red');
+			starColorDictionary.set('Red Dwarf', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(2, 5, '#580058');
+			starColorDictionary.set('Purple Red Dwarf', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(2, 5, 'brown');
+			starColorDictionary.set('Brown Sub Star', starSize);
+			starSize = new vizStarSizes();
+			starSize.init(2, 5, 'darkbrown');
+			starColorDictionary.set('Dark Brown Sub Dwarf', starSize);
+		}
+	}
+	
+})();
+
 var relativeSystemVector  = (function(){
 	
 	var scalarX;
@@ -761,6 +973,7 @@ var visualizeClusters = (function (){
 				var system = systemsWithClusters[idex];
 				var starDict = dictionary.get(system);
 				var stars = starDict.keys();
+				var previousSystem;
 				for(var idex2 = 0; idex2 < stars.length; idex2++){
 					console.log("STAR WITH VIZ CENTRIC:"+stars[idex2]);
 					var oneClusterVizCentric = starDict.get(stars[idex2]);	
@@ -786,8 +999,11 @@ var visualizeClusters = (function (){
 					starLuminosity = "Luminosity:"+oneClusterVizCentric.getLuminosity();
 					ctx.font="16px Verdana";
 					ctx.strokeStyle = "yellow";
-					ctx.strokeText("SYSTEM WITH CLUSTER:"+system, runningX, runningY);
-					runningY += incrementY;
+					if(previousSystem != system){
+						ctx.strokeText("SYSTEM WITH CLUSTER:"+system, runningX, runningY);
+						runningY += incrementY;
+					}
+					previousSystem = system;
 					ctx.font="10px Verdana";
 					ctx.strokeStyle = "lightblue";
 					ctx.strokeText("SubClusterDescription:"+subClusterDescription, runningX, runningY);
@@ -803,7 +1019,7 @@ var visualizeClusters = (function (){
 					ctx.strokeText(starLuminosity, runningX, runningY);
 					runningY += incrementY;
 
-					runningY += incrementY;
+					// runningY += incrementY;
 					runningX = startX;
 
 				}
