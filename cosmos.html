@@ -578,6 +578,9 @@ var vizStars = (function(){
 			starSize = new vizStarSizes();
 			starSize.init(2, 5, 'darkbrown');
 			starColorDictionary.set('Dark Brown Sub Dwarf', starSize);
+		},
+		fetchStarSizeAndColor: function(color){
+			return starColorDictionary.get(color);
 		}
 	}
 	
@@ -601,6 +604,30 @@ var relativeSystemVector  = (function(){
 		}
 	}
 	
+});
+/*
+ * basic object for visualizing cluster inside a system, 
+ *  that is a stars color, which can determine its graphical 
+ *  size and a scalar in x and y where to visualize the star in
+ *  cluster.
+ */
+var starVizElements = (function(){
+	var a_relativeSystemVector;
+	var starColor;
+	
+	return{
+		setScalarXandYandColor: function(sX, sY, s_starColor){
+			a_relativeSystemVector = new relativeSystemVector();
+			a_relativeSystemVector.setScalarXandY(sX, sY);
+			starColor = s_starColor;
+		},
+		fetchRelativeSystemVector: function(){
+			return a_relativeSystemVector;
+		},
+		fetchStarColor: function(){
+			return starColor;
+		}
+	}
 });
 
 var scaledXandY = (function(){
@@ -805,7 +832,13 @@ var clusterViewCoordinatesToSystemName = (function (){
 			systemNameCoordinatesDictionary = new buckets.Dictionary(); 
 		},
 		process: function(systemName, cvCoordinates){
-			systemNameCoordinatesDictionary.set(systemName. cvCoordinates);
+			systemNameCoordinatesDictionary.set(systemName, cvCoordinates);
+		},
+		fetchCVCoordinates(systemName){
+			return systemNameCoordinatesDictionary.get(systemName);
+		},
+		fetchSystemNames(){
+			return systemNameCoordinatesDictionary.keys();
 		}
 	}
 	
@@ -989,7 +1022,7 @@ var visualizeClusters = (function (){
 					var starPoint = visualizeClustersOnCanvas.locateScaleUsingDistance(oneClusterVizCentric.getDistanceClusterVirtCentre(), oneClusterVizCentric.getAnglenInRadians());
 					var starPointXVector = starPoint.getX();
 					var starPointYVector = starPoint.getY();
-					visualizeClustersOnCanvas.saveSystemClusterVizScalar(starPointXVector, starPointYVector, system);
+					visualizeClustersOnCanvas.saveSystemClusterVizScalar(starPointXVector, starPointYVector, system, oneClusterVizCentric.getStarName(), oneClusterVizCentric.getStarColor());
 					console.log("STAR POINTS " + starPointXVector + " AND " + starPointYVector + " IN " + system + " SYSTEM");
 					
 					subClusterDescription = oneClusterVizCentric.getSubClusterDescription();
@@ -1000,6 +1033,7 @@ var visualizeClusters = (function (){
 					ctx.font="16px Verdana";
 					ctx.strokeStyle = "yellow";
 					if(previousSystem != system){
+						runningY += incrementY;
 						ctx.strokeText("SYSTEM WITH CLUSTER:"+system, runningX, runningY);
 						runningY += incrementY;
 					}
@@ -1030,6 +1064,22 @@ var visualizeClusters = (function (){
 })();
 
 var visualizeStarsInClusters = ( function (){
+	var previousCtx;
+	var systemNames;
+	return{
+		start: function(){
+			previousCtx = fetchStarSystemsCanvasContext();
+			systemNames = clusterViewCoordinatesToSystemName.fetchSystemNames();
+			for(var idex = 0; idex < systemNames.length; idex++){
+				var starsDictionary = visualizeClustersOnCanvas.fetchSystemClusterVizScalar(systemNames[idex]);
+				var starKeys = starsDictionary.keys();
+				for(var idex2 = 0; idex2 < starKeys.length; idex2++){
+					var o_starVizElement = starsDictionary.get(starKeys[idex2]);
+				}
+			}
+
+		}
+	}
 	
 })();
 
@@ -1204,6 +1254,8 @@ var visualizeClustersOnCanvas = (function () {
 	var pixelIncrement = 5;
 	var incrementsDictionary;
 	var clustersDictionary;
+	var starsDictionary;
+	
 	
 	// public
 	
@@ -1211,6 +1263,7 @@ var visualizeClustersOnCanvas = (function () {
 		init: function(){
 			incrementsDictionary = new buckets.Dictionary();
 			clustersDictionary = new buckets.Dictionary();
+						
 			var increment = 0;
 			for (var idex = 0; idex < dictionaryPartitioning; idex++){
 				increment += pixelIncrement;
@@ -1244,13 +1297,20 @@ var visualizeClustersOnCanvas = (function () {
 			var pointFromCentre = scaledXandY.scaleToAngle(angle, pixelScalar);
 			return pointFromCentre;
 		},
-		saveSystemClusterVizScalar: function(scalarX, scalarY, systemName){
-			var a_relativeSystemVector = new relativeSystemVector();
-			a_relativeSystemVector.setScalarXandY(scalarX, scalarY);
-			clustersDictionary.set(systemName, a_relativeSystemVector);
+		saveSystemClusterVizScalar: function(scalarX, scalarY, systemName, starsName, starColor){
+			if(clustersDictionary.containsKey(systemName)){
+				starsDictionary = clustersDictionary.get(systemName);
+			}
+			else{
+				starsDictionary  = new buckets.Dictionary();
+				clustersDictionary.set(systemName, starsDictionary)
+			}
+			var o_starVizElements = new starVizElements();
+			o_starVizElements.setScalarXandYandColor(scalarX, scalarY, starColor);
+			starsDictionary.set(starsName, o_starVizElements);
 		},
 		fetchSystemClusterVizScalar: function(systemName){
-			var scalar = clustersDictionary.get(systemName);
+			var starsDictionary = clustersDictionary.get(systemName);
 		}
 	}
 	
