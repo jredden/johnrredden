@@ -367,6 +367,9 @@ var point = (function(){
 		},
 		getY: function(){
 			return ycoordinate;
+		},
+		logPrint(){
+			console.log("XCOORDINATE:"+xcoordinate+ " YCOORDINATE:"+ycoordinate);
 		}
 	}
 });
@@ -388,6 +391,9 @@ var vizStarSizes = (function(){
 		},
 		fetchBigSize: function(){
 			return bigSize;
+		},
+		fetchColor: function(){
+			return color;
 		}
 	}
 	
@@ -651,6 +657,7 @@ $(document).ready(function() {
 	tagOperations.hideAll();
 	visualizeClustersOnCanvas.init();
 	visualizeClustersOnCanvas.logPrint();  // sanity check
+	vizStars.init();
 	
 	$("#home").click(function(){
 		window.location = "http://www.johntredden.com";
@@ -759,6 +766,7 @@ var processJump = (function () {
 			console.log("SYSTEM TO CLUSTER SIZE:"+clusterValues.getSystemNameArraySize());
 			clusterValues.builder();
 			visualizeClusters.display();
+			visualizeStarsInClusters.display();
 		}
 	}
 	// public
@@ -1067,14 +1075,36 @@ var visualizeStarsInClusters = ( function (){
 	var previousCtx;
 	var systemNames;
 	return{
-		start: function(){
-			previousCtx = fetchStarSystemsCanvasContext();
-			systemNames = clusterViewCoordinatesToSystemName.fetchSystemNames();
+		display: function(){
+			previousCtx = canvasas.fetchStarSystemsCanvasContext();
+			systemNames = visualizeClustersOnCanvas.fetchSystemNames();
 			for(var idex = 0; idex < systemNames.length; idex++){
-				var starsDictionary = visualizeClustersOnCanvas.fetchSystemClusterVizScalar(systemNames[idex]);
+				var systemName = systemNames[idex];
+				var starsDictionary = visualizeClustersOnCanvas.fetchSystemClusterVizScalar(systemName);
 				var starKeys = starsDictionary.keys();
 				for(var idex2 = 0; idex2 < starKeys.length; idex2++){
 					var o_starVizElement = starsDictionary.get(starKeys[idex2]);
+					var a_relativeSystemVector = o_starVizElement.fetchRelativeSystemVector();
+					var starColor = o_starVizElement.fetchStarColor();
+					var vizStarSizes = vizStars.fetchStarSizeAndColor(starColor);
+					var cvCoordinates = clusterViewCoordinatesToSystemName.fetchCVCoordinates(systemName);
+					var o_middlePoint = cvCoordinates.getMiddlePoint();
+					
+					var size = vizStarSizes.fetchSmallSize();
+					var color = vizStarSizes.fetchColor();
+					var startx = o_middlePoint.getX() + a_relativeSystemVector.getScalarX();
+					var starty = o_middlePoint.getY() + a_relativeSystemVector.getScalarY();
+					
+					console.log("VISUALIZE STARS IN CLUSTERS X COORDINATES:"+o_middlePoint.getX()+"::"+a_relativeSystemVector.getScalarX());
+					console.log("VISUALIZE STARS IN CLUSTERS Y COORDINATES:"+o_middlePoint.getY()+"::"+a_relativeSystemVector.getScalarY());
+					
+					previousCtx.beginPath();
+					previousCtx.arc(startx, starty, size, 0, 2*Math.PI, false);
+					previousCtx.fillStyle = color;
+					previousCtx.fill();
+					previousCtx.lineWidth=0;
+					previousCtx.stroke();
+
 				}
 			}
 
@@ -1161,6 +1191,7 @@ var starSystems = (function () {
 	return{
 		visualize: function(systemVizCentricArray){
 			clusterValues.reset();  // reinitilizes top dictionary
+			visualizeClustersOnCanvas.reset();
 			clusterViewCoordinatesToSystemName.initArrays();
 			
 			canvasas.init();
@@ -1201,6 +1232,8 @@ var starSystems = (function () {
 						+"|"+cvCoordinates.getTopLeftY()
 						+"|"+cvCoordinates.getBottomRightX()
 						+"|"+cvCoordinates.getBottomRightY());
+				cvCoordinates.getMiddlePoint().logPrint();
+					
 				clusterViewCoordinatesToSystemName.process(systemVizCentricArray[idex].getSystemName(),cvCoordinates);
 				
 				var header = "U"+systemVizCentricArray[idex].getUCoordinate()+":V"+systemVizCentricArray[idex].getVCoordinate();
@@ -1260,9 +1293,11 @@ var visualizeClustersOnCanvas = (function () {
 	// public
 	
 	return{
+		reset: function(){
+			clustersDictionary = new buckets.Dictionary();	
+		},
 		init: function(){
 			incrementsDictionary = new buckets.Dictionary();
-			clustersDictionary = new buckets.Dictionary();
 						
 			var increment = 0;
 			for (var idex = 0; idex < dictionaryPartitioning; idex++){
@@ -1298,19 +1333,23 @@ var visualizeClustersOnCanvas = (function () {
 			return pointFromCentre;
 		},
 		saveSystemClusterVizScalar: function(scalarX, scalarY, systemName, starsName, starColor){
-			if(clustersDictionary.containsKey(systemName)){
-				starsDictionary = clustersDictionary.get(systemName);
-			}
-			else{
+			console.log("SAVE SYSTEM VIZ SCALAR:"+scalarX+"::"+scalarY+"::"+systemName+"::"+starsName+"::"+starColor+"::");
+			if(!clustersDictionary.containsKey(systemName)){
 				starsDictionary  = new buckets.Dictionary();
 				clustersDictionary.set(systemName, starsDictionary)
 			}
+			starsDictionary = clustersDictionary.get(systemName);
 			var o_starVizElements = new starVizElements();
 			o_starVizElements.setScalarXandYandColor(scalarX, scalarY, starColor);
 			starsDictionary.set(starsName, o_starVizElements);
+			console.log("SAVE SYSTEM VIZ SCALAR KEYS:"+starsDictionary.keys());
 		},
 		fetchSystemClusterVizScalar: function(systemName){
-			var starsDictionary = clustersDictionary.get(systemName);
+			var o_starsDictionary = clustersDictionary.get(systemName);
+			return o_starsDictionary;
+		},
+		fetchSystemNames: function(){
+			return clustersDictionary.keys();
 		}
 	}
 	
