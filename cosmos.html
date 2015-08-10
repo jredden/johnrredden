@@ -1080,6 +1080,7 @@ var visualizeClusters = (function (){
 
 var visualizeStarsInClusters = ( function (){
 	var previousCtx;
+	var nextCtx;
 	var systemNames;
 	return{
 		display: function(){
@@ -1114,7 +1115,12 @@ var visualizeStarsInClusters = ( function (){
 
 				}
 			}
-
+			// to do: make this more object oriented.  It violates the D.R.Y. principal
+			var currentCanvas = canvasas.fetchStarsInClusterTextCanvas();
+			for(var idex = 0; idex < systemNames.length; idex++){
+				var systemName = systemNames[idex];
+				var starsDictionary = visualizeClustersOnCanvas.fetchSystemClusterVizScalar(systemName);
+			}
 
 		}
 	}
@@ -1365,15 +1371,27 @@ var visualizeClustersOnCanvas = (function () {
 		fetchSystemNames: function(){
 			return clustersDictionary.keys();
 		},
-		saveStarTextGeometry(starName, point){	// used to draw large selectable stars on page
+		saveStarTextGeometry: function(starName, point){	// used to draw large selectable stars on page
 			starTextDictionary.set(starName, point);
-			var anX = point.getX();
 		},
 		saveMaxX(xX){
 			if( xX > maxX){
 				maxX = xX;
 			}
-
+		},
+		genStarTextGeomteryWithMaxX: function(){
+			var workDictionary = new buckets.Dictionary();
+			var keys = starTextDictionary.keys();
+			for(var idex = 0; idex < keys.length; idex++){
+				var oo_point = starTextDictionary.get(keys[idex]);
+				var o_point = new point();
+				o_point.setXandY(maxX,oo_point.getY());
+				workDictionary.set(keys[idex], o_point);
+			}
+			starTextDictionary = workDictionary;
+		},
+		fetchStarTextDictionary(){
+			return starTextDictionary;
 		}
 	}
 	
