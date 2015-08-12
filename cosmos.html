@@ -374,6 +374,40 @@ var point = (function(){
 	}
 });
 
+var circle = (function(){
+	var left;
+	var right;
+	var top;
+	var bottom;
+	var n_radius;
+	var n_xDim;
+	var n_yDim;
+	
+	return {
+		construct: function(xDim, yDim, radius){
+			n_radius = radius;
+			n_xDim = xDim;
+			n_yDim = yDim;
+			left = xDim - radius;
+			right = xDim + radius;
+			top = yDim - radius;
+			bottom = yDim + radius;
+		},
+		fetchLeft(){
+			return left;
+		},
+		fetchRight(){
+			return right;
+		},
+		fetchTop(){
+			return top;
+		},
+		fetchBottom(){
+			return bottom;
+		}
+	}
+});
+
 var vizStarSizes = (function(){
 	
 	var smallSize;
@@ -450,139 +484,139 @@ var vizStars = (function(){
 			starSize.init(5, 14, 'orange');
 			starColorDictionary.set('Red Super Giant I', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(5, 12, 'blue');
+			starSize.init(5, 13, 'blue');
 			starColorDictionary.set('Blue Giant II', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(5, 12, 'lightblue');
+			starSize.init(5, 13, 'lightblue');
 			starColorDictionary.set('Light Blue  Giant II', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(5, 12, 'white');
+			starSize.init(5, 13, 'white');
 			starColorDictionary.set('White Giant II', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(5, 12, 'lightyellow');
+			starSize.init(5, 13, 'lightyellow');
 			starColorDictionary.set('Pale Yellow Giant II', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(5, 12, 'yellow');
+			starSize.init(5, 13, 'yellow');
 			starColorDictionary.set('Yellow Giant II', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(5, 12, 'orange');
+			starSize.init(5, 13, 'orange');
 			starColorDictionary.set('Orange Giant II', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(5, 12, 'red');
+			starSize.init(5, 13, 'red');
 			starColorDictionary.set('Red Giant II', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(5, 12, 'blue');
+			starSize.init(5, 13, 'blue');
 			starColorDictionary.set('Blue Giant I', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(5, 12, 'lightblue');
+			starSize.init(5, 13, 'lightblue');
 			starColorDictionary.set('Light Blue  Giant I', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(5, 12, 'white');
+			starSize.init(5, 13, 'white');
 			starColorDictionary.set('White Giant I', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(5, 12, 'lightyellow');
+			starSize.init(5, 13, 'lightyellow');
 			starColorDictionary.set('Pale Yellow Giant I', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(5, 12, 'yellow');
+			starSize.init(5, 13, 'yellow');
 			starColorDictionary.set('Yellow Giant I', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(5, 12, 'orange');
+			starSize.init(5, 13, 'orange');
 			starColorDictionary.set('Orange Giant I', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(5, 12, 'red');
+			starSize.init(5, 13, 'red');
 			starColorDictionary.set('Red Giant I', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(4, 9, 'blue');
+			starSize.init(4, 10, 'blue');
 			starColorDictionary.set('Blue Sub Giant', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(4, 9, 'lightblue');
+			starSize.init(4, 10, 'lightblue');
 			starColorDictionary.set('Light Blue Sub Giant', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(4, 9, 'white');
+			starSize.init(4, 10, 'white');
 			starColorDictionary.set('White Sub Giant', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(4, 9, 'lightyellow');
+			starSize.init(4, 10, 'lightyellow');
 			starColorDictionary.set('Pale Yellow SubGiant', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(4, 9, 'yellow');
+			starSize.init(4, 10, 'yellow');
 			starColorDictionary.set('Yellow Sub Giant', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(4, 9, 'orange');
+			starSize.init(4, 10, 'orange');
 			starColorDictionary.set('Orange Sub Giant', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(4, 9, 'red');
+			starSize.init(4, 10, 'red');
 			starColorDictionary.set('Red Sub Giant', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(3, 7, 'blue');
+			starSize.init(3, 8, 'blue');
 			starColorDictionary.set('Blue Main Sequence', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(3, 7, 'lightblue');
+			starSize.init(3, 8, 'lightblue');
 			starColorDictionary.set('Light Blue Main Sequence', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(3, 7, 'white');
+			starSize.init(3, 8, 'white');
 			starColorDictionary.set('White Main Sequence', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(3, 7, 'lightyellow');
+			starSize.init(3, 8, 'lightyellow');
 			starColorDictionary.set('Pale Yellow Main Sequence', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(3, 7, 'yellow');
+			starSize.init(3, 8, 'yellow');
 			starColorDictionary.set('Yellow Main Sequence', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(3, 7, 'orange');
+			starSize.init(3, 8, 'orange');
 			starColorDictionary.set('Orange Main Sequence', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(3, 7, 'red');
+			starSize.init(3, 8, 'red');
 			starColorDictionary.set('Red Main Sequence', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(2, 6, 'blue');
+			starSize.init(2, 7, 'blue');
 			starColorDictionary.set('Blue Sub Dwarf', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(2, 6, 'lightblue');
+			starSize.init(2, 7, 'lightblue');
 			starColorDictionary.set('Light Blue Sub Dwarf', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(2, 6, 'white');
+			starSize.init(2, 7, 'white');
 			starColorDictionary.set('White Sub Dwarf', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(2, 6, 'lightyellow');
+			starSize.init(2, 7, 'lightyellow');
 			starColorDictionary.set('Pale Yellow Sub Dwarf', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(2, 6, 'yellow');
+			starSize.init(2, 7, 'yellow');
 			starColorDictionary.set('Yellow Sub Dwarf', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(2, 6, 'orange');
+			starSize.init(2, 7, 'orange');
 			starColorDictionary.set('Orange Sub Dwarf', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(2, 6, 'red');
+			starSize.init(2, 7, 'red');
 			starColorDictionary.set('Red Sub Dwarf', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(2, 5, 'blue');
+			starSize.init(2, 6, 'blue');
 			starColorDictionary.set('Blue Dwarf', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(2, 5, 'lightblue');
+			starSize.init(2, 6, 'lightblue');
 			starColorDictionary.set('Light Blue Dwarf', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(2, 5, 'white');
+			starSize.init(2, 6, 'white');
 			starColorDictionary.set('White Dwarf', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(2, 5, 'lightyellow');
+			starSize.init(2, 6, 'lightyellow');
 			starColorDictionary.set('Pale Yellow Dwarf', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(2, 5, 'yellow');
+			starSize.init(2, 6, 'yellow');
 			starColorDictionary.set('Yellow Dwarf', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(2, 5, 'orange');
+			starSize.init(2, 6, 'orange');
 			starColorDictionary.set('Orange Dwarf', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(2, 5, 'red');
+			starSize.init(2, 6, 'red');
 			starColorDictionary.set('Red Dwarf', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(2, 5, '#580058');
+			starSize.init(2, 6, 'purple');
 			starColorDictionary.set('Purple Red Dwarf', starSize);
 			starSize = new vizStarSizes();
 			starSize.init(2, 5, 'brown');
 			starColorDictionary.set('Brown Sub Star', starSize);
 			starSize = new vizStarSizes();
-			starSize.init(2, 5, 'darkbrown');
+			starSize.init(2, 5, 'chocolate');
 			starColorDictionary.set('Dark Brown Sub Dwarf', starSize);
 		},
 		fetchStarSizeAndColor: function(color){
@@ -1007,7 +1041,10 @@ var visualizeClusters = (function (){
 			
 			var dictionary = clusterValues.fetchProcessedCluster();
 			var systemsWithClusters = dictionary.keys();
-			
+			ctx.font="18px Verdana";
+			ctx.strokeStyle = "orange";
+			ctx.strokeText("Star Systems in this Sector", runningX, runningY);
+			runningY += incrementY;
 			for(var idex = 0; idex < systemsWithClusters.length; idex++){
 				var clusterVizCentrics = dictionary.get(systemsWithClusters[idex]);
 				console.log("SYSTEM WITH CLUSTER:"+systemsWithClusters[idex]);
@@ -1054,7 +1091,7 @@ var visualizeClusters = (function (){
 					
 					var o_point = new point();
 					o_point.setXandY(runningX, runningY);  // saved for larger star images to select
-					visualizeClustersOnCanvas.saveStarTextGeometry(starName, o_point);
+					visualizeClustersOnCanvas.saveStarTextGeometry(oneClusterVizCentric.getStarName(), o_point);
 					
 					runningY += incrementY;
 					ctx.strokeText(starColor, runningX, runningY);
@@ -1082,6 +1119,7 @@ var visualizeStarsInClusters = ( function (){
 	var previousCtx;
 	var nextCtx;
 	var systemNames;
+	var leanLeft = 200;
 	return{
 		display: function(){
 			previousCtx = canvasas.fetchStarSystemsCanvasContext();
@@ -1089,7 +1127,7 @@ var visualizeStarsInClusters = ( function (){
 			for(var idex = 0; idex < systemNames.length; idex++){
 				var systemName = systemNames[idex];
 				var starsDictionary = visualizeClustersOnCanvas.fetchSystemClusterVizScalar(systemName);
-				var starKeys = starsDictionary.keys();
+				var starKeys = starsDictionary.keys();  // star names are these keys
 				for(var idex2 = 0; idex2 < starKeys.length; idex2++){
 					var o_starVizElement = starsDictionary.get(starKeys[idex2]);
 					var a_relativeSystemVector = o_starVizElement.fetchRelativeSystemVector();
@@ -1116,10 +1154,30 @@ var visualizeStarsInClusters = ( function (){
 				}
 			}
 			// to do: make this more object oriented.  It violates the D.R.Y. principal
-			var currentCanvas = canvasas.fetchStarsInClusterTextCanvas();
+			var currentCanvasCtx = canvasas.fetchStarsInClusterTextCanvasContext();
+			visualizeClustersOnCanvas.genStarTextGeomteryWithMaxX();
+			var starTextDictionary = visualizeClustersOnCanvas.fetchStarTextDictionary();
 			for(var idex = 0; idex < systemNames.length; idex++){
 				var systemName = systemNames[idex];
 				var starsDictionary = visualizeClustersOnCanvas.fetchSystemClusterVizScalar(systemName);
+				var starKeys = starsDictionary.keys();
+				for(var idex2 = 0; idex2 < starKeys.length; idex2++){
+					var o_starVizElement = starsDictionary.get(starKeys[idex2]);
+					var starColor = o_starVizElement.fetchStarColor();
+					var vizStarSizes = vizStars.fetchStarSizeAndColor(starColor);
+					var o_textPointOnPage = starTextDictionary.get(starKeys[idex2]);
+					var size = vizStarSizes.fetchBigSize()*2;
+					var color = vizStarSizes.fetchColor();
+					var xDim = o_textPointOnPage.getX();
+					var yDim = o_textPointOnPage.getY();
+					var graphicXDim = xDim + size + leanLeft;
+					currentCanvasCtx.beginPath();
+					currentCanvasCtx.arc(graphicXDim, yDim, size, 0, 2*Math.PI, false);
+					currentCanvasCtx.fillStyle = color;
+					currentCanvasCtx.fill();
+					currentCanvasCtx.lineWidth=0;
+					currentCanvasCtx.stroke();
+				}
 			}
 
 		}
@@ -1303,6 +1361,7 @@ var visualizeClustersOnCanvas = (function () {
 	var clustersDictionary;
 	var starsDictionary;
 	var starTextDictionary;
+	var workDictionary;
 	var maxX;
 	
 	
@@ -1372,6 +1431,7 @@ var visualizeClustersOnCanvas = (function () {
 			return clustersDictionary.keys();
 		},
 		saveStarTextGeometry: function(starName, point){	// used to draw large selectable stars on page
+			console.log("SAVE STAR TEXT GEOMETRY:"+starName+" X:"+point.getX()+" Y:"+point.getY());
 			starTextDictionary.set(starName, point);
 		},
 		saveMaxX(xX){
@@ -1380,18 +1440,17 @@ var visualizeClustersOnCanvas = (function () {
 			}
 		},
 		genStarTextGeomteryWithMaxX: function(){
-			var workDictionary = new buckets.Dictionary();
+			workDictionary = new buckets.Dictionary();
 			var keys = starTextDictionary.keys();
 			for(var idex = 0; idex < keys.length; idex++){
 				var oo_point = starTextDictionary.get(keys[idex]);
 				var o_point = new point();
-				o_point.setXandY(maxX,oo_point.getY());
+				o_point.setXandY(Math.floor(maxX),oo_point.getY());
 				workDictionary.set(keys[idex], o_point);
 			}
-			starTextDictionary = workDictionary;
 		},
-		fetchStarTextDictionary(){
-			return starTextDictionary;
+		fetchStarTextDictionary: function(){
+			return workDictionary;
 		}
 	}
 	
@@ -1447,8 +1506,6 @@ function print_recursive(printthis) {
 					<button id="home">Home</button>
 					<button id="jump">Activate Starships Star Drive</button>
 					<span id="jumphint" style="color:lightyellow;font-weight:bold">To travel to a new star system activate the Star Drive</span>
-					<span id="ssits"> Star Systems in this Sector</span>
-					
 				</nav>
 			</hgroup>
 		</header>
