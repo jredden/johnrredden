@@ -704,6 +704,13 @@ $(document).ready(function() {
 		jumpRequest.jsonCall();
 	});
 	
+	$("#starsinclustertextcanvas").click(function(event){
+		var clickedX = event.pageX - this.offsetLeft;
+		var clickedY = event.pageY - this.offsetTop;
+		console.log("CLICK EVENT:"+clickedX+"::"+clickedY);
+		clickableStarsList.determineClick(clickedX, clickedY);
+	});
+	
 }); <!-- end ready -->
 
 /**
@@ -1154,6 +1161,7 @@ var visualizeStarsInClusters = ( function (){
 				}
 			}
 			// to do: make this more object oriented.  It violates the D.R.Y. principal
+			clickableStarsList.init();
 			var currentCanvasCtx = canvasas.fetchStarsInClusterTextCanvasContext();
 			visualizeClustersOnCanvas.genStarTextGeomteryWithMaxX();
 			var starTextDictionary = visualizeClustersOnCanvas.fetchStarTextDictionary();
@@ -1177,6 +1185,7 @@ var visualizeStarsInClusters = ( function (){
 					currentCanvasCtx.fill();
 					currentCanvasCtx.lineWidth=0;
 					currentCanvasCtx.stroke();
+					clickableStarsList.addImageGeometry(graphicXDim, yDim, size, starKeys[idex2]);
 				}
 			}
 
@@ -1451,6 +1460,40 @@ var visualizeClustersOnCanvas = (function () {
 		},
 		fetchStarTextDictionary: function(){
 			return workDictionary;
+		}
+	}
+	
+})();
+
+/**
+ * geometry to allow clickable stars on canvas
+ */
+var clickableStarsList = (function(){
+	
+	var starImageDictionary;
+	const fudgeFactor = 3;  // close as in horseshoes ...
+	
+	return{
+		init: function(){
+			starImageDictionary = new buckets.Dictionary();
+		},
+		addImageGeometry(xDim, yDim, radius, starName){
+			var o_circle = new circle();
+			o_circle.construct(xDim, yDim, radius);
+			starImageDictionary.set(starName, o_circle);
+		},
+		determineClick(clickedX, clickedY){
+			var starNameKeys = starImageDictionary.keys();
+			for (var idex = 0; idex < starNameKeys.length; idex++){
+				var o_circle = starImageDictionary.get(starNameKeys[idex]);
+				var bottom = o_circle.fetchBottom() + fudgeFactor;
+				var top = o_circle.fetchTop() - fudgeFactor;
+				var left = o_circle.fetchLeft() - fudgeFactor;
+				var right = o_circle.fetchRight() + fudgeFactor;
+				if(clickedX < right && clickedX > left && clickedY > top && clickedY < bottom){
+					console.log("GOING TO:"+starNameKeys[idex] );
+				}
+			}
 		}
 	}
 	
