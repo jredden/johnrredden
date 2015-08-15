@@ -55,6 +55,8 @@ public class StarDaoTest {
 						StarFactory.redMainS.sequence()), null);
 		Star starAdd = starDao.addStar(star, clusterRepUpdate, SubClusterFactory.SINGLESTAR.name());
 		logger.info("STAR_READ_0:"+starAdd);
+		Star starRead = starDao.readStarByName(starAdd.getName());
+		logger.info("STAR_READ_1:"+starRead);
 		starAdd.setNo_planets_allowed(Boolean.TRUE);
 		Star starUpdate = starDao.updateStarByStarId(starAdd);
 		logger.info("STAR_UPDATE_0:"+starUpdate);

@@ -29,6 +29,12 @@ public class ImergeFromHyperspace {
 		 return doesKnowWhereShipIs(GenSystem.genSystem());
 	}
 	
+	public static SystemResponse reEntry(String starSystemName){
+		SystemDao systemDao = new SystemDao();
+		com.zenred.cosmos.domain.System existingSystem = systemDao.readSystemByName(starSystemName);
+		return doesKnowWhereShipIs(existingSystem);
+	}
+	
 	public static SystemResponse doesKnowWhereShipIs(com.zenred.cosmos.domain.System system){
 		ConfigurationDao configurationDao = new ConfigurationDao();
 		Double target = configurationDao.starDensity();

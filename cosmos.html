@@ -1126,7 +1126,8 @@ var visualizeStarsInClusters = ( function (){
 	var previousCtx;
 	var nextCtx;
 	var systemNames;
-	var leanLeft = 200;
+	const leanLeft = 200;
+	const beginY = 50;
 	return{
 		display: function(){
 			previousCtx = canvasas.fetchStarSystemsCanvasContext();
@@ -1165,6 +1166,11 @@ var visualizeStarsInClusters = ( function (){
 			var currentCanvasCtx = canvasas.fetchStarsInClusterTextCanvasContext();
 			visualizeClustersOnCanvas.genStarTextGeomteryWithMaxX();
 			var starTextDictionary = visualizeClustersOnCanvas.fetchStarTextDictionary();
+			currentCanvasCtx.font="18px Verdana";
+			currentCanvasCtx.strokeStyle = "orange";
+			var firstMessageWidth = currentCanvasCtx.measureText("Star Systems in this Sector                 ").width;
+			currentCanvasCtx.strokeText("Select Star By Star Image", firstMessageWidth, beginY);
+
 			for(var idex = 0; idex < systemNames.length; idex++){
 				var systemName = systemNames[idex];
 				var starsDictionary = visualizeClustersOnCanvas.fetchSystemClusterVizScalar(systemName);

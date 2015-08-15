@@ -50,6 +50,21 @@ public class StarDao extends AbstractJDBCDao {
 			+ " WHERE st."+STAR_ID+ " = ?" 
 		;
 
+	private static String readStarByName = "SELECT "
+			+ "st."+STAR_ID+" "
+			+ ", st."+CLUSTER_TO_STAR_ID_2+" "
+			+ ", st."+NAME+" "
+			+ ", st."+DISTANCE_CLUST_VIRT_CENTRE+" "
+			+ ", st."+LUMINOSITY+" "
+			+ ", st."+NO_PLANETS_ALLOWED+" "
+			+ ", st."+ANGLE_IN_RADIANS_S+" "
+			+ ", st."+STAR_COLOR+" "
+			+ ", st."+STAR_TYPE+" "
+			+ ", st."+STAR_SIZE+" "
+			+ ", st."+DATESTAMP+" "
+			+ " FROM "+ STAR + " st "
+			+ " WHERE st."+NAME+ " = ?" 
+		;
 	private static String updateStarById = "UPDATE " + STAR + " st SET "
 			+ " st."+CLUSTER_TO_STAR_ID_2+" = ? "
 			+ ", st."+NAME+" = ? "
@@ -155,6 +170,19 @@ public class StarDao extends AbstractJDBCDao {
 		return star;
 	}
 	
+	/**
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public Star readStarByName(String name){
+		Object[] param = {name};
+		Map<String, Object> starMap = null;
+		starMap = super.jdbcSetUp().getSimpleJdbcTemplate().queryForMap(readStarByName, param);
+		Star star = buildStar(starMap);
+		return star;
+	}
+
 	/**
 	 * 
 	 * @param star
