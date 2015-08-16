@@ -52,11 +52,31 @@ public class PlanetoidAtmosphereDaoTest {
 		UnifiedPlanetoidI unifiedPlanetoidI =  planetoidDao.addClusterPlanetoid(planetoid, clusterRepUpdate);
 		logger.info("PLANETOID_IN_CLUSTER:"+unifiedPlanetoidI);
 		
-		Atmosphere atmosphere = new Atmosphere(null, unifiedPlanetoidI.getPlanetoid().getPlanetoidId(), "Trace", new Double(100), null);
+		Atmosphere atmosphere = new Atmosphere(null, unifiedPlanetoidI.getPlanetoid().getPlanetoidId(), "Ammonia", new Double(50), null);
 		AtmosphereDao atmosphereDao = new AtmosphereDao();
 		Atmosphere atmosphere0 = atmosphereDao.addAtmosphere(atmosphere);
+		
 		logger.info("ATMOSPHERE_0:"+atmosphere0);
 		
+		atmosphere = new Atmosphere(null, unifiedPlanetoidI.getPlanetoid().getPlanetoidId(), "Water", new Double(1), null);
+		Atmosphere atmosphere002 = atmosphereDao.addAtmosphere(atmosphere);
+		
+		logger.info("ATMOSPHERE_002:"+atmosphere002);
+
+		
+		atmosphere = new Atmosphere(null, unifiedPlanetoidI.getPlanetoid().getPlanetoidId(), "Ozone", new Double(30), null);
+		Atmosphere atmosphere1 = atmosphereDao.addAtmosphere(atmosphere);
+		
+		logger.info("ATMOSPHERE_1:"+atmosphere1);
+		
+		atmosphere = new Atmosphere(null, unifiedPlanetoidI.getPlanetoid().getPlanetoidId(), "Nitrogen", new Double(19), null);
+		Atmosphere atmosphere2 = atmosphereDao.addAtmosphere(atmosphere);
+		
+		logger.info("ATMOSPHERE_2:"+atmosphere2);
+		
+		List<PlanetoidColor> planetoidColors = PlanetoidColor.planarColors(unifiedPlanetoidI.getPlanetoid());
+		logger.info("PLANETOID COLORS:"+planetoidColors);
+
 		star = new Star(null, 0, clusterRepUpdate.getClusterName() + "_STAR_0",
 				new Double(160), StarTypeFactory.genLuminsoity((short) 0,
 						StarTypeFactory.m, StarFactory.RED__MAINS,
@@ -82,13 +102,13 @@ public class PlanetoidAtmosphereDaoTest {
 		logger.info("PLANETOID_AROUND_STAR:" + unifiedPlanetoidI);
 		
 		atmosphere = new Atmosphere(null, unifiedPlanetoidI.getPlanetoid().getPlanetoidId(), "O", new Double(20), null);
-		Atmosphere atmosphere1 = atmosphereDao.addAtmosphere(atmosphere);
-		logger.info("ATMOSPHERE_1:"+atmosphere1);
+		Atmosphere atmosphere01 = atmosphereDao.addAtmosphere(atmosphere);
+		logger.info("ATMOSPHERE_01:"+atmosphere01);
 		
 		
 		atmosphere = new Atmosphere(null, unifiedPlanetoidI.getPlanetoid().getPlanetoidId(), "N", new Double(80), null);
-		Atmosphere atmosphere2 = atmosphereDao.addAtmosphere(atmosphere);
-		logger.info("ATMOSPHERE_2:"+atmosphere2);
+		Atmosphere atmosphere02 = atmosphereDao.addAtmosphere(atmosphere);
+		logger.info("ATMOSPHERE_02:"+atmosphere02);
 		
 		Planetoid planetoidMoon0 = new Planetoid(null, null,
 				systemRead.getSystemName() + planetoidStar.getPlanetoidName()

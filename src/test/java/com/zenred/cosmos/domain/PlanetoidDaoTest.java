@@ -48,6 +48,8 @@ public class PlanetoidDaoTest {
 						+ "_planetoid_0", new Double(9000), new Double(
 						1200000.0), new Double(3.1416), new Double(24.0),
 				new Double(.05), null);
+		List<PlanetoidColor> planetoidColors = PlanetoidColor.planarColors(planetoid);
+		logger.info("PLANETOID COLORS:"+planetoidColors);
 		UnifiedPlanetoidI unifiedPlanetoidI =  planetoidDao.addClusterPlanetoid(planetoid, clusterRepUpdate);
 		logger.info("PLANETOID_IN_CLUSTER:"+unifiedPlanetoidI);
 		
