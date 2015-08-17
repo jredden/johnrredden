@@ -1,7 +1,11 @@
 package com.zenred.cosmos.service_rules_and_infrastructure;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 
@@ -53,11 +57,29 @@ public class ToStarsPlanets {
 			keyValuePair.append(";"+PlanetoidDao.DEGREE).append("=").append(planetoid.getDegree());
 			keyValuePair.append(";"+PlanetoidDao.DISTANCE_TO_PRIMARY).append("=").append(planetoid.getDistanceToPrimary());
 			keyValuePair.append(";"+PlanetoidDao.TEMPERATURE).append("=").append(planetoid.getTemperature());
+			Map<String, Double> colorAccumulator = new HashMap<String, Double>();
 			for(PlanetoidColor planetoidColor : planetoidColors){
-				keyValuePair.append(";"+ATMOSPHERE_COLOR).append("=").append(planetoidColor.getColor());
-				keyValuePair.append(";"+ATMOSPHERE_PERCENTAGE).append("=").append(planetoidColor.getPercentage());
+				String color = planetoidColor.getColor();
+				if(color.equals("none")){
+					color = PlanetoidColor.fetchPureColor(star.getStar_color());
+				}
+				Double percentage = planetoidColor.getPercentage();
+				if(colorAccumulator.containsKey(color)){
+					Double runningPercentage = colorAccumulator.get(color);
+					runningPercentage += percentage;
+					colorAccumulator.put(color, runningPercentage);
+				}
+				else{
+					colorAccumulator.put(color, percentage);
+				}
 			}
-
+			Set<String> colorKeys = colorAccumulator.keySet();
+			Iterator iter = colorKeys.iterator();
+			while(iter.hasNext()){
+				String colorKey = iter.next().toString();
+				keyValuePair.append(";"+ATMOSPHERE_COLOR).append("=").append(colorKey);
+				keyValuePair.append(";"+ATMOSPHERE_PERCENTAGE).append("=").append(colorAccumulator.get(colorKey));
+			}
 		}
 		return keyValuePair.toString();
 		

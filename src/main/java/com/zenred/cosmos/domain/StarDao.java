@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zenred.johntredden.domain.AbstractJDBCDao;
+import com.zenred.util.GenRandomRolls;
 
 public class StarDao extends AbstractJDBCDao {
 	
@@ -114,6 +115,10 @@ public class StarDao extends AbstractJDBCDao {
 			+ " ON cts." + CLUSTER_TO_STAR_ID + " = st." + CLUSTER_TO_STAR_ID_2
 			+ " WHERE st." + STAR_ID + " = ?"
 			;
+	
+	private static String starCount = "SELECT COUNT("+ NAME + ")FROM " + STAR;
+	private static String randomStarName = "SELECT " + NAME + " FROM " + STAR + " LIMIT " + " ?, ?";
+	
 	/**
 	 * 
 	 * @param star
@@ -250,6 +255,23 @@ public class StarDao extends AbstractJDBCDao {
 		Map<String, Object> starSubClusterMap = null;
 		starSubClusterMap = super.jdbcSetUp().getSimpleJdbcTemplate().queryForMap(readStarsSubCluster, param);
 		return starSubClusterMap.get(SUB_CLUSTER_DESCRIPTION).toString();
+	}
+	
+	/**
+	 * used for testing
+	 * @return name of a star
+	 */
+	public String readNameOfRandomStar(){
+		String starName = "";
+		Integer count = super.jdbcSetUp().getSimpleJdbcTemplate()
+				.queryForInt(starCount);
+		Integer numberOne = GenRandomRolls.Instance().getDX(count);
+		Integer numberTwo = 1;
+		Object[] param = {numberOne, numberTwo};
+		Map<String, Object> starMap = null;
+		starMap = super.jdbcSetUp().getSimpleJdbcTemplate().queryForMap(randomStarName, param);
+		starName = starMap.get(NAME).toString();
+		return starName;
 	}
 	
 	/**
