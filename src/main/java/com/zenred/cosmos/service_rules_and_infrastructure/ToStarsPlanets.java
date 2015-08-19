@@ -1,6 +1,7 @@
 package com.zenred.cosmos.service_rules_and_infrastructure;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.ListableBeanFactory;
 
 import com.zenred.cosmos.domain.Atmosphere;
 import com.zenred.cosmos.domain.AtmosphereParts;
@@ -74,11 +76,17 @@ public class ToStarsPlanets {
 				}
 			}
 			Set<String> colorKeys = colorAccumulator.keySet();
-			Iterator iter = colorKeys.iterator();
+			Iterator<String> iter = colorKeys.iterator();
+			List<PlanetoidColor> planetoidColors2 = new ArrayList<PlanetoidColor>();
 			while(iter.hasNext()){
 				String colorKey = iter.next().toString();
-				keyValuePair.append(";"+ATMOSPHERE_COLOR).append("=").append(colorKey);
-				keyValuePair.append(";"+ATMOSPHERE_PERCENTAGE).append("=").append(colorAccumulator.get(colorKey));
+				PlanetoidColor planetoidColor = new PlanetoidColor(colorKey, "aggregate", colorAccumulator.get(colorKey));
+				planetoidColors2.add(planetoidColor);
+			}
+			Collections.sort(planetoidColors2);
+			for(PlanetoidColor planetoidColor : planetoidColors2){
+				keyValuePair.append(";"+ATMOSPHERE_COLOR).append("=").append(planetoidColor.getColor());
+				keyValuePair.append(";"+ATMOSPHERE_PERCENTAGE).append("=").append(planetoidColor.getPercentage());
 			}
 		}
 		return keyValuePair.toString();
@@ -88,7 +96,7 @@ public class ToStarsPlanets {
 	/**
 	 * 
 	 * @param starName
-	 * @return respoonse to controller
+	 * @return response to controller
 	 */
 	public static PlanetsResponse starAndPlanets(String starName){
 		PlanetsResponse planetsResponse = new PlanetsResponse();
