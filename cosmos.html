@@ -865,6 +865,7 @@ var backToSectorView = (function (){
 			
 			canvasas.clearStarSystemsCanvasContext();
 			canvasas.clearStarsInClusterTextCanvasContext();
+			canvasas.init();
 			var systemVizCentricArray = processJump.getSystemVizCentricArray();
 			starSystems.vizualizeNoInit(systemVizCentricArray);
 			clusterValues.builder();
@@ -1591,11 +1592,129 @@ var fetchStarAndPlanets = (function () {
 })();
 
 var processStarAndPlanetsDetail = (function(){
+	var scale = 1.0;	// the default scale
+	const ANGLE_IN_RADIANS = "angle_in_radians_s";
+	const DISTANCE_CLUSTER_VIRT_CENTRE = "distance_clust_virt_centre";
+	const LUMINOSITY = "luminosity";
+	const NAME = "Name";
+	const STAR_COLOR = "star_color";
+	const STAR_SIZE = "star_size";
+	const STAR_TYPE = "star_type";
+	const PLANETOID_NAME = "planetoidName";
+	const DEGREE = "Degree"; // always in radians
+	const DISTANCE_TO_PRIMARY = "DistanceToPrimary";
+	const TEMPERATURE = "Temperature";
+	const PLANAR_COLOR = "Color";
+	const PLANAR_COLOR_PERCENTAGE = "Percent";
+	
+	var o_clusterVizCentric;
+	var planetsDictionary;
+	
+	
+	function gradientBuilder(){
+		var color;
+		var gradientPercentage;
+	}
+	
+	function f_angle_in_radians(value){
+		o_clusterVizCentric.setAnglenInRadians(value);
+		console.log("AnglenInRadians: "+ value);
+	}
+	
+	function f_distance_clust_virt_centre(value){
+		o_clusterVizCentric.setDistanceClusterVirtCentre(value);
+		console.log("DistanceClusterVirtCentre: "+ value);
+	}
+	
+	function f_luminosity(value){
+		o_clusterVizCentric.setLuminosity(value);
+		console.log("luminosity: "+ value);
+	}
+	
+	function f_starName(value){
+		o_clusterVizCentric.setStarName(value);
+		console.log("starName: "+ value);
+	}
+	
+	function f_starColor(value){
+		o_clusterVizCentric.setStarColor(value);
+		console.log("starColor: "+ value);
+	}
+	
+	function f_starSize(value){
+		o_clusterVizCentric.setStarSize(value);
+		console.log("starSize: "+ value);
+	}
+	
+	function f_starType(value){
+		o_clusterVizCentric.setStarType(value);
+		console.log("starType: "+ value);
+	}
+	
+	function f_planarName(value){
+		console.log("planetoidName: "+ value);
+	}
+	
+	function f_planarDegree(value){
+		console.log("planarDegree: "+ value);
+	}
+	
+	function f_planarDistanceToPrimary(value){
+		console.log("planarDistanceToPrimary: "+ value);
+	}
+	
+	function f_temperature(value){
+		console.log("temperature: "+ value);
+	}
+	
+	function f_planarColor(value){
+		console.log("planarColor: "+ value);
+	}
+	
+	function f_planarColorPercentage(value){
+		console.log("planarColorPercentage: "+ value);
+	}
+	
+	function parseResults(result){
+		o_clusterVizCentric = new clusterVizCentric();
+		planetsDictionary = new buckets.Dictionary();
+		planetsDictionary.set(ANGLE_IN_RADIANS, f_angle_in_radians);
+		planetsDictionary.set(DISTANCE_CLUSTER_VIRT_CENTRE, f_distance_clust_virt_centre);
+		planetsDictionary.set(LUMINOSITY, f_luminosity);
+		planetsDictionary.set(NAME, f_starName);
+		planetsDictionary.set(STAR_COLOR, f_starColor);
+		planetsDictionary.set(STAR_SIZE, f_starSize);
+		planetsDictionary.set(STAR_TYPE, f_starType);
+		planetsDictionary.set(PLANETOID_NAME, f_planarName);
+		planetsDictionary.set(DEGREE, f_planarDegree);
+		planetsDictionary.set(DISTANCE_TO_PRIMARY, f_planarDistanceToPrimary);
+		planetsDictionary.set(TEMPERATURE, f_temperature);
+		planetsDictionary.set(PLANAR_COLOR, f_planarColor);
+		planetsDictionary.set(PLANAR_COLOR_PERCENTAGE, f_planarColorPercentage);
+		
+		for (var idex = 0; idex < result.length; idex++){
+			var o_keyValuePair = result[idex];
+			var key = o_keyValuePair.getKey();
+			var operation = planetsDictionary.get(key);
+			operation(o_keyValuePair.getValue());
+		}
+		
+	}
 	
 	return{
 		jsonProcess: function(json, starName){
-			print_recursive(json);
-			console.log("JSON:  "+json.planets);
+			// print_recursive(json);
+			
+			console.log("JSON: "+json.planets.starAndPlanets);
+			var starAndPlanetsMessage = json.planets.starAndPlanets;
+			var result = orderedPairToArray.getOrderedPair(starAndPlanetsMessage);
+			parseResults(result);
+		},
+		setScale: function(n_scale){
+			scale = n_scale;
+		},
+		getScale: function(){
+			return scale;
 		}
 	}
 	
