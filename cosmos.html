@@ -218,6 +218,75 @@ var clusterVizCentric  = (function(){
 });
 
 /**
+ * color and percentage of that color in the planets atmosphere
+ */
+var colorPercentageSet = (function (){
+	var planarColor;
+	var colorPercentage;
+	
+	return{
+		setPlanarColor: function(color){
+			planarColor = color;
+		},
+		setColorPercentage: function(percentage){
+			colorPercentage = percentage;
+		},
+		getPlanarColor: function(){
+			return planarColor;
+		},
+		getColorPercentage: function(){
+			return colorPercentage;
+		}
+	}
+});
+
+/**
+ * visual centric object of a planetoid
+ */
+planarVizCentric = (function (){
+	
+	var planarName;
+	var planarDegree;  				// in radians
+	var planarDistanceToPrimary;	// kilometers
+	var planarTemperature; 			// Kelvin
+	var planarColorsArray = [];
+	
+	return{
+		setPlanarName: function(name){
+			planarName = name;
+		},
+		getPlanarName: function(){
+			return planarName;
+		},
+		setPlanarDegree: function(degree){
+			planarDegree = degree;
+		},
+		getPlanarDegree: function(){
+			return planarDegree;
+		},
+		setPlanarDistanceToPrimary: function(distance){
+			planarDistanceToPrimary = distance;
+		},
+		getPlanarDistanceToPrimary: function(){
+			return planarDistanceToPrimary;
+		},
+		setPlanarTemperature: function(temperature){
+			planarTemperature = temperature;
+		},
+		getPlanarTemperature: function(){
+			return planarTemperature;
+		},
+		addColorPercentage: function(colorPercentage){
+			planarColorsArray.push(colorPercentage);
+		},
+		getColorPercentage: function(){
+			return planarColorsArray;
+		}
+	}
+	
+});
+
+/**
  * keep x, y coordinates of a system/cluster
  * not "static" has to be instantiated
  */
@@ -1607,10 +1676,16 @@ var processStarAndPlanetsDetail = (function(){
 	const PLANAR_COLOR = "Color";
 	const PLANAR_COLOR_PERCENTAGE = "Percent";
 	
+	const ELPISE_SCALAR = 90000;  // a segmenter for distances of 900 K kloms to 90,000 K kloms
+	
 	var o_clusterVizCentric;
 	var planetsDictionary;
-	
-	
+	var onePlanetDictionary;
+	var o_planarVizCentric;
+	var o_colorPercentageSet;
+	var midX;
+	var midY;
+		
 	function gradientBuilder(){
 		var color;
 		var gradientPercentage;
@@ -1653,31 +1728,43 @@ var processStarAndPlanetsDetail = (function(){
 	
 	function f_planarName(value){
 		console.log("planetoidName: "+ value);
+		o_planarVizCentric = new planarVizCentric();
+		o_planarVizCentric.setPlanarName(value);
+		onePlanetDictionary.set(value, o_planarVizCentric);
 	}
 	
 	function f_planarDegree(value){
 		console.log("planarDegree: "+ value);
+		o_planarVizCentric.setPlanarDegree(value);
 	}
 	
 	function f_planarDistanceToPrimary(value){
 		console.log("planarDistanceToPrimary: "+ value);
+		o_planarVizCentric.setPlanarDistanceToPrimary(value);
 	}
 	
 	function f_temperature(value){
 		console.log("temperature: "+ value);
+		o_planarVizCentric.setPlanarTemperature(value);
 	}
 	
 	function f_planarColor(value){
+		o_colorPercentageSet = new colorPercentageSet();
+		o_colorPercentageSet.setPlanarColor(value);
 		console.log("planarColor: "+ value);
+		
 	}
 	
 	function f_planarColorPercentage(value){
 		console.log("planarColorPercentage: "+ value);
+		o_colorPercentageSet.setColorPercentage(value);
+		o_planarVizCentric.addColorPercentage(o_colorPercentageSet);
 	}
 	
 	function parseResults(result){
 		o_clusterVizCentric = new clusterVizCentric();
 		planetsDictionary = new buckets.Dictionary();
+		onePlanetDictionary = new buckets.Dictionary();  // all the planets for this star
 		planetsDictionary.set(ANGLE_IN_RADIANS, f_angle_in_radians);
 		planetsDictionary.set(DISTANCE_CLUSTER_VIRT_CENTRE, f_distance_clust_virt_centre);
 		planetsDictionary.set(LUMINOSITY, f_luminosity);
@@ -1704,8 +1791,8 @@ var processStarAndPlanetsDetail = (function(){
 	function drawStarInCentre(){
 		var starColor = o_clusterVizCentric.getStarColor();
 		var starsystemscanvasContext = canvasas.fetchStarSystemsCanvasContext();
-		var midX = starsystemscanvasContext.canvas.width/2;
-		var midY = starsystemscanvasContext.canvas.height/6;
+		midX = starsystemscanvasContext.canvas.width/2;
+		midY = starsystemscanvasContext.canvas.height/6;
 		var vizStarSizes = vizStars.fetchStarSizeAndColor(starColor);
 		var size = vizStarSizes.fetchBigSize()*2*scale;
 		var color = vizStarSizes.fetchColor();
@@ -1715,8 +1802,35 @@ var processStarAndPlanetsDetail = (function(){
 		starsystemscanvasContext.fill();
 		starsystemscanvasContext.lineWidth=0;
 		starsystemscanvasContext.stroke();
-
-
+	}
+	
+	function drawPlanetoidsAroundStar(){
+		var planetNames = onePlanetDictionary.keys();
+		if(planetNames.length == 0){
+			console.log("NO PLANETS");
+		}
+		else{
+			var starsystemscanvasContext = canvasas.fetchStarSystemsCanvasContext();
+			for (var idex = 0; idex < planetNames.length; idex++){
+				o_planarVizCentric = onePlanetDictionary.get(planetNames[idex]);
+				var name = planetNames[idex];
+				var distance = o_planarVizCentric.getPlanarDistanceToPrimary();
+				console.log("PLANET "+ name + " DISTANCE:" + distance);
+				var radiusOnPage = distance/ELPISE_SCALAR;
+				if(radiusOnPage < 5){
+					radiusOnPage = 5;
+				}
+				if(radiusOnPage > 500){
+					radiusOnPage = 510;
+				}
+				starsystemscanvasContext.lineWidth="1";
+				starsystemscanvasContext.strokeStyle = o_clusterVizCentric.getStarColor();
+				starsystemscanvasContext.scale(1, 1);
+				starsystemscanvasContext.beginPath();
+				starsystemscanvasContext.arc(midX, midY, radiusOnPage, 0, 2 * Math.PI, false);
+				starsystemscanvasContext.stroke();
+			}
+		}
 	}
 	
 	return{
@@ -1726,8 +1840,10 @@ var processStarAndPlanetsDetail = (function(){
 			console.log("JSON: "+json.planets.starAndPlanets);
 			var starAndPlanetsMessage = json.planets.starAndPlanets;
 			var result = orderedPairToArray.getOrderedPair(starAndPlanetsMessage);
+			
 			parseResults(result);
 			drawStarInCentre();
+			drawPlanetoidsAroundStar()
 		},
 		setScale: function(n_scale){
 			scale = n_scale;
