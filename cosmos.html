@@ -250,6 +250,13 @@ planarVizCentric = (function (){
 	var planarDistanceToPrimary;	// kilometers
 	var planarTemperature; 			// Kelvin
 	var planarColorsArray = [];
+	var gradientsArray = [];
+	
+	
+	function gradientBuilder(){
+		var color;
+		var gradientPercentage;
+	}
 	
 	return{
 		setPlanarName: function(name){
@@ -281,6 +288,20 @@ planarVizCentric = (function (){
 		},
 		getColorPercentage: function(){
 			return planarColorsArray;
+		},
+		buildGradients: function(){
+			var nextIncrementStart = 0.0;
+			for (var idex = 0; idex < planarColorsArray; idex++){
+				var o_colorPercentageSet = planarColorsArray[idex];
+				var o_gradientBuilder = new gradientBuilder();
+				var r_percentage = o_gradientBuilder.getColorPercentage();
+				var s_color = o_gradientBuilder.getPlanarColor();
+				o_gradientBuilder.color = s_color;
+				nextIncrementStart += r_percentage;
+				o_gradientBuilder.gradientPercentage = nextIncrementStart;
+				gradientsArray.push(o_gradientBuilder);
+			}
+			
 		}
 	}
 	
@@ -1685,12 +1706,10 @@ var processStarAndPlanetsDetail = (function(){
 	var o_colorPercentageSet;
 	var midX;
 	var midY;
-		
-	function gradientBuilder(){
-		var color;
-		var gradientPercentage;
-	}
-	
+	var startX = 5;
+	var startY = 50;
+	var incrementY = 20;
+
 	function f_angle_in_radians(value){
 		o_clusterVizCentric.setAnglenInRadians(value);
 		console.log("AnglenInRadians: "+ value);
@@ -1811,6 +1830,7 @@ var processStarAndPlanetsDetail = (function(){
 		}
 		else{
 			var starsystemscanvasContext = canvasas.fetchStarSystemsCanvasContext();
+			starsystemscanvasContext.scale(1, 0.5);
 			for (var idex = 0; idex < planetNames.length; idex++){
 				o_planarVizCentric = onePlanetDictionary.get(planetNames[idex]);
 				var name = planetNames[idex];
@@ -1821,16 +1841,58 @@ var processStarAndPlanetsDetail = (function(){
 					radiusOnPage = 5;
 				}
 				if(radiusOnPage > 500){
-					radiusOnPage = 510;
+					radiusOnPage = 500;
 				}
 				starsystemscanvasContext.lineWidth="1";
 				starsystemscanvasContext.strokeStyle = o_clusterVizCentric.getStarColor();
-				starsystemscanvasContext.scale(1, 1);
 				starsystemscanvasContext.beginPath();
-				starsystemscanvasContext.arc(midX, midY, radiusOnPage, 0, 2 * Math.PI, false);
+				var xdim = Math.floor(midX);
+				var ydim = Math.floor(midY)*2;
+				var radius = Math.floor(radiusOnPage);
+				console.log("PLANET "+ name + " RADIUS:" + radius + "::"+xdim+"::"+ydim);
+				starsystemscanvasContext.arc(xdim, ydim, radius, 0, 2 * Math.PI, false);
 				starsystemscanvasContext.stroke();
 			}
 		}
+	}
+	
+	function drawStarDetails(){
+		var starName = o_clusterVizCentric.getStarName();
+		var distance = o_clusterVizCentric.getDistanceClusterVirtCentre();
+		var angle = o_clusterVizCentric.getAnglenInRadians()*(180/Math.PI);
+		var luminosity = o_clusterVizCentric.getLuminosity();
+		var color = o_clusterVizCentric.getStarColor();
+		var size = o_clusterVizCentric.getStarSize();
+		var type = o_clusterVizCentric.getStarType();
+		
+		var ctx = canvasas.fetchStarsInClusterTextCanvasContext();
+		var runningX = startX;
+		var runningY = startY;
+		var incrementY = 20;
+		ctx.font="18px Verdana";
+		ctx.strokeStyle = "orange";
+		ctx.strokeText("Star System "+starName+" Details", runningX, runningY);
+		runningY += incrementY;
+		runningX = startX;
+		ctx.font="10px Verdana";
+		ctx.strokeStyle = "lightblue";
+		ctx.strokeText("Distance to Cluster Centre:"+distance, runningX, runningY);
+		runningY += incrementY;
+		runningX = startX;
+		ctx.strokeText("Angle in Cluster:"+angle, runningX, runningY);		
+		runningY += incrementY;
+		runningX = startX;
+		ctx.strokeText("Luminosity:"+luminosity, runningX, runningY);		
+		runningY += incrementY;
+		runningX = startX;
+		ctx.strokeText("Star Color:"+color, runningX, runningY);		
+		runningY += incrementY;
+		runningX = startX;
+		ctx.strokeText("Star Size:"+size, runningX, runningY);		
+		runningY += incrementY;
+		runningX = startX;
+		ctx.strokeText("Star Type:"+type, runningX, runningY);		
+
 	}
 	
 	return{
@@ -1843,7 +1905,8 @@ var processStarAndPlanetsDetail = (function(){
 			
 			parseResults(result);
 			drawStarInCentre();
-			drawPlanetoidsAroundStar()
+			drawPlanetoidsAroundStar();
+			drawStarDetails();
 		},
 		setScale: function(n_scale){
 			scale = n_scale;
