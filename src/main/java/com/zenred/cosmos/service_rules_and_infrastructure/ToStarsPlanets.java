@@ -59,6 +59,7 @@ public class ToStarsPlanets {
 			keyValuePair.append(";"+PlanetoidDao.DEGREE).append("=").append(planetoid.getDegree());
 			keyValuePair.append(";"+PlanetoidDao.DISTANCE_TO_PRIMARY).append("=").append(planetoid.getDistanceToPrimary());
 			keyValuePair.append(";"+PlanetoidDao.TEMPERATURE).append("=").append(planetoid.getTemperature());
+			keyValuePair.append(";"+PlanetoidDao.RADIUS).append("=").append(planetoid.getRadius());
 			Map<String, Double> colorAccumulator = new HashMap<String, Double>();
 			for(PlanetoidColor planetoidColor : planetoidColors){
 				String color = planetoidColor.getColor();

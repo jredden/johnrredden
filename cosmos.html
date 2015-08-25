@@ -249,6 +249,7 @@ planarVizCentric = (function (){
 	var planarDegree;  				// in radians
 	var planarDistanceToPrimary;	// kilometers
 	var planarTemperature; 			// Kelvin
+	var planarRadius;				// kilometers
 	var planarColorsArray = [];
 	var gradientsArray = [];
 	
@@ -283,6 +284,12 @@ planarVizCentric = (function (){
 		getPlanarTemperature: function(){
 			return planarTemperature;
 		},
+		setPlanarRadius: function(radius){
+			planarRadius = radius;
+		},
+		getPlanarRadius: function(){
+			return planarRadius;
+		},
 		addColorPercentage: function(colorPercentage){
 			planarColorsArray.push(colorPercentage);
 		},
@@ -302,7 +309,10 @@ planarVizCentric = (function (){
 				gradientsArray.push(o_gradientBuilder);
 			}
 			
-		}
+		},
+		fetchGradients: function(){
+			return gradientsArray;
+		}	
 	}
 	
 });
@@ -728,6 +738,41 @@ var vizStars = (function(){
 		},
 		fetchStarSizeAndColor: function(color){
 			return starColorDictionary.get(color);
+		}
+	}
+	
+})();
+/**
+ * map of the planars radius to the size of image
+ * displayed on the page.
+ */
+var vizPlanars = (function(){
+	
+	var radiusDictionary;
+	
+	var o_radiusMap;
+	return{
+		init: function(){
+			radiusDictionary = new buckets.Dictionary();
+			radiusDictionary.set(0, 10); // smallest rendering
+			radiusDictionary.set(400, 11);
+			radiusDictionary.set(800, 12);
+			radiusDictionary.set(1200, 13);
+			radiusDictionary.set(2500, 14);
+			radiusDictionary.set(6000, 15);
+			radiusDictionary.set(8000, 16);
+			radiusDictionary.set(10000, 17);
+			radiusDictionary.set(12000, 18);
+			radiusDictionary.set(14000, 19);
+			radiusDictionary.set(18000, 20);
+			radiusDictionary.set(24000, 21);
+			radiusDictionary.set(30000, 22);
+			radiusDictionary.set(38000, 23);
+			radiusDictionary.set(42000, 24);
+			radiusDictionary.set(60000, 23);
+			radiusDictionary.set(90000, 26);
+			radiusDictionary.set(200000, 27);
+			radiusDictionary.set(600000, 28); // largest rendering
 		}
 	}
 	
@@ -1694,6 +1739,7 @@ var processStarAndPlanetsDetail = (function(){
 	const DEGREE = "Degree"; // always in radians
 	const DISTANCE_TO_PRIMARY = "DistanceToPrimary";
 	const TEMPERATURE = "Temperature";
+	const RADIUS = "Radius";
 	const PLANAR_COLOR = "Color";
 	const PLANAR_COLOR_PERCENTAGE = "Percent";
 	
@@ -1766,6 +1812,11 @@ var processStarAndPlanetsDetail = (function(){
 		console.log("temperature: "+ value);
 		o_planarVizCentric.setPlanarTemperature(value);
 	}
+
+	function f_radius(value){
+		console.log("radius: "+ value);
+		o_planarVizCentric.setPlanarRadius(value);
+	}
 	
 	function f_planarColor(value){
 		o_colorPercentageSet = new colorPercentageSet();
@@ -1795,6 +1846,7 @@ var processStarAndPlanetsDetail = (function(){
 		planetsDictionary.set(DEGREE, f_planarDegree);
 		planetsDictionary.set(DISTANCE_TO_PRIMARY, f_planarDistanceToPrimary);
 		planetsDictionary.set(TEMPERATURE, f_temperature);
+		planetsDictionary.set(RADIUS, f_radius);
 		planetsDictionary.set(PLANAR_COLOR, f_planarColor);
 		planetsDictionary.set(PLANAR_COLOR_PERCENTAGE, f_planarColorPercentage);
 		
@@ -1892,6 +1944,32 @@ var processStarAndPlanetsDetail = (function(){
 		runningY += incrementY;
 		runningX = startX;
 		ctx.strokeText("Star Type:"+type, runningX, runningY);		
+		drawPlanetDetails(ctx, startX, runningY);
+	}
+	
+	function drawPlanetDetails(ctx, startX, runningY){
+		var planetNames = onePlanetDictionary.keys();
+		var runningX = startX;
+		if(planetNames.length == 0){
+			ctx.font="14px Verdana";
+			ctx.strokeStyle = "orange";
+
+			runningY += (incrementY * 3);
+			ctx.strokeText("Star does not have planets", runningX, runningY);
+			runningY += incrementY;
+			runningX = startX;
+			ctx.strokeText("Select Re-Enter Sector Control and select a different star", runningX, runningY);
+		}
+		else{
+			for (var idex = 0; idex < planetNames.length; idex++){
+				o_planarVizCentric = onePlanetDictionary.get(planetNames[idex]);
+				var name = o_planarVizCentric.getPlanarName();
+				var degree = o_planarVizCentric.getPlanarDegree()*(180/Math.PI);  // to degrees
+				var distance = o_planarVizCentric.getPlanarDistanceToPrimary();
+				var temperature = o_planarVizCentric.getPlanarTemperature();
+				var radius = o_planarVizCentric.getPlanarRadius();
+			}
+		}
 
 	}
 	
@@ -1907,6 +1985,7 @@ var processStarAndPlanetsDetail = (function(){
 			drawStarInCentre();
 			drawPlanetoidsAroundStar();
 			drawStarDetails();
+			o_planarVizCentric.buildGradients();
 		},
 		setScale: function(n_scale){
 			scale = n_scale;
