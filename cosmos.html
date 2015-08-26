@@ -239,6 +239,25 @@ var colorPercentageSet = (function (){
 		}
 	}
 });
+var gradientBuilder = (function (){
+	var color;
+	var gradientPercentage;	
+	
+	return{
+		setColor: function(s_color){
+			color = s_color;
+		},
+		getColor: function(){
+			return color;
+		},
+		setGradientPercentage(n_gradientPercentage){
+			gradientPercentage = n_gradientPercentage;
+		},
+		getGradientPercentage(){
+			return gradientPercentage;
+		}
+	}
+});
 
 /**
  * visual centric object of a planetoid
@@ -254,10 +273,6 @@ planarVizCentric = (function (){
 	var gradientsArray = [];
 	
 	
-	function gradientBuilder(){
-		var color;
-		var gradientPercentage;
-	}
 	
 	return{
 		setPlanarName: function(name){
@@ -298,20 +313,25 @@ planarVizCentric = (function (){
 		},
 		buildGradients: function(){
 			var nextIncrementStart = 0.0;
-			for (var idex = 0; idex < planarColorsArray; idex++){
+			for (var idex = 0; idex < planarColorsArray.length; idex++){
 				var o_colorPercentageSet = planarColorsArray[idex];
 				var o_gradientBuilder = new gradientBuilder();
-				var r_percentage = o_gradientBuilder.getColorPercentage();
-				var s_color = o_gradientBuilder.getPlanarColor();
-				o_gradientBuilder.color = s_color;
+				var r_percentage = o_colorPercentageSet.getColorPercentage();
+				var s_color = o_colorPercentageSet.getPlanarColor();
+				o_gradientBuilder.setColor(s_color);
 				nextIncrementStart += r_percentage;
-				o_gradientBuilder.gradientPercentage = nextIncrementStart;
+				o_gradientBuilder.setGradientPercentage(nextIncrementStart);
 				gradientsArray.push(o_gradientBuilder);
 			}
 			
 		},
-		fetchGradients: function(){
-			return gradientsArray;
+		fetchGradients: function(gradient){
+			for(var idex = 0; idex < gradientsArray.length; idex++){
+				var percent = gradientsArray[idex].getGradientPercentage();
+				var color = gradientsArray[idex].getColor();
+				gradient.addColorStop(percent, color);
+			}
+ 			return gradient;
 		}	
 	}
 	
@@ -773,6 +793,18 @@ var vizPlanars = (function(){
 			radiusDictionary.set(90000, 26);
 			radiusDictionary.set(200000, 27);
 			radiusDictionary.set(600000, 28); // largest rendering
+			radiusDictionary.set(Math.floor(Number.MAX_VALUE), 0);
+		},
+		fetchImageSize: function(radius){
+			var sizeIncrements = radiusDictionary.keys();
+			var imageSize;  // must have a value when returned
+			for(var idex = 0; idex < sizeIncrements.length; idex++){
+				if(radius >= sizeIncrements[idex] && radius < sizeIncrements[idex+1]){
+					imageSize = radiusDictionary.get(sizeIncrements[idex]);
+					break
+				}
+			}
+			return imageSize;
 		}
 	}
 	
@@ -844,6 +876,7 @@ $(document).ready(function() {
 	visualizeClustersOnCanvas.init();
 	visualizeClustersOnCanvas.logPrint();  // sanity check
 	vizStars.init();
+	vizPlanars.init();
 	
 	$("#home").click(function(){
 		window.location = "http://www.johntredden.com";
@@ -1755,6 +1788,7 @@ var processStarAndPlanetsDetail = (function(){
 	var startX = 5;
 	var startY = 50;
 	var incrementY = 20;
+	var offsetX = 20;
 
 	function f_angle_in_radians(value){
 		o_clusterVizCentric.setAnglenInRadians(value);
@@ -1926,7 +1960,7 @@ var processStarAndPlanetsDetail = (function(){
 		ctx.strokeText("Star System "+starName+" Details", runningX, runningY);
 		runningY += incrementY;
 		runningX = startX;
-		ctx.font="10px Verdana";
+		ctx.font="14px Verdana";
 		ctx.strokeStyle = "lightblue";
 		ctx.strokeText("Distance to Cluster Centre:"+distance, runningX, runningY);
 		runningY += incrementY;
@@ -1961,13 +1995,43 @@ var processStarAndPlanetsDetail = (function(){
 			ctx.strokeText("Select Re-Enter Sector Control and select a different star", runningX, runningY);
 		}
 		else{
+			runningY += incrementY*2;
 			for (var idex = 0; idex < planetNames.length; idex++){
+				runningX = startX;
 				o_planarVizCentric = onePlanetDictionary.get(planetNames[idex]);
+				o_planarVizCentric.buildGradients();
 				var name = o_planarVizCentric.getPlanarName();
 				var degree = o_planarVizCentric.getPlanarDegree()*(180/Math.PI);  // to degrees
 				var distance = o_planarVizCentric.getPlanarDistanceToPrimary();
 				var temperature = o_planarVizCentric.getPlanarTemperature();
 				var radius = o_planarVizCentric.getPlanarRadius();
+				ctx.font="14px Verdana";
+				ctx.strokeStyle = "yellow";
+				var planarName = "Planar Name: "+name;
+				ctx.strokeText(planarName, runningX, runningY);
+				
+				var imageX = ctx.measureText(planarName).width + offsetX;
+				var outerRadius = vizPlanars.fetchImageSize(radius);
+				var gradient = ctx.createRadialGradient(imageX, runningY, 1, imageX, runningY, outerRadius);
+				gradient = o_planarVizCentric.fetchGradients(gradient);
+				ctx.arc(imageX, runningY,outerRadius, 0, 2*Math.PI);
+				ctx.fillStyle = gradient;
+				ctx.fill;
+				
+				runningY += incrementY;
+				runningX = startX;
+				ctx.strokeStyle = "lightblue";
+				ctx.strokeText("Planar Position in Degrees: "+degree, runningX, runningY);
+				runningY += incrementY;
+				runningX = startX;
+				ctx.strokeText("Planar Distance to Star: "+distance, runningX, runningY);
+				runningY += incrementY;
+				runningX = startX;
+				ctx.strokeText("Planar Kelvin Temperature: "+temperature, runningX, runningY);
+				runningY += incrementY;
+				runningX = startX;
+				ctx.strokeText("Planar Radius in Kilometers: "+radius, runningX, runningY);
+				runningY += incrementY*2;
 			}
 		}
 
@@ -1985,7 +2049,6 @@ var processStarAndPlanetsDetail = (function(){
 			drawStarInCentre();
 			drawPlanetoidsAroundStar();
 			drawStarDetails();
-			o_planarVizCentric.buildGradients();
 		},
 		setScale: function(n_scale){
 			scale = n_scale;
