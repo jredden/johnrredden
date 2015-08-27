@@ -7,15 +7,15 @@ import java.util.Map;
 
 public enum AtmosphereParts {
 
-	Methane("methane", "ch[4]", 90.6, 109.0,"bluegreen"), SulfuricAcid("sulfuric_acid",
+	Methane("methane", "ch[4]", 90.6, 109.0,"#307D7E"), SulfuricAcid("sulfuric_acid",
 			"h[1]so[4]", 283.15, 613.15, "none"), CarbonDioxide("carbon_dioxide",
 			"co[1]", 194.5, 216.5, "none"), Nitrogen("nitrogen", "n[1]", 64.0, 78.0, "none"), Ammonia(
 			"ammonia", "nh[3]", 195.3, 239.6, "white"), NitrogenDioxide(
-			"nitrogen_dioxide", "no[1]", 261.8, 294.2, "redbrown"), Oxygen("oxygen",
+			"nitrogen_dioxide", "no[1]", 261.8, 294.2, "#C35817"), Oxygen("oxygen",
 			"o[1]", 54.6, 90.0, "none"), Water("water", "h[2]o", 273.0, 373.0, "blue"), Neon(
 			"neon", "ne[1]", 24.6, 27.1, "none"), HydrogenSulfide("hydrogen_sulfide",
 			"h[1]s", 187.5, 212.3, "none"), SulferDioxide("sulfer_dioxide", "so[1]",
-			200.8, 263.0, "none"), Chlorine("chlorine", "cl[1]", 171.9, 238.4, "yellowgreen"), Argon(
+			200.8, 263.0, "none"), Chlorine("chlorine", "cl[1]", 171.9, 238.4, "#52D017"), Argon(
 			"argon", "ar[1]", 83.8, 87.4, "none"), Helium("helium", "he[1]", 1.0, 1.15, "none"), Hydrogen(
 			"hydrogen", "h[1]", 14.01, 33.0, "none"), HydrocloricAcid(
 			"hydrocloric_acid", "h[1]cl[1]", 247.0, 523.15, "yellow"), CarbonMonoxide(

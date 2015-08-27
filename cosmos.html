@@ -312,14 +312,18 @@ planarVizCentric = (function (){
 			return planarColorsArray;
 		},
 		buildGradients: function(){
-			var nextIncrementStart = 0.0;
+			var nextIncrementStart = parseFloat(0.0).toFixed(3);
 			for (var idex = 0; idex < planarColorsArray.length; idex++){
 				var o_colorPercentageSet = planarColorsArray[idex];
 				var o_gradientBuilder = new gradientBuilder();
-				var r_percentage = o_colorPercentageSet.getColorPercentage();
+				var s_percentage = o_colorPercentageSet.getColorPercentage();
+				var r_percentage = parseFloat(s_percentage).toFixed(3);
 				var s_color = o_colorPercentageSet.getPlanarColor();
 				o_gradientBuilder.setColor(s_color);
-				nextIncrementStart += r_percentage;
+				nextIncrementStart = Number(nextIncrementStart) + Number(r_percentage);
+				if(nextIncrementStart > 1.0){
+					nextIncrementStart = Number(1.0);	// 100% coming up 100.1%
+				}
 				o_gradientBuilder.setGradientPercentage(nextIncrementStart);
 				gradientsArray.push(o_gradientBuilder);
 			}
@@ -2010,7 +2014,7 @@ var processStarAndPlanetsDetail = (function(){
 				var planarName = "Planar Name: "+name;
 				ctx.strokeText(planarName, runningX, runningY);
 				
-				var imageX = ctx.measureText(planarName).width + offsetX;
+				var imageX = Math.floor(ctx.measureText(planarName).width + offsetX);
 				var outerRadius = vizPlanars.fetchImageSize(radius);
 				var gradient = ctx.createRadialGradient(imageX, runningY, 1, imageX, runningY, outerRadius);
 				gradient = o_planarVizCentric.fetchGradients(gradient);
