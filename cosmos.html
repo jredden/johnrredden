@@ -330,12 +330,7 @@ planarVizCentric = (function (){
 			
 		},
 		fetchGradients: function(gradient){
-			for(var idex = 0; idex < gradientsArray.length; idex++){
-				var percent = gradientsArray[idex].getGradientPercentage();
-				var color = gradientsArray[idex].getColor();
-				gradient.addColorStop(percent, color);
-			}
- 			return gradient;
+ 			return gradientsArray;
 		}	
 	}
 	
@@ -445,6 +440,9 @@ var canvasas = (function(){
 	var starsinclustertextcanvas;
 	var starsystemscanvasContext;
 	var starsinclustertextcanvasContext;
+
+	var newStarAndPlanetsCanvas;
+	var newStarAndPlanetsContext;
 	
 	function buildCanvasas(){
 		starsystemscanvas = document.getElementById("starsystems");
@@ -462,7 +460,14 @@ var canvasas = (function(){
 		starsinclustertextcanvasContext.canvas.width = wi;
 		starsinclustertextcanvasContext.canvas.height = hi ;
 		starsinclustertextcanvasContext.canvas.style.position = 'left';
-		starsinclustertextcanvasContext.fillStyle = "midnightblue";
+		
+		newStarAndPlanetsCanvas = document.getElementById("starsinclustertextcanvas");
+		newStarAndPlanetsContext = starsinclustertextcanvas.getContext("2d");
+		var wi = window.innerWidth/3+xtra;
+		var hi = window.innerHeight*3;
+		console.log("HEIGHT AND WIDTH:"+wi+"::"+hi+"::");
+		newStarAndPlanetsContext.canvas.width = wi;
+		newStarAndPlanetsContext.canvas.height = hi ;
 
 	}
 	
@@ -480,7 +485,14 @@ var canvasas = (function(){
 			return starsinclustertextcanvas;
 		},
 		fetchStarsInClusterTextCanvasContext(){
+			starsinclustertextcanvasContext.fillStyle = "midnightblue";
 			return starsinclustertextcanvasContext;
+		},
+		fetchStarsInClusterTextCanvasContextNoFill(){
+			return starsinclustertextcanvasContext;
+		},
+		fetchNewStarAndPlanetsContext(){
+			return newStarAndPlanetsContext;
 		},
 		clearStarSystemsCanvasContext(){
 			starsystemscanvasContext.clearRect(0,0, starsystemscanvasContext.canvas.width, 
@@ -1792,7 +1804,7 @@ var processStarAndPlanetsDetail = (function(){
 	var startX = 5;
 	var startY = 50;
 	var incrementY = 20;
-	var offsetX = 20;
+	var offsetX = 80;
 
 	function f_angle_in_radians(value){
 		o_clusterVizCentric.setAnglenInRadians(value);
@@ -1942,6 +1954,14 @@ var processStarAndPlanetsDetail = (function(){
 				console.log("PLANET "+ name + " RADIUS:" + radius + "::"+xdim+"::"+ydim);
 				starsystemscanvasContext.arc(xdim, ydim, radius, 0, 2 * Math.PI, false);
 				starsystemscanvasContext.stroke();
+				
+				var angleInRadians = o_planarVizCentric.getPlanarDegree();
+				var o_point = scaledXandY.scaleToAngle(angleInRadians, radiusOnPage);
+				var xOrbitDim = Math.floor(o_point.getX()*2);  // elipse ...  cos times 2 ... 
+				var yOrbitDim = Math.floor(o_point.getY());
+				starsystemscanvasContext.beginPath();
+				starsystemscanvasContext.arc(xdim + xOrbitDim, ydim + yOrbitDim, 1, 0, 2 * Math.PI, false);
+				starsystemscanvasContext.stroke();
 			}
 		}
 	}
@@ -1982,10 +2002,11 @@ var processStarAndPlanetsDetail = (function(){
 		runningY += incrementY;
 		runningX = startX;
 		ctx.strokeText("Star Type:"+type, runningX, runningY);		
-		drawPlanetDetails(ctx, startX, runningY);
+		drawPlanetDetails(startX, runningY);
 	}
 	
-	function drawPlanetDetails(ctx, startX, runningY){
+	function drawPlanetDetails(startX, runningY){
+		var ctx = canvasas.fetchNewStarAndPlanetsContext();
 		var planetNames = onePlanetDictionary.keys();
 		var runningX = startX;
 		if(planetNames.length == 0){
@@ -2017,10 +2038,22 @@ var processStarAndPlanetsDetail = (function(){
 				var imageX = Math.floor(ctx.measureText(planarName).width + offsetX);
 				var outerRadius = vizPlanars.fetchImageSize(radius);
 				var gradient = ctx.createRadialGradient(imageX, runningY, 1, imageX, runningY, outerRadius);
-				gradient = o_planarVizCentric.fetchGradients(gradient);
+				console.log("ctx.createRadialGradient("+imageX+","+runningY+", 1,"+imageX+","+runningY+","+outerRadius+")");
+				var gradientsArray = o_planarVizCentric.fetchGradients();
+				var lastColor;
+				for(var idex2 = 0; idex2 < gradientsArray.length; idex2++){
+					var percent = gradientsArray[idex2].getGradientPercentage();
+					var color = gradientsArray[idex2].getColor();
+					console.log("gradient.addColorStop("+percent+"," +"'"+color+"'"+")");
+					gradient.addColorStop(percent, color);
+					lastColor = color;
+				}
+				ctx.beginPath();
 				ctx.arc(imageX, runningY,outerRadius, 0, 2*Math.PI);
-				ctx.fillStyle = gradient;
-				ctx.fill;
+				ctx.fillStyle = gradient;  // not working ... err ... works with new canvas 
+				ctx.fill();
+				ctx.stroke();
+				ctx.closePath();
 				
 				runningY += incrementY;
 				runningX = startX;
@@ -2113,7 +2146,7 @@ function print_recursive(printthis) {
 				<nav id="topNav">
 					<button id="home">Home</button>
 					<button id="jump">Activate Starships Star Drive</button>
-					<span id="jumphint" style="color:lightyellow;font-weight:bold">To travel to a new star system activate the Star Drive</span>
+			<!--  		<span id="jumphint" style="color:lightyellow;font-weight:bold">To travel to a new star system activate the Star Drive</span> -->
 					<button id="reEnterSector">Re-Enter Sector</button>
 				</nav>
 			</hgroup>
