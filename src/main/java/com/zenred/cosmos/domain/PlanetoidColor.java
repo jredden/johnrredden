@@ -66,8 +66,8 @@ public class PlanetoidColor implements Comparable<PlanetoidColor>{
 		pureStarColors.put("Yellow Dwarf", "yellow");
 		pureStarColors.put("Orange Dwarf", "orange");
 		pureStarColors.put("Red Dwarf", "red");
-		pureStarColors.put("Purple Red Dwarf", "lightpurple" );
-		pureStarColors.put("Brown Sub Star", "lightbrown");
+		pureStarColors.put("Purple Red Dwarf", "#7E354D" );
+		pureStarColors.put("Brown Sub Star", "#835C3B");
 		pureStarColors.put("Dark Brown Sub Dwarf", "brown");
 
 	}

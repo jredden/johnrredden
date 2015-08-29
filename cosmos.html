@@ -444,12 +444,21 @@ var canvasas = (function(){
 	var newStarAndPlanetsCanvas;
 	var newStarAndPlanetsContext;
 	
+	var newStarsystemscanvasContext;
+	var newStarsystemscanvas;
+	
 	function buildCanvasas(){
 		starsystemscanvas = document.getElementById("starsystems");
 		starsystemscanvasContext = starsystemscanvas.getContext("2d");
 		starsystemscanvasContext.canvas.width = window.innerWidth/2;
 		starsystemscanvasContext.canvas.height = window.innerHeight*3;
 		starsystemscanvasContext.fillStyle = "#00003D";
+		
+		newStarsystemscanvas = document.getElementById("starsystems");
+		newStarsystemscanvasContext = starsystemscanvas.getContext("2d");
+		newStarsystemscanvasContext.canvas.width = window.innerWidth/2;
+		newStarsystemscanvasContext.canvas.height = window.innerHeight*3;
+
 
 		
 		starsinclustertextcanvas = document.getElementById("starsinclustertextcanvas");
@@ -480,6 +489,9 @@ var canvasas = (function(){
 		},
 		fetchStarSystemsCanvasContext(){
 			return starsystemscanvasContext;
+		},
+		fetchNewStarSystemsCanvasContext(){
+			return newStarsystemscanvasContext;
 		},
 		fetchStarsInClusterTextCanvas(){
 			return starsinclustertextcanvas;
@@ -1918,6 +1930,7 @@ var processStarAndPlanetsDetail = (function(){
 		var size = vizStarSizes.fetchBigSize()*2*scale;
 		var color = vizStarSizes.fetchColor();
 		starsystemscanvasContext.beginPath();
+		console.log("STAR:"+midX+"::"+midY+"::");
 		starsystemscanvasContext.arc(midX, midY, size, 0, 2*Math.PI, false);
 		starsystemscanvasContext.fillStyle = color;
 		starsystemscanvasContext.fill();
@@ -1932,6 +1945,8 @@ var processStarAndPlanetsDetail = (function(){
 		}
 		else{
 			var starsystemscanvasContext = canvasas.fetchStarSystemsCanvasContext();
+			starsystemscanvasContext.save();
+
 			starsystemscanvasContext.scale(1, 0.5);
 			for (var idex = 0; idex < planetNames.length; idex++){
 				o_planarVizCentric = onePlanetDictionary.get(planetNames[idex]);
@@ -1951,17 +1966,23 @@ var processStarAndPlanetsDetail = (function(){
 				var xdim = Math.floor(midX);
 				var ydim = Math.floor(midY)*2;
 				var radius = Math.floor(radiusOnPage);
-				console.log("PLANET "+ name + " RADIUS:" + radius + "::"+xdim+"::"+ydim);
+				console.log("PLANET "+ name + " RADIUS:" + radius + "::"+xdim+"::"+ydim+"::"+midX+"::"+midY);
 				starsystemscanvasContext.arc(xdim, ydim, radius, 0, 2 * Math.PI, false);
 				starsystemscanvasContext.stroke();
-				
+			}
+			starsystemscanvasContext.restore();
+			var newstarsystemscanvasContext = canvasas.fetchNewStarSystemsCanvasContext();
+			for (var idex2 = 0; idex2 < planetNames.length; idex2++){
+				o_planarVizCentric = onePlanetDictionary.get(planetNames[idex2]);
 				var angleInRadians = o_planarVizCentric.getPlanarDegree();
 				var o_point = scaledXandY.scaleToAngle(angleInRadians, radiusOnPage);
-				var xOrbitDim = Math.floor(o_point.getX()*2);  // elipse ...  cos times 2 ... 
-				var yOrbitDim = Math.floor(o_point.getY());
-				starsystemscanvasContext.beginPath();
-				starsystemscanvasContext.arc(xdim + xOrbitDim, ydim + yOrbitDim, 1, 0, 2 * Math.PI, false);
-				starsystemscanvasContext.stroke();
+				var xOrbitDim = Math.floor(o_point.getX()+midX);  // elipse ...  cos times 2 ... 
+				var yOrbitDim = Math.floor(o_point.getY()+midY);
+				console.log("POINTS:"+o_point.getX()+"::"+o_point.getY()+"::"+xOrbitDim+"::"+yOrbitDim);
+				newstarsystemscanvasContext.beginPath();
+				newstarsystemscanvasContext.arc(xOrbitDim, yOrbitDim, 5, 0, 2 * Math.PI, false);
+				newstarsystemscanvasContext.stroke();
+
 			}
 		}
 	}
@@ -2038,13 +2059,13 @@ var processStarAndPlanetsDetail = (function(){
 				var imageX = Math.floor(ctx.measureText(planarName).width + offsetX);
 				var outerRadius = vizPlanars.fetchImageSize(radius);
 				var gradient = ctx.createRadialGradient(imageX, runningY, 1, imageX, runningY, outerRadius);
-				console.log("ctx.createRadialGradient("+imageX+","+runningY+", 1,"+imageX+","+runningY+","+outerRadius+")");
+				// console.log("ctx.createRadialGradient("+imageX+","+runningY+", 1,"+imageX+","+runningY+","+outerRadius+")");
 				var gradientsArray = o_planarVizCentric.fetchGradients();
 				var lastColor;
 				for(var idex2 = 0; idex2 < gradientsArray.length; idex2++){
 					var percent = gradientsArray[idex2].getGradientPercentage();
 					var color = gradientsArray[idex2].getColor();
-					console.log("gradient.addColorStop("+percent+"," +"'"+color+"'"+")");
+					// console.log("gradient.addColorStop("+percent+"," +"'"+color+"'"+")");
 					gradient.addColorStop(percent, color);
 					lastColor = color;
 				}
