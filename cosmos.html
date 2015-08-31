@@ -921,7 +921,7 @@ $(document).ready(function() {
 		var clickedX = event.pageX - this.offsetLeft;
 		var clickedY = event.pageY - this.offsetTop;
 		console.log("CLICK EVENT:"+clickedX+"::"+clickedY);
-		clickableStarsList.determineClick(clickedX, clickedY);
+		clickableAstroObjectList.determineClick(clickedX, clickedY);
 	});
 	
 	$("#reEnterSector").click(function(){
@@ -1404,7 +1404,7 @@ var visualizeStarsInClusters = ( function (){
 				}
 			}
 			// to do: make this more object oriented.  It violates the D.R.Y. principal
-			clickableStarsList.init();
+			clickableAstroObjectList.init();
 			var currentCanvasCtx = canvasas.fetchStarsInClusterTextCanvasContext();
 			visualizeClustersOnCanvas.genStarTextGeomteryWithMaxX();
 			var starTextDictionary = visualizeClustersOnCanvas.fetchStarTextDictionary();
@@ -1433,7 +1433,7 @@ var visualizeStarsInClusters = ( function (){
 					currentCanvasCtx.fill();
 					currentCanvasCtx.lineWidth=0;
 					currentCanvasCtx.stroke();
-					clickableStarsList.addImageGeometry(graphicXDim, yDim, size, starKeys[idex2]);
+					clickableAstroObjectList.addImageGeometry(graphicXDim, yDim, size, starKeys[idex2]);
 				}
 			}
 
@@ -1724,7 +1724,7 @@ var visualizeClustersOnCanvas = (function () {
 /**
  * geometry to allow clickable stars on canvas
  */
-var clickableStarsList = (function(){
+var clickableAstroObjectList = (function(){
 	
 	var starImageDictionary;
 	const fudgeFactor = 3;  // close as in horseshoes ...
@@ -1739,16 +1739,16 @@ var clickableStarsList = (function(){
 			starImageDictionary.set(starName, o_circle);
 		},
 		determineClick(clickedX, clickedY){
-			var starNameKeys = starImageDictionary.keys();
-			for (var idex = 0; idex < starNameKeys.length; idex++){
-				var o_circle = starImageDictionary.get(starNameKeys[idex]);
+			var nameameKeys = starImageDictionary.keys();
+			for (var idex = 0; idex < nameameKeys.length; idex++){
+				var o_circle = starImageDictionary.get(nameameKeys[idex]);
 				var bottom = o_circle.fetchBottom() + fudgeFactor;
 				var top = o_circle.fetchTop() - fudgeFactor;
 				var left = o_circle.fetchLeft() - fudgeFactor;
 				var right = o_circle.fetchRight() + fudgeFactor;
 				if(clickedX < right && clickedX > left && clickedY > top && clickedY < bottom){
-					console.log("GOING TO:"+starNameKeys[idex] );
-					starAndPlanets.init(starNameKeys[idex]);
+					console.log("GOING TO:"+nameameKeys[idex] );
+					starAndPlanets.init(nameameKeys[idex]);
 				}
 			}
 		}
@@ -1971,19 +1971,23 @@ var processStarAndPlanetsDetail = (function(){
 				starsystemscanvasContext.stroke();
 			}
 			starsystemscanvasContext.restore();
+			/*
 			var newstarsystemscanvasContext = canvasas.fetchNewStarSystemsCanvasContext();
 			for (var idex2 = 0; idex2 < planetNames.length; idex2++){
 				o_planarVizCentric = onePlanetDictionary.get(planetNames[idex2]);
 				var angleInRadians = o_planarVizCentric.getPlanarDegree();
-				var o_point = scaledXandY.scaleToAngle(angleInRadians, radiusOnPage);
-				var xOrbitDim = Math.floor(o_point.getX()+midX);  // elipse ...  cos times 2 ... 
-				var yOrbitDim = Math.floor(o_point.getY()+midY);
-				console.log("POINTS:"+o_point.getX()+"::"+o_point.getY()+"::"+xOrbitDim+"::"+yOrbitDim);
+				var scaledRadiusY = radiusOnPage/2;
+				var xOrbitDim = xdim - (radiusOnPage * Math.sin(angleInRadians)) * Math.sin(0 * Math.PI) 
+					+ (scaledRadiusY * Math.cos(angleInRadians)) * Math.cos(0 * Math.PI);
+				var yOrbitDim = ydim + (scaledRadiusY * Math.cos(angleInRadians)) * Math.sin(0 * Math.PI) 
+					+ (radiusOnPage * Math.sin(angleInRadians)) * Math.cos(0 * Math.PI);
+			    
 				newstarsystemscanvasContext.beginPath();
-				newstarsystemscanvasContext.arc(xOrbitDim, yOrbitDim, 5, 0, 2 * Math.PI, false);
+				newstarsystemscanvasContext.arc(xOrbitDim, yOrbitDim, 2, 0, 2 * Math.PI, false);
 				newstarsystemscanvasContext.stroke();
 
 			}
+			*/
 		}
 	}
 	
