@@ -36,6 +36,9 @@ var tagOperations = (function(){
 		   				},
 		   				function backToSector(){
 		   					$('#reEnterSector').show();
+		   				},
+		   				function backToStarSystem(){
+		   					$('#reEnterStarSystem').show();
 		   				}
 
 	                  	];
@@ -55,6 +58,9 @@ var tagOperations = (function(){
 			   				},
 			   				function backToSector(){
 			   					$('#reEnterSector').hide();
+			   				},
+			   				function backToStarSystem(){
+			   					$('#reEnterStarSystem').hide();
 			   				}
 			   				
 
@@ -64,7 +70,8 @@ var tagOperations = (function(){
 			"cosmosSpaceDetail" : 1,
 			"jumping" : 2,
 			"starsinclustertext" : 3,
-			"backToSector" : 4
+			"backToSector" : 4,
+			"backToStarSystem" : 5
 	}
 	
 	// public 
@@ -938,7 +945,7 @@ var jumpRequest = (function () {
 		jsonCall: function(){
 			console.log("start jumpRequest");
 			var showList = ['jumping'];
-			var hideList = ['shipStart','cosmosSpaceDetail', 'starsinclustertext', 'backToSector'];
+			var hideList = ['shipStart','cosmosSpaceDetail', 'starsinclustertext', 'backToSector', 'backToStarSystem'];
 			tagOperations.both(showList, hideList);
 
 			$.getJSON("http://www.johntreddenlocal.com:8080/starSystems.html",
@@ -1056,7 +1063,7 @@ var backToSectorView = (function (){
 	
 	return{
 		reenter: function(){
-			var hideList = ['backToSector'];
+			var hideList = ['backToSector', 'backToStarSystem'];
 			tagOperations.hide(hideList);
 			
 			canvasas.clearStarSystemsCanvasContext();
@@ -1405,6 +1412,7 @@ var visualizeStarsInClusters = ( function (){
 			}
 			// to do: make this more object oriented.  It violates the D.R.Y. principal
 			clickableAstroObjectList.init();
+			clickableAstroObjectList.setStarsAndPlanets();
 			var currentCanvasCtx = canvasas.fetchStarsInClusterTextCanvasContext();
 			visualizeClustersOnCanvas.genStarTextGeomteryWithMaxX();
 			var starTextDictionary = visualizeClustersOnCanvas.fetchStarTextDictionary();
@@ -1726,29 +1734,48 @@ var visualizeClustersOnCanvas = (function () {
  */
 var clickableAstroObjectList = (function(){
 	
-	var starImageDictionary;
+	var astroImageDictionary;
 	const fudgeFactor = 3;  // close as in horseshoes ...
 	
+	var doTheAction;
+	
+	function action(nameAndKeys){
+		doTheAction.init(nameAndKeys);
+	}
+	function starAndPlanetsAction(){
+		doTheAction = starAndPlanets;
+	}
+
+	function planetAndMoonsAction(){
+		doTheAction = planetAndMoons;
+	}
+
 	return{
 		init: function(){
-			starImageDictionary = new buckets.Dictionary();
+			astroImageDictionary = new buckets.Dictionary();
+		},
+		setStarsAndPlanets: function(){
+			starAndPlanetsAction();
+		},
+		setPlanetAndMoons: function(){
+			planetAndMoonsAction();
 		},
 		addImageGeometry(xDim, yDim, radius, starName){
 			var o_circle = new circle();
 			o_circle.construct(xDim, yDim, radius);
-			starImageDictionary.set(starName, o_circle);
+			astroImageDictionary.set(starName, o_circle);
 		},
 		determineClick(clickedX, clickedY){
-			var nameameKeys = starImageDictionary.keys();
+			var nameameKeys = astroImageDictionary.keys();
 			for (var idex = 0; idex < nameameKeys.length; idex++){
-				var o_circle = starImageDictionary.get(nameameKeys[idex]);
+				var o_circle = astroImageDictionary.get(nameameKeys[idex]);
 				var bottom = o_circle.fetchBottom() + fudgeFactor;
 				var top = o_circle.fetchTop() - fudgeFactor;
 				var left = o_circle.fetchLeft() - fudgeFactor;
 				var right = o_circle.fetchRight() + fudgeFactor;
 				if(clickedX < right && clickedX > left && clickedY > top && clickedY < bottom){
 					console.log("GOING TO:"+nameameKeys[idex] );
-					starAndPlanets.init(nameameKeys[idex]);
+					action(nameameKeys[idex]);
 				}
 			}
 		}
@@ -1768,6 +1795,19 @@ var starAndPlanets = (function(){
 			var showList = ['backToSector'];
 			tagOperations.show(showList);
 			fetchStarAndPlanets.jsonCall(starName);
+		}
+	}
+	
+})();
+
+var planetAndMoons = (function(){
+	
+	return{
+		init: function(planetName){
+			canvasas.clearStarSystemsCanvasContext();
+			canvasas.clearStarsInClusterTextCanvasContext();
+			var showList = ['backToStarSystem'];
+			tagOperations.show(showList);
 		}
 	}
 	
@@ -2045,6 +2085,8 @@ var processStarAndPlanetsDetail = (function(){
 			ctx.strokeText("Select Re-Enter Sector Control and select a different star", runningX, runningY);
 		}
 		else{
+			clickableAstroObjectList.init();
+			clickableAstroObjectList.setPlanetAndMoons();
 			runningY += incrementY*2;
 			for (var idex = 0; idex < planetNames.length; idex++){
 				runningX = startX;
@@ -2075,6 +2117,7 @@ var processStarAndPlanetsDetail = (function(){
 				}
 				ctx.beginPath();
 				ctx.arc(imageX, runningY,outerRadius, 0, 2*Math.PI);
+				clickableAstroObjectList.addImageGeometry(imageX, runningY, outerRadius, planetNames[idex]);
 				ctx.fillStyle = gradient;  // not working ... err ... works with new canvas 
 				ctx.fill();
 				ctx.stroke();
@@ -2095,6 +2138,7 @@ var processStarAndPlanetsDetail = (function(){
 				ctx.strokeText("Planar Radius in Kilometers: "+radius, runningX, runningY);
 				runningY += incrementY*2;
 			}
+
 		}
 
 	}
@@ -2173,6 +2217,7 @@ function print_recursive(printthis) {
 					<button id="jump">Activate Starships Star Drive</button>
 			<!--  		<span id="jumphint" style="color:lightyellow;font-weight:bold">To travel to a new star system activate the Star Drive</span> -->
 					<button id="reEnterSector">Re-Enter Sector</button>
+					<button id="reEnterStarSystem">Re-Enter Star System</button>
 				</nav>
 			</hgroup>
 		</header>
