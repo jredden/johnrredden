@@ -935,6 +935,10 @@ $(document).ready(function() {
 		backToSectorView.reenter();
 	});
 	
+	$("#reEnterStarSystem").click(function(){
+		backToStarView.reenter();
+	});
+	
 }); <!-- end ready -->
 
 /**
@@ -1079,6 +1083,25 @@ var backToSectorView = (function (){
 	}
 	
 })();
+
+var backToStarView  = (function (){
+	
+	return{
+		reenter: function(){
+			var hideList = ['backToStarSystem'];
+			tagOperations.hide(hideList);
+			
+			canvasas.clearStarSystemsCanvasContext();
+			canvasas.clearStarsInClusterTextCanvasContext();
+			canvasas.init();
+			processStarAndPlanetsDetail.f_drawStarInCentre();
+			processStarAndPlanetsDetail.f_drawPlanetoidsAroundStar();
+			processStarAndPlanetsDetail.f_drawStarDetails();
+		}
+	}
+	
+})();
+
 var clusterDetailReuquest = (function () {
 	return{
 		jsonCall: function(systemName){
@@ -2161,6 +2184,15 @@ var processStarAndPlanetsDetail = (function(){
 		},
 		getScale: function(){
 			return scale;
+		},
+		f_drawStarInCentre: function(){
+			drawStarInCentre();
+		},
+		f_drawPlanetoidsAroundStar: function(){
+			drawPlanetoidsAroundStar();
+		},
+		f_drawStarDetails: function(){
+			drawStarDetails();
 		}
 	}
 	

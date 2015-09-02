@@ -48,6 +48,19 @@ public class PlanetoidDao extends AbstractJDBCDao{
 			+ " WHERE plt." + PLANETOID_ID + " = ? "
 			;
 	
+	private static String readPlanetoidByName = "SELECT "
+			+ "plt." + PLANETOID_ID + " "
+			+ ", plt." + REP_ID + " "
+			+ ", plt." + PLANETOID_NAME + " "
+			+ ", plt." + RADIUS + " "
+			+ ", plt." + DISTANCE_TO_PRIMARY + " "
+			+ ", plt." + DEGREE + " "
+			+ ", plt." + TEMPERATURE + " "
+			+ ", plt." + PERCENT_WATER + " "
+			+ ", plt." + DATESTAMP + " "
+			+ " FROM " + PLANETOID + " plt "
+			+ " WHERE plt." + PLANETOID_NAME + " = ? "
+			;
 	private static String readPlanetoidRepId = "SELECT "
 			+ " pltr." + PLANETOID_REP_ID + " "
 			+ ", pltr." + DOMAIN + " "
@@ -93,7 +106,7 @@ public class PlanetoidDao extends AbstractJDBCDao{
 			+ " INNER JOIN "
 			+ StarDao.STAR + " sta "
 			+ " ON pltr." + OWNER_ID + " = sta." + StarDao.STAR_ID
-			+ " WHERE sta." + StarDao.STAR_ID + " = ? "
+			+ " WHERE pltr.domain = 'star' AND sta." + StarDao.STAR_ID + " = ? "
 			;
 	private static String readMoonsAroundPlanetoids = "SELECT "
 			+ "plt." + PLANETOID_ID + " "
@@ -247,26 +260,14 @@ public class PlanetoidDao extends AbstractJDBCDao{
 		Object[] param = {planetoidId};
 		logger.debug("SQL:"+readPlanetoidById);
 		Map<String, Object> planetoidMap = super.jdbcSetUp().getSimpleJdbcTemplate().queryForMap(readPlanetoidById, param);
-		Planetoid planetoid = new Planetoid();
-		planetoid.setDatestamp(planetoidMap.get(DATESTAMP).toString());
-		String s_degree = planetoidMap.get(DEGREE).toString();
-		planetoid.setDegree(new Double(s_degree));
-		String s_distanceToPrimary = planetoidMap.get(DISTANCE_TO_PRIMARY).toString();
-		planetoid.setDistanceToPrimary(new Double(s_distanceToPrimary));
-		String s_percentWater = planetoidMap.get(PERCENT_WATER).toString();
-		planetoid.setPercentWater(new Double(s_percentWater));
-		planetoid.setPlanetoidId(planetoidId);
-		String s_radius = planetoidMap.get(RADIUS).toString();
-		planetoid.setRadius(new Double(s_radius));
-		String s_temperature = planetoidMap.get(TEMPERATURE).toString();
-		planetoid.setTemperature(new Double(s_temperature));
-		if (null != planetoidMap.get(REP_ID)) {
-			String s_repId = planetoidMap.get(REP_ID).toString();
-			planetoid.setRepId(new Integer(s_repId));
-		}
-		planetoid.setDatestamp(planetoidMap.get(DATESTAMP).toString());
-		planetoid.setPlanetoidName(planetoidMap.get(PLANETOID_NAME).toString());
-		return planetoid;
+		return buildPlanetoid(planetoidMap);
+	}
+	
+	public Planetoid readPlanetoidByName(String name){
+		Object[] param = {name};
+		Map<String, Object> planetoidMap = null;
+		planetoidMap = super.jdbcSetUp().getSimpleJdbcTemplate().queryForMap(readPlanetoidByName, param);
+		return buildPlanetoid(planetoidMap);
 	}
 	/**
 	 * deletes planetoid and planetoid rep
@@ -332,5 +333,33 @@ public class PlanetoidDao extends AbstractJDBCDao{
 			unifiedPlanetoidIs.add(readPlanetoidUnified(readPlanetoidById(planetoidId)));
 		}
 		return unifiedPlanetoidIs;
+	}
+	/**
+	 * 
+	 * @param planetoidMap
+	 * @return planetoid
+	 */
+	private Planetoid buildPlanetoid(Map<String, Object> planetoidMap){
+		Planetoid planetoid = new Planetoid();
+		planetoid.setDatestamp(planetoidMap.get(DATESTAMP).toString());
+		String s_degree = planetoidMap.get(DEGREE).toString();
+		planetoid.setDegree(new Double(s_degree));
+		String s_distanceToPrimary = planetoidMap.get(DISTANCE_TO_PRIMARY).toString();
+		planetoid.setDistanceToPrimary(new Double(s_distanceToPrimary));
+		String s_percentWater = planetoidMap.get(PERCENT_WATER).toString();
+		planetoid.setPercentWater(new Double(s_percentWater));
+		planetoid.setPlanetoidId(new Integer(planetoidMap.get(PLANETOID_ID).toString()));
+		String s_radius = planetoidMap.get(RADIUS).toString();
+		planetoid.setRadius(new Double(s_radius));
+		String s_temperature = planetoidMap.get(TEMPERATURE).toString();
+		planetoid.setTemperature(new Double(s_temperature));
+		if (null != planetoidMap.get(REP_ID)) {
+			String s_repId = planetoidMap.get(REP_ID).toString();
+			planetoid.setRepId(new Integer(s_repId));
+		}
+		planetoid.setDatestamp(planetoidMap.get(DATESTAMP).toString());
+		planetoid.setPlanetoidName(planetoidMap.get(PLANETOID_NAME).toString());
+
+		return planetoid;
 	}
 }

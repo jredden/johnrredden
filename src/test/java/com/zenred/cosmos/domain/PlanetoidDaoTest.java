@@ -79,6 +79,9 @@ public class PlanetoidDaoTest {
 		unifiedPlanetoidI = planetoidDao.addStarPlanetoid(planetoidStar,
 				starUpdate);
 		logger.info("PLANETOID_AROUND_STAR:" + unifiedPlanetoidI);
+		
+		Planetoid planetoid3 = planetoidDao.readPlanetoidByName(unifiedPlanetoidI.getPlanetoid().getPlanetoidName());
+		logger.info("READ PLANETOID BY NAME:" + planetoid3);
 
 		Planetoid planetoidStar2 = new Planetoid(null, null,
 				systemRead.getSystemName() + starUpdate.getName()

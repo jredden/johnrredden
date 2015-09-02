@@ -97,6 +97,12 @@ public class ImergeFromHyperspace {
 					for(Atmosphere atmosphere : atmospheres){
 						logger.info("ATMOSPHERE_PART:"+ atmosphere);
 					}
+					List<Planetoid> moonsList = new ArrayList<Planetoid>();	// for debugging
+					List<Planetoid>moons = GenMoon.persistPlanetoids(star, planetoid);
+					if(!moons.isEmpty()){
+						moonsList.addAll(moons);
+					}
+
 				}
 			}
 		}
