@@ -52,6 +52,10 @@ public class ToStarsPlanets {
 
 		
 		List<UnifiedPlanetoidI> planetoids = planetoidDao.readPlanetoidsAroundStar(star);
+		return completePlanetoid(planetoids, star, keyValuePair).toString();
+		}
+	
+	protected static StringBuilder completePlanetoid(List<UnifiedPlanetoidI> planetoids, Star star, StringBuilder keyValuePair){
 		for (UnifiedPlanetoidI unifiedOlanetoid : planetoids){
 			Planetoid planetoid = unifiedOlanetoid.getPlanetoid();
 			List<PlanetoidColor> planetoidColors = PlanetoidColor.planarColors(planetoid);
@@ -90,8 +94,7 @@ public class ToStarsPlanets {
 				keyValuePair.append(";"+ATMOSPHERE_PERCENTAGE).append("=").append(planetoidColor.getPercentage());
 			}
 		}
-		return keyValuePair.toString();
-		
+		return keyValuePair;
 	}
 
 	/**

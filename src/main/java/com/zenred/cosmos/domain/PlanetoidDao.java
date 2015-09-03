@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zenred.johntredden.domain.AbstractJDBCDao;
+import com.zenred.util.GenRandomRolls;
 
 public class PlanetoidDao extends AbstractJDBCDao{
 	
@@ -145,6 +146,36 @@ public class PlanetoidDao extends AbstractJDBCDao{
 			+ ClusterRepDao.CLUSTER_REP + " clrp "
 			+ " ON pltr." + OWNER_ID + " = clrp." + ClusterRepDao.CLUSTER_REP_ID
 			+ " WHERE clrp." + ClusterRepDao.CLUSTER_REP_ID + " = ? "			// planet with no star and not a moon
+			;
+	private static String moonCount = "SELECT COUNT("
+			+PLANETOID_NAME
+			+") FROM "+ PLANETOID 
+			+ " pl JOIN "
+			+ PLANETOID_REP 
+			+ " pr ON pl."
+			+ PLANETOID_ID
+			+ " = pr."
+			+ PLANETOID_ID
+			+ " WHERE pr."
+			+ DOMAIN 
+			+ " = 'planetoid'"
+			;
+	
+	private static String moonOwner = "SELECT "
+			+"pr."
+			+OWNER_ID
+			+ " FROM "
+			+ PLANETOID 
+			+ " pl JOIN "
+			+ PLANETOID_REP 
+			+ " pr ON pl."
+			+ PLANETOID_ID
+			+ " = pr."
+			+ PLANETOID_ID
+			+ " WHERE pr."
+			+ DOMAIN 
+			+ " = 'planetoid'"
+			+ " LIMIT " + " ?, ?"
 			;
 			
 	/**
@@ -334,6 +365,28 @@ public class PlanetoidDao extends AbstractJDBCDao{
 		}
 		return unifiedPlanetoidIs;
 	}
+	
+	/**
+	 * used for testing
+	 * 
+	 * @return name of planar with a moon
+	 */
+	public String readNameOfRandomPlanarWithMoon(){
+		String planarName = "";
+		Integer count = super.jdbcSetUp().getSimpleJdbcTemplate()
+				.queryForInt(moonCount);
+		Integer numberOne = GenRandomRolls.Instance().getDX(count);
+		Integer numberTwo = 1;
+		Object[] param = {numberOne, numberTwo};
+		Map<String, Object> queryMap = null;
+		queryMap = super.jdbcSetUp().getSimpleJdbcTemplate().queryForMap(moonOwner, param);
+		String s_planetoidId = queryMap.get(OWNER_ID).toString();
+		Integer planetoidId = new Integer(s_planetoidId);
+		Planetoid planetoid = readPlanetoidById(planetoidId);
+		planarName = planetoid.getPlanetoidName();
+		return planarName;
+	}
+	
 	/**
 	 * 
 	 * @param planetoidMap

@@ -8,12 +8,17 @@ import com.zenred.cosmos.domain.Atmosphere;
 import com.zenred.cosmos.domain.AtmosphereDao;
 import com.zenred.cosmos.domain.Planetoid;
 import com.zenred.cosmos.domain.PlanetoidDao;
+import com.zenred.cosmos.domain.Star;
+import com.zenred.cosmos.domain.StarDao;
 import com.zenred.cosmos.domain.UnifiedPlanetoidI;
 
 public class ToPlanetAndMoons {
 	private static Logger logger = Logger.getLogger(ToPlanetAndMoons.class);
 	
-	protected static String planetAndMoons(String planetName){
+	protected static String planetAndMoons(String planetName, String starsName){
+		
+		StarDao starDao = new StarDao();
+		Star star = starDao.readStarByName(starsName);
 		
 		PlanetoidDao planetoidDao = new PlanetoidDao();
 		AtmosphereDao atmosphereDao = new AtmosphereDao(); 
@@ -28,10 +33,15 @@ public class ToPlanetAndMoons {
 		keyValuePair.append(";"+PlanetoidDao.TEMPERATURE).append("=").append(planetoid.getTemperature());
 		
 		List<Atmosphere> atmospheres = atmosphereDao.readAtmosphereAroundPlanet(planetoid);
+		keyValuePair.append(";"+"ACTION").append("=").append("ATMOSPHERE");
+		for(Atmosphere atmosphere : atmospheres){
+			keyValuePair.append(";"+AtmosphereDao.CHEM_NAME).append("=").append(atmosphere.getChem_name());
+			keyValuePair.append(";"+AtmosphereDao.PERCENTAGE).append("=").append(atmosphere.getPercentage());
+		}
 		
 		List<UnifiedPlanetoidI> moonList = planetoidDao.readMoonsAroundPlanetoid(planetoid);
-		
-		return keyValuePair.toString();
+		keyValuePair.append(";"+"ACTION").append("=").append("MOON");
+		return ToStarsPlanets.completePlanetoid(moonList, star, keyValuePair).toString();
 	}
 
 }
