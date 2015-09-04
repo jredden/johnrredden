@@ -1831,6 +1831,8 @@ var planetAndMoons = (function(){
 			canvasas.clearStarsInClusterTextCanvasContext();
 			var showList = ['backToStarSystem'];
 			tagOperations.show(showList);
+			var starName = sessionStorage.STAR_NAME;
+			fetchPlanetAndMoons.jsonCall(planetName, starName);
 		}
 	}
 	
@@ -1843,6 +1845,20 @@ var fetchStarAndPlanets = (function () {
 					function(json){           // callback
 						console.log("fetchStarAndPlanets for :" + starName);
 						processStarAndPlanetsDetail.jsonProcess(json, starName);
+					}		
+			);
+		}
+	}
+
+})();
+
+var fetchPlanetAndMoons = (function () {
+	return{
+		jsonCall: function(planetName, starName){
+			$.getJSON("http://www.johntreddenlocal.com:8080/planetAndMoons.html?starName="+starName+"&planetName="+planetName,
+					function(json){           // callback
+						console.log("fetch planets and moons for :" + planetName);
+						// processStarAndPlanetsDetail.jsonProcess(json, starName);
 					}		
 			);
 		}
@@ -2178,6 +2194,7 @@ var processStarAndPlanetsDetail = (function(){
 			drawStarInCentre();
 			drawPlanetoidsAroundStar();
 			drawStarDetails();
+			sessionStorage.setItem('STAR_NAME', starName);	// used to find atmosphere color of moons
 		},
 		setScale: function(n_scale){
 			scale = n_scale;

@@ -20,6 +20,7 @@
 	<bean id="starSystems" class="com.zenred.cosmos.controller.StarSystems"/>
 	<bean id="starCluster" class="com.zenred.cosmos.controller.StarCluster"/>
 	<bean id="starAndPlanets" class="com.zenred.cosmos.controller.StarAndPlanets"/>
+	<bean id="planetAndMoons" class="com.zenred.cosmos.controller.PlanetAndMoons"/>
 	
 	<bean id="urlMapping"
 		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
@@ -32,6 +33,7 @@
 				<prop key="/starSystems.html">starSystems</prop>
 				<prop key="/starCluster.html">starCluster</prop>
 				<prop key="/starAndPlanets.html">starAndPlanets</prop>
+				<prop key="/planetAndMoons.html">planetAndMoons</prop>
 			</props>
 		</property>
 	</bean>

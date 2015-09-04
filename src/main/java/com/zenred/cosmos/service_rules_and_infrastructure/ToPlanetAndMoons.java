@@ -11,6 +11,7 @@ import com.zenred.cosmos.domain.PlanetoidDao;
 import com.zenred.cosmos.domain.Star;
 import com.zenred.cosmos.domain.StarDao;
 import com.zenred.cosmos.domain.UnifiedPlanetoidI;
+import com.zenred.cosmos.vizualization.MoonsResponse;
 
 public class ToPlanetAndMoons {
 	private static Logger logger = Logger.getLogger(ToPlanetAndMoons.class);
@@ -42,6 +43,12 @@ public class ToPlanetAndMoons {
 		List<UnifiedPlanetoidI> moonList = planetoidDao.readMoonsAroundPlanetoid(planetoid);
 		keyValuePair.append(";"+"ACTION").append("=").append("MOON");
 		return ToStarsPlanets.completePlanetoid(moonList, star, keyValuePair).toString();
+	}
+	
+	public static MoonsResponse planarAndMoons(String planetName, String starName){
+		MoonsResponse moonsResponse = new MoonsResponse();
+		moonsResponse.setPlanetAndMoons(planetAndMoons(planetName, starName));
+		return moonsResponse;
 	}
 
 }
