@@ -95,14 +95,20 @@ public class ImergeFromHyperspace {
 					atmospheres = genAtmosphere
 						.persistAtmosphere(star, planetoid);
 					for(Atmosphere atmosphere : atmospheres){
-						logger.info("ATMOSPHERE_PART:"+ atmosphere);
+						logger.info("PLANETOID ATMOSPHERE_PART:"+ atmosphere);
 					}
 					List<Planetoid> moonsList = new ArrayList<Planetoid>();	// for debugging
 					List<Planetoid>moons = GenMoon.persistPlanetoids(star, planetoid);
 					if(!moons.isEmpty()){
 						moonsList.addAll(moons);
 					}
-
+					List<Atmosphere> moonAtmospheres = null;
+					for(Planetoid moon : moons){
+						moonAtmospheres = genAtmosphere.persistAtmosphere(star, moon);
+						for(Atmosphere 	atmosphere : moonAtmospheres){
+							logger.info("MOON ATMOSPHERE_PART:"+ atmosphere);
+						}
+					}
 				}
 			}
 		}

@@ -41,7 +41,12 @@ public class ToPlanetAndMoons {
 		}
 		
 		List<UnifiedPlanetoidI> moonList = planetoidDao.readMoonsAroundPlanetoid(planetoid);
-		keyValuePair.append(";"+"ACTION").append("=").append("MOON");
+		if(moonList.size() == 0){
+			keyValuePair.append(";"+"ACTION").append("=").append("NO_MOON");
+		}
+		else{
+			keyValuePair.append(";"+"ACTION").append("=").append("MOON");
+		}
 		return ToStarsPlanets.completePlanetoid(moonList, star, keyValuePair).toString();
 	}
 	

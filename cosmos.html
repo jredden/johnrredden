@@ -1858,7 +1858,7 @@ var fetchPlanetAndMoons = (function () {
 			$.getJSON("http://www.johntreddenlocal.com:8080/planetAndMoons.html?starName="+starName+"&planetName="+planetName,
 					function(json){           // callback
 						console.log("fetch planets and moons for :" + planetName);
-						// processStarAndPlanetsDetail.jsonProcess(json, starName);
+						processPlanetAndMoonsDetail.jsonProcess(json, planetName);
 					}		
 			);
 		}
@@ -2213,6 +2213,71 @@ var processStarAndPlanetsDetail = (function(){
 		}
 	}
 	
+})();
+
+var processPlanetAndMoonsDetail = (function(){
+	var scale = 1.0;	// the default scale
+	const DEGREE = "Degree";
+	const DISTANCE_TO_PRIMARY = "DistanceToPrimary";
+	const PERCENT_WATER = "PercentWater";
+	const TEMPERATURE = "Temperature";
+	const RADIUS = "Radius";
+	const PLANAR_NAME = "planetoidName";
+	const ACTION = "ACTION";
+	const ATMOSPHERE = "ATMOSPHERE";
+	const NO_MOON = "NO_MOON";
+	const MOON = "MOON";
+	const CHEM_NAME = "chem_name";
+	const PERCENTAGE = "percentage";
+	
+	var planetAndMoonsDictionary;
+	var moonsDictionary;
+	
+	function planetDegree(value){
+		
+	}
+	
+	function planetDistanceToPrimary(value){
+		
+	}
+	
+	function planetPercentWater(value){
+		
+	}
+	
+	function planetTemperature(value){
+		
+	}
+	
+	function planetName(value){
+		
+	}
+	
+	function atmosphereChemName(value){
+		
+	}
+
+	function atmosphereChemPercentage(value){
+		
+	}
+	
+	function action(value){
+		
+	}
+
+	function parseResults(result){
+		planetAndMoonsDictionary = new buckets.Dictionary();
+	}
+	
+	
+	return{
+		jsonProcess: function(json, planetName){
+			var planetAndMoonsMessage = json.planets.planetAndMoons;
+			console.log("PLANET AND MOONS MESSAGE:"+planetAndMoonsMessage);
+			var result = orderedPairToArray.getOrderedPair(planetAndMoonsMessage);
+
+		}
+	}
 })();
 
 /**
