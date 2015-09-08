@@ -6,7 +6,9 @@ import org.apache.log4j.Logger;
 
 import com.zenred.cosmos.domain.Atmosphere;
 import com.zenred.cosmos.domain.AtmosphereDao;
+import com.zenred.cosmos.domain.AtmosphereParts;
 import com.zenred.cosmos.domain.Planetoid;
+import com.zenred.cosmos.domain.PlanetoidColor;
 import com.zenred.cosmos.domain.PlanetoidDao;
 import com.zenred.cosmos.domain.Star;
 import com.zenred.cosmos.domain.StarDao;
@@ -15,8 +17,11 @@ import com.zenred.cosmos.vizualization.MoonsResponse;
 
 public class ToPlanetAndMoons {
 	private static Logger logger = Logger.getLogger(ToPlanetAndMoons.class);
+	private final static String CHEM_COLOR = "Chem_Color";
+
 	
 	protected static String planetAndMoons(String planetName, String starsName){
+		
 		
 		StarDao starDao = new StarDao();
 		Star star = starDao.readStarByName(starsName);
@@ -36,8 +41,16 @@ public class ToPlanetAndMoons {
 		List<Atmosphere> atmospheres = atmosphereDao.readAtmosphereAroundPlanet(planetoid);
 		keyValuePair.append(";"+"ACTION").append("=").append("ATMOSPHERE");
 		for(Atmosphere atmosphere : atmospheres){
+			String color = AtmosphereParts.valueOf(AtmosphereParts.class,
+					atmosphere.getChem_name()).getColor();
+			if(color.equals("none")){
+				color = PlanetoidColor.fetchPureColor(star.getStar_color());
+			}
+
+
 			keyValuePair.append(";"+AtmosphereDao.CHEM_NAME).append("=").append(atmosphere.getChem_name());
 			keyValuePair.append(";"+AtmosphereDao.PERCENTAGE).append("=").append(atmosphere.getPercentage());
+			keyValuePair.append(";"+CHEM_COLOR).append("=").append(color);
 		}
 		
 		List<UnifiedPlanetoidI> moonList = planetoidDao.readMoonsAroundPlanetoid(planetoid);
