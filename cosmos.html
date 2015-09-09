@@ -476,7 +476,7 @@ var keyValuePair  = (function(){
  */
 var canvasas = (function(){
 	
-	const xtra = 50;
+	const xtra = 150;
 	
 	var starsystemscanvas;
 	var starsinclustertextcanvas;
@@ -2123,6 +2123,10 @@ var processStarAndPlanetsDetail = (function(){
 		ctx.strokeText("Star System "+starName+" Details", runningX, runningY);
 		runningY += incrementY;
 		runningX = startX;
+		ctx.strokeText("Select Planet By Planet Image", runningX, runningY);
+		runningY += incrementY;
+		runningX = startX;
+		
 		ctx.font="14px Verdana";
 		ctx.strokeStyle = "lightblue";
 		ctx.strokeText("Distance to Cluster Centre:"+distance, runningX, runningY);
@@ -2178,7 +2182,7 @@ var processStarAndPlanetsDetail = (function(){
 				
 				var imageX = Math.floor(ctx.measureText(planarName).width + offsetX);
 				var outerRadius = vizPlanars.fetchImageSize(radius);
-				var gradient = ctx.createRadialGradient(imageX, runningY, 1, imageX, runningY, outerRadius);
+				var gradient = ctx.createLinearGradient(imageX, runningY, 1, imageX, runningY, outerRadius);
 				// console.log("ctx.createRadialGradient("+imageX+","+runningY+", 1,"+imageX+","+runningY+","+outerRadius+")");
 				var gradientsArray = o_planarVizCentric.fetchGradients();
 				var lastColor;
@@ -2271,6 +2275,9 @@ var processPlanetAndMoonsDetail = (function(){
 	const o_planarVizCentric = new planarVizCentric();
 	const startX = 5;
 	const startY = 50;
+	const atmospherRectX = 150;
+	const atmospherRectY = 30;
+	const xOffset = 10;
 
 	var o_moonPlanarVizCentric;
 	var onePlanetDictionary;
@@ -2320,7 +2327,7 @@ var processPlanetAndMoonsDetail = (function(){
 	}
 
 	function atmosphereChemPercentage(value){
-		o_atmosphereSet.setPercentage();
+		o_atmosphereSet.setPercentage(value);
 		console.log("planetAtmosphereChemPercentage: "+ value);
 	}
 	
@@ -2457,11 +2464,40 @@ var processPlanetAndMoonsDetail = (function(){
 		ctx.strokeText("Planet Radius:"+radius, runningX, runningY);		
 		runningY += incrementY;
 		runningX = startX;
-		ctx.strokeText("Percentage Water of Planet:"+percentageWater, runningX, runningY);		
+		ctx.strokeText("Percentage Water of Planet:"+percentageWater, runningX, runningY);	
+		var moonNames = onePlanetDictionary.keys();
+		if(moonNames.length == 0){
+			runningY += incrementY;
+			runningX = startX;
+			ctx.strokeText("Planet does not have any moons", runningX, runningY);
+		}
 		runningX = startX;
+		runningY += incrementY;
+		runningY += incrementY;
+		for (var idex=0; idex < o_atmosphereArray.length; idex++){
+			var o_atmosphereSet = o_atmosphereArray[idex];
+			var name = o_atmosphereSet.getChemical();
+			var percent = Number(o_atmosphereSet.getPercentage())*100;
+			var color = o_atmosphereSet.getColor();
+			ctx.strokeText("Atmosphere:"+name+ " Percent:"+percent, startX , runningY);	
+			runningY += incrementY;
+			ctx.beginPath();
+			ctx.fillStyle=color;
+			ctx.fillRect(startX, runningY, atmospherRectX, atmospherRectY);
+			ctx.stroke();
+			runningY += atmospherRectY;
+			runningY += incrementY;
+		}
+		if(moonNames.length > 0){
+			drawMoonSelectables();
+		}
 
 	}
 	
+	function drawMoonSelectables(){
+		clickableAstroObjectList.init();
+		clickableAstroObjectList.setPlanetAndMoons();
+	}
 	
 	return{
 		jsonProcess: function(json, planetName){
