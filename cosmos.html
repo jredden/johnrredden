@@ -2278,6 +2278,7 @@ var processPlanetAndMoonsDetail = (function(){
 	const atmospherRectX = 150;
 	const atmospherRectY = 30;
 	const xOffset = 10;
+	const imageX = 500;
 
 	var o_moonPlanarVizCentric;
 	var onePlanetDictionary;
@@ -2474,12 +2475,15 @@ var processPlanetAndMoonsDetail = (function(){
 		runningX = startX;
 		runningY += incrementY;
 		runningY += incrementY;
+		var snatchY = runningY;
 		for (var idex=0; idex < o_atmosphereArray.length; idex++){
 			var o_atmosphereSet = o_atmosphereArray[idex];
 			var name = o_atmosphereSet.getChemical();
 			var percent = Number(o_atmosphereSet.getPercentage())*100;
 			var color = o_atmosphereSet.getColor();
-			ctx.strokeText("Atmosphere:"+name+ " Percent:"+percent, startX , runningY);	
+			ctx.strokeText("Atmosphere:"+name, startX , runningY);	
+			runningY += incrementY;
+			ctx.strokeText("Percent:"+percent, startX , runningY);	
 			runningY += incrementY;
 			ctx.beginPath();
 			ctx.fillStyle=color;
@@ -2489,14 +2493,39 @@ var processPlanetAndMoonsDetail = (function(){
 			runningY += incrementY;
 		}
 		if(moonNames.length > 0){
-			drawMoonSelectables();
+			drawMoonSelectables(moonNames, snatchY);
 		}
 
 	}
 	
-	function drawMoonSelectables(){
+	function drawMoonSelectables(moonNames, runningY){
+		var ctx = canvasas.fetchNewStarAndPlanetsContext();
 		clickableAstroObjectList.init();
 		clickableAstroObjectList.setPlanetAndMoons();
+		for(var idex = 0; idex < moonNames.length; idex++){
+			var o_moonPlanarVizCentric = onePlanetDictionary.get(moonNames[idex]);
+			o_moonPlanarVizCentric.buildGradients();
+			var radius = o_moonPlanarVizCentric.getPlanarRadius();
+			var outerRadius = vizPlanars.fetchImageSize(radius);
+			var gradient = ctx.createLinearGradient(imageX, runningY, 1, imageX, runningY, outerRadius);
+			var gradientsArray = o_moonPlanarVizCentric.fetchGradients();
+			var lastColor;
+			for(var idex2 = 0; idex2 < gradientsArray.length; idex2++){
+				var percent = gradientsArray[idex2].getGradientPercentage();
+				var color = gradientsArray[idex2].getColor();
+				// console.log("gradient.addColorStop("+percent+"," +"'"+color+"'"+")");
+				gradient.addColorStop(percent, color);
+				lastColor = color;
+			}
+			ctx.beginPath();
+			ctx.arc(imageX, runningY,outerRadius, 0, 2*Math.PI);
+			clickableAstroObjectList.addImageGeometry(imageX, runningY, outerRadius, moonNames[idex]);
+			ctx.fillStyle = gradient;  // not working ... err ... works with new canvas 
+			ctx.fill();
+			ctx.stroke();
+			ctx.closePath();
+
+		}
 	}
 	
 	return{
