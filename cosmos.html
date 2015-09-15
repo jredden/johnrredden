@@ -2193,6 +2193,7 @@ var processStarAndPlanetsDetail = (function(){
 					gradient.addColorStop(percent, color);
 					lastColor = color;
 				}
+				// ctx.fillRect(imageX-outerRadius, runningY-outerRadius, outerRadius*2, outerRadius*2);
 				ctx.beginPath();
 				ctx.arc(imageX, runningY,outerRadius, 0, 2*Math.PI);
 				clickableAstroObjectList.addImageGeometry(imageX, runningY, outerRadius, planetNames[idex]);
@@ -2279,6 +2280,7 @@ var processPlanetAndMoonsDetail = (function(){
 	const atmospherRectY = 30;
 	const xOffset = 10;
 	const imageX = 500;
+	const incrementY = 20;
 
 	var o_moonPlanarVizCentric;
 	var onePlanetDictionary;
@@ -2445,7 +2447,7 @@ var processPlanetAndMoonsDetail = (function(){
 		var ctx = canvasas.fetchStarsInClusterTextCanvasContext();
 		var runningX = startX;
 		var runningY = startY;
-		var incrementY = 20;
+		
 		ctx.font="18px Verdana";
 		ctx.strokeStyle = "orange";
 		ctx.strokeText("Planet "+planarName+" Details", runningX, runningY);
@@ -2475,6 +2477,8 @@ var processPlanetAndMoonsDetail = (function(){
 		runningX = startX;
 		runningY += incrementY;
 		runningY += incrementY;
+		runningY += incrementY;
+		runningY += incrementY;
 		var snatchY = runningY;
 		for (var idex=0; idex < o_atmosphereArray.length; idex++){
 			var o_atmosphereSet = o_atmosphereArray[idex];
@@ -2493,6 +2497,7 @@ var processPlanetAndMoonsDetail = (function(){
 			runningY += incrementY;
 		}
 		if(moonNames.length > 0){
+			console.log("NUMBER OF MOONS:"+moonNames.length);
 			drawMoonSelectables(moonNames, snatchY);
 		}
 
@@ -2524,6 +2529,12 @@ var processPlanetAndMoonsDetail = (function(){
 			ctx.fill();
 			ctx.stroke();
 			ctx.closePath();
+			runningY += incrementY;
+			runningY += incrementY;
+			runningY += incrementY;
+			runningY += incrementY;
+			runningY += incrementY;
+			runningY += incrementY;
 
 		}
 	}

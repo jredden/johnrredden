@@ -1,5 +1,8 @@
 package com.zenred.cosmos.service_rules_and_infrastructure;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -40,17 +43,25 @@ public class ToPlanetAndMoons {
 		
 		List<Atmosphere> atmospheres = atmosphereDao.readAtmosphereAroundPlanet(planetoid);
 		keyValuePair.append(";"+"ACTION").append("=").append("ATMOSPHERE");
+		List<PlanetoidColor> planetoidColors = new ArrayList<PlanetoidColor>();
 		for(Atmosphere atmosphere : atmospheres){
 			String color = AtmosphereParts.valueOf(AtmosphereParts.class,
 					atmosphere.getChem_name()).getColor();
 			if(color.equals("none")){
-				color = PlanetoidColor.fetchPureColor(star.getStar_color());
+				color = PlanetoidColor.fetchPureColor(star.getStar_color());  // reflects stars color
 			}
+			PlanetoidColor planetoidColor = new PlanetoidColor(color,
+					atmosphere.getChem_name(), atmosphere.getPercentage());
+			planetoidColors.add(planetoidColor);
 
-
-			keyValuePair.append(";"+AtmosphereDao.CHEM_NAME).append("=").append(atmosphere.getChem_name());
-			keyValuePair.append(";"+AtmosphereDao.PERCENTAGE).append("=").append(atmosphere.getPercentage());
-			keyValuePair.append(";"+CHEM_COLOR).append("=").append(color);
+		}
+		Collections.sort(planetoidColors);
+		for (PlanetoidColor planetoidColor : planetoidColors) {
+			keyValuePair.append(";" + AtmosphereDao.CHEM_NAME).append("=")
+					.append(planetoidColor.getChemicalName());
+			keyValuePair.append(";" + AtmosphereDao.PERCENTAGE).append("=")
+					.append(planetoidColor.getPercentage());
+			keyValuePair.append(";" + CHEM_COLOR).append("=").append(planetoidColor.getColor());
 		}
 		
 		List<UnifiedPlanetoidI> moonList = planetoidDao.readMoonsAroundPlanetoid(planetoid);
