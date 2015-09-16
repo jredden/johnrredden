@@ -252,6 +252,29 @@ var atmosphereSet  = (function (){
 	var percentage;
 	var color;
 	
+	const visualSize = function(percentage){
+		var y_size;
+		sizeDictionary = new buckets.Dictionary();
+		sizeDictionary.set(0, 10);
+		sizeDictionary.set(1, 14);
+		sizeDictionary.set(5, 18);
+		sizeDictionary.set(10, 24);
+		sizeDictionary.set(20, 30);
+		sizeDictionary.set(30, 40);
+		sizeDictionary.set(50, 50);
+		sizeDictionary.set(60, 60);
+		sizeDictionary.set(70, 70);
+		sizeDictionary.set(101, 80);  // end mark value
+		var ranges = sizeDictionary.keys();
+		for(var idex = 0; idex < ranges.length; idex++){
+			if(percentage >= ranges[idex] && percentage < ranges[idex+1]){
+				y_size = sizeDictionary.get(ranges[idex]);
+				break;
+			}
+		}
+		return y_size;		
+	}
+	
 	return{
 		setChemical: function(chemicalName){
 			chemical = chemicalName;
@@ -270,6 +293,9 @@ var atmosphereSet  = (function (){
 		},
 		getColor: function(){
 			return color;
+		},
+		getYVisualSize: function(percentage){
+			return visualSize(percentage);
 		}
 	}
 });
@@ -2277,7 +2303,6 @@ var processPlanetAndMoonsDetail = (function(){
 	const startX = 5;
 	const startY = 50;
 	const atmospherRectX = 150;
-	const atmospherRectY = 30;
 	const xOffset = 10;
 	const imageX = 500;
 	const incrementY = 20;
@@ -2469,10 +2494,13 @@ var processPlanetAndMoonsDetail = (function(){
 		runningX = startX;
 		ctx.strokeText("Percentage Water of Planet:"+percentageWater, runningX, runningY);	
 		var moonNames = onePlanetDictionary.keys();
+		runningY += incrementY;
+		runningX = startX;
 		if(moonNames.length == 0){
-			runningY += incrementY;
-			runningX = startX;
 			ctx.strokeText("Planet does not have any moons", runningX, runningY);
+		}
+		else{
+			ctx.strokeText("Planet has "+ moonNames.length+ " moons", runningX, runningY);
 		}
 		runningX = startX;
 		runningY += incrementY;
@@ -2491,6 +2519,7 @@ var processPlanetAndMoonsDetail = (function(){
 			runningY += incrementY;
 			ctx.beginPath();
 			ctx.fillStyle=color;
+			var atmospherRectY = o_atmosphereSet.getYVisualSize(percent);
 			ctx.fillRect(startX, runningY, atmospherRectX, atmospherRectY);
 			ctx.stroke();
 			runningY += atmospherRectY;
