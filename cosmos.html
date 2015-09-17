@@ -2500,7 +2500,12 @@ var processPlanetAndMoonsDetail = (function(){
 			ctx.strokeText("Planet does not have any moons", runningX, runningY);
 		}
 		else{
-			ctx.strokeText("Planet has "+ moonNames.length+ " moons", runningX, runningY);
+			if(moonNames.length == 1){
+				ctx.strokeText("Planet has one moon", runningX, runningY);
+			}
+			else{
+				ctx.strokeText("Planet has "+ moonNames.length+ " moons", runningX, runningY);
+			}
 		}
 		runningX = startX;
 		runningY += incrementY;
@@ -2508,7 +2513,7 @@ var processPlanetAndMoonsDetail = (function(){
 		runningY += incrementY;
 		runningY += incrementY;
 		var snatchY = runningY;
-		for (var idex=0; idex < o_atmosphereArray.length; idex++){
+		for (var idex=o_atmosphereArray.length-1; idex > -1; idex--){
 			var o_atmosphereSet = o_atmosphereArray[idex];
 			var name = o_atmosphereSet.getChemical();
 			var percent = Number(o_atmosphereSet.getPercentage())*100;
