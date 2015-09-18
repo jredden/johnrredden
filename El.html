@@ -14,6 +14,21 @@
 
 <script type="text/javascript">
 
+function warpY(degree){
+	if(degree < 90){
+		return degree + 270;
+	}
+	else{
+		if(degree == 90){
+			return 0;
+		}
+		else{
+			return degree - 90;
+		}
+	}
+}
+// var xAxis0 = 40;
+// var yAxis0 = xAxis0*2;
 var xAxis = 50;
 var yAxis = xAxis*2;
 var xAxis2 = 70;
@@ -42,18 +57,18 @@ var yAxis4_6 = xAxis4_6*2;
 var centreX = 700;
 var centreY = 550;
 
-var spot= (45) * Math.PI / 180;	
-var spot2= (60) * Math.PI / 180;	
-var spot2_5= (90) * Math.PI / 180;	
-var spot2_6= (135) * Math.PI / 180;	
-var spot2_7= (150) * Math.PI / 180;	
-var spot2_8= (180) * Math.PI / 180;	
-var spot3= (225) * Math.PI / 180;	
-var spot3_5= (240) * Math.PI / 180;	
-var spot3_6= (270) * Math.PI / 180;	
-var spot4= (315) * Math.PI / 180;	
-var spot4_5= (330) * Math.PI / 180;	
-var spot4_6= (360) * Math.PI / 180;	
+var spot= (warpY(45)) * Math.PI / 180;	
+var spot2= (warpY(60)) * Math.PI / 180;	
+var spot2_5= (warpY(90)) * Math.PI / 180;	
+var spot2_6= (warpY(135)) * Math.PI / 180;	
+var spot2_7= (warpY(150)) * Math.PI / 180;	
+var spot2_8= (warpY(180)) * Math.PI / 180;	
+var spot3= (warpY(225))* Math.PI / 180;	
+var spot3_5= (warpY(240)) * Math.PI / 180;	
+var spot3_6= (warpY(270)) * Math.PI / 180;	
+var spot4= (warpY(315)) * Math.PI / 180;	
+var spot4_5= (warpY(330)) * Math.PI / 180;	
+var spot4_6= (warpY(360)) * Math.PI / 180;	
 var previousI;
 
 var planetcanvas = document.getElementById("planets");
@@ -68,7 +83,11 @@ for (var i = 0 * Math.PI; i < 2 * Math.PI; i += 0.01 ) {
     yPos = centreY + (yAxis * Math.cos(i)) * Math.sin(0 * Math.PI) + (xAxis * Math.sin(i)) * Math.cos(0 * Math.PI);
 
     if (i == 0) {
+ //       xPos = centreX - (xAxis0 * Math.sin(i)) * Math.sin(0 * Math.PI) + (yAxis0 * Math.cos(i)) * Math.cos(0 * Math.PI);
+ //       yPos = centreY + (yAxis0 * Math.cos(i)) * Math.sin(0 * Math.PI) + (xAxis0 * Math.sin(i)) * Math.cos(0 * Math.PI);
+
         planetcanvasContext.moveTo(xPos, yPos);
+//        planetcanvasContext.arc(xPos, yPos, 2, 0, 2*Math.PI, false);
     } else {
         planetcanvasContext.lineTo(xPos, yPos);
         if(spot > previousI && spot <= i){
@@ -117,6 +136,11 @@ for (var i = 0 * Math.PI; i < 2 * Math.PI; i += 0.01 ) {
         planetcanvasContext.lineTo(xPos, yPos);
         if(spot2_5 > previousI && spot2_5 <= i){
         	planetcanvasContext.arc(xPos, yPos, 2, 0, 2*Math.PI, false);
+        }
+        else{
+        	if (spot2_5 == 0 && previousI == 0){
+        		planetcanvasContext.arc(xPos, yPos, 2, 0, 2*Math.PI, false);
+        	}
         }
     }
     previousI = i;
