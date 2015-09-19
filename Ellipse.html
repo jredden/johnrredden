@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>Testing Ellipse</title>
+</head>
+<body>
+	<canvas id="planars">
+	Your browser does not support the HTML5 canvas tag.
+	Please upgrade to a version with full support for HTML5.
+	
+	</canvas>
+
+<script type="text/javascript">
+
+var point = (function(){
+	var xcoordinate;
+	var ycoordinate;
+	return{
+		setXandY: function(xcoord, ycoord){
+			xcoordinate = xcoord;
+			ycoordinate = ycoord;
+		},
+		getX: function(){
+			return xcoordinate;
+		},
+		getY: function(){
+			return ycoordinate;
+		},
+		logPrint(){
+			console.log("XCOORDINATE:"+xcoordinate+ " YCOORDINATE:"+ycoordinate);
+		}
+	}
+});
+
+var ellipseWithPlanar = (function(){
+	var yScale = 2;
+	/*
+	* a proper graphics program would use a matrix transformation
+	*/
+	function warpY(degree){
+		if(degree < 90){
+			return degree + 270;
+		}
+		else{
+			if(degree == 90){
+				return 0;
+			}
+			else{
+				return degree - 90;
+			}
+		}
+	}
+	
+	return {
+		drawEllipseAndPlanar: function(o_point, radius, degree, color, context){
+			
+			var degreePrime = warpY(degree) * Math.PI / 180;	
+			var centreX = o_point.getX();
+			var centreY = o_point.getY();
+			var xAxis = radius / 2;
+			var yAxis = radius;
+			var previousI;
+			
+			context.beginPath();
+			for (var idex = 0 * Math.PI; idex < 2 * Math.PI; idex += 0.01 ) {
+			    var xPos = centreX - (xAxis * Math.sin(idex)) * Math.sin(0 * Math.PI) + (yAxis * Math.cos(idex)) * Math.cos(0 * Math.PI);
+			    var yPos = centreY + (yAxis * Math.cos(idex)) * Math.sin(0 * Math.PI) + (xAxis * Math.sin(idex)) * Math.cos(0 * Math.PI);
+
+			    if (idex == 0) {
+			        context.moveTo(xPos, yPos);
+			    } else {
+			        context.lineTo(xPos, yPos);
+			        if(degreePrime > previousI && degreePrime <= idex){
+			        	context.arc(xPos, yPos, 2, 0, 2*Math.PI, false);
+			        }
+			        else{
+			        	if (degreePrime == 0 && previousI == 0){
+			        		context.arc(xPos, yPos, 2, 0, 2*Math.PI, false);
+			        	}
+			        }
+			    }
+			    previousI = idex;
+			    
+			    console.log("xPos:"+xPos+" yPos: "+ yPos + " Index: " + idex);
+			}
+			context.lineWidth = 1;
+			context.strokeStyle = color;
+			context.stroke();
+			context.closePath();
+
+		}
+	}
+
+})();
+
+var o_point = new point();
+o_point.setXandY(500, 300);	// centre
+
+var radii = [];
+var degrees = [];
+var color = "black";
+degrees.push(0);
+radii.push(50);
+for (var idex = 1; idex <= 24; idex++){
+	degrees.push(idex*15);
+	radii.push(50 + idex*10);
+}
+
+var planarcanvas = document.getElementById("planars");
+var planarcanvasContext = planarcanvas.getContext("2d");
+planarcanvasContext.canvas.width = window.innerWidth;
+planarcanvasContext.canvas.height = window.innerHeight;
+
+for (var idex = 1; idex <= degrees.length; idex++){
+	ellipseWithPlanar.drawEllipseAndPlanar(o_point, radii[idex], degrees[idex], color, planarcanvasContext);
+}
+
+</script>
+</body>
+</html>
