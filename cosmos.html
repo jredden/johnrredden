@@ -2148,8 +2148,8 @@ var processStarAndPlanetsDetail = (function(){
 		else{
 			var starsystemscanvasContext = canvasas.fetchStarSystemsCanvasContext();
 			starsystemscanvasContext.save();
+			var starColor = o_clusterVizCentric.getStarColor();
 
-			starsystemscanvasContext.scale(1, 0.5);
 			for (var idex = 0; idex < planetNames.length; idex++){
 				o_planarVizCentric = onePlanetDictionary.get(planetNames[idex]);
 				var name = planetNames[idex];
@@ -2162,34 +2162,13 @@ var processStarAndPlanetsDetail = (function(){
 				if(radiusOnPage > 500){
 					radiusOnPage = 500;
 				}
-				starsystemscanvasContext.lineWidth="1";
-				starsystemscanvasContext.strokeStyle = o_clusterVizCentric.getStarColor();
-				starsystemscanvasContext.beginPath();
-				var xdim = Math.floor(midX);
-				var ydim = Math.floor(midY)*2;
-				var radius = Math.floor(radiusOnPage);
-				console.log("PLANET "+ name + " RADIUS:" + radius + "::"+xdim+"::"+ydim+"::"+midX+"::"+midY);
-				starsystemscanvasContext.arc(xdim, ydim, radius, 0, 2 * Math.PI, false);
-				starsystemscanvasContext.stroke();
+				var angleInDegrees = o_planarVizCentric.getPlanarDegree()*(180/Math.PI);  // radians to degrees
+				
+				o_point = new point();
+				o_point.setXandY(midX, midY);
+				ellipseWithPlanar.drawEllipseAndPlanar(o_point, radiusOnPage, angleInDegrees, starColor, starsystemscanvasContext);
 			}
 			starsystemscanvasContext.restore();
-			/*
-			var newstarsystemscanvasContext = canvasas.fetchNewStarSystemsCanvasContext();
-			for (var idex2 = 0; idex2 < planetNames.length; idex2++){
-				o_planarVizCentric = onePlanetDictionary.get(planetNames[idex2]);
-				var angleInRadians = o_planarVizCentric.getPlanarDegree();
-				var scaledRadiusY = radiusOnPage/2;
-				var xOrbitDim = xdim - (radiusOnPage * Math.sin(angleInRadians)) * Math.sin(0 * Math.PI) 
-					+ (scaledRadiusY * Math.cos(angleInRadians)) * Math.cos(0 * Math.PI);
-				var yOrbitDim = ydim + (scaledRadiusY * Math.cos(angleInRadians)) * Math.sin(0 * Math.PI) 
-					+ (radiusOnPage * Math.sin(angleInRadians)) * Math.cos(0 * Math.PI);
-			    
-				newstarsystemscanvasContext.beginPath();
-				newstarsystemscanvasContext.arc(xOrbitDim, yOrbitDim, 2, 0, 2 * Math.PI, false);
-				newstarsystemscanvasContext.stroke();
-
-			}
-			*/
 		}
 	}
 	
