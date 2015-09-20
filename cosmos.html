@@ -1018,7 +1018,12 @@ var ellipseWithPlanar = (function(){
 			    console.log("xPos:"+xPos+" yPos: "+ yPos + " Index: " + idex);
 			}
 			context.lineWidth = 1;
-			context.strokeStyle = color;
+			var o_vizStarSizes = vizStars.fetchStarSizeAndColor(color);
+			var starColor = o_vizStarSizes.fetchColor();
+			if(starColor == "blue"){
+				starColor = "#3BB9FF";  // blue too dark to see.
+			}
+			context.strokeStyle = starColor;
 			context.stroke();
 			context.closePath();
 
@@ -2499,6 +2504,10 @@ var processPlanetAndMoonsDetail = (function(){
 			var operation = planetAndMoonsDictionary.get(key);
 			operation(o_keyValuePair.getValue());
 		}
+		
+	}
+	
+	function drawPlanetInCentre(){
 		
 	}
 	
