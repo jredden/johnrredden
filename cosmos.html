@@ -323,7 +323,7 @@ var gradientBuilder = (function (){
 /**
  * visual centric object of a planetoid
  */
-planarVizCentric = (function (){
+var planarVizCentric = (function (){
 	
 	var planarName;
 	var planarDegree;  				// in radians
@@ -397,7 +397,7 @@ planarVizCentric = (function (){
 			}
 			
 		},
-		fetchGradients: function(gradient){
+		fetchGradients: function(){
  			return gradientsArray;
 		}	
 	}
@@ -2235,6 +2235,10 @@ var processStarAndPlanetsDetail = (function(){
 			ctx.strokeText("Select Re-Enter Sector Control and select a different star", runningX, runningY);
 		}
 		else{
+			runningX = startX;
+			runningY += incrementY;
+			ctx.strokeText("Star has:"+planetNames.length+" planet(s)", runningX, runningY);		
+
 			clickableAstroObjectList.init();
 			clickableAstroObjectList.setPlanetAndMoons();
 			runningY += incrementY*2;
@@ -2254,25 +2258,9 @@ var processStarAndPlanetsDetail = (function(){
 				
 				var imageX = Math.floor(ctx.measureText(planarName).width + offsetX);
 				var outerRadius = vizPlanars.fetchImageSize(radius);
-				var gradient = ctx.createLinearGradient(imageX, runningY, 1, imageX, runningY, outerRadius);
-				// console.log("ctx.createRadialGradient("+imageX+","+runningY+", 1,"+imageX+","+runningY+","+outerRadius+")");
 				var gradientsArray = o_planarVizCentric.fetchGradients();
-				var lastColor;
-				for(var idex2 = 0; idex2 < gradientsArray.length; idex2++){
-					var percent = gradientsArray[idex2].getGradientPercentage();
-					var color = gradientsArray[idex2].getColor();
-					// console.log("gradient.addColorStop("+percent+"," +"'"+color+"'"+")");
-					gradient.addColorStop(percent, color);
-					lastColor = color;
-				}
-				// ctx.fillRect(imageX-outerRadius, runningY-outerRadius, outerRadius*2, outerRadius*2);
-				ctx.beginPath();
-				ctx.arc(imageX, runningY,outerRadius, 0, 2*Math.PI);
+				buildCircleGradient(ctx, outerRadius, imageX, runningY, imageX, runningY, gradientsArray);
 				clickableAstroObjectList.addImageGeometry(imageX, runningY, outerRadius, planetNames[idex]);
-				ctx.fillStyle = gradient;  // not working ... err ... works with new canvas 
-				ctx.fill();
-				ctx.stroke();
-				ctx.closePath();
 				
 				runningY += incrementY;
 				runningX = startX;
@@ -2291,6 +2279,23 @@ var processStarAndPlanetsDetail = (function(){
 			}
 
 		}
+
+	}
+	
+	function buildCircleGradient(context, radius, xStart, yStart, xEnd, yEnd, gradientsArray){
+		var gradient = context.createLinearGradient(xStart-radius, yStart-radius, xEnd+radius, yEnd+radius);
+		var gradientsArray = o_planarVizCentric.fetchGradients();
+		for(var idex2 = 0; idex2 < gradientsArray.length; idex2++){
+			var percent = gradientsArray[idex2].getGradientPercentage();
+			var color = gradientsArray[idex2].getColor();
+			gradient.addColorStop(percent, color);
+		}
+		context.beginPath();
+		context.arc(xStart, yStart, radius, 0, 2*Math.PI);
+		context.fillStyle = gradient;  // not working ... err ... works with new canvas 
+		context.fill();
+		context.stroke();
+		context.closePath();
 
 	}
 	
@@ -2322,6 +2327,12 @@ var processStarAndPlanetsDetail = (function(){
 		},
 		f_drawStarDetails: function(){
 			drawStarDetails();
+		},
+		f_getPlanarDetails(){
+			return o_planarVizCentric;
+		},
+		f_circleGradient(context, radius, xStart, yStart, xEnd, yEnd, gradientsArray){
+			buildCircleGradient(context, radius, xStart, yStart, xEnd, yEnd, gradientsArray);
 		}
 	}
 	
@@ -2508,7 +2519,14 @@ var processPlanetAndMoonsDetail = (function(){
 	}
 	
 	function drawPlanetInCentre(){
-		
+		var starsystemscanvasContext = canvasas.fetchStarSystemsCanvasContext();
+		var midX = starsystemscanvasContext.canvas.width/2;
+		var midY = starsystemscanvasContext.canvas.height/6;
+		var radius = o_planarVizCentric.getPlanarRadius();
+		var outerRadius = vizPlanars.fetchImageSize(radius);
+		var gradientsArray = o_planarVizCentric.fetchGradients();
+		processStarAndPlanetsDetail.f_circleGradient(starsystemscanvasContext, outerRadius, midX, midY, midX, midY, gradientsArray);
+
 	}
 	
 	function drawPlanetDetails(){
@@ -2596,29 +2614,18 @@ var processPlanetAndMoonsDetail = (function(){
 			o_moonPlanarVizCentric.buildGradients();
 			var radius = o_moonPlanarVizCentric.getPlanarRadius();
 			var outerRadius = vizPlanars.fetchImageSize(radius);
-			var gradient = ctx.createLinearGradient(imageX, runningY, 1, imageX, runningY, outerRadius);
 			var gradientsArray = o_moonPlanarVizCentric.fetchGradients();
-			var lastColor;
-			for(var idex2 = 0; idex2 < gradientsArray.length; idex2++){
-				var percent = gradientsArray[idex2].getGradientPercentage();
-				var color = gradientsArray[idex2].getColor();
-				// console.log("gradient.addColorStop("+percent+"," +"'"+color+"'"+")");
-				gradient.addColorStop(percent, color);
-				lastColor = color;
-			}
-			ctx.beginPath();
-			ctx.arc(imageX, runningY,outerRadius, 0, 2*Math.PI);
+			processStarAndPlanetsDetail.f_circleGradient(ctx, outerRadius, imageX, runningY, imageX, runningY, gradientsArray);
+
 			clickableAstroObjectList.addImageGeometry(imageX, runningY, outerRadius, moonNames[idex]);
-			ctx.fillStyle = gradient;  // not working ... err ... works with new canvas 
-			ctx.fill();
-			ctx.stroke();
-			ctx.closePath();
+			runningY += (incrementY*6);
+			/*
 			runningY += incrementY;
 			runningY += incrementY;
 			runningY += incrementY;
 			runningY += incrementY;
 			runningY += incrementY;
-			runningY += incrementY;
+			*/
 
 		}
 	}
@@ -2630,6 +2637,7 @@ var processPlanetAndMoonsDetail = (function(){
 			var result = orderedPairToArray.getOrderedPair(planetAndMoonsMessage);
 			parseResults(result);
 			drawPlanetDetails();
+			drawPlanetInCentre();
 		}
 	}
 })();
