@@ -1015,7 +1015,7 @@ var ellipseWithPlanar = (function(){
 			    }
 			    previousI = idex;
 			    
-			    console.log("xPos:"+xPos+" yPos: "+ yPos + " Index: " + idex);
+			    // console.log("xPos:"+xPos+" yPos: "+ yPos + " Index: " + idex);
 			}
 			context.lineWidth = 1;
 			var o_vizStarSizes = vizStars.fetchStarSizeAndColor(color);
@@ -2333,6 +2333,9 @@ var processStarAndPlanetsDetail = (function(){
 		},
 		f_circleGradient(context, radius, xStart, yStart, xEnd, yEnd, gradientsArray){
 			buildCircleGradient(context, radius, xStart, yStart, xEnd, yEnd, gradientsArray);
+		},
+		f_fetchClusterVizCentric(){
+			return o_clusterVizCentric;
 		}
 	}
 	
@@ -2363,6 +2366,8 @@ var processPlanetAndMoonsDetail = (function(){
 	const xOffset = 10;
 	const imageX = 500;
 	const incrementY = 20;
+	
+	const ELIPSE_MOON_SCALAR = 22115.0;
 
 	var o_moonPlanarVizCentric;
 	var onePlanetDictionary;
@@ -2373,6 +2378,9 @@ var processPlanetAndMoonsDetail = (function(){
 	var planetAndMoonsDictionary;
 	var moonsDictionary;
 	var planetDictionary;
+	
+	var midX;
+	var midY;
 	
 	
 	function planetDegree(value){
@@ -2520,8 +2528,8 @@ var processPlanetAndMoonsDetail = (function(){
 	
 	function drawPlanetInCentre(){
 		var starsystemscanvasContext = canvasas.fetchStarSystemsCanvasContext();
-		var midX = starsystemscanvasContext.canvas.width/2;
-		var midY = starsystemscanvasContext.canvas.height/6;
+		midX = starsystemscanvasContext.canvas.width/2;
+		midY = starsystemscanvasContext.canvas.height/6;
 		var radius = o_planarVizCentric.getPlanarRadius();
 		var outerRadius = vizPlanars.fetchImageSize(radius);
 		var gradientsArray = o_planarVizCentric.fetchGradients();
@@ -2601,8 +2609,34 @@ var processPlanetAndMoonsDetail = (function(){
 		if(moonNames.length > 0){
 			console.log("NUMBER OF MOONS:"+moonNames.length);
 			drawMoonSelectables(moonNames, snatchY);
+			drawMoonsAroundPlanets(moonNames)
 		}
 
+	}
+	
+	function drawMoonsAroundPlanets(moonNames){
+		var starsystemscanvasContext = canvasas.fetchStarSystemsCanvasContext();
+		midX = starsystemscanvasContext.canvas.width/2;
+		midY = starsystemscanvasContext.canvas.height/6;
+		var o_clusterVizCentric = processStarAndPlanetsDetail.f_fetchClusterVizCentric();
+		var starColor = o_clusterVizCentric.getStarColor();
+		var starsystemscanvasContext = canvasas.fetchStarSystemsCanvasContext();
+		for (var idex = 0; idex < moonNames.length; idex++){
+			var o_moonPlanarVizCentric = onePlanetDictionary.get(moonNames[idex]);
+			var distance = o_moonPlanarVizCentric.getPlanarDistanceToPrimary();
+			var radiusOnPage = distance/ELIPSE_MOON_SCALAR;
+			console.log("MOON DISTANCE:"+distance+" RADIUS ON PAGE:"+radiusOnPage);
+			if(radiusOnPage < 5){
+				radiusOnPage = 5;
+			}
+			if(radiusOnPage > 500){
+				radiusOnPage = 500;
+			}
+			var angleInDegrees = o_moonPlanarVizCentric.getPlanarDegree()*(180/Math.PI);
+			o_point = new point();
+			o_point.setXandY(midX, midY);
+			ellipseWithPlanar.drawEllipseAndPlanar(o_point, radiusOnPage, angleInDegrees, starColor, starsystemscanvasContext);
+		}
 	}
 	
 	function drawMoonSelectables(moonNames, runningY){
