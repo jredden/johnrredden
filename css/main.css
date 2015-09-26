@@ -52,6 +52,15 @@ header#topHeader {
 	position: relative;
 	background-color: #CBC5C5;
 }
+header#topHeaderFixed {
+	width: 1360px;
+	height: 25px;
+	margin: 0 auto;
+	padding: 0 50px;
+	text-align: left;
+	position: fixed;
+	background-color: midnightblue;
+}
 
 #gsaPubPaper {
 	width: 1100px;

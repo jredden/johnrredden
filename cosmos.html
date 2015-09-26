@@ -906,6 +906,22 @@ var vizPlanars = (function(){
 	
 })();
 
+var moonViz = (function(){
+	
+	const eMinusSevenToeMinusFive = function(distance){
+		
+	}
+	
+	var orbitRadiusDistDictionary; 
+	
+	
+	function initPrivate(){
+		orbitRadiusDistDictionary = new buckets.Dictionary();
+		
+	}
+	
+})();
+
 var relativeSystemVector  = (function(){
 	
 	var scalarX;
@@ -2366,8 +2382,8 @@ var processPlanetAndMoonsDetail = (function(){
 	const xOffset = 10;
 	const imageX = 500;
 	const incrementY = 20;
-	
-	const ELIPSE_MOON_SCALAR = 22115.0;
+	const MOON_TO_EARTH = 384400.0;
+	const ELIPSE_MOON_SCALAR = 22115.0*MOON_TO_EARTH;
 
 	var o_moonPlanarVizCentric;
 	var onePlanetDictionary;
@@ -2720,7 +2736,7 @@ function print_recursive(printthis) {
 </head>
 <body id="cosmosspace">
 	<div id="wrapperspace">
-			<header id="topHeader">
+			<header id="topHeaderFixed">
 			<hgroup>
 				<nav id="topNav">
 					<button id="home">Home</button>
