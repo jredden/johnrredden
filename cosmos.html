@@ -906,18 +906,147 @@ var vizPlanars = (function(){
 	
 })();
 
-var moonViz = (function(){
+var descriminator = (function (){
+	var e1;
+	var e2;
+	var method
+	return{
+		setBounds: function(first, second, o_method){
+			e1 = first;
+			e2 = second;
+			method = o_method;
+		},
 	
-	const eMinusSevenToeMinusFive = function(distance){
-		
+		getFirstBound: function(){
+			return e1;
+		},
+	
+		getSecondBound: function(){
+			return e2;
+		},
+		getMethod: function(){
+			return method;
+		}
+	}
+});
+
+
+var moonViz = (function(){
+	const delta100 = 100.0;
+	const delta90 = 90.0;
+	const delta75 = 75.0;
+	const delta50 = 50.0;
+	const delta30 = 30.0;
+	const delta15 = 15.0;
+	
+	const eMinus7ToeMinus5start = 5.0;
+	const eMinus5ToeMinus4start = 20.0;
+	const eMinus4ToeMinus1start = 50.0;
+	const eMinus1ToE1start = 75.0;
+	const e1ToE4start = 150.0;
+	const e4ToE5start = 200.0;
+	const e5ToE10start = 300.0;
+	const e10ToE30start = 400.0;
+	const e30ToE50start = 490.0;
+	
+	const eMinus7 = 0.0000001;
+	const eMinus5 = 0.00001;
+	const eMinus4 = 0.0001;
+	const eMinus1 = 0.1;
+	const e1 = 1.0;
+	const e4 = 1000.0;
+	const e5 = 10000.0;
+	const e10 = 1000000000.0;
+	const e30 = 1000000000000000000000000000000.0;
+	const e50 = 100000000000000000000000000000000000000000000000000.0;
+	
+	const compute = function(startPos, distance, eSub2, eSub1, interval){
+		var answer = startPos + distance/((eSub2-eSub1)/interval);
+		return answer;
 	}
 	
-	var orbitRadiusDistDictionary; 
+	const eMinusSevenToeMinusFive = function(distance){
+		return Math.floor(compute(eMinus7ToeMinus5start, distance, eMinus7, eMinus5, delta15));
+	}
+	const eMinusFiveToeMinusFour = function(distance){
+		return Math.floor(compute(eMinus5ToeMinus4start, distance, eMinus5, eMinus4, delta30));
+	}
+	const eMinusFourToeMinusOne = function(distance){
+		return Math.floor(compute(eMinus4ToeMinus1start, distance, eMinus4, eMinus1, delta15));
+	}
+	const eMinusOneToEOne = function(distance){
+		return Math.floor(compute(eMinus1ToE1start, distance, eMinus1, e1, delta75));
+	}
+	const eOneToEfour = function(distance){
+		return Math.floor(compute(e1ToE4start, distance, e1, e4, delta30));
+	}
+	const eFourToEfive = function(distance){
+		return Math.floor(compute(e4ToE5start, distance, e4, e5, delta100));
+	}
+	const eFiveToEten = function(distance){
+		return Math.floor(compute(e5ToE10start, distance, e5, e10, delta100));
+	}
+	const eTenToEthirty = function(distance){
+		return Math.floor(compute(e10ToE30start, distance, e10, e30, delta90));
+	}
+	const eThirtyToEfifty = function(distance){
+		return Math.floor(compute(e30ToE50start, distance, e30, e50, delta30));
+	}
+	
+	
+	var orbitRadiusDistArray;
+	var o_descriminator;
+	var o_runningDesc;
+	var action;
 	
 	
 	function initPrivate(){
-		orbitRadiusDistDictionary = new buckets.Dictionary();
-		
+		orbitRadiusDistArray = [];
+		o_descriminator = new descriminator();
+		o_descriminator.setBounds(eMinus7, eMinus5, eMinusSevenToeMinusFive);
+		orbitRadiusDistArray.push(o_descriminator);
+		o_descriminator = new descriminator();
+		o_descriminator.setBounds(eMinus5, eMinus4, eMinusFiveToeMinusFour);
+		orbitRadiusDistArray.push(o_descriminator);
+		o_descriminator = new descriminator();
+		o_descriminator.setBounds(eMinus4, eMinus1, eMinusFourToeMinusOne);
+		orbitRadiusDistArray.push(o_descriminator);
+		o_descriminator = new descriminator();
+		o_descriminator.setBounds(eMinus1, e1, eMinusOneToEOne);
+		orbitRadiusDistArray.push(o_descriminator);
+		o_descriminator = new descriminator();
+		o_descriminator.setBounds(e1, e4, eOneToEfour);
+		orbitRadiusDistArray.push(o_descriminator);
+		o_descriminator = new descriminator();
+		o_descriminator.setBounds(e4, e5, eFourToEfive);
+		orbitRadiusDistArray.push(o_descriminator);
+		o_descriminator = new descriminator();
+		o_descriminator.setBounds(e5, e10, eFiveToEten);
+		orbitRadiusDistArray.push(o_descriminator);
+		o_descriminator = new descriminator();
+		o_descriminator.setBounds(e10, e30, eTenToEthirty);
+		orbitRadiusDistArray.push(o_descriminator);
+		o_descriminator = new descriminator();
+		o_descriminator.setBounds(e30, e50, eThirtyToEfifty);
+		orbitRadiusDistArray.push(o_descriminator);
+	}
+	return{
+		init: function(){
+			initPrivate();
+		},
+		computeMoonVizRadius: function(distance){
+			var o_distance = new Number(distance);
+			for (var idex = 0; idex < orbitRadiusDistArray.length; idex++){
+				o_runningDesc = orbitRadiusDistArray[idex];
+				var larger = o_runningDesc.getSecondBound();
+				var smaller = o_runningDesc.getFirstBound();
+				if(o_distance >= smaller && o_distance < larger){
+					action = o_runningDesc.getMethod();
+					break;
+				}
+			}
+			return action(o_distance);
+		}
 	}
 	
 })();
@@ -1056,6 +1185,7 @@ $(document).ready(function() {
 	visualizeClustersOnCanvas.logPrint();  // sanity check
 	vizStars.init();
 	vizPlanars.init();
+	moonViz.init();
 	
 	$("#home").click(function(){
 		window.location = "http://www.johntredden.com";
@@ -2474,7 +2604,7 @@ var processPlanetAndMoonsDetail = (function(){
 	}
 	
 	function moonDegree(value){
-		o_moonPlanarVizCentric.setPlanarDegree();
+		o_moonPlanarVizCentric.setPlanarDegree(value);
 		console.log("moonDegree: "+ value);
 	}
 	
@@ -2640,14 +2770,7 @@ var processPlanetAndMoonsDetail = (function(){
 		for (var idex = 0; idex < moonNames.length; idex++){
 			var o_moonPlanarVizCentric = onePlanetDictionary.get(moonNames[idex]);
 			var distance = o_moonPlanarVizCentric.getPlanarDistanceToPrimary();
-			var radiusOnPage = distance/ELIPSE_MOON_SCALAR;
-			console.log("MOON DISTANCE:"+distance+" RADIUS ON PAGE:"+radiusOnPage);
-			if(radiusOnPage < 5){
-				radiusOnPage = 5;
-			}
-			if(radiusOnPage > 500){
-				radiusOnPage = 500;
-			}
+			var radiusOnPage = moonViz.computeMoonVizRadius(distance);
 			var angleInDegrees = o_moonPlanarVizCentric.getPlanarDegree()*(180/Math.PI);
 			o_point = new point();
 			o_point.setXandY(midX, midY);
@@ -2669,14 +2792,6 @@ var processPlanetAndMoonsDetail = (function(){
 
 			clickableAstroObjectList.addImageGeometry(imageX, runningY, outerRadius, moonNames[idex]);
 			runningY += (incrementY*6);
-			/*
-			runningY += incrementY;
-			runningY += incrementY;
-			runningY += incrementY;
-			runningY += incrementY;
-			runningY += incrementY;
-			*/
-
 		}
 	}
 	
