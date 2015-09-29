@@ -39,6 +39,9 @@ var tagOperations = (function(){
 		   				},
 		   				function backToStarSystem(){
 		   					$('#reEnterStarSystem').show();
+		   				},
+		   				function backToPlanetSystem(){
+		   					$('#reEnterPlanetSystem').show();
 		   				}
 
 	                  	];
@@ -61,6 +64,9 @@ var tagOperations = (function(){
 			   				},
 			   				function backToStarSystem(){
 			   					$('#reEnterStarSystem').hide();
+			   				},
+			   				function backToPlanetSystem(){
+			   					$('#reEnterPlanetSystem').hide();
 			   				}
 			   				
 
@@ -71,7 +77,8 @@ var tagOperations = (function(){
 			"jumping" : 2,
 			"starsinclustertext" : 3,
 			"backToSector" : 4,
-			"backToStarSystem" : 5
+			"backToStarSystem" : 5,
+			"backToPlanetSystem" : 6
 	}
 	
 	// public 
@@ -1213,6 +1220,10 @@ $(document).ready(function() {
 		backToStarView.reenter();
 	});
 	
+	$("#reEnterPlanetSystem").click(function(){
+		backToPlanetView.reenter();
+	});
+	
 }); <!-- end ready -->
 
 /**
@@ -1371,6 +1382,25 @@ var backToStarView  = (function (){
 			processStarAndPlanetsDetail.f_drawStarInCentre();
 			processStarAndPlanetsDetail.f_drawPlanetoidsAroundStar();
 			processStarAndPlanetsDetail.f_drawStarDetails();
+			
+		}
+	}
+	
+})();
+
+var backToPlanetView = (function(){
+	
+	return{
+		reenter: function(){
+			var hideList = ['backToPlanetSystem'];
+			tagOperations.hide(hideList);
+			canvasas.clearStarSystemsCanvasContext();
+			canvasas.clearStarsInClusterTextCanvasContext();
+			canvasas.init();
+			
+			var planetName = sessionStorage.PLANET_NAME;  // restore via database
+			var starName = sessionStorage.STAR_NAME;
+			fetchPlanetAndMoons.jsonCall(planetName, starName);
 		}
 	}
 	
@@ -2046,6 +2076,10 @@ var clickableAstroObjectList = (function(){
 	function planetAndMoonsAction(){
 		doTheAction = planetAndMoons;
 	}
+	
+	function moonsOnlyAction(){
+		doTheAction = moonsOnly;
+	}
 
 	return{
 		init: function(){
@@ -2056,6 +2090,9 @@ var clickableAstroObjectList = (function(){
 		},
 		setPlanetAndMoons: function(){
 			planetAndMoonsAction();
+		},
+		setMoonsOnly: function(){
+			moonsOnlyAction();
 		},
 		addImageGeometry(xDim, yDim, radius, starName){
 			var o_circle = new circle();
@@ -2106,7 +2143,23 @@ var planetAndMoons = (function(){
 			var showList = ['backToStarSystem'];
 			tagOperations.show(showList);
 			var starName = sessionStorage.STAR_NAME;
+			sessionStorage.setItem('PLANET_NAME', planetName);
 			fetchPlanetAndMoons.jsonCall(planetName, starName);
+		}
+	}
+	
+})();
+
+var moonsOnly = (function(){
+	
+	return{
+		init: function(moonName){
+			canvasas.clearStarSystemsCanvasContext();
+			canvasas.clearStarsInClusterTextCanvasContext();
+			var showList = ['backToPlanetSystem'];
+			tagOperations.show(showList);
+			var starName = sessionStorage.STAR_NAME;
+			fetchPlanetAndMoons.jsonCall(moonName, starName);
 		}
 	}
 	
@@ -2133,6 +2186,20 @@ var fetchPlanetAndMoons = (function () {
 					function(json){           // callback
 						console.log("fetch planets and moons for :" + planetName);
 						processPlanetAndMoonsDetail.jsonProcess(json, planetName);
+					}		
+			);
+		}
+	}
+
+})();
+
+var fetchMoons = (function () {
+	return{
+		jsonCall: function(moonName, starName){
+			$.getJSON("http://www.johntreddenlocal.com:8080/planetAndMoons.html?starName="+starName+"&planetName="+moonName,
+					function(json){           // callback
+						console.log("fetch moon :" + moonName);
+						processPlanetAndMoonsDetail.jsonProcess(json, moonName);
 					}		
 			);
 		}
@@ -2700,21 +2767,25 @@ var processPlanetAndMoonsDetail = (function(){
 		ctx.strokeText("Planet "+planarName+" Details", runningX, runningY);
 		runningY += incrementY;
 		runningX = startX;
+		ctx.strokeText("Select Moon By Moon Image", runningX, runningY);
+		runningY += incrementY;
+		runningX = startX;
+
 		ctx.font="14px Verdana";
 		ctx.strokeStyle = "lightblue";
-		ctx.strokeText("Planet Angle from Star:"+planarDegree, runningX, runningY);
+		ctx.strokeText("Planet Angle from Star: "+planarDegree, runningX, runningY);
 		runningY += incrementY;
 		runningX = startX;
-		ctx.strokeText("Planet Distance from Star:"+distanceToParentStar, runningX, runningY);		
+		ctx.strokeText("Planet Distance from Star: "+distanceToParentStar, runningX, runningY);		
 		runningY += incrementY;
 		runningX = startX;
-		ctx.strokeText("Planet Temperature Kelvin:"+temperature, runningX, runningY);		
+		ctx.strokeText("Planet Temperature Kelvin: "+temperature, runningX, runningY);		
 		runningY += incrementY;
 		runningX = startX;
-		ctx.strokeText("Planet Radius:"+radius, runningX, runningY);		
+		ctx.strokeText("Planet Radius: "+radius, runningX, runningY);		
 		runningY += incrementY;
 		runningX = startX;
-		ctx.strokeText("Percentage Water of Planet:"+percentageWater, runningX, runningY);	
+		ctx.strokeText("Percentage Water of Planet: "+percentageWater, runningX, runningY);	
 		var moonNames = onePlanetDictionary.keys();
 		runningY += incrementY;
 		runningX = startX;
@@ -2740,9 +2811,9 @@ var processPlanetAndMoonsDetail = (function(){
 			var name = o_atmosphereSet.getChemical();
 			var percent = Number(o_atmosphereSet.getPercentage())*100;
 			var color = o_atmosphereSet.getColor();
-			ctx.strokeText("Atmosphere:"+name, startX , runningY);	
+			ctx.strokeText("Atmosphere: "+name, startX , runningY);	
 			runningY += incrementY;
-			ctx.strokeText("Percent:"+percent, startX , runningY);	
+			ctx.strokeText("Percent: "+percent, startX , runningY);	
 			runningY += incrementY;
 			ctx.beginPath();
 			ctx.fillStyle=color;
@@ -2781,7 +2852,7 @@ var processPlanetAndMoonsDetail = (function(){
 	function drawMoonSelectables(moonNames, runningY){
 		var ctx = canvasas.fetchNewStarAndPlanetsContext();
 		clickableAstroObjectList.init();
-		clickableAstroObjectList.setPlanetAndMoons();
+		clickableAstroObjectList.setMoonsOnly();
 		for(var idex = 0; idex < moonNames.length; idex++){
 			var o_moonPlanarVizCentric = onePlanetDictionary.get(moonNames[idex]);
 			o_moonPlanarVizCentric.buildGradients();
@@ -2803,7 +2874,14 @@ var processPlanetAndMoonsDetail = (function(){
 			parseResults(result);
 			drawPlanetDetails();
 			drawPlanetInCentre();
+		},
+		f_drawPlanetDetails: function(){
+			drawPlanetDetails();
+		},
+		f_drawPlanetInCentre: function(){
+			drawPlanetInCentre();
 		}
+		
 	}
 })();
 
@@ -2859,6 +2937,7 @@ function print_recursive(printthis) {
 			<!--  		<span id="jumphint" style="color:lightyellow;font-weight:bold">To travel to a new star system activate the Star Drive</span> -->
 					<button id="reEnterSector">Re-Enter Sector</button>
 					<button id="reEnterStarSystem">Re-Enter Star System</button>
+					<button id="reEnterPlanetSystem">Re-Enter Planet System</button>
 				</nav>
 			</hgroup>
 		</header>
