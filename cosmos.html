@@ -1186,13 +1186,14 @@ var ellipseWithPlanar = (function(){
 
 
 $(document).ready(function() {
-	console.log("in ready");
+	// console.log("in ready");
 	tagOperations.hideAll();
 	visualizeClustersOnCanvas.init();
 	visualizeClustersOnCanvas.logPrint();  // sanity check
 	vizStars.init();
 	vizPlanars.init();
 	moonViz.init();
+	processPlanetAndMoonsDetail.init();
 	
 	$("#home").click(function(){
 		window.location = "http://www.johntredden.com";
@@ -2185,6 +2186,7 @@ var fetchPlanetAndMoons = (function () {
 			$.getJSON("http://www.johntreddenlocal.com:8080/planetAndMoons.html?starName="+starName+"&planetName="+planetName,
 					function(json){           // callback
 						console.log("fetch planets and moons for :" + planetName);
+						processPlanetAndMoonsDetail.f_planetMode();
 						processPlanetAndMoonsDetail.jsonProcess(json, planetName);
 					}		
 			);
@@ -2199,6 +2201,7 @@ var fetchMoons = (function () {
 			$.getJSON("http://www.johntreddenlocal.com:8080/planetAndMoons.html?starName="+starName+"&planetName="+moonName,
 					function(json){           // callback
 						console.log("fetch moon :" + moonName);
+						processPlanetAndMoonsDetail.f_moonMode();
 						processPlanetAndMoonsDetail.jsonProcess(json, moonName);
 					}		
 			);
@@ -2595,6 +2598,22 @@ var processPlanetAndMoonsDetail = (function(){
 	var midX;
 	var midY;
 	
+	var o_baseMessage;
+	
+	baseMessage = function(){
+		var planarMessage;
+		this.planarMessage = "error, not initialized";
+	}
+	baseMessage.prototype.Planet = function(){
+		this.planarMessage = "Planet";
+	}
+	baseMessage.prototype.Moon = function(){
+		this.planarMessage = "Moon";
+	}
+	baseMessage.prototype.getMode = function(){
+		return this.planarMessage;
+	}
+
 	
 	function planetDegree(value){
 		o_planarVizCentric.setPlanarDegree(value);
@@ -2751,6 +2770,7 @@ var processPlanetAndMoonsDetail = (function(){
 	}
 	
 	function drawPlanetDetails(){
+		var planarType = o_baseMessage.getMode();
 		var planarName = o_planarVizCentric.getPlanarName();
 		var planarDegree = o_planarVizCentric.getPlanarDegree()*(180/Math.PI);  // radians to degrees
 		var distanceToParentStar = o_planarVizCentric.getPlanarDistanceToPrimary();
@@ -2764,7 +2784,7 @@ var processPlanetAndMoonsDetail = (function(){
 		
 		ctx.font="18px Verdana";
 		ctx.strokeStyle = "orange";
-		ctx.strokeText("Planet "+planarName+" Details", runningX, runningY);
+		ctx.strokeText(planarType +" "+planarName+" Details", runningX, runningY);
 		runningY += incrementY;
 		runningX = startX;
 		ctx.strokeText("Select Moon By Moon Image", runningX, runningY);
@@ -2773,19 +2793,19 @@ var processPlanetAndMoonsDetail = (function(){
 
 		ctx.font="14px Verdana";
 		ctx.strokeStyle = "lightblue";
-		ctx.strokeText("Planet Angle from Star: "+planarDegree, runningX, runningY);
+		ctx.strokeText(planarType +" Angle from Star: "+planarDegree, runningX, runningY);
 		runningY += incrementY;
 		runningX = startX;
-		ctx.strokeText("Planet Distance from Star: "+distanceToParentStar, runningX, runningY);		
+		ctx.strokeText(planarType +" Distance from Star: "+distanceToParentStar, runningX, runningY);		
 		runningY += incrementY;
 		runningX = startX;
-		ctx.strokeText("Planet Temperature Kelvin: "+temperature, runningX, runningY);		
+		ctx.strokeText(planarType +" Temperature Kelvin: "+temperature, runningX, runningY);		
 		runningY += incrementY;
 		runningX = startX;
-		ctx.strokeText("Planet Radius: "+radius, runningX, runningY);		
+		ctx.strokeText(planarType + " Radius: "+radius, runningX, runningY);		
 		runningY += incrementY;
 		runningX = startX;
-		ctx.strokeText("Percentage Water of Planet: "+percentageWater, runningX, runningY);	
+		ctx.strokeText("Percentage Water of "+ planarType +": "+percentageWater, runningX, runningY);	
 		var moonNames = onePlanetDictionary.keys();
 		runningY += incrementY;
 		runningX = startX;
@@ -2867,6 +2887,9 @@ var processPlanetAndMoonsDetail = (function(){
 	}
 	
 	return{
+		init: function(){
+			o_baseMessage = new baseMessage();
+		},
 		jsonProcess: function(json, planetName){
 			var planetAndMoonsMessage = json.planets.planetAndMoons;
 			console.log("PLANET AND MOONS MESSAGE:"+planetAndMoonsMessage);
@@ -2880,6 +2903,15 @@ var processPlanetAndMoonsDetail = (function(){
 		},
 		f_drawPlanetInCentre: function(){
 			drawPlanetInCentre();
+		},
+		f_planetMode: function(){
+			o_baseMessage.Planet();
+		},
+		f_moonMode: function(){
+			o_baseMessage.Moon();
+		},
+		f_getMode: function(){
+			o_baseMessage.getMode();
 		}
 		
 	}

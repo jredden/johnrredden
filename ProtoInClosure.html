@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>Testing Prototype</title>
+</head>
+<body>
+	<canvas id="planars">
+	Your browser does not support the HTML5 canvas tag.
+	Please upgrade to a version with full support for HTML5.
+	
+	</canvas>
+
+<script type="text/javascript">
+
+var closure = (function () {
+	var i_xdim;
+	var i_ydim;
+	
+	baseFunction = function(context){
+		var message;
+		this.message = "baseFunction";
+		console.log(this.message);
+		context.fillText(this.message, i_xdim+5, i_ydim+5);
+	}
+	
+	baseFunction.prototype.childFunctionOne = function(context){
+		console.log("childFunctionOne");
+		context.fillText("childFunctionOne", i_xdim+20, i_ydim+20);		}
+	baseFunction.prototype.childFunctionTwo = function(context){
+		console.log("childFunctionTwo");
+		context.fillText("childFunctionTwo", i_xdim+35, i_ydim+35);	
+		context.fillText(this.message, i_xdim+45, i_ydim+45);	
+		this.message = "Took Over!";
+		context.fillText(this.message, i_xdim+60, i_ydim+60);	
+
+	}
+	baseFunction.prototype.getMessage = function(){
+		return this.message;
+	}
+	
+	return{
+		setXandYDim: function(xdim, ydim){
+			i_xdim = xdim;
+			i_ydim = ydim;
+		},
+		action: function(context){
+			var baseF = new baseFunction(context);
+			baseF.childFunctionOne(context);
+			baseF.childFunctionTwo(context);
+			console.log("Message:"+baseF.getMessage());
+			context.fillText("Message:"+baseF.getMessage(), 300, 100);
+		},
+		action2: function(context){
+			var baseF = new baseFunction(context);
+			baseF.childFunctionOne(context);
+		}
+	}
+	
+})();
+
+var planarcanvas = document.getElementById("planars");
+var planarcanvasContext = planarcanvas.getContext("2d");
+planarcanvasContext.canvas.width = window.innerWidth;
+planarcanvasContext.canvas.height = window.innerHeight;
+closure.setXandYDim(planarcanvasContext.canvas.width/2, planarcanvasContext.canvas.height/2);
+closure.action(planarcanvasContext);
+closure.setXandYDim(100, 100);
+closure.action2(planarcanvasContext);
+
+</script>
+</body>
+</html>
