@@ -262,8 +262,8 @@ var atmosphereSet  = (function (){
 	const visualSize = function(percentage){
 		var y_size;
 		sizeDictionary = new buckets.Dictionary();
-		sizeDictionary.set(0, 10);
-		sizeDictionary.set(1, 14);
+		sizeDictionary.set(0, 6);
+		sizeDictionary.set(1, 9);
 		sizeDictionary.set(5, 18);
 		sizeDictionary.set(10, 24);
 		sizeDictionary.set(20, 30);
@@ -2160,7 +2160,7 @@ var moonsOnly = (function(){
 			var showList = ['backToPlanetSystem'];
 			tagOperations.show(showList);
 			var starName = sessionStorage.STAR_NAME;
-			fetchPlanetAndMoons.jsonCall(moonName, starName);
+			fetchMoons.jsonCall(moonName, starName);
 		}
 	}
 	
@@ -2578,7 +2578,7 @@ var processPlanetAndMoonsDetail = (function(){
 	const o_planarVizCentric = new planarVizCentric();
 	const startX = 5;
 	const startY = 50;
-	const atmospherRectX = 150;
+	const atmospherRectX = 250;
 	const xOffset = 10;
 	const imageX = 500;
 	const incrementY = 20;
@@ -2603,17 +2603,30 @@ var processPlanetAndMoonsDetail = (function(){
 	baseMessage = function(){
 		var planarMessage;
 		this.planarMessage = "error, not initialized";
+		var emptyMessage;
+		this.emptyMessage = "error, not initialized";
+		var selectMessage;
+		this.selectMessage = "error, not initialized";
 	}
 	baseMessage.prototype.Planet = function(){
 		this.planarMessage = "Planet";
+		this.emptyMessage = "Planet does not have any moons";
+		this.selectMessage = "Select Moon by Moon Image";
 	}
 	baseMessage.prototype.Moon = function(){
 		this.planarMessage = "Moon";
+		this.emptyMessage = "Moon does not have satellites";
+		this.selectMessage = "No Satellites To Select";
 	}
 	baseMessage.prototype.getMode = function(){
 		return this.planarMessage;
 	}
-
+	baseMessage.prototype.getEmpty = function(){
+		return this.emptyMessage;
+	}
+	baseMessage.prototype.getSelect = function(){
+		return this.selectMessage;
+	}
 	
 	function planetDegree(value){
 		o_planarVizCentric.setPlanarDegree(value);
@@ -2787,7 +2800,8 @@ var processPlanetAndMoonsDetail = (function(){
 		ctx.strokeText(planarType +" "+planarName+" Details", runningX, runningY);
 		runningY += incrementY;
 		runningX = startX;
-		ctx.strokeText("Select Moon By Moon Image", runningX, runningY);
+		var selectMessage = o_baseMessage.getSelect();
+		ctx.strokeText(selectMessage, runningX, runningY);
 		runningY += incrementY;
 		runningX = startX;
 
@@ -2810,7 +2824,8 @@ var processPlanetAndMoonsDetail = (function(){
 		runningY += incrementY;
 		runningX = startX;
 		if(moonNames.length == 0){
-			ctx.strokeText("Planet does not have any moons", runningX, runningY);
+			var emptyMessage = o_baseMessage.getEmpty();
+			ctx.strokeText(emptyMessage, runningX, runningY);
 		}
 		else{
 			if(moonNames.length == 1){
