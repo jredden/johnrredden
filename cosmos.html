@@ -1184,6 +1184,58 @@ var ellipseWithPlanar = (function(){
 
 })();
 
+var scaleViz = (function(){
+	
+	const xBoxLarger = 0;
+	const xBoxSmaller = 50;
+	const xBoxCurrent = 100;
+	const yBox = 10;
+	const yHeight = 10;
+	
+	
+	const bigger = "Increase Scale";
+	const smaller = "Decrease Scale";
+	const value = "Current Value:";
+	
+	const step = 0.1;
+	
+	var scale = 1.0;
+	var biggerWidth;
+	var smallerWidth;
+	var valueWidth;
+	
+	return{
+		drawControls: function(context){
+			biggerWidth = context.measureText(bigger);
+			smallerWidth = context.measureText(smaller);
+			valueWidth = context.measureText(value);
+			
+			context.beginPath();
+			
+		    context.rect(xBoxLarger, yBox, biggerWidth, yHeight);
+		    context.fillStyle = 'green';
+		    context.fill();
+		    context.lineWidth = 2;
+		    context.strokeStyle = 'orange';
+		    
+		    context.rect(xBoxSmaller, yBox, smallerWidth, yHeight);
+		    context.fillStyle = 'red';
+		    context.fill();
+		    context.lineWidth = 2;
+		    context.strokeStyle = 'orange';
+
+		    context.rect(xBoxCurrent, yBox, valueWidth, yHeight);
+		    context.fillStyle = 'yellow';
+		    context.fill();
+		    context.lineWidth = 2;
+		    context.strokeStyle = 'orange';
+
+		    context.stroke();
+		}
+	}
+	
+})();
+
 
 $(document).ready(function() {
 	// console.log("in ready");
@@ -2058,7 +2110,7 @@ var visualizeClustersOnCanvas = (function () {
 })();
 
 /**
- * geometry to allow clickable stars on canvas
+ * geometry to allow clickable stars, planets and moons on canvas
  */
 var clickableAstroObjectList = (function(){
 	
@@ -2369,6 +2421,8 @@ var processStarAndPlanetsDetail = (function(){
 		else{
 			var starsystemscanvasContext = canvasas.fetchStarSystemsCanvasContext();
 			starsystemscanvasContext.save();
+			scaleViz.drawControls(starsystemscanvasContext);
+
 			var starColor = o_clusterVizCentric.getStarColor();
 
 			for (var idex = 0; idex < planetNames.length; idex++){
