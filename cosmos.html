@@ -1139,12 +1139,13 @@ var ellipseWithPlanar = (function(){
 	
 	return {
 		drawEllipseAndPlanar: function(o_point, radius, degree, color, context){
-			
+			var scale = scaleViz.fetchScale();
+			var s_radius = scale*radius;
 			var degreePrime = warpY(degree) * Math.PI / 180;	
 			var centreX = o_point.getX();
 			var centreY = o_point.getY();
-			var xAxis = radius / 2;
-			var yAxis = radius;
+			var xAxis = s_radius / 2;
+			var yAxis = s_radius;
 			var previousI;
 			
 			context.beginPath();
@@ -1186,16 +1187,16 @@ var ellipseWithPlanar = (function(){
 
 var scaleViz = (function(){
 	
-	const xBoxLarger = 0;
-	const xBoxSmaller = 50;
-	const xBoxCurrent = 100;
-	const yBox = 10;
-	const yHeight = 10;
+	const xBoxLarger = 10;
+	const yBox = 50;
+	const spacing = 5;
+	const yHeight = 20;
+	const scaleDigits = 30;
 	
 	
-	const bigger = "Increase Scale";
-	const smaller = "Decrease Scale";
-	const value = "Current Value:";
+	const bigger = "Increase Scale  ";
+	const smaller = "Decrease Scale  ";
+	const value = "Current Scale:";
 	
 	const step = 0.1;
 	
@@ -1204,33 +1205,55 @@ var scaleViz = (function(){
 	var smallerWidth;
 	var valueWidth;
 	
+	var xBoxSmaller;
+	var xBoxCurrent;
+	
+	var scale=1.0;
+	
 	return{
 		drawControls: function(context){
-			biggerWidth = context.measureText(bigger);
-			smallerWidth = context.measureText(smaller);
-			valueWidth = context.measureText(value);
+			context.font="16px Verdana";
+			biggerWidth = Math.floor(context.measureText(bigger).width);
+			smallerWidth = Math.floor(context.measureText(smaller).width);
+			valueWidth = Math.floor(context.measureText(value).width);
 			
+			xBoxSmaller = xBoxLarger+biggerWidth+spacing;
+			xBoxCurrent = xBoxLarger+biggerWidth+spacing+smallerWidth+spacing;
 			context.beginPath();
-			
 		    context.rect(xBoxLarger, yBox, biggerWidth, yHeight);
-		    context.fillStyle = 'green';
+		    context.fillStyle = 'lightgreen';
 		    context.fill();
 		    context.lineWidth = 2;
-		    context.strokeStyle = 'orange';
+		    context.strokeStyle = 'black';
+		    context.strokeText(bigger, xBoxLarger, yBox+yHeight-3);
+		    context.stroke();
+		    context.closePath();
 		    
+			context.beginPath();
 		    context.rect(xBoxSmaller, yBox, smallerWidth, yHeight);
 		    context.fillStyle = 'red';
 		    context.fill();
 		    context.lineWidth = 2;
-		    context.strokeStyle = 'orange';
-
-		    context.rect(xBoxCurrent, yBox, valueWidth, yHeight);
+		    context.strokeStyle = 'black';
+		    context.strokeText(smaller, xBoxSmaller, yBox+yHeight-3);
+		    context.stroke();
+		    context.closePath();
+		    
+		    context.beginPath();
+		    context.rect(xBoxCurrent, yBox, valueWidth+scaleDigits, yHeight);
 		    context.fillStyle = 'yellow';
 		    context.fill();
 		    context.lineWidth = 2;
-		    context.strokeStyle = 'orange';
-
+		    context.strokeStyle = 'black';
+		    context.strokeText(value+scale, xBoxCurrent, yBox+yHeight-3);
 		    context.stroke();
+		    context.closePath();
+		},
+		fetchScale: function(){
+			return scale;
+		},
+		determineClick: function(clickedX, clickedY){
+			
 		}
 	}
 	
@@ -1258,13 +1281,20 @@ $(document).ready(function() {
 		jumpRequest.jsonCall();
 	});
 	
+	$("#starsystems").click(function(event){
+		var clickedX = event.pageX - this.offsetLeft;
+		var clickedY = event.pageY - this.offsetTop;
+		console.log("SCALE CLICK EVENT:"+clickedX+"::"+clickedY);
+		scaleViz.determineClick(clickedX, clickedY);
+	});
+	
 	$("#starsinclustertextcanvas").click(function(event){
 		var clickedX = event.pageX - this.offsetLeft;
 		var clickedY = event.pageY - this.offsetTop;
 		console.log("CLICK EVENT:"+clickedX+"::"+clickedY);
 		clickableAstroObjectList.determineClick(clickedX, clickedY);
 	});
-	
+
 	$("#reEnterSector").click(function(){
 		backToSectorView.reenter();
 	});
@@ -2420,7 +2450,7 @@ var processStarAndPlanetsDetail = (function(){
 		}
 		else{
 			var starsystemscanvasContext = canvasas.fetchStarSystemsCanvasContext();
-			starsystemscanvasContext.save();
+			// starsystemscanvasContext.save();
 			scaleViz.drawControls(starsystemscanvasContext);
 
 			var starColor = o_clusterVizCentric.getStarColor();
@@ -2443,7 +2473,7 @@ var processStarAndPlanetsDetail = (function(){
 				o_point.setXandY(midX, midY);
 				ellipseWithPlanar.drawEllipseAndPlanar(o_point, radiusOnPage, angleInDegrees, starColor, starsystemscanvasContext);
 			}
-			starsystemscanvasContext.restore();
+			// starsystemscanvasContext.restore();
 		}
 	}
 	
@@ -2922,6 +2952,7 @@ var processPlanetAndMoonsDetail = (function(){
 	
 	function drawMoonsAroundPlanets(moonNames){
 		var starsystemscanvasContext = canvasas.fetchStarSystemsCanvasContext();
+		scaleViz.drawControls(starsystemscanvasContext);
 		midX = starsystemscanvasContext.canvas.width/2;
 		midY = starsystemscanvasContext.canvas.height/6;
 		var o_clusterVizCentric = processStarAndPlanetsDetail.f_fetchClusterVizCentric();
