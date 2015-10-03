@@ -522,12 +522,17 @@ var canvasas = (function(){
 	var newStarsystemscanvasContext;
 	var newStarsystemscanvas;
 	
-	function buildCanvasas(){
+	function buildStarSystemCanvas(){
 		starsystemscanvas = document.getElementById("starsystems");
 		starsystemscanvasContext = starsystemscanvas.getContext("2d");
 		starsystemscanvasContext.canvas.width = window.innerWidth/2;
 		starsystemscanvasContext.canvas.height = window.innerHeight*3;
 		starsystemscanvasContext.fillStyle = "#00003D";
+		
+	}
+	
+	function buildCanvasas(){
+		buildStarSystemCanvas();
 		
 		newStarsystemscanvas = document.getElementById("starsystems");
 		newStarsystemscanvasContext = starsystemscanvas.getContext("2d");
@@ -558,6 +563,9 @@ var canvasas = (function(){
 	return{
 		init: function(){
 			buildCanvasas();
+		},
+		initStarSystem: function(){
+			buildStarSystemCanvas();
 		},
 		fetchStarSystemsCanvas(){
 			return starsystemscanvas;
@@ -1200,6 +1208,9 @@ var scaleViz = (function(){
 	
 	const step = 0.1;
 	
+	const PLANETS = "PLANETS";
+	const MOONS = "MOONS";
+	
 	var scale = 1.0;
 	var biggerWidth;
 	var smallerWidth;
@@ -1209,6 +1220,34 @@ var scaleViz = (function(){
 	var xBoxCurrent;
 	
 	var scale=1.0;
+	var mode;
+	
+	function finish(){
+		canvasas.clearStarSystemsCanvasContext();
+		canvasas.initStarSystem();
+		if(mode == PLANETS){
+			scalePlanets();
+		}
+		else{
+			if(mode == MOONS){
+				scaleMoons();
+			}
+			else{
+				throw "Bad Mode Value:"+mode;
+			}
+		}
+
+	}
+	
+	function scalePlanets(){
+		processStarAndPlanetsDetail.f_drawStarInCentre();
+		processStarAndPlanetsDetail.f_drawPlanetoidsAroundStar();
+	}
+	
+	function scaleMoons(){
+		processPlanetAndMoonsDetail.f_drawPlanetInCentre();
+		processPlanetAndMoonsDetail.f_drawMoons();
+	}
 	
 	return{
 		drawControls: function(context){
@@ -1252,8 +1291,26 @@ var scaleViz = (function(){
 		fetchScale: function(){
 			return scale;
 		},
+		resetScale: function(){
+			scale=1.0;
+		},
 		determineClick: function(clickedX, clickedY){
-			
+			if(clickedX >= xBoxLarger && clickedX <= xBoxLarger+biggerWidth
+					&& clickedY >= yBox && clickedY <= yBox+yHeight){
+				scale += step;
+				finish();
+			}
+			if(clickedX >= xBoxSmaller && clickedX <= xBoxSmaller+smallerWidth
+					&& clickedY >= yBox && clickedY <= yBox+yHeight){
+				scale -= step;
+					finish();
+			}
+		},
+		setModePlanets: function(){
+			mode = PLANETS;
+		},
+		setModeMoons: function(){
+			mode = MOONS;
 		}
 	}
 	
@@ -1462,6 +1519,7 @@ var backToStarView  = (function (){
 			canvasas.clearStarSystemsCanvasContext();
 			canvasas.clearStarsInClusterTextCanvasContext();
 			canvasas.init();
+			scaleViz.setModePlanets();
 			processStarAndPlanetsDetail.f_drawStarInCentre();
 			processStarAndPlanetsDetail.f_drawPlanetoidsAroundStar();
 			processStarAndPlanetsDetail.f_drawStarDetails();
@@ -1480,7 +1538,7 @@ var backToPlanetView = (function(){
 			canvasas.clearStarSystemsCanvasContext();
 			canvasas.clearStarsInClusterTextCanvasContext();
 			canvasas.init();
-			
+			scaleViz.setModeMoons();
 			var planetName = sessionStorage.PLANET_NAME;  // restore via database
 			var starName = sessionStorage.STAR_NAME;
 			fetchPlanetAndMoons.jsonCall(planetName, starName);
@@ -2322,6 +2380,7 @@ var processStarAndPlanetsDetail = (function(){
 	const startY = 50;
 	var incrementY = 20;
 	var offsetX = 80;
+	var planetNames;
 
 	function f_angle_in_radians(value){
 		o_clusterVizCentric.setAnglenInRadians(value);
@@ -2444,7 +2503,6 @@ var processStarAndPlanetsDetail = (function(){
 	}
 	
 	function drawPlanetoidsAroundStar(){
-		var planetNames = onePlanetDictionary.keys();
 		if(planetNames.length == 0){
 			console.log("NO PLANETS");
 		}
@@ -2608,6 +2666,8 @@ var processStarAndPlanetsDetail = (function(){
 			var result = orderedPairToArray.getOrderedPair(starAndPlanetsMessage);
 			
 			parseResults(result);
+			scaleViz.setModePlanets();
+			planetNames = onePlanetDictionary.keys(); // early binding for scale processing
 			drawStarInCentre();
 			drawPlanetoidsAroundStar();
 			drawStarDetails();
@@ -2683,6 +2743,7 @@ var processPlanetAndMoonsDetail = (function(){
 	var midY;
 	
 	var o_baseMessage;
+	var moonNames;
 	
 	baseMessage = function(){
 		var planarMessage;
@@ -2904,7 +2965,7 @@ var processPlanetAndMoonsDetail = (function(){
 		runningY += incrementY;
 		runningX = startX;
 		ctx.strokeText("Percentage Water of "+ planarType +": "+percentageWater, runningX, runningY);	
-		var moonNames = onePlanetDictionary.keys();
+		
 		runningY += incrementY;
 		runningX = startX;
 		if(moonNames.length == 0){
@@ -2995,6 +3056,8 @@ var processPlanetAndMoonsDetail = (function(){
 			console.log("PLANET AND MOONS MESSAGE:"+planetAndMoonsMessage);
 			var result = orderedPairToArray.getOrderedPair(planetAndMoonsMessage);
 			parseResults(result);
+			moonNames = onePlanetDictionary.keys();	// early binding
+			scaleViz.setModeMoons();
 			drawPlanetDetails();
 			drawPlanetInCentre();
 		},
@@ -3003,6 +3066,9 @@ var processPlanetAndMoonsDetail = (function(){
 		},
 		f_drawPlanetInCentre: function(){
 			drawPlanetInCentre();
+		},
+		f_drawMoons: function(){
+			drawMoonsAroundPlanets(moonNames);
 		},
 		f_planetMode: function(){
 			o_baseMessage.Planet();
