@@ -15042,7 +15042,7 @@ public class GenAtmosphere {
 				Double.MAX_VALUE, "end", 5));
 	}
 
-	List<Atmosphere> persistAtmosphere(Star star, Planetoid planetoid) {
+	public List<Atmosphere> persistAtmosphere(Star star, Planetoid planetoid) {
 		List<Atmosphere> atmospheres = null;
 
 		StarFactory starFactory = StarFactory.accessByFullName(star
@@ -15080,5 +15080,34 @@ public class GenAtmosphere {
 			savedAtmospheres.add(atmosphereDao.addAtmosphere(atmosphere));
 		}
 		return savedAtmospheres;
+	}
+	
+	public static String temperatureType(Double temperature){
+		Double previousTemperature = 0.0;
+		String temperatureType = "";
+		for(TemperatureRange temperatureRange : temperaturesRange){
+			Double currrentTemperature = temperatureRange.temperature;
+			if(temperature >=  previousTemperature && temperature < currrentTemperature){
+				temperatureType = temperatureRange.description;
+				break;
+			}
+			previousTemperature = currrentTemperature;
+		}
+		return temperatureType;
+	}
+	
+	public static String sizeType(Double radius){
+		Double previousRadius = 0.0;
+		String sizeType = "";
+		for(RadiusRange radiusRange : planetsRadius){
+			Double currentRadius = radiusRange.radius;
+			if(radius >= previousRadius && radius < currentRadius){
+				sizeType = radiusRange.description;
+				break;
+			}
+			previousRadius = currentRadius;
+		}
+		
+		return sizeType;
 	}
 }

@@ -21,6 +21,8 @@ import com.zenred.cosmos.vizualization.MoonsResponse;
 public class ToPlanetAndMoons {
 	private static Logger logger = Logger.getLogger(ToPlanetAndMoons.class);
 	private final static String CHEM_COLOR = "Chem_Color";
+	private static final String TEMPERATURE_TYPE = "TempType";
+	private static final String SIZE_TYPE = "SizeType";
 
 	
 	protected static String planetAndMoons(String planetName, String starsName){
@@ -33,15 +35,25 @@ public class ToPlanetAndMoons {
 		AtmosphereDao atmosphereDao = new AtmosphereDao(); 
 		Planetoid planetoid = planetoidDao.readPlanetoidByName(planetName);
 		
+		List<Atmosphere> atmospheres = atmosphereDao.readAtmosphereAroundPlanet(planetoid);
+		for(Atmosphere atmosphere : atmospheres){
+			if(atmosphere.getChem_name().equals(AtmosphereParts.Water.getText())){
+				planetoid.setPercentWater(atmosphere.getPercentage());
+			}
+		}
+		String temperatureType = GenAtmosphere.temperatureType(planetoid.getTemperature());
+		String sizeType = GenAtmosphere.sizeType(planetoid.getRadius());
+
 		StringBuilder keyValuePair = new StringBuilder();
 		keyValuePair.append(PlanetoidDao.DEGREE).append("=").append(planetoid.getDegree());
 		keyValuePair.append(";"+PlanetoidDao.DISTANCE_TO_PRIMARY).append("=").append(Math.abs(planetoid.getDistanceToPrimary()));
+		keyValuePair.append(";"+TEMPERATURE_TYPE).append("=").append(temperatureType);
+		keyValuePair.append(";"+SIZE_TYPE).append("=").append(sizeType);
 		keyValuePair.append(";"+PlanetoidDao.PERCENT_WATER).append("=").append(planetoid.getPercentWater());
 		keyValuePair.append(";"+PlanetoidDao.RADIUS).append("=").append(planetoid.getRadius());
 		keyValuePair.append(";"+PlanetoidDao.PLANETOID_NAME).append("=").append(planetoid.getPlanetoidName());
 		keyValuePair.append(";"+PlanetoidDao.TEMPERATURE).append("=").append(planetoid.getTemperature());
 		
-		List<Atmosphere> atmospheres = atmosphereDao.readAtmosphereAroundPlanet(planetoid);
 		keyValuePair.append(";"+"ACTION").append("=").append("ATMOSPHERE");
 		List<PlanetoidColor> planetoidColors = new ArrayList<PlanetoidColor>();
 		for(Atmosphere atmosphere : atmospheres){

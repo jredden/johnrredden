@@ -2366,6 +2366,8 @@ var processStarAndPlanetsDetail = (function(){
 	const RADIUS = "Radius";
 	const PLANAR_COLOR = "Color";
 	const PLANAR_COLOR_PERCENTAGE = "Percent";
+	const TEMPTYPE = "TempType";
+	const SIZETYPE = "SizeType";
 	
 	const ELPISE_SCALAR = 90000;  // a segmenter for distances of 900 K kloms to 90,000 K kloms
 	
@@ -2444,6 +2446,16 @@ var processStarAndPlanetsDetail = (function(){
 		o_planarVizCentric.setPlanarRadius(value);
 	}
 	
+	function f_tempType(value){
+		console.log("tempType: "+ value);
+//		o_planarVizCentric.setPlanarTemperature(value);
+	}
+
+	function f_sizeType(value){
+		console.log("sizeType: "+ value);
+//		o_planarVizCentric.setPlanarRadius(value);
+	}
+	
 	function f_planarColor(value){
 		o_colorPercentageSet = new colorPercentageSet();
 		o_colorPercentageSet.setPlanarColor(value);
@@ -2473,6 +2485,8 @@ var processStarAndPlanetsDetail = (function(){
 		planetsDictionary.set(DISTANCE_TO_PRIMARY, f_planarDistanceToPrimary);
 		planetsDictionary.set(TEMPERATURE, f_temperature);
 		planetsDictionary.set(RADIUS, f_radius);
+		planetsDictionary.set(TEMPTYPE, f_tempType);
+		planetsDictionary.set(SIZETYPE, f_sizeType);
 		planetsDictionary.set(PLANAR_COLOR, f_planarColor);
 		planetsDictionary.set(PLANAR_COLOR_PERCENTAGE, f_planarColorPercentage);
 		
@@ -2718,6 +2732,9 @@ var processPlanetAndMoonsDetail = (function(){
 	const CHEM_COLOR = "Chem_Color";
 	const PERCENT = "Percent";
 	const COLOR = "Color";
+	const TEMPTYPE = "TempType";
+	const SIZETYPE = "SizeType";
+
 	
 	const o_planarVizCentric = new planarVizCentric();
 	const startX = 5;
@@ -2796,6 +2813,15 @@ var processPlanetAndMoonsDetail = (function(){
 	function planetTemperature(value){
 		o_planarVizCentric.setPlanarTemperature(value);
 		console.log("planetTemperature: "+ value);
+	}
+	function tempType(value){
+		console.log("tempType: "+ value);
+//		o_planarVizCentric.setPlanarTemperature(value);
+	}
+
+	function sizeType(value){
+		console.log("sizeType: "+ value);
+//		o_planarVizCentric.setPlanarRadius(value);
 	}
 	
 	function planetName(value){
@@ -2892,6 +2918,8 @@ var processPlanetAndMoonsDetail = (function(){
 		planetDictionary.set(TEMPERATURE, planetTemperature);
 		planetDictionary.set(PLANAR_NAME, planetName);
 		planetDictionary.set(RADIUS, planetRadius);
+		planetDictionary.set(TEMPTYPE, tempType);
+		planetDictionary.set(SIZETYPE, sizeType);
 		planetDictionary.set(ACTION, action);
 		planetDictionary.set(CHEM_NAME, atmosphereChemName);
 		planetDictionary.set(PERCENTAGE, atmosphereChemPercentage);
@@ -2901,6 +2929,8 @@ var processPlanetAndMoonsDetail = (function(){
 		moonsDictionary.set(PLANAR_NAME, moonName);
 		moonsDictionary.set(DEGREE, moonDegree);
 		moonsDictionary.set(RADIUS, moonRadius);
+		moonsDictionary.set(TEMPTYPE, tempType);
+		moonsDictionary.set(SIZETYPE, sizeType);
 		moonsDictionary.set(DISTANCE_TO_PRIMARY, moonDistanceToPrimary);
 		moonsDictionary.set(TEMPERATURE, moonTemperature);
 		moonsDictionary.set(COLOR, moonColor);

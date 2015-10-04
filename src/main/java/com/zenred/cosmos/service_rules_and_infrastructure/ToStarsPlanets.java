@@ -26,6 +26,8 @@ public class ToStarsPlanets {
 	private static Logger logger = Logger.getLogger(ToStarsPlanets.class);
 	private static final String ATMOSPHERE_COLOR = "Color";
 	private static final String ATMOSPHERE_PERCENTAGE = "Percent";
+	private static final String TEMPERATURE_TYPE = "TempType";
+	private static final String SIZE_TYPE = "SizeType";
 	
 	/**
 	 * 
@@ -62,6 +64,11 @@ public class ToStarsPlanets {
 			keyValuePair.append(";"+PlanetoidDao.PLANETOID_NAME).append("=").append(planetoid.getPlanetoidName());
 			keyValuePair.append(";"+PlanetoidDao.DEGREE).append("=").append(planetoid.getDegree());
 			keyValuePair.append(";"+PlanetoidDao.DISTANCE_TO_PRIMARY).append("=").append(planetoid.getDistanceToPrimary());
+			String temperatureType = GenAtmosphere.temperatureType(planetoid.getTemperature());
+			String sizeType = GenAtmosphere.sizeType(planetoid.getRadius());
+			keyValuePair.append(";"+TEMPERATURE_TYPE).append("=").append(temperatureType);
+			keyValuePair.append(";"+SIZE_TYPE).append("=").append(sizeType);
+			keyValuePair.append(";"+PlanetoidDao.RADIUS).append("=").append(planetoid.getRadius());
 			keyValuePair.append(";"+PlanetoidDao.TEMPERATURE).append("=").append(planetoid.getTemperature());
 			keyValuePair.append(";"+PlanetoidDao.RADIUS).append("=").append(planetoid.getRadius());
 			Map<String, Double> colorAccumulator = new HashMap<String, Double>();

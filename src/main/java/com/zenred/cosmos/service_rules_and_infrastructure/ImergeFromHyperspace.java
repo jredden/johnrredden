@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.zenred.cosmos.domain.Atmosphere;
+import com.zenred.cosmos.domain.AtmosphereParts;
 import com.zenred.cosmos.domain.ClusterFactory;
 import com.zenred.cosmos.domain.ClusterRep;
 import com.zenred.cosmos.domain.ConfigurationDao;
@@ -95,6 +96,9 @@ public class ImergeFromHyperspace {
 					atmospheres = genAtmosphere
 						.persistAtmosphere(star, planetoid);
 					for(Atmosphere atmosphere : atmospheres){
+						if(atmosphere.getChem_name().equals(AtmosphereParts.Water.getText())){
+							planetoid.setPercentWater(atmosphere.getPercentage());
+						}
 						logger.info("PLANETOID ATMOSPHERE_PART:"+ atmosphere);
 					}
 					List<Planetoid> moonsList = new ArrayList<Planetoid>();	// for debugging
