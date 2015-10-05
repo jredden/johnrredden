@@ -36,8 +36,9 @@ public class ToPlanetAndMoons {
 		Planetoid planetoid = planetoidDao.readPlanetoidByName(planetName);
 		
 		List<Atmosphere> atmospheres = atmosphereDao.readAtmosphereAroundPlanet(planetoid);
+		String water = AtmosphereParts.Water.name();
 		for(Atmosphere atmosphere : atmospheres){
-			if(atmosphere.getChem_name().equals(AtmosphereParts.Water.getText())){
+			if(atmosphere.getChem_name().equals(water)){
 				planetoid.setPercentWater(atmosphere.getPercentage());
 			}
 		}

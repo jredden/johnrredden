@@ -15082,32 +15082,31 @@ public class GenAtmosphere {
 		return savedAtmospheres;
 	}
 	
-	public static String temperatureType(Double temperature){
-		Double previousTemperature = 0.0;
+	public static String temperatureType(Double temperature) {
 		String temperatureType = "";
-		for(TemperatureRange temperatureRange : temperaturesRange){
-			Double currrentTemperature = temperatureRange.temperature;
-			if(temperature >=  previousTemperature && temperature < currrentTemperature){
-				temperatureType = temperatureRange.description;
+		for (int idex = 0;; idex++) {
+			Double previousTemperature = temperaturesRange.get(idex).temperature;
+			Double currrentTemperature = temperaturesRange.get(idex + 1).temperature;
+			if (temperature >= previousTemperature
+					&& temperature < currrentTemperature) {
+				temperatureType = temperaturesRange.get(idex).description;
 				break;
 			}
-			previousTemperature = currrentTemperature;
 		}
 		return temperatureType;
 	}
-	
+
 	public static String sizeType(Double radius){
-		Double previousRadius = 0.0;
 		String sizeType = "";
-		for(RadiusRange radiusRange : planetsRadius){
-			Double currentRadius = radiusRange.radius;
+		for (int idex = 0;; idex++) {
+			
+		    Double previousRadius = planetsRadius.get(idex).radius;
+			Double currentRadius = planetsRadius.get(idex+1).radius;
 			if(radius >= previousRadius && radius < currentRadius){
-				sizeType = radiusRange.description;
+				sizeType = planetsRadius.get(idex).description;
 				break;
 			}
-			previousRadius = currentRadius;
-		}
-		
+		}		
 		return sizeType;
 	}
 }

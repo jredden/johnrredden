@@ -68,7 +68,6 @@ public class ToStarsPlanets {
 			String sizeType = GenAtmosphere.sizeType(planetoid.getRadius());
 			keyValuePair.append(";"+TEMPERATURE_TYPE).append("=").append(temperatureType);
 			keyValuePair.append(";"+SIZE_TYPE).append("=").append(sizeType);
-			keyValuePair.append(";"+PlanetoidDao.RADIUS).append("=").append(planetoid.getRadius());
 			keyValuePair.append(";"+PlanetoidDao.TEMPERATURE).append("=").append(planetoid.getTemperature());
 			keyValuePair.append(";"+PlanetoidDao.RADIUS).append("=").append(planetoid.getRadius());
 			Map<String, Double> colorAccumulator = new HashMap<String, Double>();

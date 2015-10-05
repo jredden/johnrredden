@@ -337,6 +337,8 @@ var planarVizCentric = (function (){
 	var planarDistanceToPrimary;	// kilometers
 	var planarTemperature; 			// Kelvin
 	var planarRadius;				// kilometers
+	var planarTempType;
+	var planarSizeType;
 	var planarPecentageWater;
 	var planarColorsArray = [];
 	var gradientsArray = [];
@@ -373,6 +375,18 @@ var planarVizCentric = (function (){
 		},
 		getPlanarRadius: function(){
 			return planarRadius;
+		},
+		setPlanarTempType: function(tempType){
+			planarTempType = tempType;
+		},
+		getPlanarTempType: function(){
+			return planarTempType;
+		},
+		setPlanarSizeType: function(sizeType){
+			planarSizeType = sizeType;
+		},
+		getPlanarSizeType: function(){
+			return planarSizeType;
 		},
 		addColorPercentage: function(colorPercentage){
 			planarColorsArray.push(colorPercentage);
@@ -2448,12 +2462,12 @@ var processStarAndPlanetsDetail = (function(){
 	
 	function f_tempType(value){
 		console.log("tempType: "+ value);
-//		o_planarVizCentric.setPlanarTemperature(value);
+		o_planarVizCentric.setPlanarTempType(value);
 	}
 
 	function f_sizeType(value){
 		console.log("sizeType: "+ value);
-//		o_planarVizCentric.setPlanarRadius(value);
+		o_planarVizCentric.setPlanarSizeType(value);
 	}
 	
 	function f_planarColor(value){
@@ -2769,16 +2783,20 @@ var processPlanetAndMoonsDetail = (function(){
 		this.emptyMessage = "error, not initialized";
 		var selectMessage;
 		this.selectMessage = "error, not initialized";
+		var fromMessage;
+		this.fromMessage = "error, not initialized";
 	}
 	baseMessage.prototype.Planet = function(){
 		this.planarMessage = "Planet";
 		this.emptyMessage = "Planet does not have any moons";
 		this.selectMessage = "Select Moon by Moon Image";
+		this.fromMessage = "Star";
 	}
 	baseMessage.prototype.Moon = function(){
 		this.planarMessage = "Moon";
 		this.emptyMessage = "Moon does not have satellites";
 		this.selectMessage = "No Satellites To Select";
+		this.fromMessage = "Planet";
 	}
 	baseMessage.prototype.getMode = function(){
 		return this.planarMessage;
@@ -2788,6 +2806,9 @@ var processPlanetAndMoonsDetail = (function(){
 	}
 	baseMessage.prototype.getSelect = function(){
 		return this.selectMessage;
+	}
+	baseMessage.prototype.getFrom = function(){
+		return this.fromMessage;
 	}
 	
 	function planetDegree(value){
@@ -2816,12 +2837,12 @@ var processPlanetAndMoonsDetail = (function(){
 	}
 	function tempType(value){
 		console.log("tempType: "+ value);
-//		o_planarVizCentric.setPlanarTemperature(value);
+		o_planarVizCentric.setPlanarTempType(value);
 	}
 
 	function sizeType(value){
 		console.log("sizeType: "+ value);
-//		o_planarVizCentric.setPlanarRadius(value);
+		o_planarVizCentric.setPlanarSizeType(value);
 	}
 	
 	function planetName(value){
@@ -2959,12 +2980,15 @@ var processPlanetAndMoonsDetail = (function(){
 	
 	function drawPlanetDetails(){
 		var planarType = o_baseMessage.getMode();
+		var fromMessage = o_baseMessage.getFrom();
 		var planarName = o_planarVizCentric.getPlanarName();
 		var planarDegree = o_planarVizCentric.getPlanarDegree()*(180/Math.PI);  // radians to degrees
 		var distanceToParentStar = o_planarVizCentric.getPlanarDistanceToPrimary();
 		var temperature = o_planarVizCentric.getPlanarTemperature();	// kelvin
 		var radius = o_planarVizCentric.getPlanarRadius();
 		var percentageWater = o_planarVizCentric.getPlanarPercentWater();
+		var tempType = o_planarVizCentric.getPlanarTempType();
+		var sizeType = o_planarVizCentric.getPlanarSizeType();
 		
 		var ctx = canvasas.fetchStarsInClusterTextCanvasContext();
 		var runningX = startX;
@@ -2982,16 +3006,22 @@ var processPlanetAndMoonsDetail = (function(){
 
 		ctx.font="14px Verdana";
 		ctx.strokeStyle = "lightblue";
-		ctx.strokeText(planarType +" Angle from Star: "+planarDegree, runningX, runningY);
+		ctx.strokeText(planarType +" Angle from "+fromMessage+": "+planarDegree, runningX, runningY);
 		runningY += incrementY;
 		runningX = startX;
-		ctx.strokeText(planarType +" Distance from Star: "+distanceToParentStar, runningX, runningY);		
+		ctx.strokeText(planarType +" Distance from "+fromMessage+": "+distanceToParentStar, runningX, runningY);		
 		runningY += incrementY;
 		runningX = startX;
 		ctx.strokeText(planarType +" Temperature Kelvin: "+temperature, runningX, runningY);		
 		runningY += incrementY;
 		runningX = startX;
-		ctx.strokeText(planarType + " Radius: "+radius, runningX, runningY);		
+		ctx.strokeText(planarType + " Radius in Kilometers: "+radius, runningX, runningY);		
+		runningY += incrementY;
+		runningX = startX;
+		ctx.strokeText(planarType + " Temperature Type: "+tempType, runningX, runningY);		
+		runningY += incrementY;
+		runningX = startX;
+		ctx.strokeText(planarType + " Size Type: "+sizeType, runningX, runningY);		
 		runningY += incrementY;
 		runningX = startX;
 		ctx.strokeText("Percentage Water of "+ planarType +": "+percentageWater, runningX, runningY);	
