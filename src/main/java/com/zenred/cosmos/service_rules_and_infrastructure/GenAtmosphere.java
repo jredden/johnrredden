@@ -15033,7 +15033,7 @@ public class GenAtmosphere {
 		temperaturesRange.add(genAtmosphere.new TemperatureRange(new Double(
 				41.0), "ice", 1)); // ice start range
 		temperaturesRange.add(genAtmosphere.new TemperatureRange(new Double(
-				101.0), "rock", 2)); // rock, terran like range
+				101.0), "temperate", 2)); // rock, terran like range
 		temperaturesRange.add(genAtmosphere.new TemperatureRange(new Double(
 				701.0), "hot", 3)); // cythian, or hot gas
 		temperaturesRange.add(genAtmosphere.new TemperatureRange(new Double(

@@ -9,7 +9,7 @@ public enum AtmosphereParts {
 
 	Methane("methane", "ch[4]", 90.6, 109.0,"#307D7E"), SulfuricAcid("sulfuric_acid",
 			"h[1]so[4]", 283.15, 613.15, "none"), CarbonDioxide("carbon_dioxide",
-			"co[1]", 194.5, 216.5, "none"), Nitrogen("nitrogen", "n[1]", 64.0, 78.0, "none"), Ammonia(
+			"co[2]", 194.5, 216.5, "none"), Nitrogen("nitrogen", "n[1]", 64.0, 78.0, "none"), Ammonia(
 			"ammonia", "nh[3]", 195.3, 239.6, "white"), NitrogenDioxide(
 			"nitrogen_dioxide", "no[1]", 261.8, 294.2, "#C35817"), Oxygen("oxygen",
 			"o[1]", 54.6, 90.0, "none"), Water("water", "h[2]o", 273.0, 373.0, "blue"), Neon(
