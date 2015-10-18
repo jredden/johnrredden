@@ -1,0 +1,10 @@
+package com.zenred.cosmos.service_rules_and_infrastructure;
+
+import com.zenred.cosmos.domain.Atmosphere;
+
+rule IncreaseHydrogen when
+    $atmosphere : Atmosphere()
+    IsHydrogen( atmosphere == $atmosphere )
+then
+    $atmosphere.percentage = $atmosphere.percentage +100.0;
+end

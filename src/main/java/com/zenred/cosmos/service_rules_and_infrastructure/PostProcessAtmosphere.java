@@ -1,24 +1,27 @@
 package com.zenred.cosmos.service_rules_and_infrastructure;
 
+import java.util.List;
+
 import org.kie.api.KieServices;
-import org.kie.api.event.rule.DebugAgendaEventListener;
-import org.kie.api.event.rule.DebugRuleRuntimeEventListener;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
-import org.drools.core.util.IoUtils;
-import org.kie.api.io.ResourceType;
-import org.kie.api.runtime.rule.RuleRuntime;
 
-import org.kie.internal.KnowledgeBaseFactory;
-import org.kie.internal.builder.KnowledgeBuilder;
-import org.kie.internal.builder.KnowledgeBuilderFactory;
-import org.kie.internal.definition.KnowledgePackage;
-import org.kie.internal.io.ResourceFactory;
-import org.kie.internal.runtime.StatefulKnowledgeSession;
+import com.zenred.cosmos.domain.Atmosphere;
+import com.zenred.cosmos.domain.Planetoid;
 
 
 public class PostProcessAtmosphere {
 	
-	
+	public static void processByRules(List<Atmosphere> atmospheres, Planetoid planetoid){
+        KieContainer kc = KieServices.Factory.get().getKieClasspathContainer();
+        KieSession ksession = kc.newKieSession("PostProcessAtmosphere");
+        ksession.insert(planetoid);
+        for(Atmosphere atmosphere : atmospheres){
+        	ksession.insert(atmosphere);
+        }
+        ksession.fireAllRules();
+        ksession.dispose(); // Stateful rule session must always be disposed when finished
+
+	}
 
 }

@@ -63,6 +63,8 @@ public class Atmosphere {
 				+ planetoidId + ", chem_name=" + chem_name + ", percentage="
 				+ percentage + ", datestamp=" + datestamp + "]";
 	}
+	
+	
 	/**
 	 * 
 	 * @param planetoidId
@@ -84,6 +86,58 @@ public class Atmosphere {
 	 */
 	public static String[] csvAtmosphere(){
 		return new String[] { AtmosphereDao.PLANETOID_ID,AtmosphereDao.CHEM_NAME, AtmosphereDao.PERCENTAGE};
+	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((atmosphereId == null) ? 0 : atmosphereId.hashCode());
+		result = prime * result
+				+ ((chem_name == null) ? 0 : chem_name.hashCode());
+		result = prime * result
+				+ ((datestamp == null) ? 0 : datestamp.hashCode());
+		result = prime * result
+				+ ((percentage == null) ? 0 : percentage.hashCode());
+		result = prime * result
+				+ ((planetoidId == null) ? 0 : planetoidId.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Atmosphere other = (Atmosphere) obj;
+		if (atmosphereId == null) {
+			if (other.atmosphereId != null)
+				return false;
+		} else if (!atmosphereId.equals(other.atmosphereId))
+			return false;
+		if (chem_name == null) {
+			if (other.chem_name != null)
+				return false;
+		} else if (!chem_name.equals(other.chem_name))
+			return false;
+		if (datestamp == null) {
+			if (other.datestamp != null)
+				return false;
+		} else if (!datestamp.equals(other.datestamp))
+			return false;
+		if (percentage == null) {
+			if (other.percentage != null)
+				return false;
+		} else if (!percentage.equals(other.percentage))
+			return false;
+		if (planetoidId == null) {
+			if (other.planetoidId != null)
+				return false;
+		} else if (!planetoidId.equals(other.planetoidId))
+			return false;
+		return true;
 	}
 
 }
