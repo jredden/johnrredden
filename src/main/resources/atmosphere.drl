@@ -1,6 +1,7 @@
 package com.zenred.cosmos.service_rules_and_infrastructure;
 
 import com.zenred.cosmos.domain.Atmosphere;
+dialect "mvel"
 
 rule IncreaseHydrogen when
     $atmosphere : Atmosphere()

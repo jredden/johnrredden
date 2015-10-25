@@ -1,11 +1,11 @@
 package com.zenred.cosmos.service_rules_and_infrastructure;
 
 import java.util.List;
+import java.util.Properties;
 
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
-
 
 import com.zenred.cosmos.domain.Atmosphere;
 import com.zenred.cosmos.domain.Planetoid;
@@ -13,7 +13,13 @@ import com.zenred.cosmos.domain.Planetoid;
 
 public class PostProcessAtmosphere {
 	
+	public static String NATIVE = "NATIVE";
+	public static String JAVA_COMPILER_PROPERTY = "drools.dialect.java.compiler";
+	
+	
 	public static void processByRules(List<Atmosphere> atmospheres, Planetoid planetoid){
+		Properties properties = System.getProperties();
+		properties.setProperty(JAVA_COMPILER_PROPERTY, NATIVE);
         KieContainer kc = KieServices.Factory.get().getKieClasspathContainer();
         KieSession ksession = kc.newKieSession("PostProcessAtmosphere");
         ksession.insert(planetoid);

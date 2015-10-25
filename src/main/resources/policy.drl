@@ -2,6 +2,7 @@ package com.zenred.cosmos.service_rules_and_infrastructure;
 
 import com.zenred.cosmos.domain.Atmosphere;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsHydrogen;
+dialect "mvel"
 
 rule IsHydrogen when
     atmosphere : Atmosphere( chem_name == 'Hydrogen' )

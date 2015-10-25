@@ -1,4 +1,5 @@
 package com.zenred.cosmos.service_rules_and_infrastructure;
+dialect "mvel"
 
 import com.zenred.cosmos.domain.Atmosphere;
 
