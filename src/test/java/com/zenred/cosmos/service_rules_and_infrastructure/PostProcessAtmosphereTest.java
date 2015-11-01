@@ -5,13 +5,15 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.junit.Test;
-
 
 import com.zenred.cosmos.domain.Atmosphere;
 import com.zenred.cosmos.domain.Planetoid;
 
 public class PostProcessAtmosphereTest {
+	
+	private static Logger logger = Logger.getLogger(PostProcessAtmosphereTest.class);
 
 	@Test
 	public void test() {
@@ -22,6 +24,7 @@ public class PostProcessAtmosphereTest {
 		atmosphere.setPercentage(0.5);
 		atmospheres.add(atmosphere);
 		PostProcessAtmosphere.processByRules(atmospheres, planetoid);
+		logger.info("Atmospheres:"+atmospheres);
 		
 	}
 

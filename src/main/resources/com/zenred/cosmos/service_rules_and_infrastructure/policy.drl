@@ -7,5 +7,6 @@ dialect "mvel"
 rule IsHydrogen when
     atmosphere : Atmosphere( chem_name == 'Hydrogen' )
 then
-    insertLogical( new IsHydrogen( p ) );
+    insertLogical( new IsHydrogen( atmosphere ) );
+    System.out.println("in IsHydrogen"+atmosphere);
 end

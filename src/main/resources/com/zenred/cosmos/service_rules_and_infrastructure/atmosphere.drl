@@ -8,4 +8,5 @@ rule IncreaseHydrogen when
     IsHydrogen( atmosphere == $atmosphere )
 then
     $atmosphere.percentage = $atmosphere.percentage +100.0;
+    System.out.println("atmosphere.percentage:"+$atmosphere);
 end

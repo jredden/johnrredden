@@ -5,6 +5,10 @@ import com.zenred.cosmos.domain.Atmosphere;
 public class IsHydrogen {
 	
 	private Atmosphere atmosphere;
+	
+	public IsHydrogen(Atmosphere atmosphere){
+		this.atmosphere = atmosphere;
+	}
 
 	public Atmosphere getAtmosphere() {
 		return atmosphere;

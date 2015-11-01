@@ -5,6 +5,11 @@
 	<kbase name="PostProcessAtmosphereKB" packages="com.zenred.cosmos.service_rules_and_infrastructure">
 		<ksession name="PostProcessAtmosphere" />
 	</kbase>
+	
+	<kbase name="HelloWorldKB" packages="com.zenred.cosmos.service_rules_and_infrastructure.examples.helloworld">
+        <ksession name="HelloWorldKS"/>
+    </kbase>
+	
 
 
 </kmodule>
