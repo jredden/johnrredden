@@ -10,12 +10,11 @@ import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 
 import com.zenred.cosmos.domain.Atmosphere;
-import com.zenred.cosmos.domain.PlanetConstraints;
 import com.zenred.cosmos.domain.Planetoid;
-import com.zenred.cosmos.domain.PlanetoidColor;
 
 
 public class PostProcessAtmosphere {
+	
 	
 	public static String NATIVE = "NATIVE";
 	public static String JAVA_COMPILER_PROPERTY = "drools.dialect.java.compiler";
@@ -29,7 +28,8 @@ public class PostProcessAtmosphere {
         ksession.addEventListener( new DebugAgendaEventListener() );
         ksession.addEventListener( new DebugRuleRuntimeEventListener() );
         ksession.insert(planetoid);
-        ksession.insert(new PlanetConstraints());
+        ksession.insert(new RadiusRangeConst());
+        ksession.fireAllRules();
  
         for(Atmosphere atmosphere : atmospheres){
         	ksession.insert(atmosphere);

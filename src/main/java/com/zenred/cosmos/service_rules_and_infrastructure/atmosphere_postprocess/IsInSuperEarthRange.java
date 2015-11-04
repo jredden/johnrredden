@@ -2,9 +2,9 @@ package com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postproces
 
 import com.zenred.cosmos.domain.Planetoid;
 
-public class IsInGasGiantRange extends IsInRange {
+public class IsInSuperEarthRange extends IsInRange {
 
-	public IsInGasGiantRange(Planetoid planetoid) {
+	public IsInSuperEarthRange(Planetoid planetoid) {
 		super(planetoid);
 	}
 

@@ -15005,24 +15005,24 @@ public class GenAtmosphere {
 	private static GenAtmosphere genAtmosphere = new GenAtmosphere();
 	private static List<RadiusRange> planetsRadius = new ArrayList<RadiusRange>();
 	static {
-		planetsRadius.add(genAtmosphere.new RadiusRange(RadiusRangeConstant.DWARF_PLANETOID,
+		planetsRadius.add(genAtmosphere.new RadiusRange(RadiusRangeConst.DWARF_PLANETOID,
 				"dwarf planetoid", 0)); // dwarf planetoid start range
-		planetsRadius.add(genAtmosphere.new RadiusRange(RadiusRangeConstant.MINI_PLANETOID,
+		planetsRadius.add(genAtmosphere.new RadiusRange(RadiusRangeConst.MINI_PLANETOID,
 				"mini planetoid", 1)); // mini planetoid start range
-		planetsRadius.add(genAtmosphere.new RadiusRange(RadiusRangeConstant.EARTH_PLANETOID,
+		planetsRadius.add(genAtmosphere.new RadiusRange(RadiusRangeConst.EARTH_PLANETOID,
 				"terran planetoid", 2)); // terran planetoid start range
-		planetsRadius.add(genAtmosphere.new RadiusRange(RadiusRangeConstant.SUPER_EARTH_PLANETOID,
+		planetsRadius.add(genAtmosphere.new RadiusRange(RadiusRangeConst.SUPER_EARTH_PLANETOID,
 				"super terran planetoid", 3)); // super terran planetoid start
 												// range
-		planetsRadius.add(genAtmosphere.new RadiusRange(RadiusRangeConstant.MINI_GAS_GIANT_PLANETOID,
+		planetsRadius.add(genAtmosphere.new RadiusRange(RadiusRangeConst.MINI_GAS_GIANT_PLANETOID,
 				"mini gas giant planetoid", 4)); // mini gas giant planetoid
 													// start range
-		planetsRadius.add(genAtmosphere.new RadiusRange(RadiusRangeConstant.GAS_GIANT_PLANETOID,
+		planetsRadius.add(genAtmosphere.new RadiusRange(RadiusRangeConst.GAS_GIANT_PLANETOID,
 				"gas giant planetoid", 5)); // gas giant planetoid start range
-		planetsRadius.add(genAtmosphere.new RadiusRange(RadiusRangeConstant.SUPER_GAS_GIANT_PLANETOID,
+		planetsRadius.add(genAtmosphere.new RadiusRange(RadiusRangeConst.SUPER_GAS_GIANT_PLANETOID,
 				"super gas giant planetoid", 6)); // super gas giant planetoid
 													// start range
-		planetsRadius.add(genAtmosphere.new RadiusRange(RadiusRangeConstant.THE_END, "end", 7));
+		planetsRadius.add(genAtmosphere.new RadiusRange(RadiusRangeConst.THE_END, "end", 7));
 	}
 
 	private static List<TemperatureRange> temperaturesRange = new ArrayList<TemperatureRange>();

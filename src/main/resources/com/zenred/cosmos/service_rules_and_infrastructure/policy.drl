@@ -2,6 +2,11 @@ package com.zenred.cosmos.service_rules_and_infrastructure;
 
 import com.zenred.cosmos.domain.Atmosphere;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsHydrogen;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsHelium;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInGasGiantRange;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInSuperEarthRange;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInEarthLikeRange;
+import com.zenred.cosmos.domain.Planetoid;
 
 dialect  "mvel"
 
@@ -12,3 +17,30 @@ then
     System.out.println("in IsHydrogen"+atmosphere);
 end
 
+rule IsHelium when
+    atmosphere : Atmosphere( chem_name == 'Helium' )
+then
+    insertLogical( new IsHelium( atmosphere ) );
+    System.out.println("in IsHelium"+atmosphere);
+end
+
+rule IsInGasGiantRange when
+	radiusRangeConst : RadiusRangeConst()
+	planetoid : Planetoid(radius >= radiusRangeConst.MINI_GAS_GIANT_PLANETOID)
+then
+	insertLogical(new IsInGasGiantRange(planetoid));
+end
+
+rule IsInSuperEarthRange when
+	radiusRangeConst : RadiusRangeConst()
+	planetoid : Planetoid(radius >= radiusRangeConst.SUPER_EARTH_PLANETOID && radius < radiusRangeConst.MINI_GAS_GIANT_PLANETOID)
+then
+	insertLogical(new IsInSuperEarthRange(planetoid));
+end
+
+rule IsInEarthLikeRange when
+	radiusRangeConst : RadiusRangeConst()
+	planetoid : Planetoid(radius >= radiusRangeConst.EARTH_PLANETOID && radius < radiusRangeConst.SUPER_EARTH_PLANETOID)
+then
+	insertLogical(new IsInEarthLikeRange(planetoid));
+end

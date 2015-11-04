@@ -8,7 +8,58 @@ rule IncreaseHydrogen when
     $atmosphere : Atmosphere()
     $planetoid : Planetoid()
     IsHydrogen( atmosphere == $atmosphere )
+    IsInGasGiantRange(planetoid == $planetoid)
 then
     $atmosphere.percentage = $atmosphere.percentage +100.0;
+    System.out.println("atmosphere.percentage:"+$atmosphere);
+end
+
+rule IncreaseHelium when
+    $atmosphere : Atmosphere()
+    $planetoid : Planetoid()
+    IsHelium( atmosphere == $atmosphere )
+    IsInGasGiantRange(planetoid == $planetoid)
+then
+    $atmosphere.percentage = $atmosphere.percentage +100.0;
+    System.out.println("atmosphere.percentage:"+$atmosphere);
+end
+
+rule IncreaseHydrogenAbit when
+    $atmosphere : Atmosphere()
+    $planetoid : Planetoid()
+    IsHydrogen( atmosphere == $atmosphere )
+    IsInSuperEarthRange(planetoid == $planetoid)
+then
+    $atmosphere.percentage = $atmosphere.percentage +50.0;
+    System.out.println("atmosphere.percentage:"+$atmosphere);
+end
+
+rule IncreaseHeliumAbit when
+    $atmosphere : Atmosphere()
+    $planetoid : Planetoid()
+    IsHelium( atmosphere == $atmosphere )
+    IsInSuperEarthRange(planetoid == $planetoid)
+then
+    $atmosphere.percentage = $atmosphere.percentage +50.0;
+    System.out.println("atmosphere.percentage:"+$atmosphere);
+end
+
+rule DecreaseHydrogen when
+    $atmosphere : Atmosphere()
+    $planetoid : Planetoid()
+    IsHydrogen( atmosphere == $atmosphere )
+    IsInEarthLikeRange(planetoid == $planetoid)
+then
+    $atmosphere.percentage = $atmosphere.percentage /25.0;
+    System.out.println("atmosphere.percentage:"+$atmosphere);
+end
+
+rule DecreaseHelium when
+    $atmosphere : Atmosphere()
+    $planetoid : Planetoid()
+    IsHelium( atmosphere == $atmosphere )
+    IsInEarthLikeRange(planetoid == $planetoid)
+then
+    $atmosphere.percentage = $atmosphere.percentage /25.0;
     System.out.println("atmosphere.percentage:"+$atmosphere);
 end

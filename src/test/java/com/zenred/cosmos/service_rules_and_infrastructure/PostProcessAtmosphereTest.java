@@ -22,11 +22,55 @@ public class PostProcessAtmosphereTest {
 		Atmosphere atmosphere = new Atmosphere();
 		planetoid.setRadius(17000.0);
 		planetoid.setTemperature(100.0);
+		
 		atmosphere.setChem_name("Hydrogen");
 		atmosphere.setPercentage(0.5);
 		atmospheres.add(atmosphere);
+		
+		atmosphere = new Atmosphere();
+		atmosphere.setChem_name("Helium");
+		atmosphere.setPercentage(1.5);
+		atmospheres.add(atmosphere);
+		
 		PostProcessAtmosphere.processByRules(atmospheres, planetoid);
 		logger.info("Atmospheres:"+atmospheres);
+		
+		atmospheres = new ArrayList<Atmosphere>();
+		planetoid = new Planetoid();
+		atmosphere = new Atmosphere();
+		planetoid.setRadius(7000.0);
+		planetoid.setTemperature(100.0);
+		
+		atmosphere.setChem_name("Hydrogen");
+		atmosphere.setPercentage(0.8);
+		atmospheres.add(atmosphere);
+		
+		atmosphere = new Atmosphere();
+		atmosphere.setChem_name("Helium");
+		atmosphere.setPercentage(1.8);
+		atmospheres.add(atmosphere);
+		
+		PostProcessAtmosphere.processByRules(atmospheres, planetoid);
+		logger.info("Atmospheres2:"+atmospheres);
+		
+		atmospheres = new ArrayList<Atmosphere>();
+		planetoid = new Planetoid();
+		atmosphere = new Atmosphere();
+		planetoid.setRadius(4000.0);
+		planetoid.setTemperature(100.0);
+		
+		atmosphere.setChem_name("Hydrogen");
+		atmosphere.setPercentage(22.2);
+		atmospheres.add(atmosphere);
+		
+		atmosphere = new Atmosphere();
+		atmosphere.setChem_name("Helium");
+		atmosphere.setPercentage(19.8);
+		atmospheres.add(atmosphere);
+		
+		PostProcessAtmosphere.processByRules(atmospheres, planetoid);
+		logger.info("Atmospheres3:"+atmospheres);
+
 		
 	}
 
