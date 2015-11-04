@@ -20,6 +20,8 @@ public class PostProcessAtmosphereTest {
 		List<Atmosphere> atmospheres = new ArrayList<Atmosphere>();
 		Planetoid planetoid = new Planetoid();
 		Atmosphere atmosphere = new Atmosphere();
+		planetoid.setRadius(17000.0);
+		planetoid.setTemperature(100.0);
 		atmosphere.setChem_name("Hydrogen");
 		atmosphere.setPercentage(0.5);
 		atmospheres.add(atmosphere);

@@ -2,48 +2,12 @@ package com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postproces
 
 import com.zenred.cosmos.domain.Atmosphere;
 
-public class IsHydrogen {
-	
-	private Atmosphere atmosphere;
-	
-	public IsHydrogen(Atmosphere atmosphere){
-		this.atmosphere = atmosphere;
-	}
 
-	public Atmosphere getAtmosphere() {
-		return atmosphere;
-	}
 
-	public void setAtmosphere(Atmosphere atmosphere) {
-		this.atmosphere = atmosphere;
-	}
+public class IsHydrogen extends IsAnAtmosphere {
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((atmosphere == null) ? 0 : atmosphere.hashCode());
-		return result;
+	public IsHydrogen(Atmosphere atmosphere) {
+		super(atmosphere);
 	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		IsHydrogen other = (IsHydrogen) obj;
-		if (atmosphere == null) {
-			if (other.atmosphere != null)
-				return false;
-		} else if (!atmosphere.equals(other.atmosphere))
-			return false;
-		return true;
-	}
-	
-	
 
 }

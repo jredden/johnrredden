@@ -1,10 +1,12 @@
 package com.zenred.cosmos.service_rules_and_infrastructure;
 
 import com.zenred.cosmos.domain.Atmosphere;
+import com.zenred.cosmos.domain.Planetoid;
 dialect "mvel"
 
 rule IncreaseHydrogen when
     $atmosphere : Atmosphere()
+    $planetoid : Planetoid()
     IsHydrogen( atmosphere == $atmosphere )
 then
     $atmosphere.percentage = $atmosphere.percentage +100.0;

@@ -2,7 +2,8 @@ package com.zenred.cosmos.service_rules_and_infrastructure;
 
 import com.zenred.cosmos.domain.Atmosphere;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsHydrogen;
-dialect "mvel"
+
+dialect  "mvel"
 
 rule IsHydrogen when
     atmosphere : Atmosphere( chem_name == 'Hydrogen' )
@@ -10,3 +11,4 @@ then
     insertLogical( new IsHydrogen( atmosphere ) );
     System.out.println("in IsHydrogen"+atmosphere);
 end
+

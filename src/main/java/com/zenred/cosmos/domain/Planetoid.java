@@ -164,6 +164,87 @@ public class Planetoid {
 				+ degree + ", temperature=" + temperature + ", percentWater="
 				+ percentWater + ", datestamp=" + datestamp + "]";
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((datestamp == null) ? 0 : datestamp.hashCode());
+		result = prime * result + ((degree == null) ? 0 : degree.hashCode());
+		result = prime
+				* result
+				+ ((distanceToPrimary == null) ? 0 : distanceToPrimary
+						.hashCode());
+		result = prime * result
+				+ ((percentWater == null) ? 0 : percentWater.hashCode());
+		result = prime * result
+				+ ((planetoidId == null) ? 0 : planetoidId.hashCode());
+		result = prime * result
+				+ ((planetoidName == null) ? 0 : planetoidName.hashCode());
+		result = prime * result + ((radius == null) ? 0 : radius.hashCode());
+		result = prime * result + ((repId == null) ? 0 : repId.hashCode());
+		result = prime * result
+				+ ((temperature == null) ? 0 : temperature.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Planetoid other = (Planetoid) obj;
+		if (datestamp == null) {
+			if (other.datestamp != null)
+				return false;
+		} else if (!datestamp.equals(other.datestamp))
+			return false;
+		if (degree == null) {
+			if (other.degree != null)
+				return false;
+		} else if (!degree.equals(other.degree))
+			return false;
+		if (distanceToPrimary == null) {
+			if (other.distanceToPrimary != null)
+				return false;
+		} else if (!distanceToPrimary.equals(other.distanceToPrimary))
+			return false;
+		if (percentWater == null) {
+			if (other.percentWater != null)
+				return false;
+		} else if (!percentWater.equals(other.percentWater))
+			return false;
+		if (planetoidId == null) {
+			if (other.planetoidId != null)
+				return false;
+		} else if (!planetoidId.equals(other.planetoidId))
+			return false;
+		if (planetoidName == null) {
+			if (other.planetoidName != null)
+				return false;
+		} else if (!planetoidName.equals(other.planetoidName))
+			return false;
+		if (radius == null) {
+			if (other.radius != null)
+				return false;
+		} else if (!radius.equals(other.radius))
+			return false;
+		if (repId == null) {
+			if (other.repId != null)
+				return false;
+		} else if (!repId.equals(other.repId))
+			return false;
+		if (temperature == null) {
+			if (other.temperature != null)
+				return false;
+		} else if (!temperature.equals(other.temperature))
+			return false;
+		return true;
+	}
 	
 
 }
