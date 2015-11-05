@@ -61,7 +61,7 @@ public class GenAtmosphere {
 		}
 	}
 
-	private static List<Atmosphere> normalize(List<Atmosphere> atmospheres){
+	protected static List<Atmosphere> normalize(List<Atmosphere> atmospheres){
 		
 		Double divisor = 0.0;
 		for(Atmosphere atmosphere : atmospheres){
@@ -15072,6 +15072,7 @@ public class GenAtmosphere {
 				+ temperatureKey;
 
 		atmospheres = ruleMap.get(key).resolve(starFactory);
+		PostProcessAtmosphere.processByRules(atmospheres, planetoid);
 		List<Atmosphere> savedAtmospheres = new ArrayList<Atmosphere>();
 		AtmosphereDao atmosphereDao = new AtmosphereDao();
 		for(Atmosphere atmosphere : atmospheres){

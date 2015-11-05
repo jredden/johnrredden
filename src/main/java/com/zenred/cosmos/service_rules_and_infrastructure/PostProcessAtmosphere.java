@@ -30,7 +30,7 @@ public class PostProcessAtmosphere {
         ksession.insert(planetoid);
         ksession.insert(new RadiusRangeConst());
         ksession.insert(new TemperatureRangeConst());
-               ksession.fireAllRules();
+        ksession.fireAllRules();
  
         for(Atmosphere atmosphere : atmospheres){
         	ksession.insert(atmosphere);
@@ -38,7 +38,7 @@ public class PostProcessAtmosphere {
         ksession.fireAllRules();
         
         ksession.dispose(); // Stateful rule session must always be disposed when finished
-
+        GenAtmosphere.normalize(atmospheres);
 	}
 
 }
