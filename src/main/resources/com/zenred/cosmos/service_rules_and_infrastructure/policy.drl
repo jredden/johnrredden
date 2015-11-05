@@ -3,9 +3,12 @@ package com.zenred.cosmos.service_rules_and_infrastructure;
 import com.zenred.cosmos.domain.Atmosphere;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsHydrogen;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsHelium;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsOxygen;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsNitrogen;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInGasGiantRange;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInSuperEarthRange;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInEarthLikeRange;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInGoldilocksRange;
 import com.zenred.cosmos.domain.Planetoid;
 
 dialect  "mvel"
@@ -22,6 +25,20 @@ rule IsHelium when
 then
     insertLogical( new IsHelium( atmosphere ) );
     System.out.println("in IsHelium"+atmosphere);
+end
+
+rule IsNitrogen when
+    atmosphere : Atmosphere( chem_name == 'Nitrogen' )
+then
+    insertLogical( new IsNitrogen( atmosphere ) );
+    System.out.println("in IsNitrogen"+atmosphere);
+end
+
+rule IsOxygen when
+    atmosphere : Atmosphere( chem_name == 'Oxygen' )
+then
+    insertLogical( new IsOxygen( atmosphere ) );
+    System.out.println("in IsOxygen"+atmosphere);
 end
 
 rule IsInGasGiantRange when
@@ -43,4 +60,13 @@ rule IsInEarthLikeRange when
 	planetoid : Planetoid(radius >= radiusRangeConst.EARTH_PLANETOID && radius < radiusRangeConst.SUPER_EARTH_PLANETOID)
 then
 	insertLogical(new IsInEarthLikeRange(planetoid));
+end
+
+rule IsInGoldilocksRange when
+	radiusRangeConst : RadiusRangeConst()
+	temperatureRangeConst : TemperatureRangeConst()
+	planetoid : Planetoid(radius >= radiusRangeConst.EARTH_PLANETOID && radius < radiusRangeConst.SUPER_EARTH_PLANETOID,
+		temperature > temperatureRangeConst.LOWERGOLDILOCKS && temperature <= temperatureRangeConst.UPPERGOLDILOCKS)
+then
+	insertLogical(new IsInGoldilocksRange(planetoid));
 end

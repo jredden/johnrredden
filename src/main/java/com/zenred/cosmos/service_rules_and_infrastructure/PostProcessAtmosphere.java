@@ -29,7 +29,8 @@ public class PostProcessAtmosphere {
         ksession.addEventListener( new DebugRuleRuntimeEventListener() );
         ksession.insert(planetoid);
         ksession.insert(new RadiusRangeConst());
-        ksession.fireAllRules();
+        ksession.insert(new TemperatureRangeConst());
+               ksession.fireAllRules();
  
         for(Atmosphere atmosphere : atmospheres){
         	ksession.insert(atmosphere);

@@ -70,6 +70,36 @@ public class PostProcessAtmosphereTest {
 		
 		PostProcessAtmosphere.processByRules(atmospheres, planetoid);
 		logger.info("Atmospheres3:"+atmospheres);
+				
+		atmospheres = new ArrayList<Atmosphere>();
+		planetoid = new Planetoid();
+		atmosphere = new Atmosphere();
+		planetoid.setRadius(4000.0);
+		planetoid.setTemperature(275.0);
+		
+		atmosphere.setChem_name("Hydrogen");
+		atmosphere.setPercentage(25.2);
+		atmospheres.add(atmosphere);
+		
+		atmosphere = new Atmosphere();
+		atmosphere.setChem_name("Helium");
+		atmosphere.setPercentage(19.99);
+		atmospheres.add(atmosphere);
+		
+		atmosphere = new Atmosphere();
+		atmosphere.setChem_name("Oxygen");
+		atmosphere.setPercentage(8.8);
+		atmospheres.add(atmosphere);
+		
+		atmosphere = new Atmosphere();
+		atmosphere.setChem_name("Nitrogen");
+		atmosphere.setPercentage(10.8);
+		atmospheres.add(atmosphere);
+
+		
+		PostProcessAtmosphere.processByRules(atmospheres, planetoid);
+		logger.info("Atmospheres4:"+atmospheres);
+
 
 		
 	}
