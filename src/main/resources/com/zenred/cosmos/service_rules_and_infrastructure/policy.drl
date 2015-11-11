@@ -70,3 +70,12 @@ rule IsInGoldilocksRange when
 then
 	insertLogical(new IsInGoldilocksRange(planetoid));
 end
+
+rule IsAHotGasGiant when
+	radiusRangeConst : RadiusRangeConst()
+	temperatureRangeConst : TemperatureRangeConst()
+	planetoid : Planetoid(radius >= radiusRangeConst.MINI_GAS_GIANT_PLANETOID,
+		temperature > temperatureRangeConst.LOWERHOTGASGIANT && temperature <= temperatureRangeConst.UPPERHOTGASGIANT)
+then
+	insertLogical(new IsInHotGasGiantRange(planetoid));
+end
