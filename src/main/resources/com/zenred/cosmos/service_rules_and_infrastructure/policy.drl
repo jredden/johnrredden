@@ -5,10 +5,14 @@ import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsHelium;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsOxygen;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsNitrogen;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsMethane;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsCarbonDioxide;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInGasGiantRange;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInSuperEarthRange;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInEarthLikeRange;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInHotEarthLikeRange;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInGoldilocksRange;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInHotGasGiantRange;
 import com.zenred.cosmos.domain.Planetoid;
 
 dialect  "mvel"
@@ -41,9 +45,23 @@ then
     System.out.println("in IsOxygen"+atmosphere);
 end
 
+rule IsMethane when
+    atmosphere : Atmosphere( chem_name == 'Methane' )
+then
+    insertLogical( new IsOxygen( atmosphere ) );
+    System.out.println("in IsOxygen"+atmosphere);
+end
+
 rule IsInGasGiantRange when
 	radiusRangeConst : RadiusRangeConst()
 	planetoid : Planetoid(radius >= radiusRangeConst.MINI_GAS_GIANT_PLANETOID)
+then
+	insertLogical(new IsInGasGiantRange(planetoid));
+end
+
+rule IsInMiniGasGiantRange when
+	radiusRangeConst : RadiusRangeConst()
+	planetoid : Planetoid(radius >= radiusRangeConst.MINI_GAS_GIANT_PLANETOID && radius < radiusRangeConst.GAS_GIANT_PLANETOID)
 then
 	insertLogical(new IsInGasGiantRange(planetoid));
 end
@@ -66,9 +84,18 @@ rule IsInGoldilocksRange when
 	radiusRangeConst : RadiusRangeConst()
 	temperatureRangeConst : TemperatureRangeConst()
 	planetoid : Planetoid(radius >= radiusRangeConst.EARTH_PLANETOID && radius < radiusRangeConst.SUPER_EARTH_PLANETOID,
-		temperature > temperatureRangeConst.LOWERGOLDILOCKS && temperature <= temperatureRangeConst.UPPERGOLDILOCKS)
+		temperature > temperatureRangeConst.LOWERHOTEARTH && temperature <= temperatureRangeConst.UPPERHOTEARTH)
 then
 	insertLogical(new IsInGoldilocksRange(planetoid));
+end
+
+rule IsInHotEarthLikeRange when
+	radiusRangeConst : RadiusRangeConst()
+	temperatureRangeConst : TemperatureRangeConst()
+	planetoid : Planetoid(radius >= radiusRangeConst.EARTH_PLANETOID && radius < radiusRangeConst.SUPER_EARTH_PLANETOID,
+		temperature > temperatureRangeConst.LOWERGOLDILOCKS && temperature <= temperatureRangeConst.UPPERGOLDILOCKS)
+then
+	insertLogical(new IsInHotEarthLikeRange(planetoid));
 end
 
 rule IsAHotGasGiant when
