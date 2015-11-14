@@ -4,9 +4,29 @@ import com.zenred.cosmos.domain.Atmosphere;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsHydrogen;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsHelium;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsOxygen;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsOzone;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsNitrogen;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsMethane;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsAmmonia;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsCarbon;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsCarbonDioxide;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsCarbonMonoxide;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsChlorine;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsCynoCetylene;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsDiCetylene;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsEthane;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsHydrochloricAcid;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsHydrogenCyanide;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsHydrogenSulfide;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsMethCetylene;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsNitrogenDioxide;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsPotassium;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsSilicon;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsSodium;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsSulfur;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsSulfuricAcid;
+
+
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInGasGiantRange;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInSuperEarthRange;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInEarthLikeRange;
@@ -16,6 +36,8 @@ import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess
 import com.zenred.cosmos.domain.Planetoid;
 
 dialect  "mvel"
+
+// chemicals and compounds
 
 rule IsHydrogen when
     atmosphere : Atmosphere( chem_name == 'Hydrogen' )
@@ -45,12 +67,133 @@ then
     System.out.println("in IsOxygen"+atmosphere);
 end
 
+rule IsOzone when
+    atmosphere : Atmosphere( chem_name == 'Ozone' )
+then
+    insertLogical( new IsOzone( atmosphere ) );
+    System.out.println("in IsOzone"+atmosphere);
+end
+
 rule IsMethane when
     atmosphere : Atmosphere( chem_name == 'Methane' )
 then
-    insertLogical( new IsOxygen( atmosphere ) );
-    System.out.println("in IsOxygen"+atmosphere);
+    insertLogical( new IsMethane( atmosphere ) );
+    System.out.println("in IsMethane"+atmosphere);
 end
+
+rule IsAmmonia when
+    atmosphere : Atmosphere( chem_name == 'Ammonia' )
+then
+    insertLogical( new IsAmmonia( atmosphere ) );
+    System.out.println("in IsAmmonia"+atmosphere);
+end
+
+rule IsCarbon when
+    atmosphere : Atmosphere( chem_name == 'Carbon' )
+then
+    insertLogical( new IsCarbon( atmosphere ) );
+    System.out.println("in IsCarbon"+atmosphere);
+end
+
+rule IsCarbonDioxide when
+    atmosphere : Atmosphere( chem_name == 'CarbonDioxide' )
+then
+    insertLogical( new IsCarbonDioxide( atmosphere ) );
+    System.out.println("in IsCarbonDioxide"+atmosphere);
+end
+
+rule IsCarbonMonoxide when
+    atmosphere : Atmosphere( chem_name == 'CarbonMonoxide' )
+then
+    insertLogical( new IsCarbonMonoxide( atmosphere ) );
+    System.out.println("in IsCarbonMonoxide"+atmosphere);
+end
+
+rule IsChlorine when
+    atmosphere : Atmosphere( chem_name == 'Chlorine' )
+then
+    insertLogical( new IsChlorine( atmosphere ) );
+    System.out.println("in IsChlorine"+atmosphere);
+end
+
+rule IsCynoCetylene when
+    atmosphere : Atmosphere( chem_name == 'CynoCetylene' )
+then
+    insertLogical( new IsCynoCetylene( atmosphere ) );
+    System.out.println("in IsCynoCetylene"+atmosphere);
+end
+
+rule IsHydrochloricAcid when
+    atmosphere : Atmosphere( chem_name == 'HydrochloricAcid' )
+then
+    insertLogical( new IsHydrochloricAcid( atmosphere ) );
+    System.out.println("in IsHydrochloricAcid"+atmosphere);
+end
+
+rule IsHydrogenCyanide when
+    atmosphere : Atmosphere( chem_name == 'HydrogenCyanide' )
+then
+    insertLogical( new IsHydrogenCyanide( atmosphere ) );
+    System.out.println("in IsHydrogenCyanide"+atmosphere);
+end
+
+rule IsHydrogenSulfide when
+    atmosphere : Atmosphere( chem_name == 'HydrogenSulfide' )
+then
+    insertLogical( new IsHydrogenSulfide( atmosphere ) );
+    System.out.println("in IsHydrogenSulfide"+atmosphere);
+end
+
+rule IsMethCetylene when
+    atmosphere : Atmosphere( chem_name == 'MethCetylene' )
+then
+    insertLogical( new IsMethCetylene( atmosphere ) );
+    System.out.println("in IsMethCetylene"+atmosphere);
+end
+
+rule IsNitrogenDioxide when
+    atmosphere : Atmosphere( chem_name == 'NitrogenDioxide' )
+then
+    insertLogical( new IsNitrogenDioxide( atmosphere ) );
+    System.out.println("in IsNitrogenDioxide"+atmosphere);
+end
+
+rule IsPotassium when
+    atmosphere : Atmosphere( chem_name == 'Potassium' )
+then
+    insertLogical( new IsPotassium( atmosphere ) );
+    System.out.println("in IsPotassium"+atmosphere);
+end
+
+rule IsSiicon when
+    atmosphere : Atmosphere( chem_name == 'Silicon' )
+then
+    insertLogical( new IsSilicon( atmosphere ) );
+    System.out.println("in IsSilicon"+atmosphere);
+end
+
+rule IsSodium when
+    atmosphere : Atmosphere( chem_name == 'Sodium' )
+then
+    insertLogical( new IsSodium( atmosphere ) );
+    System.out.println("in IsSodium"+atmosphere);
+end
+
+rule IsSulfur when
+    atmosphere : Atmosphere( chem_name == 'Sulfur' )
+then
+    insertLogical( new IsSulfur( atmosphere ) );
+    System.out.println("in IsSulfur"+atmosphere);
+end
+
+rule IsSulfuricAcid when
+    atmosphere : Atmosphere( chem_name == 'SulfuricAcid' )
+then
+    insertLogical( new IsSulfuricAcid( atmosphere ) );
+    System.out.println("in IsSulfuricAcid"+atmosphere);
+end
+
+// planet scenarios
 
 rule IsInGasGiantRange when
 	radiusRangeConst : RadiusRangeConst()
