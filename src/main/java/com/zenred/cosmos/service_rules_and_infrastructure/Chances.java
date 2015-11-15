@@ -22,6 +22,7 @@ public class Chances {
 	public static Integer CHANCE_METHCETYLENE = 3;
 	public static Integer CHANCE_CYANOCETYLENE = 3;
 	public static Integer CHANCE_HYDROGEN_CYANIDE = 3;
+	public static Integer CHANCE_HOT_WATER = 10;
 
 
 

@@ -193,6 +193,14 @@ then
     System.out.println("in IsSulfuricAcid"+atmosphere);
 end
 
+rule IsWater when
+    atmosphere : Atmosphere( chem_name == 'Water' )
+then
+    insertLogical( new IsSulfuricAcid( atmosphere ) );
+    System.out.println("in IsWater"+atmosphere);
+end
+
+
 // planet scenarios
 
 rule IsInGasGiantRange when
@@ -227,7 +235,7 @@ rule IsInGoldilocksRange when
 	radiusRangeConst : RadiusRangeConst()
 	temperatureRangeConst : TemperatureRangeConst()
 	planetoid : Planetoid(radius >= radiusRangeConst.EARTH_PLANETOID && radius < radiusRangeConst.SUPER_EARTH_PLANETOID,
-		temperature > temperatureRangeConst.LOWERHOTEARTH && temperature <= temperatureRangeConst.UPPERHOTEARTH)
+		temperature > temperatureRangeConst.LOWERGOLDILOCKS && temperature <= temperatureRangeConst.UPPERGOLDILOCKS)
 then
 	insertLogical(new IsInGoldilocksRange(planetoid));
 end
@@ -236,7 +244,18 @@ rule IsInHotEarthLikeRange when
 	radiusRangeConst : RadiusRangeConst()
 	temperatureRangeConst : TemperatureRangeConst()
 	planetoid : Planetoid(radius >= radiusRangeConst.EARTH_PLANETOID && radius < radiusRangeConst.SUPER_EARTH_PLANETOID,
-		temperature > temperatureRangeConst.LOWERGOLDILOCKS && temperature <= temperatureRangeConst.UPPERGOLDILOCKS)
+		temperature > temperatureRangeConst.LOWERHOTEARTH && temperature <= temperatureRangeConst.UPPERHOTEARTH)
+then
+	insertLogical(new IsInHotEarthLikeRange(planetoid));
+end
+
+rule IsInHotEarthLikeRangeWithWaterChances when
+	radiusRangeConst : RadiusRangeConst()
+	temperatureRangeConst : TemperatureRangeConst()
+	chances : Chances()
+	planetoid : Planetoid(radius >= radiusRangeConst.EARTH_PLANETOID && radius < radiusRangeConst.SUPER_EARTH_PLANETOID,
+		temperature > temperatureRangeConst.LOWERHOTEARTH && temperature <= temperatureRangeConst.UPPERHOTEARTH, 
+		Chances(eval(chances.fetchChance() < chances.CHANCE_HOT_WATER)
 then
 	insertLogical(new IsInHotEarthLikeRange(planetoid));
 end
