@@ -25,6 +25,7 @@ import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsSodium;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsSulfur;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsSulfuricAcid;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsWater;
 
 
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInGasGiantRange;
@@ -33,6 +34,9 @@ import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInHotEarthLikeRange;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInGoldilocksRange;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInHotGasGiantRange;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInHotEarthLikeRangeWithWater;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInHotEarthLikeRangeWithNitrogenDioxide;
+
 import com.zenred.cosmos.domain.Planetoid;
 
 dialect  "mvel"
@@ -255,9 +259,20 @@ rule IsInHotEarthLikeRangeWithWaterChances when
 	chances : Chances()
 	planetoid : Planetoid(radius >= radiusRangeConst.EARTH_PLANETOID && radius < radiusRangeConst.SUPER_EARTH_PLANETOID,
 		temperature > temperatureRangeConst.LOWERHOTEARTH && temperature <= temperatureRangeConst.UPPERHOTEARTH, 
-		Chances(eval(chances.fetchChance() < chances.CHANCE_HOT_WATER)
+		chances.fetchChance() < chances.CHANCE_HOT_WATER)
 then
-	insertLogical(new IsInHotEarthLikeRange(planetoid));
+	insertLogical(new IsInHotEarthLikeRangeWithWater(planetoid));
+end
+
+rule IsInHotEarthLikeRangeWithNitrogenOxideChances when
+	radiusRangeConst : RadiusRangeConst()
+	temperatureRangeConst : TemperatureRangeConst()
+	chances : Chances()
+	planetoid : Planetoid(radius >= radiusRangeConst.EARTH_PLANETOID && radius < radiusRangeConst.SUPER_EARTH_PLANETOID,
+		temperature > temperatureRangeConst.LOWERHOTEARTH && temperature <= temperatureRangeConst.UPPERHOTEARTH, 
+		chances.fetchChance() < chances.CHANCE_NITROGEN_DIOXIDE)
+then
+	insertLogical(new IsInHotEarthLikeRangeWithNitrogenDioxide(planetoid));
 end
 
 rule IsAHotGasGiant when

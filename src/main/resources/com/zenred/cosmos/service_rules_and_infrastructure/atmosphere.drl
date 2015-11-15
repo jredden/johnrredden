@@ -84,6 +84,16 @@ then
     System.out.println("atmosphere.percentage:"+$atmosphere);
 end
 
+rule GoldilocksHappyW when
+    $atmosphere : Atmosphere()
+    $planetoid : Planetoid()
+    IsWater( atmosphere == $atmosphere )
+    IsInGoldilocksRange(planetoid == $planetoid)
+then
+    $atmosphere.percentage = $atmosphere.percentage * 2.0;
+    System.out.println("atmosphere.percentage:"+$atmosphere);
+end
+
 rule HotEarthCarbonDioxide when
     $atmosphere : Atmosphere()
     $planetoid : Planetoid()
@@ -91,6 +101,26 @@ rule HotEarthCarbonDioxide when
     IsInHotEarthLikeRange(planetoid == $planetoid)
 then
     $atmosphere.percentage = $atmosphere.percentage * 6.0;
+    System.out.println("atmosphere.percentage:"+$atmosphere);
+end
+
+rule HotEarthWater when
+    $atmosphere : Atmosphere()
+    $planetoid : Planetoid()
+    IsWater( atmosphere == $atmosphere )
+    IsInHotEarthLikeRange(planetoid == $planetoid)
+then
+    $atmosphere.percentage = $atmosphere.percentage * 1.5;
+    System.out.println("atmosphere.percentage:"+$atmosphere);
+end
+
+rule HotEarthNitrogenDioxide when
+    $atmosphere : Atmosphere()
+    $planetoid : Planetoid()
+    IsNitrogenDioxide( atmosphere == $atmosphere )
+    IsInHotEarthLikeRange(planetoid == $planetoid)
+then
+    $atmosphere.percentage = $atmosphere.percentage * 3.0;
     System.out.println("atmosphere.percentage:"+$atmosphere);
 end
 
