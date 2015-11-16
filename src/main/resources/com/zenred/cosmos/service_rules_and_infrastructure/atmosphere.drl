@@ -143,3 +143,25 @@ then
     $atmosphere.percentage = $atmosphere.percentage +100.0;
     System.out.println("atmosphere.percentage:"+$atmosphere);
 end
+
+rule MiniGasGiantHydrochloricAcid when
+	$atmosphere : Atmosphere()
+    $planetoid : Planetoid()
+    chances : Chances()
+    IsHydrochloricAcid( atmosphere == $atmosphere )
+    IsInMiniGasGiantHydrochloricAcid(planetoid == $planetoid)
+then
+	$atmosphere.percentage = $atmosphere.percentage +chances.fetchAmount();
+	System.out.println("atmosphere.percentage:"+$atmosphere);
+end
+
+rule MiniGasGiantChlorine when
+	$atmosphere : Atmosphere()
+    $planetoid : Planetoid()
+    chances : Chances()
+    IsChlorine( atmosphere == $atmosphere )
+    IsInMiniGasGiantChlorine(planetoid == $planetoid)
+then
+	$atmosphere.percentage = $atmosphere.percentage +chances.fetchAmount();
+	System.out.println("atmosphere.percentage:"+$atmosphere);
+end

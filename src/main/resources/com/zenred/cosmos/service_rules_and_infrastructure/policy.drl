@@ -29,6 +29,7 @@ import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess
 
 
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInGasGiantRange;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInMiniGasGiantRange;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInSuperEarthRange;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInEarthLikeRange;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInHotEarthLikeRange;
@@ -36,6 +37,8 @@ import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInHotGasGiantRange;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInHotEarthLikeRangeWithWater;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInHotEarthLikeRangeWithNitrogenDioxide;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInMiniGasGiantChlorine
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInMiniGasGiantHydrochloricAcid;
 
 import com.zenred.cosmos.domain.Planetoid;
 
@@ -218,7 +221,29 @@ rule IsInMiniGasGiantRange when
 	radiusRangeConst : RadiusRangeConst()
 	planetoid : Planetoid(radius >= radiusRangeConst.MINI_GAS_GIANT_PLANETOID && radius < radiusRangeConst.GAS_GIANT_PLANETOID)
 then
-	insertLogical(new IsInGasGiantRange(planetoid));
+	insertLogical(new IsInMiniGasGiantRange(planetoid));
+end
+
+rule IsInMiniGasGiantRangeWithHydorchloricAcidChances when
+	radiusRangeConst : RadiusRangeConst()
+	temperatureRangeConst : TemperatureRangeConst()
+	chances : Chances()
+	planetoid : Planetoid(radius >= radiusRangeConst.MINI_GAS_GIANT_PLANETOID && radius < radiusRangeConst.GAS_GIANT_PLANETOID,
+		temperature > temperatureRangeConst.LOWERHOTEARTH && temperature <= temperatureRangeConst.LOWERHOTGASGIANT, 
+		chances.fetchChance() < chances.CHANCE_HYDROCHLORIC_ACID)
+then
+	insertLogical(new IsInMiniGasGiantHydrochloricAcid(planetoid));
+end
+
+rule IsInMiniGasGiantRangeWithChlorineChances when
+	radiusRangeConst : RadiusRangeConst()
+	temperatureRangeConst : TemperatureRangeConst()
+	chances : Chances()
+	planetoid : Planetoid(radius >= radiusRangeConst.MINI_GAS_GIANT_PLANETOID && radius < radiusRangeConst.GAS_GIANT_PLANETOID,
+		temperature > temperatureRangeConst.LOWERHOTEARTH && temperature <= temperatureRangeConst.LOWERHOTGASGIANT, 
+		chances.fetchChance() < chances.CHANCE_CHLORINE)
+then
+	insertLogical(new IsInMiniGasGiantChlorine(planetoid));
 end
 
 rule IsInSuperEarthRange when
