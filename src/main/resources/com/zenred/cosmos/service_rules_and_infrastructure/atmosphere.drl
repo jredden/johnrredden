@@ -155,6 +155,50 @@ then
 	System.out.println("atmosphere.percentage:"+$atmosphere);
 end
 
+rule UltraHotRockCarbon when
+	$atmosphere : Atmosphere()
+    $planetoid : Planetoid()
+    chances : Chances()
+    IsCarbon( atmosphere == $atmosphere )
+    IsInUltraHotRockRangeWithCarbon(planetoid == $planetoid)
+then
+	$atmosphere.percentage = $atmosphere.percentage +chances.fetchAmount();
+	System.out.println("atmosphere.percentage:"+$atmosphere);
+end
+
+rule UltraHotRockPotassium when
+	$atmosphere : Atmosphere()
+    $planetoid : Planetoid()
+    chances : Chances()
+    IsCarbon( atmosphere == $atmosphere )
+    IsInUltraHotRockRangeWithPotassium(planetoid == $planetoid)
+then
+	$atmosphere.percentage = $atmosphere.percentage +chances.fetchAmount();
+	System.out.println("atmosphere.percentage:"+$atmosphere);
+end
+
+rule UltraHotRockSodium when
+	$atmosphere : Atmosphere()
+    $planetoid : Planetoid()
+    chances : Chances()
+    IsCarbon( atmosphere == $atmosphere )
+    IsInUltraHotRockRangeWithSodium(planetoid == $planetoid)
+then
+	$atmosphere.percentage = $atmosphere.percentage +chances.fetchAmount();
+	System.out.println("atmosphere.percentage:"+$atmosphere);
+end
+
+rule UltraHotRockSulfur when
+	$atmosphere : Atmosphere()
+    $planetoid : Planetoid()
+    chances : Chances()
+    IsSulfur( atmosphere == $atmosphere )
+    IsInUltraHotRockRangeWithSulfur(planetoid == $planetoid)
+then
+	$atmosphere.percentage = $atmosphere.percentage +chances.fetchAmount();
+	System.out.println("atmosphere.percentage:"+$atmosphere);
+end
+
 rule MiniGasGiantChlorine when
 	$atmosphere : Atmosphere()
     $planetoid : Planetoid()

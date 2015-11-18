@@ -39,6 +39,10 @@ import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInHotEarthLikeRangeWithNitrogenDioxide;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInMiniGasGiantChlorine
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInMiniGasGiantHydrochloricAcid;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInUltraHotRockRangeWithCarbon;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInUltraHotRockRangeWithPotassium;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInUltraHotRockRangeWithSodium;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInUltraHotRockRangeWithSulfur;
 
 import com.zenred.cosmos.domain.Planetoid;
 
@@ -298,6 +302,50 @@ rule IsInHotEarthLikeRangeWithNitrogenOxideChances when
 		chances.fetchChance() < chances.CHANCE_NITROGEN_DIOXIDE)
 then
 	insertLogical(new IsInHotEarthLikeRangeWithNitrogenDioxide(planetoid));
+end
+
+rule IsInUltraHotRockRangewithCarbonChances when
+	radiusRangeConst : RadiusRangeConst()
+	temperatureRangeConst : TemperatureRangeConst()
+	chances : Chances()
+	planetoid : Planetoid(radius >= radiusRangeConst.EARTH_PLANETOID && radius < radiusRangeConst.SUPER_EARTH_PLANETOID,
+		temperature > temperatureRangeConst.UPPERHOTEARTH && temperature <= temperatureRangeConst.ULTRAHOTROCK, 
+		chances.fetchChance() < chances.CHANCE_CARBON)
+then
+	insertLogical(new IsInUltraHotRockRangeWithCarbon(planetoid));
+end
+
+rule IsInUltraHotRockRangewithPotassiumChances when
+	radiusRangeConst : RadiusRangeConst()
+	temperatureRangeConst : TemperatureRangeConst()
+	chances : Chances()
+	planetoid : Planetoid(radius >= radiusRangeConst.EARTH_PLANETOID && radius < radiusRangeConst.SUPER_EARTH_PLANETOID,
+		temperature > temperatureRangeConst.UPPERHOTEARTH && temperature <= temperatureRangeConst.ULTRAHOTROCK, 
+		chances.fetchChance() < chances.CHANCE_POTASSIUM)
+then
+	insertLogical(new IsInUltraHotRockRangeWithPotassium(planetoid));
+end
+
+rule IsInUltraHotRockRangewithSodiumChances when
+	radiusRangeConst : RadiusRangeConst()
+	temperatureRangeConst : TemperatureRangeConst()
+	chances : Chances()
+	planetoid : Planetoid(radius >= radiusRangeConst.EARTH_PLANETOID && radius < radiusRangeConst.SUPER_EARTH_PLANETOID,
+		temperature > temperatureRangeConst.UPPERHOTEARTH && temperature <= temperatureRangeConst.ULTRAHOTROCK, 
+		chances.fetchChance() < chances.CHANCE_SODIUM)
+then
+	insertLogical(new IsInUltraHotRockRangeWithSodium(planetoid));
+end
+
+rule IsInUltraHotRockRangewithSulfurChances when
+	radiusRangeConst : RadiusRangeConst()
+	temperatureRangeConst : TemperatureRangeConst()
+	chances : Chances()
+	planetoid : Planetoid(radius >= radiusRangeConst.EARTH_PLANETOID && radius < radiusRangeConst.SUPER_EARTH_PLANETOID,
+		temperature > temperatureRangeConst.UPPERHOTEARTH && temperature <= temperatureRangeConst.ULTRAHOTROCK, 
+		chances.fetchChance() < chances.CHANCE_SULFUR)
+then
+	insertLogical(new IsInUltraHotRockRangeWithSulfur(planetoid));
 end
 
 rule IsAHotGasGiant when
