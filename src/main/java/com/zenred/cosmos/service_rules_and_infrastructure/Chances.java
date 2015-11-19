@@ -18,6 +18,7 @@ public class Chances {
 	public static Integer CHANCE_POTASSIUM = 8;
 	public static Integer CHANCE_OZONE = 20;
 	public static Integer CHANCE_SILICON = 8;
+	public static Integer CHANCE_ACETYLENE = 6;
 	public static Integer CHANCE_DICETYLENE = 3;
 	public static Integer CHANCE_METHCETYLENE = 3;
 	public static Integer CHANCE_CYANOCETYLENE = 3;

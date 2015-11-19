@@ -7,6 +7,7 @@ import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsOzone;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsNitrogen;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsMethane;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsAcetylene;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsAmmonia;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsCarbon;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsCarbonDioxide;
@@ -37,8 +38,15 @@ import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInHotGasGiantRange;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInHotEarthLikeRangeWithWater;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInHotEarthLikeRangeWithNitrogenDioxide;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInHotEarthLikeRangeWithCarbonMonoxide;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInMiniGasGiantAcetylene;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInMiniGasGiantChlorine
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInMiniGasGiantHydrochloricAcid;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInMiniGasGiantHydrogenCyanide;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInMiniGasGiantHydrogenSulfide;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInMiniGasGiantCynoCetylene;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInMiniGasGiantDiCetylene;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInMiniGasGiantEthane;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInUltraHotRockRangeWithCarbon;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInUltraHotRockRangeWithPotassium;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInUltraHotRockRangeWithSodium;
@@ -249,6 +257,75 @@ rule IsInMiniGasGiantRangeWithChlorineChances when
 then
 	insertLogical(new IsInMiniGasGiantChlorine(planetoid));
 end
+
+rule IsInMiniGasGiantRangeWithEthaneChances when
+	radiusRangeConst : RadiusRangeConst()
+	temperatureRangeConst : TemperatureRangeConst()
+	chances : Chances()
+	planetoid : Planetoid(radius >= radiusRangeConst.MINI_GAS_GIANT_PLANETOID && radius < radiusRangeConst.GAS_GIANT_PLANETOID,
+		temperature > temperatureRangeConst.LOWERHOTEARTH && temperature <= temperatureRangeConst.LOWERHOTGASGIANT, 
+		chances.fetchChance() < chances.CHANCE_ETHANE)
+then
+	insertLogical(new IsInMiniGasGiantEthane(planetoid));
+end
+
+rule IsInMiniGasGiantRangeWithAcetyleneChances when
+	radiusRangeConst : RadiusRangeConst()
+	temperatureRangeConst : TemperatureRangeConst()
+	chances : Chances()
+	planetoid : Planetoid(radius >= radiusRangeConst.MINI_GAS_GIANT_PLANETOID && radius < radiusRangeConst.GAS_GIANT_PLANETOID,
+		temperature > temperatureRangeConst.LOWERHOTEARTH && temperature <= temperatureRangeConst.LOWERHOTGASGIANT, 
+		chances.fetchChance() < chances.CHANCE_ACETYLENE)
+then
+	insertLogical(new IsInMiniGasGiantAcetylene(planetoid));
+end
+
+rule IsInMiniGasGiantRangeWithHydrogenCyanideChances when
+	radiusRangeConst : RadiusRangeConst()
+	temperatureRangeConst : TemperatureRangeConst()
+	chances : Chances()
+	planetoid : Planetoid(radius >= radiusRangeConst.MINI_GAS_GIANT_PLANETOID && radius < radiusRangeConst.GAS_GIANT_PLANETOID,
+		temperature > temperatureRangeConst.LOWERHOTEARTH && temperature <= temperatureRangeConst.LOWERHOTGASGIANT, 
+		chances.fetchChance() < chances.CHANCE_HYDROGEN_CYANIDE)
+then
+	insertLogical(new IsInMiniGasGiantHydrogenCyanide(planetoid));
+end
+
+rule IsInMiniGasGiantRangeWithHydrogenSulfideChances when
+	radiusRangeConst : RadiusRangeConst()
+	temperatureRangeConst : TemperatureRangeConst()
+	chances : Chances()
+	planetoid : Planetoid(radius >= radiusRangeConst.MINI_GAS_GIANT_PLANETOID && radius < radiusRangeConst.GAS_GIANT_PLANETOID,
+		temperature > temperatureRangeConst.LOWERHOTEARTH && temperature <= temperatureRangeConst.LOWERHOTGASGIANT, 
+		chances.fetchChance() < chances.CHANCE_HYDROGENSULFIDE)
+then
+	insertLogical(new IsInMiniGasGiantHydrogenSulfide(planetoid));
+end
+
+rule IsInMiniGasGiantRangeWithCynoCetyleneChances when
+	radiusRangeConst : RadiusRangeConst()
+	temperatureRangeConst : TemperatureRangeConst()
+	chances : Chances()
+	planetoid : Planetoid(radius >= radiusRangeConst.MINI_GAS_GIANT_PLANETOID && radius < radiusRangeConst.GAS_GIANT_PLANETOID,
+		temperature > temperatureRangeConst.LOWERHOTEARTH && temperature <= temperatureRangeConst.LOWERHOTGASGIANT, 
+		chances.fetchChance() < chances.CHANCE_CYANOCETYLENE)
+then
+	insertLogical(new IsInMiniGasGiantCynoCetylene(planetoid));
+end
+
+
+rule IsInMiniGasGiantRangeWithDiCetyleneChances when
+	radiusRangeConst : RadiusRangeConst()
+	temperatureRangeConst : TemperatureRangeConst()
+	chances : Chances()
+	planetoid : Planetoid(radius >= radiusRangeConst.MINI_GAS_GIANT_PLANETOID && radius < radiusRangeConst.GAS_GIANT_PLANETOID,
+		temperature > temperatureRangeConst.LOWERHOTEARTH && temperature <= temperatureRangeConst.LOWERHOTGASGIANT, 
+		chances.fetchChance() < chances.CHANCE_DICETYLENE)
+then
+	insertLogical(new IsInMiniGasGiantDiCetylene(planetoid));
+end
+
+
 
 rule IsInSuperEarthRange when
 	radiusRangeConst : RadiusRangeConst()
