@@ -94,6 +94,17 @@ then
     System.out.println("atmosphere.percentage:"+$atmosphere);
 end
 
+rule GoldilocksChanceOzone when
+    $atmosphere : Atmosphere()
+    $planetoid : Planetoid()
+    chances : Chances()
+    IsOzone( atmosphere == $atmosphere )
+    IsInGoldilocksWithOzoneRange(planetoid == $planetoid)
+then
+    $atmosphere.percentage = $atmosphere.percentage +chances.fetchAmount();
+    System.out.println("atmosphere.percentage:"+$atmosphere);
+end
+
 rule HotEarthCarbonDioxide when
     $atmosphere : Atmosphere()
     $planetoid : Planetoid()
@@ -150,6 +161,72 @@ rule MiniGasGiantHydrochloricAcid when
     chances : Chances()
     IsHydrochloricAcid( atmosphere == $atmosphere )
     IsInMiniGasGiantHydrochloricAcid(planetoid == $planetoid)
+then
+	$atmosphere.percentage = $atmosphere.percentage +chances.fetchAmount();
+	System.out.println("atmosphere.percentage:"+$atmosphere);
+end
+
+rule MiniGasGiantEthane when
+	$atmosphere : Atmosphere()
+    $planetoid : Planetoid()
+    chances : Chances()
+    IsEthane( atmosphere == $atmosphere )
+    IsInMiniGasGiantEthane(planetoid == $planetoid)
+then
+	$atmosphere.percentage = $atmosphere.percentage +chances.fetchAmount();
+	System.out.println("atmosphere.percentage:"+$atmosphere);
+end
+
+rule MiniGasGiantCynoAcetylene when
+	$atmosphere : Atmosphere()
+    $planetoid : Planetoid()
+    chances : Chances()
+    IsCynoCetylene( atmosphere == $atmosphere )
+    IsInMiniGasGiantCynoCetylene(planetoid == $planetoid)
+then
+	$atmosphere.percentage = $atmosphere.percentage +chances.fetchAmount();
+	System.out.println("atmosphere.percentage:"+$atmosphere);
+end
+
+rule MiniGasGiantDiCetylene when
+	$atmosphere : Atmosphere()
+    $planetoid : Planetoid()
+    chances : Chances()
+    IsDiCetylene( atmosphere == $atmosphere )
+    IsInMiniGasGiantDiCetylene(planetoid == $planetoid)
+then
+	$atmosphere.percentage = $atmosphere.percentage +chances.fetchAmount();
+	System.out.println("atmosphere.percentage:"+$atmosphere);
+end
+
+rule MiniGasGiantHydrogenCyanide when
+	$atmosphere : Atmosphere()
+    $planetoid : Planetoid()
+    chances : Chances()
+    IsHydrogenCyanide( atmosphere == $atmosphere )
+    IsInMiniGasGiantHydrogenCyanide(planetoid == $planetoid)
+then
+	$atmosphere.percentage = $atmosphere.percentage +chances.fetchAmount();
+	System.out.println("atmosphere.percentage:"+$atmosphere);
+end
+
+rule MiniGasGiantHydrogenSulfide when
+	$atmosphere : Atmosphere()
+    $planetoid : Planetoid()
+    chances : Chances()
+    IsHydrogenSulfide( atmosphere == $atmosphere )
+    IsInMiniGasGiantHydrogenSulfide(planetoid == $planetoid)
+then
+	$atmosphere.percentage = $atmosphere.percentage +chances.fetchAmount();
+	System.out.println("atmosphere.percentage:"+$atmosphere);
+end
+
+rule MiniGasGiantMethCetylene when
+	$atmosphere : Atmosphere()
+    $planetoid : Planetoid()
+    chances : Chances()
+    IsMethCetylene( atmosphere == $atmosphere )
+    IsInMiniGasGiantMethCetylene(planetoid == $planetoid)
 then
 	$atmosphere.percentage = $atmosphere.percentage +chances.fetchAmount();
 	System.out.println("atmosphere.percentage:"+$atmosphere);

@@ -21,6 +21,7 @@ import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsHydrogenSulfide;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsMethCetylene;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsNitrogenDioxide;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsOzone;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsPotassium;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsSilicon;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsSodium;
@@ -35,6 +36,7 @@ import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInEarthLikeRange;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInHotEarthLikeRange;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInGoldilocksRange;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInGoldilocksWithOzoneRange;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInHotGasGiantRange;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInHotEarthLikeRangeWithWater;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInHotEarthLikeRangeWithNitrogenDioxide;
@@ -47,6 +49,7 @@ import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInMiniGasGiantCynoCetylene;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInMiniGasGiantDiCetylene;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInMiniGasGiantEthane;
+import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInMiniGasGiantMethCetylene;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInUltraHotRockRangeWithCarbon;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInUltraHotRockRangeWithPotassium;
 import com.zenred.cosmos.service_rules_and_infrastructure.atmosphere_postprocess.IsInUltraHotRockRangeWithSodium;
@@ -136,7 +139,7 @@ then
 end
 
 rule IsCynoCetylene when
-    atmosphere : Atmosphere( chem_name == 'CynoCetylene' )
+    atmosphere : Atmosphere( chem_name == 'Cynocetylene' )
 then
     insertLogical( new IsCynoCetylene( atmosphere ) );
     System.out.println("in IsCynoCetylene"+atmosphere);
@@ -164,7 +167,7 @@ then
 end
 
 rule IsMethCetylene when
-    atmosphere : Atmosphere( chem_name == 'MethCetylene' )
+    atmosphere : Atmosphere( chem_name == 'Methlacetylene' )
 then
     insertLogical( new IsMethCetylene( atmosphere ) );
     System.out.println("in IsMethCetylene"+atmosphere);
@@ -215,10 +218,9 @@ end
 rule IsWater when
     atmosphere : Atmosphere( chem_name == 'Water' )
 then
-    insertLogical( new IsSulfuricAcid( atmosphere ) );
+    insertLogical( new IsWater( atmosphere ) );
     System.out.println("in IsWater"+atmosphere);
 end
-
 
 // planet scenarios
 
@@ -348,6 +350,17 @@ rule IsInGoldilocksRange when
 		temperature > temperatureRangeConst.LOWERGOLDILOCKS && temperature <= temperatureRangeConst.UPPERGOLDILOCKS)
 then
 	insertLogical(new IsInGoldilocksRange(planetoid));
+end
+
+rule IsInGoldilocksRangewithOzoneChances when
+	radiusRangeConst : RadiusRangeConst()
+	temperatureRangeConst : TemperatureRangeConst()
+	chances : Chances()
+	planetoid : Planetoid(radius >= radiusRangeConst.EARTH_PLANETOID && radius < radiusRangeConst.SUPER_EARTH_PLANETOID,
+		temperature > temperatureRangeConst.LOWERGOLDILOCKS && temperature <= temperatureRangeConst.UPPERGOLDILOCKS,
+		chances.fetchChance() < chances.CHANCE_OZONE)
+then
+	insertLogical(new IsInGoldilocksWithOzoneRange(planetoid));
 end
 
 rule IsInHotEarthLikeRange when
