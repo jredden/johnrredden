@@ -1213,7 +1213,7 @@ var scaleViz = (function(){
 	const yBox = 50;
 	const spacing = 5;
 	const yHeight = 20;
-	const scaleDigits = 30;
+	const scaleDigits = 32;
 	
 	
 	const bigger = "Increase Scale  ";
@@ -1312,11 +1312,13 @@ var scaleViz = (function(){
 			if(clickedX >= xBoxLarger && clickedX <= xBoxLarger+biggerWidth
 					&& clickedY >= yBox && clickedY <= yBox+yHeight){
 				scale += step;
+				scale = Math.floor(scale*100)/100
 				finish();
 			}
 			if(clickedX >= xBoxSmaller && clickedX <= xBoxSmaller+smallerWidth
 					&& clickedY >= yBox && clickedY <= yBox+yHeight){
 				scale -= step;
+				scale = Math.floor(scale*100)/100
 					finish();
 			}
 		},
@@ -1342,7 +1344,7 @@ $(document).ready(function() {
 	processPlanetAndMoonsDetail.init();
 	
 	$("#home").click(function(){
-		window.location = "http://www.johntredden.com";
+		window.location = "http://www.johntreddenlocal.com";
 	});
 	var showList = ['shipStart'];
 	tagOperations.show(showList);
@@ -3189,7 +3191,7 @@ function print_recursive(printthis) {
 	<div id="wrapperspace">
 			<header id="topHeaderFixed">
 			<hgroup>
-				<nav id="topNav">
+				<nav id="topNavCosmos">
 					<button id="home">Home</button>
 					<button id="jump">Activate Starships Star Drive</button>
 			<!--  		<span id="jumphint" style="color:lightyellow;font-weight:bold">To travel to a new star system activate the Star Drive</span> -->

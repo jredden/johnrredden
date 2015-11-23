@@ -305,6 +305,13 @@ nav:#topNav {
 	background-color: #B8B3B3;
 }
 
+nav:#topNavCosmos {
+	font-family: Verdana;
+	font-size: 16px;
+	background-color: #B8B3B3;
+}
+
+
 canvas:#firstposition{
 	style: border:1px solid #c3c3c3;
 }
