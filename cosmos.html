@@ -29,6 +29,7 @@ var tagOperations = (function(){
 		   					$('#cosmosspacedetail').show();
 		   				},
 		   				function jumping(){
+		   					$('#comments').show();
 		   					$('#jumping').show();
 		   				},
 		   				function starsinclustertext(){
@@ -55,6 +56,7 @@ var tagOperations = (function(){
 			   				},
 			   				function jumping(){
 			   					$('#jumping').hide();
+			   					$('#comments').hide();
 			   				},
 			   				function starsinclustertext(){
 			   					$('#starsinclustertextcanvas').hide();
@@ -1209,7 +1211,7 @@ var ellipseWithPlanar = (function(){
 
 var scaleViz = (function(){
 	
-	const xBoxLarger = 10;
+	const xBoxLarger = 50;
 	const yBox = 50;
 	const spacing = 5;
 	const yHeight = 20;
@@ -3228,6 +3230,18 @@ function print_recursive(printthis) {
 	<div id="jumping">
 	<img src="./JumpingToLightSpeed.gif" width="1360" height="1000" />
 	</div>
+		
+	<div id="comments">
+	The starship is using the star drive to<br/>
+	enter a sector consisting of twenty five<br/>
+	systems.  This can take several minutes.<br/>
+	<br/>
+	The sector is divided into systems, each<br/>
+	labeled with a U and a V coordinate, which<br/>
+	are the dimensions of each system in the<br/>
+	star drives entry sequence.
+	</div>
+	
 	</section>
 </body>
 </html>

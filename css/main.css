@@ -321,9 +321,24 @@ canvas:#firstposition{
 	background-color:orange;
 }
 
+button{
+	font-family: Verdana;
+	font-size: 16px;
+}
+
+
 span:#ssits{
 	position: absolute;
 	top: 15px;
 	margin-left: 500px;
 	color:orange;
+}
+
+#comments{
+	position: absolute;
+	top: 25px;
+	margin-left: 1380px;
+	color:orange;
+	font-family: Verdana;
+	font-size: 16px;
 }
