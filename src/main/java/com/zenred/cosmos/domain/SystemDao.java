@@ -59,6 +59,20 @@ public class SystemDao extends AbstractJDBCDao {
 			;
 	private static String deleteSystem = "DELETE FROM " + SYSTEM +  " WHERE "
 			 + SYSTEM_ID + " = ?";
+	
+	private static String selectNextSectorUcoordinates = "SELECT sy."
+			+ UCOORDINATE + " FROM "
+			+ SYSTEM + " sy "
+			+ " LIMIT " + " ? "
+			+ ", ?";
+	
+	private static String selectNextSectorVcoordinates = "SELECT sy."
+			+ VCOORDINATE + " FROM "
+			+ SYSTEM + " sy "
+			+ " WHERE sy." + UCOORDINATE + " = ?"
+			+ " LIMIT " + " ? "
+			+ ", ?";
+		
 			
 	/**
 	 * create a system
