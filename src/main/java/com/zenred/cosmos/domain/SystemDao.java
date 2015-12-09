@@ -1,5 +1,7 @@
 package com.zenred.cosmos.domain;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -59,6 +61,20 @@ public class SystemDao extends AbstractJDBCDao {
 			;
 	private static String deleteSystem = "DELETE FROM " + SYSTEM +  " WHERE "
 			 + SYSTEM_ID + " = ?";
+	
+	private static String selectNextSectorUcoordinates = "SELECT sy."
+			+ UCOORDINATE + " FROM "
+			+ SYSTEM + " sy "
+			+ " LIMIT " + " ? "
+			+ ", ?";
+	
+	private static String selectNextSectorVcoordinates = "SELECT sy."
+			+ VCOORDINATE + " FROM "
+			+ SYSTEM + " sy "
+			+ " WHERE sy." + UCOORDINATE + " = ?"
+			+ " LIMIT " + " ? "
+			+ ", ?";
+		
 			
 	/**
 	 * create a system
@@ -178,5 +194,44 @@ public class SystemDao extends AbstractJDBCDao {
 		long count  = super.jdbcSetUp().getSimpleJdbcTemplate()
 				.queryForInt(readNumberOfSystems);
 		return count;
+	}
+	/**
+	 * read U coordinates in a sector 
+	 * 
+	 * @param start
+	 * @param limit sector size
+	 * @return list of Ucoordinates defining the sector
+	 */
+	public List<Integer> readSectorUcoordinates(Integer start, Integer limit){
+		List<Integer> systemUcoordinates = new ArrayList<Integer>();
+		List<Map<String, Object>> systemListMap = super.jdbcSetUp()
+				.getSimpleJdbcTemplate()
+				.queryForList(selectNextSectorUcoordinates, start, limit);
+		for(Map<String, Object> systemMap: systemListMap){
+			// Integer planetoidId = new Integer(planetoidMap.get(PLANETOID_ID).toString());
+			Float uCoordinate = new Float(systemMap.get(UCOORDINATE).toString());
+			systemUcoordinates.add((int)Math.floor(uCoordinate));
+		}
+		return systemUcoordinates;
+	}
+	
+	/**
+	 * read V coordinates in a sector
+	 * 
+	 * @param uCoordinate
+	 * @param start
+	 * @param limit sector size
+	 * @return list of Vcoordinates associated with the Ucoordinate 
+	 */
+	public List<Integer> readSectorVcoordinates(Integer uCoordinate, Integer start, Integer limit){
+		List<Integer> systemVcoordinates = new ArrayList<Integer>();
+		List<Map<String, Object>> systemListMap = super.jdbcSetUp()
+				.getSimpleJdbcTemplate()
+				.queryForList(selectNextSectorVcoordinates, uCoordinate, start, limit);
+		for(Map<String, Object> systemMap: systemListMap){
+			Integer vCoordinate = new Integer(systemMap.get(VCOORDINATE).toString());
+			systemVcoordinates.add(vCoordinate);
+		}
+		return systemVcoordinates;
 	}
 }
