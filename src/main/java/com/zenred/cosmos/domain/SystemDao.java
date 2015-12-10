@@ -229,8 +229,8 @@ public class SystemDao extends AbstractJDBCDao {
 				.getSimpleJdbcTemplate()
 				.queryForList(selectNextSectorVcoordinates, uCoordinate, start, limit);
 		for(Map<String, Object> systemMap: systemListMap){
-			Integer vCoordinate = new Integer(systemMap.get(VCOORDINATE).toString());
-			systemVcoordinates.add(vCoordinate);
+			Float vCoordinate = new Float(systemMap.get(VCOORDINATE).toString());
+			systemVcoordinates.add((int)Math.floor(vCoordinate));
 		}
 		return systemVcoordinates;
 	}
