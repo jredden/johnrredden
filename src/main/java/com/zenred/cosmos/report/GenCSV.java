@@ -22,7 +22,11 @@ public class GenCSV {
 	
 	public static Integer numberSystemsUatATime = ImergeFromHyperspace.uDistribution * ImergeFromHyperspace.vDistribution;
 	
-	public List<String> readDefiningUVCoordinatesOfAllSectors(){
+	/**
+	 * 
+	 * @return defining sectors
+	 */
+	protected static List<String> readDefiningUVCoordinatesOfAllSectors(){
 		List<String> sectors = new ArrayList<String>();
 		SystemDao systemDao = new SystemDao();
 		Integer start = 0;
@@ -54,7 +58,11 @@ public class GenCSV {
 					lastU = uCoordinate;
 				}
 			}
-			// to do load up defining u,v of sector corners
+			String upperU = currentUs.get(0).toString();
+			String lowerU = currentUs.get(currentUs.size()-1).toString();
+			String upperV = currentVs.get(0).toString();
+			String lowerV = currentVs.get(currentVs.size()-1).toString();
+			sectors.add(upperU+":"+upperV+":"+lowerU+":"+lowerV);
 			start += GenCSV.numberSystemsUatATime;
 			nextV = Boolean.TRUE;
 			currentUs.clear();
@@ -65,5 +73,19 @@ public class GenCSV {
 		return sectors;
 	}
 	
-
+	public static String sectorsResponse(){
+		StringBuilder keyValuePair = new StringBuilder();
+		List<String> sectors = readDefiningUVCoordinatesOfAllSectors();
+		Integer key = new Integer(0);
+		for(String sector : sectors){
+			if(key.equals(0)){
+				keyValuePair.append(key).append("=").append(sector);
+			}
+			else{
+				keyValuePair.append(";").append(key).append("=").append(sector);
+			}
+			++key;
+		}
+		return keyValuePair.toString();
+	}
 }
