@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 import com.zenred.cosmos.domain.SystemDao;
 import com.zenred.cosmos.service_rules_and_infrastructure.ImergeFromHyperspace;
+import com.zenred.cosmos.vizualization.SectorsResponse;
 
 public class GenCSV {
 	
@@ -73,7 +74,7 @@ public class GenCSV {
 		return sectors;
 	}
 	
-	public static String sectorsResponse(){
+	public static SectorsResponse sectorsResponse(){
 		StringBuilder keyValuePair = new StringBuilder();
 		List<String> sectors = readDefiningUVCoordinatesOfAllSectors();
 		Integer key = new Integer(0);
@@ -86,6 +87,8 @@ public class GenCSV {
 			}
 			++key;
 		}
-		return keyValuePair.toString();
+		SectorsResponse sectorsResponse = new SectorsResponse();
+		sectorsResponse.setSectors(keyValuePair.toString());
+		return sectorsResponse;
 	}
 }

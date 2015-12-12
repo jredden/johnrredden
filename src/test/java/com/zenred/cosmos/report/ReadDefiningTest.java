@@ -7,6 +7,8 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
+import com.zenred.cosmos.vizualization.SectorsResponse;
+
 public class ReadDefiningTest {
 	static private Logger logger = Logger
 			.getLogger(ReadDefiningTest.class);
@@ -20,8 +22,8 @@ public class ReadDefiningTest {
 	
 	@Test
 	public void sectorResponseTest(){
-		String response = GenCSV.sectorsResponse();
-		logger.info("RESPONSE:"+response);
+		SectorsResponse response = GenCSV.sectorsResponse();
+		logger.info("RESPONSE:"+response.getSectors());
 		assertTrue(response != null);
 	}
 
