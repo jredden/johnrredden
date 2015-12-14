@@ -74,6 +74,10 @@ public class GenCSV {
 		return sectors;
 	}
 	
+	/**
+	 * 
+	 * @return sector response encapsulation
+	 */
 	public static SectorsResponse sectorsResponse(){
 		StringBuilder keyValuePair = new StringBuilder();
 		List<String> sectors = readDefiningUVCoordinatesOfAllSectors();
@@ -87,6 +91,23 @@ public class GenCSV {
 			}
 			++key;
 		}
+		SectorsResponse sectorsResponse = new SectorsResponse();
+		sectorsResponse.setSectors(keyValuePair.toString());
+		return sectorsResponse;
+	}
+	
+	/**
+	 * 
+	 * @param s_Ucoordinate_top
+	 * @param s_Vcoordinate_top
+	 * @param s_Ucoordinate_bottom
+	 * @param s_Vcoordinate_bottom
+	 * @return CSV_url
+	 */
+	public static SectorsResponse selectSector(String s_Ucoordinate_top, String s_Vcoordinate_top, String s_Ucoordinate_bottom, String s_Vcoordinate_bottom ){
+		String csv_file = "";
+		
+		StringBuilder keyValuePair = new StringBuilder();
 		SectorsResponse sectorsResponse = new SectorsResponse();
 		sectorsResponse.setSectors(keyValuePair.toString());
 		return sectorsResponse;
