@@ -42,6 +42,17 @@ public class SystemDao extends AbstractJDBCDao {
 			+ " WHERE sy."+SYSTEM_NAME+ " = ?"; 
 			;
 
+	private static String readEntireSystemByCoordinates = "SELECT "
+			+ " sy."+SYSTEM_ID+" "
+			+ ", sy."+DISTANCE_TO_GALACTIC_CENTRE+" "
+			+ ", sy."+UCOORDINATE+" "
+			+ ", sy."+VCOORDINATE+" "
+			+ ", sy."+SYSTEM_NAME+" "
+			+ ", sy."+DATESTAMP+" "
+			+ " FROM " + SYSTEM + " sy "
+			+ " WHERE sy."+UCOORDINATE+ " = ? AND sy." + VCOORDINATE + " = ? "
+			;
+
 	private static String readSystemByCoordinates = "SELECT COUNT(*) " 
 			+ " FROM " + SYSTEM + " sy " + " WHERE sy." + UCOORDINATE
 			+ " = ? AND sy." + VCOORDINATE + " = ? "
@@ -116,6 +127,34 @@ public class SystemDao extends AbstractJDBCDao {
 		system.setSystemId(system_id);
 		return system;
 	}
+	
+	/**
+	 * 
+	 * @param uCoordinate
+	 * @param vCoordinate
+	 * @return system
+	 */
+	public System readSystemByUVCoordinates(Integer uCoordinate, Integer vCoordinate) {
+		System system = new System();
+		Object[] param = { uCoordinate, vCoordinate };
+		Map<String, Object> systemMap = null;
+		systemMap = super.jdbcSetUp().getSimpleJdbcTemplate()
+				.queryForMap(readEntireSystemByCoordinates, param);
+		system.setDatestamp((String) systemMap.get(DATESTAMP).toString());
+		String s_distance_to_galaxy_centre = systemMap.get(
+				DISTANCE_TO_GALACTIC_CENTRE).toString();
+		system.setDistance_to_galaxy_centre(new Double(
+				s_distance_to_galaxy_centre));
+		String s_ucoordinate = systemMap.get(UCOORDINATE).toString();
+		system.setUcoordinate(new Double(s_ucoordinate));
+		String s_vcoordinate = systemMap.get(VCOORDINATE).toString();
+		system.setVcoordinate(new Double(s_vcoordinate));
+		system.setSystemName(systemMap.get(SYSTEM_NAME).toString());
+		String s_systemId = systemMap.get(SYSTEM_ID).toString();
+		system.setSystemId(new Integer(s_systemId));
+		return system;
+	}
+
 	
 	/**
 	 * 
