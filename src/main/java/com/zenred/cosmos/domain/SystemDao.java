@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zenred.johntredden.domain.AbstractJDBCDao;
+import com.zenred.util.GenRandomRolls;
 
 public class SystemDao extends AbstractJDBCDao {
 	
@@ -85,7 +86,17 @@ public class SystemDao extends AbstractJDBCDao {
 			+ " WHERE sy." + UCOORDINATE + " = ?"
 			+ " LIMIT " + " ? "
 			+ ", ?";
-		
+
+	private static String randomSystem = 
+			"SELECT "
+			+ " sy."+SYSTEM_ID+" "
+			+ ", sy."+DISTANCE_TO_GALACTIC_CENTRE+" "
+			+ ", sy."+UCOORDINATE+" "
+			+ ", sy."+VCOORDINATE+" "
+			+ ", sy."+SYSTEM_NAME+" "
+			+ ", sy."+DATESTAMP+" "
+			+ " FROM " + SYSTEM + " sy "
+			+ " LIMIT " + " ?, ?";
 			
 	/**
 	 * create a system
@@ -233,6 +244,34 @@ public class SystemDao extends AbstractJDBCDao {
 		long count  = super.jdbcSetUp().getSimpleJdbcTemplate()
 				.queryForInt(readNumberOfSystems);
 		return count;
+	}
+	
+	/**
+	 * valuable for testing
+	 * 
+	 * @return random system
+	 */
+	public System readRandomSystem(){
+		System system = new System();
+		Integer count =  numberOfSystems().intValue();
+		Integer numberOne = GenRandomRolls.Instance().getDX(count);
+		Integer numberTwo = 1;
+		Object[] param = {numberOne, numberTwo};
+		Map<String, Object> systemMap = null;
+		systemMap = super.jdbcSetUp().getSimpleJdbcTemplate().queryForMap(randomSystem, param);
+		system.setDatestamp((String) systemMap.get(DATESTAMP).toString());
+		String s_distance_to_galaxy_centre = systemMap.get(
+				DISTANCE_TO_GALACTIC_CENTRE).toString();
+		system.setDistance_to_galaxy_centre(new Double(
+				s_distance_to_galaxy_centre));
+		String s_ucoordinate = systemMap.get(UCOORDINATE).toString();
+		system.setUcoordinate(new Double(s_ucoordinate));
+		String s_vcoordinate = systemMap.get(VCOORDINATE).toString();
+		system.setVcoordinate(new Double(s_vcoordinate));
+		system.setSystemName(systemMap.get(SYSTEM_NAME).toString());
+		String s_systemId = systemMap.get(SYSTEM_ID).toString();
+		system.setSystemId(new Integer(s_systemId));
+		return system;
 	}
 	/**
 	 * read U coordinates in a sector 
