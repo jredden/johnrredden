@@ -54,6 +54,7 @@ public class ImergeFromHyperspace {
 					logger.info("EXISTING SYSTEM_"+nextSystem);
 					com.zenred.cosmos.domain.System existingSystem = systemDao.readSystemByName(nextSystem.getSystemName());
 					addVizCentricSystem(systemVizCentrics, existingSystem);
+					// build the rest here
 					continue;
 				}
 				com.zenred.cosmos.domain.System readSystem = GenSystem.candidate(nextSystem);
