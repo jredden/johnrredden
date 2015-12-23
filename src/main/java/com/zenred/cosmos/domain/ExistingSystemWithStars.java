@@ -6,9 +6,11 @@ public class ExistingSystemWithStars {
 	
 	private static StarDao starDao;
 	private static PlanetoidDao planetoidDao;
+	private static ClusterRepDao clusterRepDao;
 	static{
 		starDao = new StarDao();
 		planetoidDao = new PlanetoidDao();
+		clusterRepDao = new ClusterRepDao();
 	}
 	
 	/**
@@ -17,8 +19,16 @@ public class ExistingSystemWithStars {
 	 * @return cluster rep
 	 */
 	public static ClusterRep readCluster(System system){
-		ClusterRepDao clusterRepDao = new ClusterRepDao();
 		return clusterRepDao.readClusterRepBySystemId(system);
+	}
+	
+	/**
+	 * 
+	 * @param system
+	 * @return true or false 
+	 */
+	public static Boolean areThereStars(System system){
+		return clusterRepDao.areThereStarsInSystem(system);
 	}
 
 	/**
@@ -47,6 +57,15 @@ public class ExistingSystemWithStars {
 	 */
 	public static List<UnifiedPlanetoidI> readPlanetsAroundStar(Star star){
 		return planetoidDao.readPlanetoidsAroundStar(star);
+	}
+	
+	/**
+	 * 
+	 * @param planetoid
+	 * @return list of moons
+	 */
+	public static List<UnifiedPlanetoidI> readMoonsAroundPlanet(Planetoid planetoid){
+		return planetoidDao.readMoonsAroundPlanetoid(planetoid);
 	}
 
 }

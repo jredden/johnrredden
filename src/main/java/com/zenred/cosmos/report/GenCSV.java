@@ -8,6 +8,8 @@ import org.apache.log4j.Logger;
 
 import com.zenred.cosmos.domain.ClusterRep;
 import com.zenred.cosmos.domain.ClusterRepDao;
+import com.zenred.cosmos.domain.ExistingSystemWithStars;
+import com.zenred.cosmos.domain.Star;
 import com.zenred.cosmos.domain.SystemDao;
 import com.zenred.cosmos.service_rules_and_infrastructure.ImergeFromHyperspace;
 import com.zenred.cosmos.vizualization.SectorsResponse;
@@ -216,6 +218,9 @@ public class GenCSV {
 					lastU = uCoordinate;
 				}
 			}
+			if(currentUs.size() == 0 || currentVs.size() == 0){
+				break;
+			}
 			String upperU = currentUs.get(0).toString();
 			String lowerU = currentUs.get(currentUs.size()-1).toString();
 			String upperV = currentVs.get(0).toString();
@@ -266,7 +271,6 @@ public class GenCSV {
 		StringBuilder keyValuePair = new StringBuilder();
 
 		SystemDao systemDao = new SystemDao();
-		ClusterRepDao clusterRepDao = new ClusterRepDao();
 		System system = null;
 		initColumns();
 		
@@ -281,10 +285,14 @@ public class GenCSV {
 			for(int idex2 = i_Vtop; idex2 <= i_Vbot; idex2++){
 				system = systemDao.readSystemByUVCoordinates(idex, idex2);
 				systemName(system.getSystemName());
-				if(clusterRepDao.areThereStarsInSystem(system)){
+				if(ExistingSystemWithStars.areThereStars(system)){
 					genASystem(system);
-					ClusterRep clusterRep = clusterRepDao.readClusterRepBySystemId(system);
+					ClusterRep clusterRep = ExistingSystemWithStars.readCluster(system);
 					genClusterAndStars(clusterRep);
+					List<Star> stars = ExistingSystemWithStars.readStarsInCluster(clusterRep);
+					for(Star star : stars){
+						
+					}
 				}
 				else{
 					noStars();
