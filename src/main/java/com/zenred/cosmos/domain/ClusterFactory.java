@@ -25,66 +25,119 @@ interface Operation {
 
 }
 
+interface NormalizedName{
+	String normalizedName();
+}
+
 public enum ClusterFactory {
 
 	SINGLESTAR("SINGLESTAR") {
 		Operation get() {
 			return singleStar;
 		}
+		
+		NormalizedName getName(){
+			return singleStarName;
+		}
 	},
 	DOUBLESTAR_BINARY("DOUBLESTAR_BINARY") {
 		Operation get() {
 			return doubleStarBinary;
+		}
+
+		NormalizedName getName() {
+			return doubleStarBinaryName;
 		}
 	},
 	DOUBLESTAR_SPREAD("DOUBLESTAR_SPREAD") {
 		Operation get() {
 			return doubleStarSpread;
 		}
+
+		NormalizedName getName() {
+			return doubleStarSpreadName;
+		}
 	},
 	THREESTAR_TRINARY("THREESTAR_TRINARY") {
 		Operation get() {
 			return threeStarTrinary;
+		}
+
+		NormalizedName getName() {
+			return threeStarTrinaryName;
 		}
 	},
 	THREESTAR_BINARYPLUSONE("THREESTAR_BINARYPLUSONE") {
 		Operation get() {
 			return ClusterFactory.threeStarBinaryPlusOne;
 		}
+
+		NormalizedName getName() {
+			return threeStarBinaryPlusOneName;
+		}
 	},
 	THREESTAR_SPREAD("THREESTAR_SPREAD") {
 		Operation get() {
 			return threeStarSpread;
+		}
+
+		NormalizedName getName() {
+			return ClusterFactory.threeStarSpreadName;
 		}
 	},
 	FOURSTAR_TRINARYPLUSONE("FOURSTAR_TRINARYPLUSONE") {
 		Operation get() {
 			return ClusterFactory.fourStarTrinaryPlusOne;
 		}
+
+		@Override
+		NormalizedName getName() {
+			return fourStarTrinaryPlusOneName;
+		}
 	},
 	FOURSTAR_TWOBINARIES("FOURSTAR_TWOBINARIES") {
 		Operation get() {
 			return ClusterFactory.fourStarTwoBinaries;
+		}
+
+		NormalizedName getName() {
+			return fourStarTwoBinariesName;
 		}
 	},
 	FOURSTAR_SPREAD("FOURSTAR_SPREAD") {
 		Operation get() {
 			return ClusterFactory.fourStarSpread;
 		}
+
+		NormalizedName getName() {
+			return fourStarSpreadName;
+		}
 	},
 	FIVESTAR_FOURSTARSPREADPLUSONE("FIVESTAR_FOURSTARSPREADPLUSONE") {
 		Operation get() {
 			return ClusterFactory.fiveStarFourStarSpreadPlusOne;
+		}
+
+		NormalizedName getName() {
+			return fiveStarFourStarSpreadPlusOneName;
 		}
 	},
 	FIVESTAR_SPREAD("FIVESTAR_SPREAD") {
 		Operation get() {
 			return ClusterFactory.fiveStarSpread;
 		}
+
+		NormalizedName getName() {
+			return fiveStarSpreadName;
+		}
 	},
 	CLUSTER_N("CLUSTER_N") {
 		Operation get() {
 			return ClusterFactory.clusterN;
+		}
+
+		NormalizedName getName() {
+			return clusterNname;
 		}
 	},
 	;
@@ -126,6 +179,8 @@ public enum ClusterFactory {
 	}
 
 	abstract Operation get();
+	
+	abstract NormalizedName getName();
 
 	protected static Operation singleStar = new Operation() {
 		public ClusterRep process(ClusterRep clusterRep) {
@@ -136,6 +191,13 @@ public enum ClusterFactory {
 			clusterRep.setClusterName(clusterRep.getClusterName());
 			clusterRep.setCluster_description(ClusterFactory.SINGLESTAR.name());
 			return clusterRep;
+		}
+	};
+	
+	protected static NormalizedName singleStarName = new NormalizedName() {		
+		@Override
+		public String normalizedName() {
+			return "Single Star";
 		}
 	};
 	protected static Operation doubleStarBinary = new Operation() {
@@ -149,6 +211,14 @@ public enum ClusterFactory {
 			return clusterRep;
 		}
 	};
+	protected static NormalizedName doubleStarBinaryName = new NormalizedName() {		
+		@Override
+		public String normalizedName() {
+			return "Double Star BInary";
+		}
+	};
+	
+	
 	protected static Operation doubleStarSpread = new Operation() {
 		public ClusterRep process(ClusterRep clusterRep) {
 			Double distance = GenRandomRolls.Instance().draw_rand()*AstronomicalUnits.THIRD_PARSEC;
@@ -160,6 +230,14 @@ public enum ClusterFactory {
 			return clusterRep;
 		}
 	};
+	
+	protected static NormalizedName doubleStarSpreadName = new NormalizedName() {
+		@Override
+		public String normalizedName() {
+			return "Two Stars Random Spread";
+		}
+	};
+	
 	protected static Operation threeStarTrinary = new Operation() {
 		public ClusterRep process(ClusterRep clusterRep) {
 			Double distance = GenRandomRolls.Instance().draw_rand()*AstronomicalUnits.HALFPSEC;
@@ -172,6 +250,15 @@ public enum ClusterFactory {
 			return clusterRep;
 		}
 	};
+	
+	protected static NormalizedName threeStarTrinaryName = new NormalizedName() {
+		
+		@Override
+		public String normalizedName() {
+			return "Three Star Trinary";
+		}
+	};
+	
 	protected static Operation threeStarBinaryPlusOne = new Operation() {
 		public ClusterRep process(ClusterRep clusterRep) {
 			Double distance = GenRandomRolls.Instance().draw_rand()*AstronomicalUnits.FOURTH_PARSEC;
@@ -184,6 +271,15 @@ public enum ClusterFactory {
 			return clusterRep;
 		}
 	};
+	
+	protected static NormalizedName threeStarBinaryPlusOneName = new NormalizedName() {
+		
+		@Override
+		public String normalizedName() {
+			return "Two Binary Stars and One Random Star";
+		}
+	};
+	
 	protected static Operation threeStarSpread = new Operation() {
 		public ClusterRep process(ClusterRep clusterRep) {
 			Double distance = GenRandomRolls.Instance().draw_rand()*AstronomicalUnits.HALFPSEC;
@@ -196,6 +292,15 @@ public enum ClusterFactory {
 			return clusterRep;
 		}
 	};
+	
+	protected static NormalizedName threeStarSpreadName = new NormalizedName() {
+		
+		@Override
+		public String normalizedName() {
+			return "Three Random Stars";
+		}
+	};
+	
 	protected static Operation fourStarTrinaryPlusOne = new Operation() {
 		public ClusterRep process(ClusterRep clusterRep) {
 			Double distance = GenRandomRolls.Instance().draw_rand()*AstronomicalUnits.FOURTH_PARSEC;
@@ -208,6 +313,15 @@ public enum ClusterFactory {
 			return clusterRep;
 		}
 	};
+	
+	protected static NormalizedName fourStarTrinaryPlusOneName = new NormalizedName() {
+		
+		@Override
+		public String normalizedName() {
+			return "Trinary Stars and Random Star";
+		}
+	};
+	
 	protected static Operation fourStarTwoBinaries = new Operation() {
 		public ClusterRep process(ClusterRep clusterRep) {
 			Double distance = GenRandomRolls.Instance().draw_rand()*AstronomicalUnits.HALFPSEC;
@@ -220,6 +334,15 @@ public enum ClusterFactory {
 			return clusterRep;
 		}
 	};
+	
+	protected static NormalizedName fourStarTwoBinariesName = new NormalizedName() {
+		
+		@Override
+		public String normalizedName() {
+			return "Two Sets of Binary Stars";
+		}
+	};
+	
 	protected static Operation fourStarSpread = new Operation() {
 		public ClusterRep process(ClusterRep clusterRep) {
 			Double distance = GenRandomRolls.Instance().draw_rand()*AstronomicalUnits.FOURTH_PARSEC;
@@ -232,6 +355,15 @@ public enum ClusterFactory {
 			return clusterRep;
 		}
 	};
+	
+	protected static NormalizedName fourStarSpreadName = new NormalizedName() {
+		
+		@Override
+		public String normalizedName() {
+			return "Four Random Stars";
+		}
+	};
+	
 	protected static Operation fiveStarFourStarSpreadPlusOne = new Operation() {
 		public ClusterRep process(ClusterRep clusterRep) {
 			Double distance = GenRandomRolls.Instance().draw_rand()*AstronomicalUnits.FOURTH_PARSEC;
@@ -244,6 +376,15 @@ public enum ClusterFactory {
 			return clusterRep;
 		}
 	};
+	
+	protected static NormalizedName fiveStarFourStarSpreadPlusOneName = new NormalizedName() {
+		
+		@Override
+		public String normalizedName() {
+			return "Four Random Stars and One Random Star";
+		}
+	};
+	
 	protected static Operation fiveStarSpread = new Operation() {
 		public ClusterRep process(ClusterRep clusterRep) {
 			Double distance = GenRandomRolls.Instance().draw_rand()*AstronomicalUnits.FOURTH_PARSEC;
@@ -256,6 +397,15 @@ public enum ClusterFactory {
 			return clusterRep;
 		}
 	};
+	
+	protected static NormalizedName fiveStarSpreadName = new NormalizedName() {
+		
+		@Override
+		public String normalizedName() {
+			return "Five Random Stars";
+		}
+	};
+	
 	protected static Operation clusterN = new Operation() {
 		public ClusterRep process(ClusterRep clusterRep) {
 			Double distance = GenRandomRolls.Instance().draw_rand()*AstronomicalUnits.FOURTH_PARSEC;
@@ -266,6 +416,14 @@ public enum ClusterFactory {
 			clusterRep.setCluster_description(ClusterFactory.CLUSTER_N.name());
 
 			return clusterRep;
+		}
+	};
+	
+	protected static NormalizedName clusterNname = new NormalizedName() {
+		
+		@Override
+		public String normalizedName() {
+			return "Number of Random Stars";
 		}
 	};
 	

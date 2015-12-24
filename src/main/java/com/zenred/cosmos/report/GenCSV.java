@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import com.zenred.cosmos.domain.ClusterFactory;
 import com.zenred.cosmos.domain.ClusterRep;
 import com.zenred.cosmos.domain.ClusterRepDao;
 import com.zenred.cosmos.domain.ExistingSystemWithStars;
@@ -127,8 +128,10 @@ public class GenCSV {
 		columns.get(Columns.a).add(systemName);
 	}
 	
-	private static void clusterName(String clusterName){
+	private static void clusterName(String clusterName, String clusterDescription){
 		columns.get(Columns.b).add(clusterName);
+		columns.get(Columns.c).add(clusterDescription);
+		
 	}
 	
 	private static void noSystem(){
@@ -315,6 +318,6 @@ public class GenCSV {
 	}
 	
 	private static void genClusterAndStars(ClusterRep clusterRep){
-		clusterName(clusterRep.getClusterName());
+		clusterName(clusterRep.getClusterName(), clusterRep.getCluster_description());
 	}
 }
