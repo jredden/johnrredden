@@ -145,6 +145,7 @@ public enum ClusterFactory {
 	static private Logger logger = Logger.getLogger(ClusterFactory.class);
 	private String type;
 	private static Map<String, ClusterFactory> operationMap = new HashMap<String, ClusterFactory>();
+	private static Map<String, NormalizedName> normalizedNameMap = new HashMap<String, NormalizedName>();
 	private static Map<String, Integer[]> chanceMap = new HashMap<String, Integer[]>();
 
 	private ClusterFactory(String type) {
@@ -167,10 +168,28 @@ public enum ClusterFactory {
 		chanceMap.put("FIVESTAR_FOURSTARSPREADPLUSONE", new Integer[] { 951, 970 });
 		chanceMap.put("FIVESTAR_SPREAD", new Integer[] { 971, 985 });
 		chanceMap.put("CLUSTER_N", new Integer[] { 986, 999 });
-	}
+		
+		normalizedNameMap.put("SINGLESTAR", SINGLESTAR.singleStarName);
+		normalizedNameMap.put("DOUBLESTAR_BINARY", DOUBLESTAR_BINARY.doubleStarBinaryName);
+		normalizedNameMap.put("DOUBLESTAR_SPREAD", DOUBLESTAR_SPREAD.doubleStarSpreadName);
+		normalizedNameMap.put("THREESTAR_TRINARY", THREESTAR_TRINARY.threeStarTrinaryName);
+		normalizedNameMap.put("THREESTAR_BINARYPLUSONE", THREESTAR_BINARYPLUSONE.threeStarBinaryPlusOneName);
+		normalizedNameMap.put("THREESTAR_SPREAD", THREESTAR_SPREAD.threeStarSpreadName);
+		normalizedNameMap.put("FOURSTAR_TRINARYPLUSONE", FOURSTAR_TRINARYPLUSONE.fourStarTrinaryPlusOneName);
+		normalizedNameMap.put("FOURSTAR_TWOBINARIES", FOURSTAR_TWOBINARIES.fourStarTwoBinariesName);
+		normalizedNameMap.put("FOURSTAR_SPREAD", FOURSTAR_SPREAD.fourStarSpread);
+		normalizedNameMap.put("FIVESTAR_FOURSTARSPREADPLUSONE", FIVESTAR_FOURSTARSPREADPLUSONE.fiveStarFourStarSpreadPlusOneName);
+		normalizedNameMap.put("FIVESTAR_SPREAD", FIVESTAR_SPREAD.fiveStarSpreadName);
+		normalizedNameMap.put("CLUSTER_N", CLUSTER_N.clusterNname);
+		}
 
 	public static ClusterFactory fromString(String type) {
 		return operationMap.get(type);
+	}
+	
+	public static String getNormalizedName(String clusterType){
+		NormalizedName normalizedName = normalizedNameMap.get(clusterType);
+		return normalizedName.normalizedName();
 	}
 
 	@Override

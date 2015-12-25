@@ -131,7 +131,7 @@ public class GenCSV {
 	private static void clusterName(String clusterName, String clusterDescription){
 		columns.get(Columns.b).add(clusterName);
 		columns.get(Columns.c).add(clusterDescription);
-		
+		columns.get(Columns.c).add(ClusterFactory.getNormalizedName(clusterDescription));
 	}
 	
 	private static void noSystem(){
@@ -293,7 +293,9 @@ public class GenCSV {
 					ClusterRep clusterRep = ExistingSystemWithStars.readCluster(system);
 					genClusterAndStars(clusterRep);
 					List<Star> stars = ExistingSystemWithStars.readStarsInCluster(clusterRep);
-					for(Star star : stars){
+					int numStars = stars.size();
+					oneStar(stars.get(0));
+					for(int idexStars = 1; idexStars < numStars; idexStars++){
 						
 					}
 				}
@@ -311,6 +313,10 @@ public class GenCSV {
 		SectorsResponse sectorsResponse = new SectorsResponse();
 		sectorsResponse.setSectors(keyValuePair.toString());
 		return sectorsResponse;
+	}
+	
+	private static void oneStar(Star star){
+		
 	}
 	
 	private static void genASystem(System system){
