@@ -131,9 +131,20 @@ public class GenCSV {
 	private static void clusterName(String clusterName, String clusterDescription){
 		columns.get(Columns.b).add(clusterName);
 		columns.get(Columns.c).add(clusterDescription);
-		columns.get(Columns.c).add(ClusterFactory.getNormalizedName(clusterDescription));
+		columns.get(Columns.d).add(ClusterFactory.getNormalizedName(clusterDescription));
 	}
 	
+	private static void firstOrNextStar(Star star){
+		columns.get(Columns.e).add(star.getName());
+		columns.get(Columns.f).add(star.getStar_color());
+		columns.get(Columns.g).add(star.getStar_size().toString());
+		columns.get(Columns.h).add(star.getLuminosity().toString());
+		columns.get(Columns.i).add(star.getStar_type());
+		columns.get(Columns.j).add(star.getDistance_clust_virt_centre().toString());
+		double degrees = Math.toDegrees(star.getAngle_in_radians_s());
+		columns.get(Columns.k).add(new Double(degrees).toString());
+
+	}
 	private static void noSystem(){
 		columns.get(Columns.a).add(SEPERATOR);
 	}
@@ -316,7 +327,7 @@ public class GenCSV {
 	}
 	
 	private static void oneStar(Star star){
-		
+		firstOrNextStar(star);
 	}
 	
 	private static void genASystem(System system){
