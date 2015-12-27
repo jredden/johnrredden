@@ -6,12 +6,15 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import com.zenred.cosmos.domain.Atmosphere;
 import com.zenred.cosmos.domain.ClusterFactory;
 import com.zenred.cosmos.domain.ClusterRep;
 import com.zenred.cosmos.domain.ClusterRepDao;
 import com.zenred.cosmos.domain.ExistingSystemWithStars;
 import com.zenred.cosmos.domain.Star;
 import com.zenred.cosmos.domain.SystemDao;
+import com.zenred.cosmos.domain.UnifiedPlanetoidI;
+import com.zenred.cosmos.service_rules_and_infrastructure.GenAtmosphere;
 import com.zenred.cosmos.service_rules_and_infrastructure.ImergeFromHyperspace;
 import com.zenred.cosmos.vizualization.SectorsResponse;
 import com.zenred.cosmos.domain.System;
@@ -145,9 +148,31 @@ public class GenCSV {
 		columns.get(Columns.k).add(new Double(degrees).toString());
 
 	}
+	
+	private static void firstOrNextPlanetoid(UnifiedPlanetoidI unifiedPlanetoidI){
+		columns.get(Columns.l).add(unifiedPlanetoidI.getPlanetoid().getPlanetoidName());
+		columns.get(Columns.m).add(unifiedPlanetoidI.getPlanetoid().getDegree().toString());
+		columns.get(Columns.n).add(unifiedPlanetoidI.getPlanetoid().getDistanceToPrimary().toString());
+		columns.get(Columns.o).add(unifiedPlanetoidI.getPlanetoid().getTemperature().toString());
+		columns.get(Columns.p).add(unifiedPlanetoidI.getPlanetoid().getRadius().toString());
+		columns.get(Columns.q).add(
+				GenAtmosphere.temperatureType(unifiedPlanetoidI.getPlanetoid()
+						.getTemperature()));
+		columns.get(Columns.r).add(
+				GenAtmosphere.sizeType(unifiedPlanetoidI.getPlanetoid()
+						.getRadius()));
+	}
+	
 	private static void noSystem(){
 		columns.get(Columns.a).add(SEPERATOR);
 	}
+	
+	private static void noCluster(){
+		columns.get(Columns.b).add(SEPERATOR);
+		columns.get(Columns.c).add(SEPERATOR);
+		columns.get(Columns.d).add(SEPERATOR);
+	}
+
 	
 	private static void noStars(){
 		columns.get(Columns.b).add(SEPERATOR);
@@ -307,7 +332,9 @@ public class GenCSV {
 					int numStars = stars.size();
 					oneStar(stars.get(0));
 					for(int idexStars = 1; idexStars < numStars; idexStars++){
-						
+						noSystem();
+						noCluster();
+						oneStar(stars.get(idexStars));
 					}
 				}
 				else{
@@ -328,6 +355,21 @@ public class GenCSV {
 	
 	private static void oneStar(Star star){
 		firstOrNextStar(star);
+		List<UnifiedPlanetoidI> unifiedPlanetoidIs = ExistingSystemWithStars.readPlanetsAroundStar(star);
+		if(unifiedPlanetoidIs.isEmpty()){
+			noPlanets();
+			noPlanetAtmosphere();
+			noMoons();
+			noMoonAtmosphere();
+		}
+		else{
+			firstOrNextPlanetoid(unifiedPlanetoidIs.get(0));
+			List<Atmosphere> atmospheres = ExistingSystemWithStars.readPlanarsAtmosphere(unifiedPlanetoidIs.get(0).getPlanetoid());
+
+			for (int planetoidIndex = 1; planetoidIndex < unifiedPlanetoidIs.size(); planetoidIndex++){
+				
+			}
+		}
 	}
 	
 	private static void genASystem(System system){

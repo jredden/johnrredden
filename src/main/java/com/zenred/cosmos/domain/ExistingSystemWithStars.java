@@ -7,10 +7,12 @@ public class ExistingSystemWithStars {
 	private static StarDao starDao;
 	private static PlanetoidDao planetoidDao;
 	private static ClusterRepDao clusterRepDao;
+	private static AtmosphereDao atmosphereDao;
 	static{
 		starDao = new StarDao();
 		planetoidDao = new PlanetoidDao();
 		clusterRepDao = new ClusterRepDao();
+		atmosphereDao = new AtmosphereDao();
 	}
 	
 	/**
@@ -68,4 +70,7 @@ public class ExistingSystemWithStars {
 		return planetoidDao.readMoonsAroundPlanetoid(planetoid);
 	}
 
+	public static List<Atmosphere> readPlanarsAtmosphere(Planetoid planetoid){
+		return atmosphereDao.readAtmosphereAroundPlanet(planetoid);
+	}
 }
