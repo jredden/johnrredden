@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import com.zenred.cosmos.vizualization.SectorsResponse;
+import com.zenred.util.GenRandomRolls;
 
 public class ReadDefiningTest {
 	static private Logger logger = Logger
@@ -25,6 +26,13 @@ public class ReadDefiningTest {
 		SectorsResponse response = GenCSV.sectorsResponse();
 		logger.info("RESPONSE:"+response.getSectors());
 		assertTrue(response != null);
+		String [] sectors = response.getSectors().split(";");
+		int numberSectors = sectors.length;
+		int sectorIndex = GenRandomRolls.Instance().getDX(numberSectors-1);
+		String sector = sectors[sectorIndex];
+		String [] indexAndUV = sector.split("=");
+		String [] uv = indexAndUV[1].split(":");
+		GenCSV.selectSector(uv[0], uv[1], uv[2], uv[3]);
 	}
 
 }

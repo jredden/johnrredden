@@ -1,6 +1,7 @@
 package com.zenred.cosmos.report;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -67,6 +68,7 @@ public class GenCSV {
 	 * csv header
 	 */
 	private static void initColumns(){
+		columns = new HashMap<GenCSV.Columns, List<String>>();
 		columns.put(Columns.a, new ArrayList<String>());
 		columns.get(Columns.a).add(SYSTEM);
 		columns.put(Columns.b, new ArrayList<String>());
@@ -163,6 +165,30 @@ public class GenCSV {
 						.getRadius()));
 	}
 	
+	private static void firstOrNextMoon(UnifiedPlanetoidI unifiedPlanetoidI){
+		columns.get(Columns.u).add(unifiedPlanetoidI.getPlanetoid().getPlanetoidName());
+		columns.get(Columns.v).add(unifiedPlanetoidI.getPlanetoid().getDegree().toString());
+		columns.get(Columns.w).add(unifiedPlanetoidI.getPlanetoid().getDistanceToPrimary().toString());
+		columns.get(Columns.x).add(unifiedPlanetoidI.getPlanetoid().getTemperature().toString());
+		columns.get(Columns.y).add(unifiedPlanetoidI.getPlanetoid().getRadius().toString());
+		columns.get(Columns.z).add(
+				GenAtmosphere.temperatureType(unifiedPlanetoidI.getPlanetoid()
+						.getTemperature()));
+		columns.get(Columns.aa).add(
+				GenAtmosphere.sizeType(unifiedPlanetoidI.getPlanetoid()
+						.getRadius()));
+	}
+
+	private static void firstOrNextPlanetoidAtmosphere(Atmosphere atmosphere){
+		columns.get(Columns.s).add(atmosphere.getChem_name());
+		columns.get(Columns.t).add(atmosphere.getPercentage().toString());
+	}
+	
+	private static void firstOrNextMoonAtmosphere(Atmosphere atmosphere){
+		columns.get(Columns.ab).add(atmosphere.getChem_name());
+		columns.get(Columns.ac).add(atmosphere.getPercentage().toString());
+	}
+
 	private static void noSystem(){
 		columns.get(Columns.a).add(SEPERATOR);
 	}
@@ -353,6 +379,10 @@ public class GenCSV {
 		return sectorsResponse;
 	}
 	
+	/**
+	 * 
+	 * @param star
+	 */
 	private static void oneStar(Star star){
 		firstOrNextStar(star);
 		List<UnifiedPlanetoidI> unifiedPlanetoidIs = ExistingSystemWithStars.readPlanetsAroundStar(star);
@@ -365,17 +395,82 @@ public class GenCSV {
 		else{
 			firstOrNextPlanetoid(unifiedPlanetoidIs.get(0));
 			List<Atmosphere> atmospheres = ExistingSystemWithStars.readPlanarsAtmosphere(unifiedPlanetoidIs.get(0).getPlanetoid());
-
+			firstOrNextPlanetoidAtmosphere(atmospheres.get(0));
+			fillPlanetAtmospheres(atmospheres);
+			List<UnifiedPlanetoidI> unifiedMoonsIs = ExistingSystemWithStars.readMoonsAroundPlanet(unifiedPlanetoidIs.get(0).getPlanetoid());
+			moonOrNoMoons(unifiedMoonsIs, 0);
 			for (int planetoidIndex = 1; planetoidIndex < unifiedPlanetoidIs.size(); planetoidIndex++){
-				
+				firstOrNextPlanetoid(unifiedPlanetoidIs.get(planetoidIndex));
+				atmospheres = ExistingSystemWithStars.readPlanarsAtmosphere(unifiedPlanetoidIs.get(planetoidIndex).getPlanetoid());
+				firstOrNextPlanetoidAtmosphere(atmospheres.get(0));
+				fillPlanetAtmospheres(atmospheres);
+				unifiedMoonsIs = ExistingSystemWithStars.readMoonsAroundPlanet(unifiedPlanetoidIs.get(planetoidIndex).getPlanetoid());
+				moonOrNoMoons(unifiedMoonsIs, planetoidIndex);
 			}
 		}
 	}
 	
+	/**
+	 * 
+	 * @param unifiedMoonsIs
+	 * @param idex
+	 */
+	private static void moonOrNoMoons(List<UnifiedPlanetoidI> unifiedMoonsIs, int idex){
+		if(unifiedMoonsIs.isEmpty()){
+			noMoons();
+			noMoonAtmosphere();				
+		}
+		else{
+			firstOrNextMoon(unifiedMoonsIs.get(idex));
+			List<Atmosphere> moonAtmospheres = ExistingSystemWithStars.readPlanarsAtmosphere(unifiedMoonsIs.get(idex).getPlanetoid());
+			firstOrNextMoonAtmosphere(moonAtmospheres.get(0));
+			fillMoonAtmospheres(moonAtmospheres);
+		}
+		
+	}
+	
+	/**
+	 * 
+	 * @param atmospheres
+	 */
+	private static void fillPlanetAtmospheres(List<Atmosphere> atmospheres){
+		for(int atmosIndex = 1; atmosIndex < atmospheres.size(); atmosIndex++){
+			noSystem();
+			noCluster();
+			noStars();
+			noPlanets();
+			firstOrNextPlanetoidAtmosphere(atmospheres.get(atmosIndex));
+		}
+	}
+
+	/**
+	 * 
+	 * @param atmospheres
+	 */
+	private static void fillMoonAtmospheres(List<Atmosphere> atmospheres){
+		for(int atmosIndex = 1; atmosIndex < atmospheres.size(); atmosIndex++){
+			noSystem();
+			noCluster();
+			noStars();
+			noPlanets();
+			noPlanetAtmosphere();
+			noMoons();
+			firstOrNextMoonAtmosphere(atmospheres.get(atmosIndex));
+		}
+	}
+
+	/**
+	 * 
+	 * @param system
+	 */
 	private static void genASystem(System system){
 		systemName(system.getSystemName());
 	}
 	
+	/**
+	 * 
+	 * @param clusterRep
+	 */
 	private static void genClusterAndStars(ClusterRep clusterRep){
 		clusterName(clusterRep.getClusterName(), clusterRep.getCluster_description());
 	}
