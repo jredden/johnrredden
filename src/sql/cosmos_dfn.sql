@@ -25,6 +25,7 @@ DROP TABLE IF EXISTS `Configuration`;
 CREATE TABLE `Configuration`(
 `configurationId` int unsigned NOT NULL auto_increment,
 `starDensity` double DEFAULT 0.30,
+`reportDirectory` char(255) DEFAULT 'reports',
 `datestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 PRIMARY KEY (`configurationId`)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;

@@ -2,11 +2,16 @@ package com.zenred.cosmos.report;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
+import com.zenred.cosmos.report.GenCSV.Columns;
 import com.zenred.cosmos.vizualization.SectorsResponse;
 import com.zenred.util.GenRandomRolls;
 
