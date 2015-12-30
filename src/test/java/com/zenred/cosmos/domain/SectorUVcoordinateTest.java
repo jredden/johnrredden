@@ -83,9 +83,9 @@ public class SectorUVcoordinateTest {
 		Boolean nextV = Boolean.TRUE;
 		List<Integer> vCoordinates = null;
 		Integer numberOfSystems = systemDao.numberOfSystems().intValue();
+		logger.info("BEGIN:"+start+" NUMBER OF SYSTEMS:"+numberOfSystems);
 		// numberOfSystems -= GenCSV.numberSystemsUatATime;
-		while (!numberOfSystems.equals(start)
-				|| !(numberOfSystems.compareTo(start) <= 0)) {
+		while ( numberOfSystems.compareTo(start) >= 0) {
 			List<Integer> uCoordinates = systemDao.readSectorUcoordinates(
 					start, GenCSV.numberSystemsUatATime);
 			for (Integer uCoordinate : uCoordinates) {
@@ -105,9 +105,10 @@ public class SectorUVcoordinateTest {
 				}
 			}
 			start += GenCSV.numberSystemsUatATime;
+			logger.info("START:"+start+" NUMBER OF SYSTEMS:"+numberOfSystems);
 			nextV = Boolean.TRUE;
 		}
 		logger.info("start:"+start + " number systems:" + numberOfSystems);
-		assertTrue(numberOfSystems.equals(start));
+		
 	}
 }
