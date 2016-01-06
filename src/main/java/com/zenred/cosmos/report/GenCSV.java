@@ -182,7 +182,6 @@ public class GenCSV {
 		columns.get(Columns.w).add(SEPERATOR+unifiedPlanetoidI.getPlanetoid().getDistanceToPrimary().toString());
 		columns.get(Columns.x).add(SEPERATOR+unifiedPlanetoidI.getPlanetoid().getTemperature().toString());
 		columns.get(Columns.y).add(SEPERATOR+unifiedPlanetoidI.getPlanetoid().getRadius().toString());
-		columns.get(Columns.z).add(SEPERATOR);
 		columns.get(Columns.z).add(SEPERATOR+
 				GenAtmosphere.temperatureType(unifiedPlanetoidI.getPlanetoid()
 						.getTemperature()));
