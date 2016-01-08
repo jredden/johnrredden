@@ -199,8 +199,8 @@ public class GenCSV {
 	
 	private static void firstOrNextMoonAtmosphere(Atmosphere atmosphere){
 		columns.get(Columns.ab).add(SEPERATOR+atmosphere.getChem_name());
-		columns.get(Columns.ac).add(SEPERATOR+atmosphere.getPercentage().toString());
-		logger.info("8.COMMACOUNT:"+2);
+		columns.get(Columns.ac).add(atmosphere.getPercentage().toString());
+		logger.info("8.COMMACOUNT:"+1);
 	}
 
 	private static void noSystem(){
@@ -217,9 +217,9 @@ public class GenCSV {
 
 	
 	private static void noStars(){
-//		columns.get(Columns.b).add(SEPERATOR);
-//		columns.get(Columns.c).add(SEPERATOR);
-//		columns.get(Columns.d).add(SEPERATOR);
+		columns.get(Columns.b).add(SEPERATOR);
+		columns.get(Columns.c).add(SEPERATOR);
+		columns.get(Columns.d).add(SEPERATOR);
 		columns.get(Columns.e).add(SEPERATOR);
 		columns.get(Columns.f).add(SEPERATOR);
 		columns.get(Columns.g).add(SEPERATOR);
@@ -256,6 +256,19 @@ public class GenCSV {
 		columns.get(Columns.z).add(SEPERATOR);
 		columns.get(Columns.aa).add(SEPERATOR);
 		logger.info("14.COMMACOUNT:"+7);
+	}
+	
+	private static void noMoonsAndNoMoonAtmosphere(){
+		columns.get(Columns.u).add(BLANK);
+		columns.get(Columns.v).add(SEPERATOR);
+		columns.get(Columns.w).add(SEPERATOR);
+		columns.get(Columns.x).add(SEPERATOR);
+		columns.get(Columns.y).add(SEPERATOR);
+		columns.get(Columns.z).add(SEPERATOR);
+		columns.get(Columns.aa).add(SEPERATOR);
+		columns.get(Columns.ab).add(SEPERATOR);
+		columns.get(Columns.ac).add(BLANK); 
+		logger.info("14.5.COMMACOUNT:"+7);
 	}
 
 	private static void noMoonAtmosphere(){
@@ -434,7 +447,7 @@ public class GenCSV {
 		String reportDirectory = new ConfigurationDao().reportDirectory();
 		String csv_file = reportDirectory + File.separator + s_Ucoordinate_top+"_"+s_Ucoordinate_bottom+"_"+s_Vcoordinate_top+"_"+s_Vcoordinate_bottom+".csv";
 		StringBuilder keyValuePair = new StringBuilder();
-		// int lineCount= 0;
+		int lineCount= 0;
 
 		SystemDao systemDao = new SystemDao();
 		System system = null;
@@ -454,7 +467,6 @@ public class GenCSV {
 					logger.warn("U:"+idex+" V:"+idex2+" Does Not Exist");
 					break;
 				}
-				// ++lineCount;
 				system = systemDao.readSystemByUVCoordinates(idex, idex2);
 				genASystem(system);
 
@@ -476,6 +488,8 @@ public class GenCSV {
 					noMoons();
 					noMoonAtmosphere();
 				}
+				audit("EndSystem:");
+				++lineCount;
 			}
 			
 		}
@@ -660,19 +674,24 @@ public class GenCSV {
 			noPlanetAtmosphere();
 			noMoons();
 			noMoonAtmosphere();
+			audit("NoPlanets:");
 		}
 		else{
-			List<Atmosphere> atmospheres = ExistingSystemWithStars.readPlanarsAtmosphere(unifiedPlanetoidIs.get(0).getPlanetoid());
+			List<Atmosphere> atmospheres = null;
 			for (int planetoidIndex = 0; planetoidIndex < unifiedPlanetoidIs.size(); planetoidIndex++){
 				if(planetoidIndex != 0){
 					planetBlankLine();
+					audit("PlanetNthLine:");
 				}
 				firstOrNextPlanetoid(unifiedPlanetoidIs.get(planetoidIndex));
+				audit("PlanetMain:");
 				atmospheres = ExistingSystemWithStars.readPlanarsAtmosphere(unifiedPlanetoidIs.get(planetoidIndex).getPlanetoid());
 				fillPlanetAtmospheres(atmospheres);
+				audit("PlanetAtmosphere:");
 				List<UnifiedPlanetoidI> unifiedMoonsIs = ExistingSystemWithStars.readMoonsAroundPlanet(unifiedPlanetoidIs.get(planetoidIndex).getPlanetoid());
 				for(int moonIdex = 0; moonIdex < unifiedMoonsIs.size(); moonIdex++){
 					moonOrNoMoons(unifiedMoonsIs, moonIdex);
+					audit("MoonMain:");
 				}
 			}
 		}
@@ -685,14 +704,15 @@ public class GenCSV {
 	 */
 	private static void moonOrNoMoons(List<UnifiedPlanetoidI> unifiedMoonsIs, int idex){
 		if(unifiedMoonsIs.isEmpty()){
-			noMoons();
-			noMoonAtmosphere();				
+			noMoonsAndNoMoonAtmosphere();
+			audit("NoMoons:");
 		}
 		else{
 			firstOrNextMoon(unifiedMoonsIs.get(idex));
-			
+			audit("NthMoon:");
 			List<Atmosphere> moonAtmospheres = ExistingSystemWithStars.readPlanarsAtmosphere(unifiedMoonsIs.get(idex).getPlanetoid());
 			fillMoonAtmospheres(moonAtmospheres);
+			audit("MoonAmosphere:");
 		}
 		
 	}
@@ -705,10 +725,12 @@ public class GenCSV {
 		for (int atmosIndex = 0; atmosIndex < atmospheres.size(); atmosIndex++) {
 			if (atmosIndex != 0) {
 				planetAtmosphereBlankLine();
+				audit("NthPlanetAtmosphere:");
 			}
 			firstOrNextPlanetoidAtmosphere(atmospheres.get(atmosIndex));
-			noMoons();
-			noMoonAtmosphere();
+			audit("planetAtmosphereMain:");
+			noMoonsAndNoMoonAtmosphere();
+			audit("MoonMain:");
 		}
 	}
 	
@@ -720,9 +742,43 @@ public class GenCSV {
 		for (int atmosIndex = 0; atmosIndex < atmospheres.size(); atmosIndex++) {
 			if (atmosIndex != 0) {
 				moonAtmosphereBlankLine();
+				audit("NthMoonAtmosphere:");
 			}
 			firstOrNextMoonAtmosphere(atmospheres.get(atmosIndex));
+			audit("MoonAtmosphereMain:");
 		}
+	}
+	
+	private static void audit(String prefix){
+		logger.info(prefix+"Audit_A SIZE:"+columns.get(Columns.a).size());
+		logger.info(prefix+"Audit_B SIZE:"+columns.get(Columns.b).size());
+		logger.info(prefix+"Audit_C SIZE:"+columns.get(Columns.c).size());
+		logger.info(prefix+"Audit_D SIZE:"+columns.get(Columns.d).size());
+		logger.info(prefix+"Audit_E SIZE:"+columns.get(Columns.e).size());
+		logger.info(prefix+"Audit_F SIZE:"+columns.get(Columns.f).size());
+		logger.info(prefix+"Audit_G SIZE:"+columns.get(Columns.g).size());
+		logger.info(prefix+"Audit_H SIZE:"+columns.get(Columns.h).size());
+		logger.info(prefix+"Audit_I SIZE:"+columns.get(Columns.i).size());
+		logger.info(prefix+"Audit_J SIZE:"+columns.get(Columns.j).size());
+		logger.info(prefix+"Audit_K SIZE:"+columns.get(Columns.k).size());
+		logger.info(prefix+"Audit_L SIZE:"+columns.get(Columns.l).size());
+		logger.info(prefix+"Audit_M SIZE:"+columns.get(Columns.m).size());
+		logger.info(prefix+"Audit_N SIZE:"+columns.get(Columns.n).size());
+		logger.info(prefix+"Audit_O SIZE:"+columns.get(Columns.o).size());
+		logger.info(prefix+"Audit_P SIZE:"+columns.get(Columns.p).size());
+		logger.info(prefix+"Audit_Q SIZE:"+columns.get(Columns.q).size());
+		logger.info(prefix+"Audit_R SIZE:"+columns.get(Columns.r).size());
+		logger.info(prefix+"Audit_S SIZE:"+columns.get(Columns.s).size());
+		logger.info(prefix+"Audit_T SIZE:"+columns.get(Columns.t).size());
+		logger.info(prefix+"Audit_U SIZE:"+columns.get(Columns.u).size());
+		logger.info(prefix+"Audit_V SIZE:"+columns.get(Columns.v).size());
+		logger.info(prefix+"Audit_W SIZE:"+columns.get(Columns.w).size());
+		logger.info(prefix+"Audit_X SIZE:"+columns.get(Columns.x).size());
+		logger.info(prefix+"Audit_Y SIZE:"+columns.get(Columns.y).size());
+		logger.info(prefix+"Audit_Z SIZE:"+columns.get(Columns.z).size());
+		logger.info(prefix+"Audit_AA SIZE:"+columns.get(Columns.aa).size());
+		logger.info(prefix+"Audit_AB SIZE:"+columns.get(Columns.ab).size());
+		logger.info(prefix+"Audit_AC SIZE:"+columns.get(Columns.ac).size());
 	}
 
 	/**
