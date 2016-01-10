@@ -199,8 +199,8 @@ public class GenCSV {
 	
 	private static void firstOrNextMoonAtmosphere(Atmosphere atmosphere){
 		columns.get(Columns.ab).add(SEPERATOR+atmosphere.getChem_name());
-		columns.get(Columns.ac).add(atmosphere.getPercentage().toString());
-		logger.info("8.COMMACOUNT:"+1);
+		columns.get(Columns.ac).add(SEPERATOR+atmosphere.getPercentage().toString());
+		logger.info("8.COMMACOUNT:"+2);
 	}
 
 	private static void noSystem(){
@@ -354,6 +354,31 @@ public class GenCSV {
 		columns.get(Columns.j).add(SEPERATOR);
 		columns.get(Columns.k).add(SEPERATOR);
 		logger.info("19.COMMACOUNT:"+11);
+	}
+
+	private static void moonBlankLine(){
+		columns.get(Columns.a).add(BLANK);
+		columns.get(Columns.b).add(SEPERATOR);
+		columns.get(Columns.c).add(SEPERATOR);
+		columns.get(Columns.d).add(SEPERATOR);
+		columns.get(Columns.e).add(SEPERATOR);
+		columns.get(Columns.f).add(SEPERATOR);
+		columns.get(Columns.g).add(SEPERATOR);
+		columns.get(Columns.h).add(SEPERATOR);
+		columns.get(Columns.i).add(SEPERATOR);
+		columns.get(Columns.j).add(SEPERATOR);
+		columns.get(Columns.k).add(SEPERATOR);
+		columns.get(Columns.l).add(SEPERATOR);
+		columns.get(Columns.m).add(SEPERATOR);
+		columns.get(Columns.n).add(SEPERATOR);
+		columns.get(Columns.o).add(SEPERATOR);
+		columns.get(Columns.p).add(SEPERATOR);
+		columns.get(Columns.q).add(SEPERATOR);
+		columns.get(Columns.r).add(SEPERATOR);
+		columns.get(Columns.s).add(SEPERATOR);
+		columns.get(Columns.t).add(SEPERATOR);
+//		columns.get(Columns.u).add(SEPERATOR);
+		logger.info("20.COMMACOUNT:"+19);
 	}
 
 
@@ -708,6 +733,7 @@ public class GenCSV {
 			audit("NoMoons:");
 		}
 		else{
+			moonBlankLine();
 			firstOrNextMoon(unifiedMoonsIs.get(idex));
 			audit("NthMoon:");
 			List<Atmosphere> moonAtmospheres = ExistingSystemWithStars.readPlanarsAtmosphere(unifiedMoonsIs.get(idex).getPlanetoid());
