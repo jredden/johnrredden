@@ -3,6 +3,8 @@ package com.zenred.cosmos.report;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -445,6 +447,7 @@ public class GenCSV {
 	public static SectorsResponse sectorsResponse(){
 		StringBuilder keyValuePair = new StringBuilder();
 		List<String> sectors = readDefiningUVCoordinatesOfAllSectors();
+		Collections.sort(sectors);
 		Integer key = new Integer(0);
 		for(String sector : sectors){
 			if(key.equals(0)){
