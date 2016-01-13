@@ -18,8 +18,36 @@ ZenredComputing"/>
 <script type="text/javascript">
 
 $(document).ready(function() {
+	processReport.readSectors();
+}); <!-- end ready -->
+
+var processReport = (function(){
 	
-}
+	// public 
+	return{
+		readSectors: function (){
+			$.getJSON("http://www.johntreddenlocal.com:8080/systemReportChoice.html",
+					function(json){           // callback
+						console.log("in ReportChoice");
+						processReportChoice.jsonProcess(json);
+					}
+			);
+		}
+	}
+})();
+
+var processReportChoice = (function(){
+	
+	// public
+	
+	return {
+		jsonProcess: function(json){
+			
+		}
+	}
+	
+})();
+
 </script>
 
 <title>Cosmos Sector Report Selection</title>
