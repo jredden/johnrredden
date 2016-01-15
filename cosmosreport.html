@@ -17,13 +17,41 @@ ZenredComputing"/>
 <script type="text/javascript" src="../js/buckets.js"></script>
 <script type="text/javascript">
 
+/**
+ * not static, has to be instantiated
+ */
+var keyValuePair  = (function(){
+	// private
+	var key;
+	var value;
+	
+	return{
+		setKey : function(s_key){
+			key = s_key;
+		},
+		setValue: function(s_value){
+			value = s_value;
+		},
+		getKey : function(){
+			return key;
+		},
+		getValue : function(){
+			return value;
+		},
+		logPrint: function(){
+			console.log("KEY:"+key+" VALUE:"+value);
+		}
+	}
+	
+});
+
+
 $(document).ready(function() {
 	processReport.readSectors();
 }); <!-- end ready -->
 
 var processReport = (function(){
 	
-	// public 
 	return{
 		readSectors: function (){
 			$.getJSON("http://www.johntreddenlocal.com:8080/systemReportChoice.html",
@@ -42,10 +70,32 @@ var processReportChoice = (function(){
 	
 	return {
 		jsonProcess: function(json){
-			
+			var choiceMessage = json.sectors.sectors;
+			var result = orderedPairToArray.getOrderedPair(choiceMessage);
 		}
 	}
 	
+})();
+
+var orderedPairToArray = (function (){
+	return{
+		getOrderedPair: function (oneString){
+			var result = [];
+			var stars = [];
+			
+			var arrayOfUnsplitOrderedPairs = oneString.toString().split(";");
+
+			for(var idex = 0; idex < arrayOfUnsplitOrderedPairs.length; idex++){
+				kvPair = new keyValuePair();
+				var kvArray = arrayOfUnsplitOrderedPairs[idex].split("=");
+				kvPair.setKey(kvArray[0]);
+				kvPair.setValue(kvArray[1]);
+				console.log("KVPAIR:"+kvPair.getKey()+"::"+kvPair.getValue());
+				result.push(kvPair);
+			}
+			return result;
+		}
+	}
 })();
 
 </script>
