@@ -72,6 +72,7 @@ var processReportChoice = (function(){
 		jsonProcess: function(json){
 			var choiceMessage = json.sectors.sectors;
 			var result = orderedPairToArray.getOrderedPair(choiceMessage);
+			displayAnchors.anchorsAway(result);
 		}
 	}
 	
@@ -99,8 +100,35 @@ var orderedPairToArray = (function (){
 	}
 })();
 
-var displayAnchors = (functon (){
+var displayAnchors = (function (){
 	const numberOfRows = 15;
+	const onePage = numberOfRows *3;
+	
+	function decodeUandV(kvpair){
+		var uvSet = kvPair.getValue().split(":");
+		return uvSet;
+	}
+	
+	return{
+		anchorsAway: function(arrayOfUandVcoordinates){
+			for(var idex0 = 0; idex0 < numberOfRows; idex0++){
+				var kvPair = arrayOfUandVcoordinates[idex0];
+				var uvSet = decodeUandV(kvPair);
+				$("div").html("<a href=\"http://www.johntreddenlocal.com:8080/systemReportResults.html?"
+						+"s_Ucoordinate_top="+uvSet[0]
+						+"&s_Vcoordinate_top="+uvSet[1]
+						+"&s_Ucoordinate_bottom="+uvSet[2]
+						+"&s_Vcoordinate_bottom="+uvSet[3]
+					+"\">"
+					+"Ucoordinate_top"+uvSet[0]+
+					+"Vcoordinate_top"+uvSet[1]
+					+"Ucoordinate_bottom"+uvSet[2]
+					+"Ucoordinate_bottom"+uvSet[3]
+					+"</a>"
+				);
+			}
+		}
+	}
 
 })();
 
@@ -109,7 +137,9 @@ var displayAnchors = (functon (){
 <title>Cosmos Sector Report Selection</title>
 </head>
 <body>
-<section id=report>
+
+
+<section id="report">
     <div id="column1"></div>
     <div id="column2"></div>
     <div id="column3"></div>
