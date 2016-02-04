@@ -639,13 +639,13 @@ public class GenCSV {
 			linecount = columns.get(Columns.ac).size();
 		}
 
-		buildAndWriteReport(linecount, csv_file);
+		keyValuePair.append(buildAndWriteReport(linecount, csv_file));
 		SectorsResponse sectorsResponse = new SectorsResponse();
 		sectorsResponse.setSectors(keyValuePair.toString());
 		return sectorsResponse;
 	}
 	
-	private static void buildAndWriteReport(int lineCount, String csv_file){
+	private static String buildAndWriteReport(int lineCount, String csv_file){
 		StringBuilder fileContents = new StringBuilder();
 		for (int idex = 0; idex < lineCount; idex++){
 			fileContents.append(columns.get(Columns.a).get(idex))
@@ -687,7 +687,8 @@ public class GenCSV {
 			ioe.printStackTrace();
 			throw new RuntimeException("File IO Error:"+ioe.getMessage());
 		}
-		
+		logger.info("WROTE file:"+file.getAbsolutePath()+file.getName());
+		return file.getAbsolutePath()+file.getName();
 	}
 	
 	/**

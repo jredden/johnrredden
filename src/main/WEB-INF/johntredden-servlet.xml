@@ -37,7 +37,7 @@
 				<prop key="/starAndPlanets.html">starAndPlanets</prop>
 				<prop key="/planetAndMoons.html">planetAndMoons</prop>
 				<prop key="/systemReportChoice.html">systemReportChoice</prop>
-				<prop key="/systemReportResult.html">systemReportResults</prop>
+				<prop key="/systemReportResults.html">systemReportResults</prop>
 			</props>
 		</property>
 	</bean>
