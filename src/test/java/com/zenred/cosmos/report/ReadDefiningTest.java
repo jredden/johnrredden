@@ -37,7 +37,7 @@ public class ReadDefiningTest {
 		String sector = sectors[sectorIndex];
 		String [] indexAndUV = sector.split("=");
 		String [] uv = indexAndUV[1].split(":");
-		GenCSV.selectSector(uv[0], uv[1], uv[2], uv[3]);
+		GenCSV.selectSector(uv[0], uv[1], uv[2], uv[3], MockSessionContext.servletContext.getRealPath(null));
 	}
 
 }

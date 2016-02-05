@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 import org.apache.log4j.Logger;
 import org.apache.commons.io.FileUtils;
 
@@ -471,9 +472,14 @@ public class GenCSV {
 	 * @param s_Vcoordinate_bottom
 	 * @return CSV_url
 	 */
-	public static SectorsResponse selectSector(String s_Ucoordinate_top, String s_Vcoordinate_top, String s_Ucoordinate_bottom, String s_Vcoordinate_bottom ){
+	public static SectorsResponse selectSector(String s_Ucoordinate_top, String s_Vcoordinate_top, String s_Ucoordinate_bottom, String s_Vcoordinate_bottom, String path ){
 		String reportDirectory = new ConfigurationDao().reportDirectory();
-		String csv_file = reportDirectory + File.separator + s_Ucoordinate_top+"_"+s_Ucoordinate_bottom+"_"+s_Vcoordinate_top+"_"+s_Vcoordinate_bottom+".csv";
+		String relative_path = reportDirectory
+				+ File.separator + s_Ucoordinate_top + "_"
+				+ s_Ucoordinate_bottom + "_" + s_Vcoordinate_top + "_"
+				+ s_Vcoordinate_bottom + ".csv";
+		String csv_file = path + File.separator + relative_path;
+		
 		StringBuilder keyValuePair = new StringBuilder();
 		int lineCount= 0;
 
@@ -638,14 +644,14 @@ public class GenCSV {
 		if(columns.get(Columns.ac).size() < linecount){
 			linecount = columns.get(Columns.ac).size();
 		}
-
-		keyValuePair.append(buildAndWriteReport(linecount, csv_file));
+		buildAndWriteReport(linecount, csv_file);
+		keyValuePair.append(relative_path);
 		SectorsResponse sectorsResponse = new SectorsResponse();
 		sectorsResponse.setSectors(keyValuePair.toString());
 		return sectorsResponse;
 	}
 	
-	private static String buildAndWriteReport(int lineCount, String csv_file){
+	private static void buildAndWriteReport(int lineCount, String csv_file){
 		StringBuilder fileContents = new StringBuilder();
 		for (int idex = 0; idex < lineCount; idex++){
 			fileContents.append(columns.get(Columns.a).get(idex))
@@ -687,8 +693,8 @@ public class GenCSV {
 			ioe.printStackTrace();
 			throw new RuntimeException("File IO Error:"+ioe.getMessage());
 		}
-		logger.info("WROTE file:"+file.getAbsolutePath()+file.getName());
-		return file.getAbsolutePath()+file.getName();
+		logger.info("WROTE file:"+file.getAbsolutePath());
+		return;
 	}
 	
 	/**

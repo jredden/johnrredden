@@ -1,7 +1,10 @@
 package com.zenred.cosmos.controller;
 
+import java.io.File;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
@@ -22,8 +25,10 @@ public class SystemReportResults implements Controller {
 		String  s_Ucoordinate_top = request.getParameter("s_Ucoordinate_top");	
 		String  s_Vcoordinate_top = request.getParameter("s_Vcoordinate_top");	
 		String  s_Ucoordinate_bottom = request.getParameter("s_Ucoordinate_bottom");	
-		String  s_Vcoordinate_bottom = request.getParameter("s_Vcoordinate_bottom");	
-		SectorsResponse sectorsResponse = GenCSV.selectSector(s_Ucoordinate_top, s_Vcoordinate_top, s_Ucoordinate_bottom, s_Vcoordinate_bottom);
+		String  s_Vcoordinate_bottom = request.getParameter("s_Vcoordinate_bottom");
+		String fullPathToYourWebappRoot = "/var/www/johntredden/";
+		logger.info("FUll_PATH:"+fullPathToYourWebappRoot);
+		SectorsResponse sectorsResponse = GenCSV.selectSector(s_Ucoordinate_top, s_Vcoordinate_top, s_Ucoordinate_bottom, s_Vcoordinate_bottom, fullPathToYourWebappRoot);
 		ModelAndView modelAndView = new ModelAndView(new SectorsView());
 		modelAndView.addObject(SectorsView.JSON_ROOT, sectorsResponse);
 		logger.info(modelAndView);
