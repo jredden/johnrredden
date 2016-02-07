@@ -15,6 +15,7 @@ ZenredComputing" />
 <script src="../js/jquery-1.8.1.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="../js/jquery.form.js"></script>
 <script type="text/javascript" src="../js/buckets.js"></script>
+<script src="js/jPages.js"></script>"
 <script type="text/javascript">
 
 /**
@@ -117,7 +118,10 @@ var displayButtons = (function (){
 	return{
 		action: function(arrayOfUandVcoordinates){
 			var dynamicHtml = "";
-			for(var idex0 = 0; idex0 < numberOfRows; idex0++){
+			var wholeOfIt = arrayOfUandVcoordinates.length;
+			var firstHalf = wholeOfIt/2;
+
+			for(var idex0 = 0; idex0 < firstHalf; idex0++){
 				var kvPair = arrayOfUandVcoordinates[idex0];
 				var uvSet = decodeUandV(kvPair);
 				console.log("UVSet:"+uvSet);
@@ -138,7 +142,7 @@ var displayButtons = (function (){
 			$("div[id^=column1]").html(dynamicHtml);
 
 			var dynamicHtml = "";
-			for(var idex0 = numberOfRows; idex0 < numberOfRows*2; idex0++){
+			for(var idex0 = firstHalf+1; idex0 < wholeOfIt; idex0++){
 				var kvPair = arrayOfUandVcoordinates[idex0];
 				var uvSet = decodeUandV(kvPair);
 				console.log("UVSet:"+uvSet);
@@ -157,7 +161,12 @@ var displayButtons = (function (){
 				
 			}
 			$("div[id^=column2]").html(dynamicHtml);
-}
+			$("div.holder").jPages({
+				containerId: "report",
+				perPage: 30
+			});
+
+		}
 	}
 
 })();
@@ -218,11 +227,17 @@ var entry = (function (){
 	</section>
 	
 	<section id="report">
+		
 		<div id="column1" class="column"></div>
 		<div id="column2" class="column"></div>
+		
 	</section>
 	<section id="load">
 		<div id="spreadSheet"></div>
+	</section>
+	<section id="pages"> 
+		<div class="holder">
+		</div>
 	</section>
 </body>
 </html>
