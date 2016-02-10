@@ -40,7 +40,7 @@ section#space {
 	padding: 0 50px;
 	text-align: left;
 	position: relative;
-	background-color: #B5B4B4;
+	background-color: #3f51d3;
 }: 0 0 0 0;
 
 section#spaceReport {
@@ -351,6 +351,29 @@ span:#ssits{
 	color:orange;
 	font-family: Verdana;
 	font-size: 16px;
+}
+
+#reportComments{
+	position: absolute;
+	top: 10px;
+	color:orange;
+	font-family: Verdana;
+	font-size: 16px;
+}
+
+#spinner{
+	position: absolute;
+	top: 75px;
+	position: fixed;
+	color: orange;
+}
+
+#spinner2{
+	position: absolute;
+	top: 75px;
+	position: fixed;
+	color: orange;
+	margin-left: 100px;
 }
 
 section#report{

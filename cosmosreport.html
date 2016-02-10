@@ -52,6 +52,8 @@ var keyValuePair  = (function(){
 
 
 $(document).ready(function() {
+	$('#spinner').hide();
+	$('#spinner2').hide();
 	processReport.readSectors();
 	
 	$("#home").click(function(){
@@ -121,6 +123,7 @@ var displayButtons = (function (){
 	
 	return{
 		action: function(arrayOfUandVcoordinates){
+			$('#spinner').hide();
 			var dynamicHtml = "";
 			var wholeOfIt = arrayOfUandVcoordinates.length;
 			var firstHalf = wholeOfIt/2;
@@ -193,6 +196,9 @@ var entry = (function (){
 	var parsedURI;
 	return{
 		action: function(topu, topv, bottomu, bottomv){
+			$('#spinner2').html("<div> report for top U,V " + topu + " " + topv + " and bottom U,V " + bottomu + " " + bottomv + " will load shortly</div>");
+			$('#spinner').show();
+			$('#spinner2').show();
 			var postWithParameters = "http://www.johntreddenlocal.com:8080/systemReportResults.html?s_Ucoordinate_top="
 					+ topu
 					+ "&s_Vcoordinate_top="
@@ -218,6 +224,8 @@ var entry = (function (){
 			  })
 			  .always(function() {
 				  console.log( "finished" );
+				  $('#spinner').hide();
+				  $('#spinner2').hide();
 			});
 			
 		}
@@ -240,6 +248,19 @@ var entry = (function (){
 	</div>
 	
 	<section id="space">
+		<div id="reportComments">
+			Select the sector identified by U, V top coordinates and U, V bottom coordinates<br\>
+			The csv file result is returned and can be loaded into a spread sheet.<br\> 
+		</div>
+	</section>
+	
+	<section id="nextResult">
+		<div id="spinner">
+		<img src="./animatedEllipse.gif" />
+		</div>
+		<div id="spinner2">
+		</div>
+		
 	</section>
 	
 	<section id="report">
