@@ -24,6 +24,12 @@ public class Configuration {
 	public void setDatestamp(String datestamp) {
 		Datestamp = datestamp;
 	}
+	
+	public static String  readReportRoot(){
+		String reportRoot = new ConfigurationDao().reportRoot();
+		return reportRoot;
+	}
+	
 	@Override
 	public String toString() {
 		return "Configuration [configurationId=" + configurationId

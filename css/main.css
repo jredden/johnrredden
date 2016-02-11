@@ -40,7 +40,7 @@ section#space {
 	padding: 0 50px;
 	text-align: left;
 	position: relative;
-	background-color: #3f51d3;
+	background-color: #b5b4b4;
 }: 0 0 0 0;
 
 section#spaceReport {
@@ -356,6 +356,7 @@ span:#ssits{
 #reportComments{
 	position: absolute;
 	top: 10px;
+	margin-left: 130px;
 	color:orange;
 	font-family: Verdana;
 	font-size: 16px;

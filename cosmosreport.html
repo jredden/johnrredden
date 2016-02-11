@@ -121,63 +121,45 @@ var displayButtons = (function (){
 		return uvSet_.split(":");
 	}
 	
-	return{
-		action: function(arrayOfUandVcoordinates){
-			$('#spinner').hide();
-			var dynamicHtml = "";
-			var wholeOfIt = arrayOfUandVcoordinates.length;
-			var firstHalf = wholeOfIt/2;
-			var theXor = 0;
-			for(var idex0 = 0; idex0 < firstHalf; idex0++){
-				var kvPair = arrayOfUandVcoordinates[idex0];
-				var uvSet = decodeUandV(kvPair);
-				console.log("UVSet:"+uvSet);
-				theXor ^=1;
-				var bgColor = "lightblue";
-				if(theXor){
-					bgColor = "lightgreen";
-				}
-				dynamicHtml +="<div class=\"entry\"><button onclick=\"entry.action("
-						+uvSet[0]
-					+","+uvSet[1]
-					+","+uvSet[2]
-					+","+uvSet[3]
-					+")\" style=\"width: 100%; text-align: left; background-color:" + bgColor + ";"
-					+"\">"
-					+"Ucoordinate_top_"+uvSet[0]
-					+"_Vcoordinate_top_"+uvSet[1]
-					+"_Ucoordinate_bottom_"+uvSet[2]
-					+"_Ucoordinate_bottom_"+uvSet[3]
-					+"</button></div>";
-				
-			}
-			$("div[id^=column1]").html(dynamicHtml);
-
-			var dynamicHtml = "";
-			theXor = 0;
-			bgColor = "lightblue";
+	function displayAction(start, end, tag, arrayOfUandVcoordinates){
+		var dynamicHtml = "";
+		var theXor = 0;
+		for(var idex0 = start; idex0 < end; idex0++){
+			var kvPair = arrayOfUandVcoordinates[idex0];
+			var uvSet = decodeUandV(kvPair);
+			console.log("UVSet:"+uvSet);
+			theXor ^=1;
+			var bgColor = "lightblue";
 			if(theXor){
 				bgColor = "lightgreen";
 			}
-			for(var idex0 = firstHalf+1; idex0 < wholeOfIt; idex0++){
-				var kvPair = arrayOfUandVcoordinates[idex0];
-				var uvSet = decodeUandV(kvPair);
-				console.log("UVSet:"+uvSet);
-				dynamicHtml +="<div  class=\"entry\"><button onclick=\"entry.action("
+			dynamicHtml +="<div class=\"entry\"><button onclick=\"entry.action("
 					+uvSet[0]
-					+","+uvSet[1]
-					+","+uvSet[2]
-					+","+uvSet[3]
-					+")\" style=\"width: 100%; text-align: left; background-color:" + bgColor + ";"
+				+","+uvSet[1]
+				+","+uvSet[2]
+				+","+uvSet[3]
+				+")\" style=\"width: 100%; text-align: left; background-color:" + bgColor + ";"
 				+"\">"
 				+"Ucoordinate_top_"+uvSet[0]
 				+"_Vcoordinate_top_"+uvSet[1]
 				+"_Ucoordinate_bottom_"+uvSet[2]
 				+"_Ucoordinate_bottom_"+uvSet[3]
 				+"</button></div>";
-				
-			}
-			$("div[id^=column2]").html(dynamicHtml);
+			
+		}
+		$("div[id^="+tag+"]").html(dynamicHtml);
+
+	}
+	
+	return{
+		action: function(arrayOfUandVcoordinates){
+			$('#spinner').hide();
+			var wholeOfIt = arrayOfUandVcoordinates.length;
+			var firstHalf = wholeOfIt/2;
+			
+			displayAction(0, firstHalf, "column1", arrayOfUandVcoordinates);
+			displayAction(firstHalf+1, wholeOfIt, "column2", arrayOfUandVcoordinates);
+			
 			/*	didn't work, bug 45 entered
 			$("div.holder").jPages({
 				containerId: "report",
@@ -247,7 +229,7 @@ var entry = (function (){
 		</header>
 	</div>
 	
-	<section id="space">
+	<section id="spaceReport">
 		<div id="reportComments">
 			Select the sector identified by U, V top coordinates and U, V bottom coordinates<br\>
 			The csv file result is returned and can be loaded into a spread sheet.<br\> 

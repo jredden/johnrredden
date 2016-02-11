@@ -1,0 +1,1 @@
+UPDATE Configuration SET reportRoot = '/var/www/johntredden/';

@@ -1,0 +1,1 @@
+UPDATE Configuration SET reportRoot = '/home/johntredden/public_html/';
