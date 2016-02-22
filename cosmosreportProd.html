@@ -57,7 +57,7 @@ $(document).ready(function() {
 	processReport.readSectors();
 	
 	$("#home").click(function(){
-		window.location = "http://www.johntreddenlocal.com";
+		window.location = "http://www.johntredden.com";
 	});
 
 }); <!-- end ready -->
@@ -66,7 +66,7 @@ var processReport = (function(){
 	
 	return{
 		readSectors: function (){
-			$.getJSON("http://www.johntreddenlocal.com:8080/systemReportChoice.html",
+			$.getJSON("http://www.johntredden.com:8088/systemReportChoice.html",
 					function(json){           // callback
 						console.log("in ReportChoice");
 						processReportChoice.jsonProcess(json);
@@ -118,6 +118,7 @@ var displayButtons = (function (){
 	
 	function decodeUandV(kvpair){
 		var uvSet_ = kvpair;
+		
 		return uvSet_.split(":");
 	}
 	
@@ -181,7 +182,7 @@ var entry = (function (){
 			$('#spinner2').html("<div> report for top U,V " + topu + " " + topv + " and bottom U,V " + bottomu + " " + bottomv + " will load shortly</div>");
 			$('#spinner').show();
 			$('#spinner2').show();
-			var postWithParameters = "http://www.johntreddenlocal.com:8080/systemReportResults.html?s_Ucoordinate_top="
+			var postWithParameters = "http://www.johntredden.com:8088/systemReportResults.html?s_Ucoordinate_top="
 					+ topu
 					+ "&s_Vcoordinate_top="
 					+ topv
