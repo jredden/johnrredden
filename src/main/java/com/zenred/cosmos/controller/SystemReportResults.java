@@ -28,6 +28,7 @@ public class SystemReportResults implements Controller {
 		SectorsResponse sectorsResponse = GenCSV.selectSector(s_Ucoordinate_top, s_Vcoordinate_top, s_Ucoordinate_bottom, s_Vcoordinate_bottom, fullPathToYourWebappRoot);
 		ModelAndView modelAndView = new ModelAndView(new SectorsView());
 		modelAndView.addObject(SectorsView.JSON_ROOT, sectorsResponse);
+		response.setContentType("text/JSON");
 		logger.info(modelAndView);
 		return modelAndView;
 	}
