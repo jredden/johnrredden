@@ -28,6 +28,16 @@ import com.zenred.cosmos.vizualization.SectorsResponse;
 import com.zenred.cosmos.domain.System;
 
 public class GenCSV {
+	
+	interface TriState{
+		enum triState{next, same, fail};
+		
+		public triState getState();
+		public void setStateNext();
+		public void setStateSame();
+		public void setStateFail();
+	}
+	
 	// public static String X = "";
 	public static String SYSTEM = "System";
 	public static String CLUSTER = "Cluster";
@@ -386,6 +396,60 @@ public class GenCSV {
 
 
 	public static Integer numberSystemsUatATime = ImergeFromHyperspace.uDistribution * ImergeFromHyperspace.vDistribution;
+	/*
+	 * need tri-state logic for glitches in the data
+	 * count should be between intervals of a sector
+	 */
+	private static TriState.triState aTest(Integer lastU, Integer currentU, Integer count){
+		TriState triState = new TriState(){
+			
+			TriState.triState state;
+
+			@Override
+			public com.zenred.cosmos.report.GenCSV.TriState.triState getState() {
+				return state;
+			}
+
+			@Override
+			public void setStateNext() {
+				state = TriState.triState.next;
+				
+			}
+
+			@Override
+			public void setStateSame() {
+				state = TriState.triState.same;
+			}
+
+			@Override
+			public void setStateFail() {
+				state = TriState.triState.fail;			
+				}
+			
+		};
+			
+		TriState.triState answer = null;
+		
+		if(lastU != -1){
+			if(!lastU.equals(currentU) && lastU.equals(currentU-1)){
+				triState.setStateNext(); // changed U dimension and in seqence
+			}
+			else if(!(lastU.equals(currentU)) && (count.equals(1) || count.equals(6) || count.equals(5))){
+				triState.setStateNext();	// end of U sequence, start next U sequence
+			}
+			else if(lastU.equals(currentU)){
+				triState.setStateSame();	// no change in sequence
+			}
+			else if(!lastU.equals(currentU)){
+				triState.setStateFail();	// glitch detected
+			}
+		}
+		else{
+			triState.setStateNext();	// initial state
+		}
+		answer = triState.getState();
+		return answer;
+	}
 	
 	/**
 	 * 
@@ -405,22 +469,35 @@ public class GenCSV {
 				|| !(numberOfSystems.compareTo(start) <= 0)) {
 			List<Integer> uCoordinates = systemDao.readSectorUcoordinates(
 					start, GenCSV.numberSystemsUatATime);
+			Integer uCount = 1;
+			Integer vCount = 0;
 			for (Integer uCoordinate : uCoordinates) {
-				if (!uCoordinate.equals(lastU)) {
+				TriState.triState tstate = aTest(lastU, uCoordinate, uCount);
+				if (tstate.equals(TriState.triState.next) ) {
 					logger.info(start + " UCOORDINATE:" + uCoordinate);
 					currentUs.add(uCoordinate);
 					if (nextV) {
+						vCount = 1;
 						vCoordinates = systemDao.readSectorVcoordinates(
 								uCoordinate, 0,
 								ImergeFromHyperspace.vDistribution);
 						for (Integer vCoordinate : vCoordinates) {
 							logger.info(start + " VCOORDINATE:" + vCoordinate);
 							currentVs.add(vCoordinate);
-
+							vCount ++;
 						}
 						nextV = Boolean.FALSE;
 					}
+					++ uCount;
 					lastU = uCoordinate;
+				}
+				else if(tstate.equals(TriState.triState.fail)){
+					logger.error("UCOORDINATE:" + uCoordinate + " did not have full population" + " uCount:" + uCount + " vCount:" + vCount);
+					start += uCount * ImergeFromHyperspace.vDistribution;
+					uCount = 1;
+					lastU = -1;
+					nextV = Boolean.TRUE;
+					continue;
 				}
 			}
 			if(currentUs.size() == 0 || currentVs.size() == 0){
