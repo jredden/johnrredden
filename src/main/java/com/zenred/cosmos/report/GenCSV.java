@@ -433,15 +433,21 @@ public class GenCSV {
 		if(lastU != -1){
 			if(!lastU.equals(currentU) && lastU.equals(currentU-1)){
 				triState.setStateNext(); // changed U dimension and in seqence
+				logger.info("NEXT CONTINUE:"+lastU+"::"+(currentU-1)+"::"+count);
 			}
-			else if(!(lastU.equals(currentU)) && (count.equals(1) || count.equals(6) || count.equals(5))){
+			else if(!(lastU.equals(currentU)) && (count.equals(5))){
 				triState.setStateNext();	// end of U sequence, start next U sequence
+				logger.info("NEXT END:"+lastU+"::"+currentU+"::"+count);
 			}
 			else if(lastU.equals(currentU)){
 				triState.setStateSame();	// no change in sequence
+				logger.info("SAME:"+lastU+"::"+currentU+"::"+count);
+
 			}
 			else if(!lastU.equals(currentU)){
 				triState.setStateFail();	// glitch detected
+				logger.info("FAIL:"+lastU+"::"+currentU+"::"+count);
+
 			}
 		}
 		else{
@@ -469,12 +475,17 @@ public class GenCSV {
 				|| !(numberOfSystems.compareTo(start) <= 0)) {
 			List<Integer> uCoordinates = systemDao.readSectorUcoordinates(
 					start, GenCSV.numberSystemsUatATime);
-			Integer uCount = 1;
+			logger.info("SECTOR UCOORDINATES:"+uCoordinates);
+			Integer uCount = 0;
 			Integer vCount = 0;
-			for (Integer uCoordinate : uCoordinates) {
+			Integer uCoordinate = null;
+			lastU = -1;
+//			for (Integer uCoordinate : uCoordinates) {
+			for(int idexU = 0; idexU < uCoordinates.size(); idexU++){
+				uCoordinate = uCoordinates.get(idexU);
 				TriState.triState tstate = aTest(lastU, uCoordinate, uCount);
 				if (tstate.equals(TriState.triState.next) ) {
-					logger.info(start + " UCOORDINATE:" + uCoordinate);
+					logger.info(start + " UCOORDINATE:" + uCoordinate + " LASTU:" + lastU + " UCOUNT:" + uCount);
 					currentUs.add(uCoordinate);
 					if (nextV) {
 						vCount = 1;
@@ -490,17 +501,22 @@ public class GenCSV {
 					}
 					++ uCount;
 					lastU = uCoordinate;
+					logger.info("NEW COUNT:"+uCount+"::"+lastU);
 				}
 				else if(tstate.equals(TriState.triState.fail)){
-					logger.error("UCOORDINATE:" + uCoordinate + " did not have full population" + " uCount:" + uCount + " vCount:" + vCount);
-					start += uCount * ImergeFromHyperspace.vDistribution;
+					logger.error("UCOORDINATE:" + uCoordinate + " did not have full population"+ " LASTU:" + lastU  + " uCount:" + uCount + " vCount:" + vCount);
+					start += uCount;
+					idexU += uCount;
+					start += vCount;
 					uCount = 1;
+					vCount = 1;
 					lastU = -1;
 					nextV = Boolean.TRUE;
 					continue;
 				}
 			}
 			if(currentUs.size() == 0 || currentVs.size() == 0){
+				logger.error("ZERO SIZE!:"+currentUs.size()+"::"+currentVs.size());
 				break;
 			}
 			String upperU = currentUs.get(0).toString();
