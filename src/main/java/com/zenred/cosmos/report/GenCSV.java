@@ -508,8 +508,8 @@ public class GenCSV {
 					start += uCount;
 					idexU += uCount;
 					start += vCount;
-					uCount = 1;
-					vCount = 1;
+					uCount = 0;
+					vCount = 0;
 					lastU = -1;
 					nextV = Boolean.TRUE;
 					continue;
