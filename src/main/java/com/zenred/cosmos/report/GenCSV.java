@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 import org.apache.log4j.Logger;
 import org.apache.commons.io.FileUtils;
 
@@ -30,12 +29,21 @@ import com.zenred.cosmos.domain.System;
 public class GenCSV {
 	
 	interface TriState{
-		enum triState{next, same, fail};
+		enum triState{next, same, change, fail};
 		
 		public triState getState();
 		public void setStateNext();
 		public void setStateSame();
+		public void setChange();
 		public void setStateFail();
+		public Integer getUCount();
+		public Integer getVCount();
+		public void setUCount(Integer uCount);
+		public void setVCount(Integer vCount);
+		public Integer getLastU();
+		public void setLastU(Integer lastU);
+		public void setRunningCount(Integer runCount);
+		public Integer getRunningCount();
 	}
 	
 	// public static String X = "";
@@ -396,62 +404,134 @@ public class GenCSV {
 
 
 	public static Integer numberSystemsUatATime = ImergeFromHyperspace.uDistribution * ImergeFromHyperspace.vDistribution;
+	
+	private static TriState triState = new TriState(){
+		
+		TriState.triState state;
+		Integer uCount;
+		Integer vCount;
+		Integer lastU;
+		Integer runningCount;
+
+		@Override
+		public com.zenred.cosmos.report.GenCSV.TriState.triState getState() {
+			return state;
+		}
+
+		@Override
+		public void setStateNext() {
+			state = TriState.triState.next;
+			
+		}
+
+		@Override
+		public void setStateSame() {
+			state = TriState.triState.same;
+		}
+
+		@Override
+		public void setStateFail() {
+			state = TriState.triState.fail;			
+			}
+
+		@Override
+		public void setChange() {
+			state = TriState.triState.change;	
+			
+		}
+
+		@Override
+		public Integer getUCount() {
+			return uCount;
+		}
+
+		@Override
+		public Integer getVCount() {
+			return vCount;
+		}
+
+		@Override
+		public void setUCount(Integer uCount) {
+			this.uCount = uCount;
+		}
+
+		@Override
+		public void setVCount(Integer vCount) {
+			this.vCount = vCount;
+		}
+
+		@Override
+		public Integer getLastU() {
+			return lastU;
+		}
+
+		@Override
+		public void setLastU(Integer lastU) {
+			this.lastU = lastU;
+		}
+
+		@Override
+		public void setRunningCount(Integer runCount) {
+			this.runningCount = runCount;
+			
+		}
+
+		@Override
+		public Integer getRunningCount() {
+			return this.runningCount;
+			
+		}
+		
+	};
+
 	/*
 	 * need tri-state logic for glitches in the data
 	 * count should be between intervals of a sector
 	 */
-	private static TriState.triState aTest(Integer lastU, Integer currentU, Integer count){
-		TriState triState = new TriState(){
-			
-			TriState.triState state;
-
-			@Override
-			public com.zenred.cosmos.report.GenCSV.TriState.triState getState() {
-				return state;
-			}
-
-			@Override
-			public void setStateNext() {
-				state = TriState.triState.next;
-				
-			}
-
-			@Override
-			public void setStateSame() {
-				state = TriState.triState.same;
-			}
-
-			@Override
-			public void setStateFail() {
-				state = TriState.triState.fail;			
-				}
-			
-		};
+	private static TriState.triState aTest(Integer currentU){
 			
 		TriState.triState answer = null;
+		Integer uCount = triState.getUCount();
+		Integer vCount = triState.getVCount();
+		Integer lastU = triState.getLastU();
 		
 		if(lastU != -1){
 			if(!lastU.equals(currentU) && lastU.equals(currentU-1)){
 				triState.setStateNext(); // changed U dimension and in seqence
-				logger.info("NEXT CONTINUE:"+lastU+"::"+(currentU-1)+"::"+count);
+				uCount += 1;
+				triState.setUCount(uCount);
+				triState.setLastU(currentU);
+				triState.setRunningCount(triState.getRunningCount()+1);
+				logger.info("NEXT:"+lastU+"::"+(currentU)+"::"+uCount);
 			}
-			else if(!(lastU.equals(currentU)) && (count.equals(5))){
-				triState.setStateNext();	// end of U sequence, start next U sequence
-				logger.info("NEXT END:"+lastU+"::"+currentU+"::"+count);
+			else if(!(lastU.equals(currentU)) && (uCount.equals(5))){
+				triState.setChange();	// end of U sequence, start next U sequence
+				triState.setUCount(0);
+				triState.setLastU(currentU);
+				logger.info("CHANGE:"+lastU+"::"+currentU+"::"+uCount);
 			}
 			else if(lastU.equals(currentU)){
 				triState.setStateSame();	// no change in sequence
-				logger.info("SAME:"+lastU+"::"+currentU+"::"+count);
+				triState.setRunningCount(triState.getRunningCount()+1);
+				logger.info("SAME:"+lastU+"::"+currentU+"::"+uCount);
 
 			}
 			else if(!lastU.equals(currentU)){
 				triState.setStateFail();	// glitch detected
-				logger.info("FAIL:"+lastU+"::"+currentU+"::"+count);
+				triState.setUCount(0);
+				triState.setVCount(0);
+				triState.setLastU(-1);
+				logger.info("FAIL:"+lastU+"::"+currentU+"::"+uCount);
 
 			}
 		}
 		else{
 			triState.setStateNext();	// initial state
+			triState.setUCount(0);
+			triState.setVCount(0);
+			triState.setLastU(currentU);
+			
+			logger.info("STATE ZERO");
 		}
 		answer = triState.getState();
 		return answer;
@@ -464,54 +544,47 @@ public class GenCSV {
 	protected static List<String> readDefiningUVCoordinatesOfAllSectors(){
 		List<String> sectors = new ArrayList<String>();
 		SystemDao systemDao = new SystemDao();
-		Integer start = 0;
-		Integer lastU = -1;
+		triState.setRunningCount(0);
+		triState.setLastU(-1);
 		Boolean nextV = Boolean.TRUE;
 		List<Integer> vCoordinates = null;
 		Integer numberOfSystems = systemDao.numberOfSystems().intValue();
 		List<Integer> currentUs = new ArrayList<Integer>();
 		List<Integer> currentVs = new ArrayList<Integer>();
-		while (!numberOfSystems.equals(start)
-				|| !(numberOfSystems.compareTo(start) <= 0)) {
+		while (!numberOfSystems.equals(triState.getRunningCount())
+				|| !(numberOfSystems.compareTo(triState.getRunningCount()) <= 0)) {
 			List<Integer> uCoordinates = systemDao.readSectorUcoordinates(
-					start, GenCSV.numberSystemsUatATime);
+					triState.getRunningCount(), GenCSV.numberSystemsUatATime);
 			logger.info("SECTOR UCOORDINATES:"+uCoordinates);
-			Integer uCount = 0;
-			Integer vCount = 0;
 			Integer uCoordinate = null;
-			lastU = -1;
 //			for (Integer uCoordinate : uCoordinates) {
 			for(int idexU = 0; idexU < uCoordinates.size(); idexU++){
 				uCoordinate = uCoordinates.get(idexU);
-				TriState.triState tstate = aTest(lastU, uCoordinate, uCount);
+				TriState.triState tstate = aTest(uCoordinate);
 				if (tstate.equals(TriState.triState.next) ) {
-					logger.info(start + " UCOORDINATE:" + uCoordinate + " LASTU:" + lastU + " UCOUNT:" + uCount);
+					logger.info(triState.getRunningCount() + " UCOORDINATE:" + uCoordinate + " LASTU:" + triState.getLastU() + " UCOUNT:" + triState.getUCount());
 					currentUs.add(uCoordinate);
 					if (nextV) {
-						vCount = 1;
+						triState.setVCount(0);
 						vCoordinates = systemDao.readSectorVcoordinates(
 								uCoordinate, 0,
 								ImergeFromHyperspace.vDistribution);
 						for (Integer vCoordinate : vCoordinates) {
-							logger.info(start + " VCOORDINATE:" + vCoordinate);
+							logger.info(triState.getRunningCount() + " VCOORDINATE:" + vCoordinate);
 							currentVs.add(vCoordinate);
-							vCount ++;
+							triState.setRunningCount(triState.getRunningCount()+1);
+							triState.setVCount(triState.getVCount()+1);
 						}
 						nextV = Boolean.FALSE;
 					}
-					++ uCount;
-					lastU = uCoordinate;
-					logger.info("NEW COUNT:"+uCount+"::"+lastU);
 				}
 				else if(tstate.equals(TriState.triState.fail)){
-					logger.error("UCOORDINATE:" + uCoordinate + " did not have full population"+ " LASTU:" + lastU  + " uCount:" + uCount + " vCount:" + vCount);
-					start += uCount;
-					idexU += uCount;
-					start += vCount;
-					uCount = 0;
-					vCount = 0;
-					lastU = -1;
-					nextV = Boolean.TRUE;
+					logger.error("UCOORDINATE:" + uCoordinate
+							+ " did not have full population" + " LASTU:"
+							+ triState.getLastU() + " uCount:"
+							+ triState.getUCount() + " vCount:"
+							+ triState.getVCount());
+			nextV = Boolean.TRUE;
 					continue;
 				}
 			}
@@ -520,16 +593,18 @@ public class GenCSV {
 				break;
 			}
 			String upperU = currentUs.get(0).toString();
-			String lowerU = currentUs.get(currentUs.size()-1).toString();
+			Integer currentSizeU = currentUs.size()-1;					
+			String lowerU = currentUs.get(currentSizeU).toString();
 			String upperV = currentVs.get(0).toString();
 			String lowerV = currentVs.get(currentVs.size()-1).toString();
+			logger.info("SIZES:"+(currentUs.size()-1+"::"+(currentVs.size()-1)));
+			logger.info("LISTS:"+currentUs+"::"+currentVs);
 			sectors.add(upperU+":"+upperV+":"+lowerU+":"+lowerV);
-			start += GenCSV.numberSystemsUatATime;
 			nextV = Boolean.TRUE;
 			currentUs.clear();
 			currentVs.clear();
 		}
-		logger.info("start:"+start + " number systems:" + numberOfSystems);
+		logger.info("start:"+triState.getRunningCount() + " number systems:" + numberOfSystems);
 		
 		return sectors;
 	}
