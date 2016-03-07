@@ -673,6 +673,21 @@ public class GenCSV {
 		}
 		logger.info("start:" + triState.getRunningCount() + " number systems:"
 				+ numberOfSystems);
+		
+		logger.info(triState.getRunningCount()
+				+ " END:" 
+				+ " LASTU:" + triState.getLastU() + " UCOUNT:"
+				+ triState.getUCount());
+		String upperU = currentUs.get(0).toString();
+		Integer currentSizeU = currentUs.size() - 1;
+		String lowerU = currentUs.get(currentSizeU).toString();
+		String upperV = currentVs.get(0).toString();
+		String lowerV = currentVs.get(currentVs.size() - 1).toString();
+		logger.info("SIZES:"
+				+ (currentUs.size() - 1 + "::" + (currentVs.size() - 1)));
+		logger.info("LISTS:" + currentUs + "::" + currentVs);
+		sectors.add(upperU + ":" + upperV + ":" + lowerU + ":" + lowerV);
+
 
 		return sectors;
 	}
