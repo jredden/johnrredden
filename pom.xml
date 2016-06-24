@@ -16,6 +16,10 @@
 
 	<repositories>
 		<repository>
+			<id>CentralRepo</id>
+			<url>http://repo1.maven.org/maven2/</url>
+		</repository>
+		<repository>
 			<id>JBossRepo</id>
 			<url>http://repository.jboss.com/maven2/</url>
 		</repository>
@@ -77,10 +81,14 @@
 			<artifactId>xstream</artifactId>
 			<version>1.4.2</version>
 		</dependency>
+
+		<!-- <dependency> <groupId>org.codehaus</groupId> <artifactId>jettison</artifactId> 
+			<version>1.0.1</version> </dependency> -->
+		<!-- https://mvnrepository.com/artifact/org.codehaus.jettison/jettison -->
 		<dependency>
-			<groupId>org.codehaus</groupId>
+			<groupId>org.codehaus.jettison</groupId>
 			<artifactId>jettison</artifactId>
-			<version>1.0.1</version>
+			<version>1.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -92,33 +100,46 @@
 			<artifactId>commons-validator</artifactId>
 			<version>1.4.0</version>
 		</dependency>
+		<!-- - <dependency> <groupId>org.kie</groupId> <artifactId>kie-api</artifactId> 
+			<version>6.3.0</version> </dependency> -->
+		<!-- https://mvnrepository.com/artifact/org.kie/kie-api -->
 		<dependency>
 			<groupId>org.kie</groupId>
 			<artifactId>kie-api</artifactId>
-			<version>6.3.0</version>
+			<version>6.4.0.Final</version>
 		</dependency>
+		<!-- - <dependency> <groupId>org.drools</groupId> <artifactId>drools-compiler</artifactId> 
+			<version>6.3.0</version> <scope>runtime</scope> </dependency> -->
+		<!-- https://mvnrepository.com/artifact/org.drools/drools-compiler -->
 		<dependency>
 			<groupId>org.drools</groupId>
 			<artifactId>drools-compiler</artifactId>
-			<version>6.3.0</version>
-			<scope>runtime</scope>
+			<version>6.4.0.Final</version>
 		</dependency>
+		<!-- <dependency> <groupId>org.drools</groupId> <artifactId>drools-core</artifactId> 
+			<version>6.3.0</version> </dependency> -->
+		<!-- https://mvnrepository.com/artifact/org.drools/drools-core -->
 		<dependency>
 			<groupId>org.drools</groupId>
 			<artifactId>drools-core</artifactId>
-			<version>6.3.0</version>
+			<version>6.4.0.Final</version>
 		</dependency>
+		<!-- - <dependency> <groupId>org.kie</groupId> <artifactId>kie-internal</artifactId> 
+			<version>6.3.0</version> </dependency> -->
+		<!-- https://mvnrepository.com/artifact/org.kie/kie-internal -->
 		<dependency>
 			<groupId>org.kie</groupId>
 			<artifactId>kie-internal</artifactId>
-			<version>6.3.0</version>
+			<version>6.4.0.Final</version>
 		</dependency>
 		<!-- mvel2-2.2.6.Final.jar -->
+		<!-- - <dependency> <groupId>org.mvel</groupId> <artifactId>mvel2</artifactId> 
+			<version>2.2.6</version> <scope>runtime</scope> </dependency> -->
+		<!-- https://mvnrepository.com/artifact/org.mvel/mvel2 -->
 		<dependency>
 			<groupId>org.mvel</groupId>
 			<artifactId>mvel2</artifactId>
-			<version>2.2.6</version>
-			<scope>runtime</scope>
+			<version>2.2.8.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>org.antlr</groupId>
