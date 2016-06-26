@@ -170,6 +170,7 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
 					<warSourceDirectory>src/main</warSourceDirectory>
+					<attachClasses>true</attachClasses>
 				</configuration>
 			</plugin>
 
