@@ -1398,7 +1398,7 @@ var jumpRequest = (function () {
 			var hideList = ['shipStart','cosmosSpaceDetail', 'starsinclustertext', 'backToSector', 'backToStarSystem'];
 			tagOperations.both(showList, hideList);
 
-			$.getJSON("http://www.johntreddenlocal.com:8080/starSystems.html",
+			$.getJSON("http://www.localhost:8080/johntredden-1.0/starSystems.html",
 					function(json){           // callback
 						console.log("in jumpRequest");
 						processJump.jsonProcess(json);
@@ -1571,7 +1571,7 @@ var backToPlanetView = (function(){
 var clusterDetailReuquest = (function () {
 	return{
 		jsonCall: function(systemName){
-			$.getJSON("http://www.johntreddenlocal.com:8080/starCluster.html?systemName="+systemName,
+			$.getJSON("http://www.localhost:8080/johntredden-1.0/starCluster.html?systemName="+systemName,
 					function(json){           // callback
 						console.log("in clusterDetailRequest for :" + systemName);
 						processClusterDetail.jsonProcess(json, systemName);
@@ -2330,7 +2330,7 @@ var moonsOnly = (function(){
 var fetchStarAndPlanets = (function () {
 	return{
 		jsonCall: function(starName){
-			$.getJSON("http://www.johntreddenlocal.com:8080/starAndPlanets.html?starName="+starName,
+			$.getJSON("http://www.localhost:8080/johntredden-1.0/starAndPlanets.html?starName="+starName,
 					function(json){           // callback
 						console.log("fetchStarAndPlanets for :" + starName);
 						processStarAndPlanetsDetail.jsonProcess(json, starName);
@@ -2344,7 +2344,7 @@ var fetchStarAndPlanets = (function () {
 var fetchPlanetAndMoons = (function () {
 	return{
 		jsonCall: function(planetName, starName){
-			$.getJSON("http://www.johntreddenlocal.com:8080/planetAndMoons.html?starName="+starName+"&planetName="+planetName,
+			$.getJSON("http://www.localhost:8080/johntredden-1.0/planetAndMoons.html?starName="+starName+"&planetName="+planetName,
 					function(json){           // callback
 						console.log("fetch planets and moons for :" + planetName);
 						processPlanetAndMoonsDetail.f_planetMode();
@@ -2359,7 +2359,7 @@ var fetchPlanetAndMoons = (function () {
 var fetchMoons = (function () {
 	return{
 		jsonCall: function(moonName, starName){
-			$.getJSON("http://www.johntreddenlocal.com:8080/planetAndMoons.html?starName="+starName+"&planetName="+moonName,
+			$.getJSON("http://www.localhost:8080/johntredden-1.0/planetAndMoons.html?starName="+starName+"&planetName="+moonName,
 					function(json){           // callback
 						console.log("fetch moon :" + moonName);
 						processPlanetAndMoonsDetail.f_moonMode();
