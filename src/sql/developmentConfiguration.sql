@@ -1,1 +1,1 @@
-UPDATE Configuration SET reportRoot = '/var/www/johntredden/';
+UPDATE Configuration SET reportRoot = '/Users/jredden/Sites/johntredden/';
