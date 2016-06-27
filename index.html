@@ -11,8 +11,8 @@ ZenredComputing" />
 
 <link href="css/main.css" rel="stylesheet" type="text/css">
 
-<script src="../js/jquery-1.8.1.min.js" type="text/javascript"></script>
-<script type="text/javascript" src="../js/jquery.form.js"></script>
+<script src="js/jquery-3.0.0.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/jquery.form.js"></script>
 <script type="text/javascript">
 
 var questionNumber = '0';
@@ -281,8 +281,13 @@ $(document).ready(function() {
 	});
 	
     $("#cosmos").click(function(){
-        window.location = "http://www.johntredden.com/cosmos.html";
+        window.location = "http://localhost/~jredden/johntredden/cosmos.html";
 	});
+    
+	$("#cosmosReport").click(function(){
+		window.location = "http://localhost/~jredden/johntredden/cosmosreport.html";
+	});
+
 });
 
 var accessRequest = (function () {
@@ -342,6 +347,8 @@ var processRequest = (function () {
 					<button id="login">Access works of fiction</button>
 					<button id="zenred">Zenred Computing</button>
 					<button id="cosmos">Explore the Cosmos</button>
+					<button id="cosmosReport">Select a Cosmos Report</button>
+					
 				</nav>
 
 
