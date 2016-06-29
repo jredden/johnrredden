@@ -277,7 +277,7 @@ $(document).ready(function() {
 	});
 	
 	$("#zenred").click(function(){
-		window.location = "http://www.zenredcomputinglocal.com";
+		window.location = "http://localhost/~jredden/zenredcomputing";
 	});
 	
 	$("#cosmos").click(function(){
@@ -309,16 +309,7 @@ var processRequest = (function () {
 			var colorSelector = 0;
 			$(questions1).html("<div id=\"questionHeader\"> Please prove you are a person.  Key in a four letter word that describes  </div> ");
 			$(questions1).append("<div id=\"questionHeader2\">the following set of phrases.  </div>   ");
-			$(questions1).append("<br/></div> ");
-			for (var idex = 0; idex < json.firstAccessResponse.questionList.string.length; idex++) {
-				
-				$(questions1).append("<div id=\"question" + idex + "\""
-				+colorSelector
-				+">"
-				+json.firstAccessResponse.questionList.string[idex]
-				+"</div>");
-				console.log("question:" + json.firstAccessResponse.questionList.string[idex]);
-			}
+			$(questions1).append("<br/>Answer yes to question one</div> ");
 			$(questions1).append("<br/>");
 			$(questions1).append("<div id=\"math\"> Please add these two numbers and key the answer in:&nbsp;&nbsp;  <span id=\"knum\">"+json.firstAccessResponse.secondQuestion+"</span></div>");
 			questionNumber = json.firstAccessResponse.questionNumber;
