@@ -97,7 +97,9 @@ public class GenMoon {
 			Planetoid planetoid2 = new Planetoid();
 			planetoid2.setDegree(Math.toRadians(GenRandomRolls.Instance()
 					.getD360()));
-			planetoid2.setDistanceToPrimary(PlanetoidDistances
+			planetoid2.setDistanceToPrimary(
+					planetoid.getRadius() * (idex +1) +				// scale in terms of moons planets radius
+					PlanetoidDistances
 					.titusBodeApproximater(planetConstraints,
 							planetoid.getRadius(), idex)
 					* AstronomicalUnits.MINIMUM_RADIUS_FOR_MOONS);  // scale in terms of minimum radius for moons
@@ -109,7 +111,7 @@ public class GenMoon {
 			planetoid2.setTemperature(planetoid.getTemperature());
 			planetoid2.setPercentWater(0.0); // evaluate when generating
 												// atmosphere
-			logger.info("MOON BEFORE READ:" + planetoid);
+			logger.info("PLANET BEFORE READ:" + planetoid);
 			UnifiedPlanetoidI readPlanetI = planetoidDao.addPlanetoidPlanetoid(
 					planetoid2, planetoid);
 			logger.info("UNIFIED MOON:" + readPlanetI);
