@@ -99,6 +99,7 @@ public class GenMoon {
 					.getD360()));
 			planetoid2.setDistanceToPrimary(
 					planetoid.getRadius() * (idex +1) +				// scale in terms of moons planets radius
+					GenRandomRolls.Instance().getDraw(planetoid.getRadius() * (idex +1)) +
 					PlanetoidDistances
 					.titusBodeApproximater(planetConstraints,
 							planetoid.getRadius(), idex)
