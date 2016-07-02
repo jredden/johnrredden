@@ -1395,7 +1395,7 @@ var jumpRequest = (function () {
 		jsonCall: function(){
 			console.log("start jumpRequest");
 			var showList = ['jumping'];
-			var hideList = ['shipStart','cosmosSpaceDetail', 'starsinclustertext', 'backToSector', 'backToStarSystem'];
+			var hideList = ['shipStart','cosmosSpaceDetail', 'starsinclustertext', 'backToSector', 'backToStarSystem', 'backToPlanetSystem'];
 			tagOperations.both(showList, hideList);
 
 			$.getJSON("http://www.localhost:8080/johntredden-1.0/starSystems.html",
