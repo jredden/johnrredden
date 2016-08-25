@@ -1,9 +1,16 @@
 package com.zenred.cosmos.domain;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.simple.ParameterizedBeanPropertyRowMapper;
+import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zenred.johntredden.domain.AbstractJDBCDao;
@@ -97,6 +104,18 @@ public class SystemDao extends AbstractJDBCDao {
 			+ ", sy."+DATESTAMP+" "
 			+ " FROM " + SYSTEM + " sy "
 			+ " LIMIT " + " ?, ?";
+	
+	private static String systemsWithClusters = 
+			"SELECT "
+			+ " sys."+SYSTEM_NAME+" "
+			+ " sys."+UCOORDINATE+" "
+			+ " clu."+ClusterRepDao.CLUSTER_NAME+" "
+			+ " clu."+ClusterRepDao.CLUSTER_REP_ID+" "
+			+ " FROM " +SYSTEM + " sys "
+			+ " INNER JOIN "
+			+ ClusterRepDao.CLUSTER_REP + " clu "
+			+ " ON sys." + SYSTEM_ID + " = clu." + ClusterRepDao.SYSTEM_ID
+			;
 			
 	/**
 	 * create a system
@@ -311,5 +330,16 @@ public class SystemDao extends AbstractJDBCDao {
 			systemVcoordinates.add((int)Math.floor(vCoordinate));
 		}
 		return systemVcoordinates;
+	}
+	
+
+	/**
+	 * 
+	 * @return list of systems with clusters
+	 */
+	public List<SystemClusterSubSet> readSystemsWithClusters() {
+		List<SystemClusterSubSet> systemsAndClusterData = super.jdbcSetUp().getSimpleJdbcTemplate()
+				.query(systemsWithClusters, ParameterizedBeanPropertyRowMapper.newInstance(SystemClusterSubSet.class));
+		return systemsAndClusterData;
 	}
 }
