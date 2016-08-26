@@ -108,9 +108,10 @@ public class SystemDao extends AbstractJDBCDao {
 	private static String systemsWithClusters = 
 			"SELECT "
 			+ " sys."+SYSTEM_NAME+" "
-			+ " sys."+UCOORDINATE+" "
-			+ " clu."+ClusterRepDao.CLUSTER_NAME+" "
-			+ " clu."+ClusterRepDao.CLUSTER_REP_ID+" "
+			+ " ,sys."+UCOORDINATE+" "
+			+ " ,sys."+VCOORDINATE+" "
+			+ " ,clu."+ClusterRepDao.CLUSTER_NAME+" "
+			+ " ,clu."+ClusterRepDao.CLUSTER_REP_ID+" "
 			+ " FROM " +SYSTEM + " sys "
 			+ " INNER JOIN "
 			+ ClusterRepDao.CLUSTER_REP + " clu "
@@ -338,8 +339,21 @@ public class SystemDao extends AbstractJDBCDao {
 	 * @return list of systems with clusters
 	 */
 	public List<SystemClusterSubSet> readSystemsWithClusters() {
+		ParameterizedRowMapper<SystemClusterSubSet> parameterizedRowMapper = new ParameterizedRowMapper<SystemClusterSubSet>() {
+
+			@Override
+			public SystemClusterSubSet mapRow(ResultSet rs, int rowNum) throws SQLException {
+				SystemClusterSubSet systemClusterSubSet = new SystemClusterSubSet();
+				systemClusterSubSet.setClustername(rs.getString(ClusterRepDao.CLUSTER_NAME));
+				systemClusterSubSet.setClusterRepId(rs.getInt(ClusterRepDao.CLUSTER_REP_ID));
+				systemClusterSubSet.setSystemName(rs.getString(SYSTEM_NAME));
+				systemClusterSubSet.setUcoordinate(rs.getDouble(UCOORDINATE));
+				systemClusterSubSet.setVcoordinate(rs.getDouble(VCOORDINATE));
+				return systemClusterSubSet;
+			}
+		};
 		List<SystemClusterSubSet> systemsAndClusterData = super.jdbcSetUp().getSimpleJdbcTemplate()
-				.query(systemsWithClusters, ParameterizedBeanPropertyRowMapper.newInstance(SystemClusterSubSet.class));
+				.query(systemsWithClusters, parameterizedRowMapper);
 		return systemsAndClusterData;
 	}
 }
