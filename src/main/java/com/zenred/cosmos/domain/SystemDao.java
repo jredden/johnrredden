@@ -246,8 +246,6 @@ public class SystemDao extends AbstractJDBCDao {
 	 */
 	public Boolean doesSystemExist(Double ucoordinate, Double vcoordinate){
 		Boolean answer = true;
-		Object[] param = { ucoordinate, vcoordinate};
-		
 		int count  = super.jdbcSetUp().getSimpleJdbcTemplate()
 				.queryForInt(readSystemByCoordinates, ucoordinate, vcoordinate);
 		if(0 == count ){
