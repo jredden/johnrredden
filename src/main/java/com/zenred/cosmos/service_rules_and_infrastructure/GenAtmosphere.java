@@ -36,31 +36,6 @@ public class GenAtmosphere {
 		List<Atmosphere> resolve(StarFactory starFactory);
 	}
 
-	class RadiusRange {
-		Double radius; // planetoid start range
-		String description; // planetoid description
-		Integer key; // used later in triple key
-
-		public RadiusRange(Double radius, String description, Integer key) {
-			this.radius = radius;
-			this.description = description;
-			this.key = key;
-		}
-	}
-
-	class TemperatureRange {
-		Double temperature;
-		String description;
-		Integer key;
-
-		public TemperatureRange(Double temperature, String description,
-				Integer key) {
-			this.temperature = temperature;
-			this.description = description;
-			this.key = key;
-		}
-	}
-
 	protected static List<Atmosphere> normalize(List<Atmosphere> atmospheres){
 		
 		Double divisor = 0.0;
@@ -15005,39 +14980,39 @@ public class GenAtmosphere {
 	private static GenAtmosphere genAtmosphere = new GenAtmosphere();
 	private static List<RadiusRange> planetsRadius = new ArrayList<RadiusRange>();
 	static {
-		planetsRadius.add(genAtmosphere.new RadiusRange(RadiusRangeConst.DWARF_PLANETOID,
-				"dwarf planetoid", 0)); // dwarf planetoid start range
-		planetsRadius.add(genAtmosphere.new RadiusRange(RadiusRangeConst.MINI_PLANETOID,
-				"mini planetoid", 1)); // mini planetoid start range
-		planetsRadius.add(genAtmosphere.new RadiusRange(RadiusRangeConst.EARTH_PLANETOID,
-				"terran planetoid", 2)); // terran planetoid start range
-		planetsRadius.add(genAtmosphere.new RadiusRange(RadiusRangeConst.SUPER_EARTH_PLANETOID,
-				"super terran planetoid", 3)); // super terran planetoid start
-												// range
-		planetsRadius.add(genAtmosphere.new RadiusRange(RadiusRangeConst.MINI_GAS_GIANT_PLANETOID,
-				"mini gas giant planetoid", 4)); // mini gas giant planetoid
+		planetsRadius.add(new RadiusRange(RadiusRangeConst.DWARF_PLANETOID,
+				RadiusRange.s_DWARF_PLANETOID, 0)); // dwarf planetoid start range
+		planetsRadius.add(new RadiusRange(RadiusRangeConst.MINI_PLANETOID,
+				RadiusRange.s_MINI_PLANETOID, 1)); // mini planetoid start range
+		planetsRadius.add(new RadiusRange(RadiusRangeConst.EARTH_PLANETOID,
+				RadiusRange.s_EARTH_PLANETOID, 2)); // terran planetoid start range
+		planetsRadius.add(new RadiusRange(RadiusRangeConst.SUPER_EARTH_PLANETOID,
+				RadiusRange.s_SUPER_EARTH_PLANETOID, 3)); // super terran planetoid start
+															// range
+		planetsRadius.add(new RadiusRange(RadiusRangeConst.MINI_GAS_GIANT_PLANETOID,
+				RadiusRange.s_MINI_GAS_GIANT_PLANETOID, 4)); // mini gas giant planetoid
 													// start range
-		planetsRadius.add(genAtmosphere.new RadiusRange(RadiusRangeConst.GAS_GIANT_PLANETOID,
-				"gas giant planetoid", 5)); // gas giant planetoid start range
-		planetsRadius.add(genAtmosphere.new RadiusRange(RadiusRangeConst.SUPER_GAS_GIANT_PLANETOID,
-				"super gas giant planetoid", 6)); // super gas giant planetoid
+		planetsRadius.add(new RadiusRange(RadiusRangeConst.GAS_GIANT_PLANETOID,
+				RadiusRange.s_GAS_GIANT_PLANETOID, 5)); // gas giant planetoid start range
+		planetsRadius.add(new RadiusRange(RadiusRangeConst.SUPER_GAS_GIANT_PLANETOID,
+				RadiusRange.s_SUPER_GAS_GIANT_PLANETOID, 6)); // super gas giant planetoid
 													// start range
-		planetsRadius.add(genAtmosphere.new RadiusRange(RadiusRangeConst.THE_END, "end", 7));
+		planetsRadius.add(new RadiusRange(RadiusRangeConst.THE_END, "end", 7));
 	}
 
 	private static List<TemperatureRange> temperaturesRange = new ArrayList<TemperatureRange>();
 	static {
-		temperaturesRange.add(genAtmosphere.new TemperatureRange(
-				new Double(0.0), "cyrogenic", 0)); // cryogenic start range
-		temperaturesRange.add(genAtmosphere.new TemperatureRange(new Double(
-				41.0), "ice", 1)); // ice start range
-		temperaturesRange.add(genAtmosphere.new TemperatureRange(new Double(
-				101.0), "temperate", 2)); // rock, terran like range
-		temperaturesRange.add(genAtmosphere.new TemperatureRange(new Double(
-				701.0), "hot", 3)); // cythian, or hot gas
-		temperaturesRange.add(genAtmosphere.new TemperatureRange(new Double(
-				900.0), "molten", 4)); // gaseous metals ...
-		temperaturesRange.add(genAtmosphere.new TemperatureRange(
+		temperaturesRange.add(new TemperatureRange(
+				new Double(0.0), TemperatureRange.CRYOGENIC, 0)); // cryogenic start range
+		temperaturesRange.add(new TemperatureRange(new Double(
+				41.0), TemperatureRange.ICE, 1)); // ice start range
+		temperaturesRange.add(new TemperatureRange(new Double(
+				101.0), TemperatureRange.TEMPERATE, 2)); // rock, terran like range
+		temperaturesRange.add(new TemperatureRange(new Double(
+				701.0), TemperatureRange.HOT, 3)); // cythian, or hot gas
+		temperaturesRange.add(new TemperatureRange(new Double(
+				900.0), TemperatureRange.MOLTEN, 4)); // gaseous metals ...
+		temperaturesRange.add(new TemperatureRange(
 				Double.MAX_VALUE, "end", 5));
 	}
 
