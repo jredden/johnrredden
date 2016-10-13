@@ -25,7 +25,7 @@ public class PlanetoidDistances {
 		Double starBodeSequence = planetConstraints.getStartBodeSequence();
 		Double endBodeSequence = planetConstraints.getEndBodeSequence();
 		Double titusBodeConstant = new Double(1.5);
-		Double variableY = new Double(GenRandomRolls.Instance().getDraw(
+		Double variableY = new Double(GenRandomRolls.Instance().draw_rand()*(
 				starBodeSequence + (endBodeSequence - starBodeSequence)));
 		logger.info("BODE:"+variableY+":::"+starBodeSequence+":::"+endBodeSequence+":::"+radius);
 		if(variableY == 0.0){

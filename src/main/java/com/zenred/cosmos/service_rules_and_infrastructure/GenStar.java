@@ -438,7 +438,7 @@ public class GenStar {
 				} else {
 					Integer flipACoin = GenRandomRolls.Instance().get_D2();
 					double draw = GenRandomRolls.Instance()
-							.getDraw(100.0) + 0.05;
+							.draw_rand()*(100.0) + 0.05;
 					if (1 == flipACoin) {
 						angleInRadians = lastAngleInRadians
 								+ twoDegToRadian

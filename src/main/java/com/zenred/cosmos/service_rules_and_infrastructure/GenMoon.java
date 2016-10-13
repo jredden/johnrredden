@@ -83,15 +83,15 @@ public class GenMoon {
 			range = 0;
 		}
 		Double start = moonOrbitSpread.get(range)
-				+ GenRandomRolls.Instance().getDraw(
+				+ GenRandomRolls.Instance().draw_rand() *(
 						AstronomicalUnits.MINIMUM_RADIUS_FOR_MOONS);
 		PlanetConstraints planetConstraints = new PlanetConstraints();
 		planetConstraints.setMinNumberPlanets(0);
 		planetConstraints.setMaxNumberPlanets(numberOfMoonz);
 		planetConstraints.setStartBodeSequence(start);
 		planetConstraints.setEndBodeSequence(start
-				+ GenRandomRolls.Instance().getDraw(
-						AstronomicalUnits.MINIMUM_RADIUS_FOR_MOONS));
+				+ (GenRandomRolls.Instance().draw_rand()*(
+						AstronomicalUnits.MINIMUM_RADIUS_FOR_MOONS)));
 
 		for (int idex = 0; idex < numberOfMoonz; idex++) {
 			Planetoid planetoid2 = new Planetoid();
@@ -99,13 +99,13 @@ public class GenMoon {
 					.getD360()));
 			planetoid2.setDistanceToPrimary(
 					planetoid.getRadius() * (idex +1) +				// scale in terms of moons planets radius
-					GenRandomRolls.Instance().getDraw(planetoid.getRadius() * (idex +1)) +
+					(GenRandomRolls.Instance().draw_rand() * (planetoid.getRadius()) * (idex +1)) +
 					PlanetoidDistances
 					.titusBodeApproximater(planetConstraints,
 							planetoid.getRadius(), idex)
 					* AstronomicalUnits.MINIMUM_RADIUS_FOR_MOONS);  // scale in terms of minimum radius for moons
 			planetoid2.setRadius(AstronomicalUnits.SMALL_MOON_RADIUS
-					+ GenRandomRolls.Instance().getDraw(
+					+ (GenRandomRolls.Instance().draw_rand()*
 							planetoid.getRadius() * 0.75));
 			String name = planetoid.getPlanetoidName() + ".moon." + idex;
 			planetoid2.setPlanetoidName(name);

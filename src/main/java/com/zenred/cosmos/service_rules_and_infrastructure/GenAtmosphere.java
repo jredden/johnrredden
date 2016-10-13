@@ -67,7 +67,7 @@ public class GenAtmosphere {
 				} else {
 					Double newWeight = starToChemicalProfile
 							.getWeightDuringAnalysis()
-							* GenRandomRolls.Instance().getDraw(100.0);
+							* GenRandomRolls.Instance().draw_rand()*(100.0);
 					atmosphere.setPercentage(newWeight);
 					atmosphere.setChem_name(starToChemicalProfile
 							.getAtmosphereParts().name());
@@ -85,7 +85,7 @@ public class GenAtmosphere {
 				} else {
 					Double newWeight = starToChemicalProfile
 							.getWeightDuringAnalysis()
-							* GenRandomRolls.Instance().getDraw(100.0);
+							* GenRandomRolls.Instance().draw_rand()*(100.0);
 					atmosphere.setPercentage(newWeight);
 					atmosphere.setChem_name(starToChemicalProfile
 							.getAtmosphereParts().name());
