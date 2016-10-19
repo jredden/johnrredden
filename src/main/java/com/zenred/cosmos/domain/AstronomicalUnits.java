@@ -16,5 +16,6 @@ public interface AstronomicalUnits {
 	static public final Double EARTH_MASS = 5.9736e24;
 	static public final Double EARTH_RADIUS = 12742.0/2.0;
 	static public final Double SOLAR_MASS = 1.98555*10e30;
+	static public final Double GRAV_CONSTANT = 6.67408e-11;
 
 }
