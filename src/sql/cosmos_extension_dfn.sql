@@ -62,6 +62,7 @@ CREATE TABLE `PlanetoidExtension` (
 `obliquity` double,
 `rotationPeriod` double,
 `albedo` double,
+`planarClass` varchar(255),
 `Datestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 PRIMARY KEY (`planetoidExtensionId`)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
