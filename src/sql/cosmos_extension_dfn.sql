@@ -63,6 +63,9 @@ CREATE TABLE `PlanetoidExtension` (
 `rotationPeriod` double,
 `albedo` double,
 `planarClass` varchar(255),
+`emmisive` tinyint,
+`bumpMap` varchar(255),
+`bumpHeight` double,
 `Datestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 PRIMARY KEY (`planetoidExtensionId`)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
