@@ -1,0 +1,522 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="keywords"
+	content="Hawaii, 
+Globalization, 
+ScienceFiction, 
+Coffee,
+ZenredComputing" />
+
+<link href="css/main.css" rel="stylesheet" type="text/css">
+
+<script src="../js/jquery-3.0.0.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="../js/jquery.form.js"></script>
+<script type="text/javascript">
+
+var questionNumber = '0';
+var addQuestion = '0+0';
+var formData = { questionNumber1:questionNumber, questionNumber2:addQuestion, questionNumber3:'0+0' }
+
+var tagOperations = (function(){
+	// private
+	var showOperations = [
+	       			function skfSect(){
+	   					$('#skfSect').show();
+	   				},
+	   			   	function zenredSect() {
+	   					$('#zenredSect').show();
+	   				},
+	   			   	function hawaiiSect(){
+	   					$('#hawaiiSect').show();
+	   				},
+	   			   	function login_op(){
+	   					$('#login_op').show();
+	   				},
+	   			   	function JRedden(){
+	   					$('#JRedden').show();
+	   				},
+	   			   	function emailAndPassword(){
+	   					$('#emailAndPassword').show();
+	   				},
+	   			   	function cosmosSect(){
+	   					$('#cosmosSect').show();
+	   				},
+	   			   	function questions1(){
+	   					$('#questions1').show();
+	   				},
+	   					function answerQuestionOne(){
+		   				$('#answerQuestionOne').show();
+		   			},
+	   					function createLogin(){
+	   					$('#createLogin').show();
+	   				}	
+	];
+	var hideOperations = [
+			   function skfSect(){
+					$('#skfSect').hide();
+				},
+			   function zenredSect() {
+					$('#zenredSect').hide();
+				},
+			   function hawaiiSect(){
+					$('#hawaiiSect').hide();
+				},
+   			   	function login_op(){
+   					$('#login_op').hide();
+   				},
+   			   	function JRedden(){
+   					$('#JRedden').hide();
+   				},
+   			   	function emailAndPassword(){
+   					$('#emailAndPassword').hide();
+   				},
+   			   	function cosmosSect(){
+   					$('#cosmosSect').hide();
+   				},
+   			   	function questions1(){
+   					$('#questions1').hide();
+   				},
+   					function answerQuestionOne(){
+	   				$('#answerQuestionOne').hide();
+	   			},
+	   				function createLogin(){
+	   				$('#createLogin').hide();
+	   			}
+				
+	];
+
+	var references = {
+			"skfSect" : 0,
+			"zenredSect" : 1,
+			"hawaiiSect" : 2,
+			"login_op" : 3,
+			"JRedden" : 4,
+			"emailAndPassword" : 5,
+			"cosmosSect" : 6,
+			"questions1" :7,
+			"answerQuestionOne" : 8,
+			"createLogin" :9
+	}
+	
+	// public 
+	return {
+		show: function(showList){ 
+			for(var idex = 0; idex < showList.length; idex++){
+				console.log("show:" + showList[idex]);
+				var token2 = references[showList[idex]];
+				showOperations[token2]();
+			}
+		},
+		hide: function(hideList){
+			for (var idex = 0; idex < hideList.length; idex++){
+				console.log("hide:" + hideList[idex]);
+				var token2 = references[hideList[idex]];
+				hideOperations[token2]();
+			}
+		},
+		hideAll: function(){
+			for(token in hideOperations){ 
+				console.log("token:" + token);
+				var op = hideOperations[token];
+				op();
+			}
+		},
+		both: function(showList, hideList){
+			tagOperations.show(showList);
+			tagOperations.hide(hideList);
+		}
+		
+	}
+}());
+
+
+$(document).ready(function() {
+	console.log("in ready");
+	tagOperations.hideAll();
+	
+	$('#LoginFormID').ajaxForm({ 
+		dataType:  'json', 
+		success:   processJson,
+		error: function errorHandler(){
+			var out = '';
+  			for (var p in this) {
+    			out += p + ':::::' + this[p] + '\n';
+    			console.log("error:"+out);
+  				}
+//			console.log("error:"+this;
+		}
+	});
+	
+	function processJson(json) {
+		console.log("login:");
+		if(json.basicMesage.theMessage.indexOf("Passed") != -1){
+			var showList = ['cosmosSect'];
+			var hideList = ['emailAndPassword', 'answerQuestionOne', 'createLogin'];
+			tagOperations.both(showList, hideList);
+			sessionStorage.setItem('LOGIN', true);
+		}
+		else{
+			alert("login failed  ... select home and try again");
+		}
+	}
+
+	$('#Question1FormID').ajaxForm({ 
+		dataType:  'json', 
+		type: "GET",
+		success:   processQuestion1Json,		
+		data: formData,
+		error: function errorHandler(){
+			var out = '';
+  			for (var p in this) {
+    			out += p + ':::::' + this[p] + '\n';
+    			console.log("error:"+out);
+  				}
+//			console.log("error:"+this;
+		}
+	});
+	
+	function processQuestion1Json(json) {
+		console.log("question1:");
+		if(json.basicMesage.theMessage.indexOf("SUCCESS") != -1){
+			var showList = ['createLogin']
+			var hideList = ['skfSect','zenredSect','login_op','emailAndPassword','cosmosSect','questions1', 'answerQuestionOne'];
+			tagOperations.both(showList, hideList);
+		}
+		else{
+			alert("wrong answer ... try again");
+		}
+	}
+	
+	$('#CreateLoginFormID').ajaxForm({ 
+		dataType:  'json', 
+		type: "GET",
+		success:   processCreateLoginJson,		
+		error: function errorHandler(){
+			var out = '';
+  			for (var p in this) {
+    			out += p + ':::::' + this[p] + '\n';
+    			console.log("error:"+out);
+  				}
+//			console.log("error:"+this;
+		}
+	});
+
+		function processCreateLoginJson(json) {
+		console.log("createLogin:");
+		if(json.createMessageResponse.theMessage.indexOf("SUCCESS") != -1){
+			var showList = ['cosmosSect'];
+   		var hideList = ['skfSect', 'hawaiiSect', 'zenredSect','login_op','emailAndPassword','questions1','answerQuestionOne', 'createLogin'];
+			tagOperations.both(showList, hideList);
+			sessionStorage.setItem('LOGIN', true);
+		}
+		else{
+			alert("There is an error in what you typed:"+json.createMessageResponse.theMessage);
+		}
+	}
+
+	var h1 = $('JRedden').height();
+	var h = h1/2;
+	var w1 = $(window).height();
+	var w = w1/2;
+	var m = w - h
+	$('JRedden').css("margin-top",m + "px")
+
+	$(JRedden).fadeIn();
+	$(JRedden).fadeOut(5000);
+		
+	$("#home").click(function () { 
+		tagOperations.hideAll();
+		window.location = "http://johntreddenlocal.com";
+	});	
+	$("#skf").click(function () { 
+		console.log("in click");
+		var showList = ['skfSect'];
+		var hideList = ['zenredSect','hawaiiSect','login_op','emailAndPassword','cosmosSect','questions1','answerQuestionOne', 'createLogin'];
+		tagOperations.both(showList, hideList);
+	});
+	
+	$("#zenred").click(function () { 
+		console.log("in click");
+		var showList = ['zenredSect'];
+		var hideList = ['skfSect','hawaiiSect','login_op','emailAndPassword','cosmosSect','questions1', 'answerQuestionOne', 'createLogin'];
+		tagOperations.both(showList, hideList);
+	});	
+	
+	$("#doh").click(function () { 
+		console.log("in click");
+		var showList = ['hawaiiSect'];
+		var hideList = ['skfSect','zenredSect','login_op','emailAndPassword','cosmosSect','questions1', 'answerQuestionOne', 'createLogin'];
+		tagOperations.both(showList, hideList);
+	});
+	
+	$("#login").click(function () { 
+		console.log("LOGIN:"+sessionStorage.LOGIN);
+		if(sessionStorage.LOGIN){
+			console.log("Already logged in");
+			var showList = ['cosmosSect'];
+   			var hideList = ['skfSect', 'hawaiiSect', 'zenredSect','login_op','emailAndPassword','questions1','answerQuestionOne', 'createLogin'];
+		}
+		else{
+			var showList = ['login_op'];
+			var hideList = ['hawaiiSect','skfSect','zenredSect','emailAndPassword','cosmosSect','questions1','answerQuestionOne', 'createLogin'];
+		}
+		tagOperations.both(showList, hideList);
+	});
+	
+	$("#startLogin").click(function(){
+		var showList = ['emailAndPassword']
+		var hideList = ['hawaiiSect','cosmosSect','login_op', 'answerQuestionOne', 'createLogin'];
+		tagOperations.both(showList, hideList);
+	});
+	
+	$("#startLoginRequest").click(function(){
+		var hideList = ['hawaiiSect', 'cosmosSect','login_op', 'answerQuestionOne', 'createLogin'];
+		tagOperations.hide(hideList);
+		accessRequest.jsonCall();
+	});
+	
+	$("#zenred").click(function(){
+		window.location = "http://www.zenredcomputinglocal.com";
+	});
+	
+    $("#cosmos").click(function(){
+        window.location = "http://johntreddenlocal.com/cosmos/cosmos.html";
+	});
+    
+	$("#cosmosReport").click(function(){
+		window.location = "http://johntreddenlocal.com/cosmos/cosmosreport.html";
+	});
+
+});
+
+var accessRequest = (function () {
+	return{
+		jsonCall: function(){
+			console.log("start AccessRequest");
+			$.getJSON("http://www.johntreddenlocal.com:8080/firstAccess.html",
+					function(json){           // callback
+					console.log("Here");
+					processRequest.jsonProcess(json);
+					}		
+			);
+		}
+	}
+})();
+
+var processRequest = (function () {
+	return{
+		jsonProcess: function(json){
+			var colorSelector = 0;
+			$(questions1).html("<div id=\"questionHeader\"> Please prove you are a person.  Key in a four letter word that describes  </div> ");
+			$(questions1).append("<div id=\"questionHeader2\">the following set of phrases.  </div>   ");
+			$(questions1).append("<br/></div> ");
+			for (var idex = 0; idex < json.firstAccessResponse.questionList.string.length; idex++) {
+				
+				$(questions1).append("<div id=\"question" + idex + "\""
+				+colorSelector
+				+">"
+				+json.firstAccessResponse.questionList.string[idex]
+				+"</div>");
+				console.log("question:" + json.firstAccessResponse.questionList.string[idex]);
+			}
+			$(questions1).append("<br/>");
+			$(questions1).append("<div id=\"math\"> Please add these two numbers and key the answer in:&nbsp;&nbsp;  <span id=\"knum\">"+json.firstAccessResponse.secondQuestion+"</span></div>");
+			questionNumber = json.firstAccessResponse.questionNumber;
+			addQuestion = json.firstAccessResponse.secondQuestion;
+			formData.questionNumber1 = questionNumber;
+			formData.questionNumber2 = addQuestion;
+			var showList = ['questions1','answerQuestionOne'];
+			tagOperations.show(showList);
+		}
+	}
+})();
+
+</script>
+
+<title>John Redden's Web Site</title>
+</head>
+<body>
+	<div id="wrapper">
+		<header id="topHeader">
+			<hgroup>
+				<nav id="topNav">
+					<button id="home">Home</button>
+					<button id="skf">South Kona Farms</button>
+					<button id="doh">Documents On Hawai`i</button>
+					<button id="login">Access works of fiction</button>
+					<button id="zenred">Zenred Computing</button>
+					<button id="cosmos">Explore the Cosmos</button>
+					<button id="cosmosReport">Select a Cosmos Report</button>
+				</nav>
+
+
+			</hgroup>
+		</header>
+
+		<section id="space"></section>
+
+		<section id="hawaiiSect">
+			<nav>
+				<div id="gsaPubPaper">
+					<a href="docs/GSAPubCandidate.pdf">Global Studies Publish
+						Candidate: Paper on Hawai`ian Islands</a>
+				</div>
+				<div id="gsaPaper">
+					<a href="docs/GSAHawaiiPaper.pdf">Global Studies: Paper on
+						Hawai`ian Islands</a>
+				</div>
+				<div id="h21">
+					<a href="docs/Hawaii21stCentury.pdf">Hawai`i in the 21st
+						Century, Age of Globalization</a>
+				</div>
+				<div id="foh">
+					<a href="docs/FuelOil.pdf">Fuel Oil in Hawai`i</a>
+				</div>
+				<div id="mg">
+					<a href="docs/MauiGrid.pdf">Maui Grid</a>
+				</div>
+				<div id="hap">
+					<a href="docs/HawaiianPinapple.pdf">Hawai`ian Pineapple</a>
+				</div>
+				<div id="rep">
+					<a href="docs/renewable-energy-projects-report.pdf">Renewable
+						Energy</a>			
+				</div>
+			</nav>
+		</section>
+		<section id="cosmosSect">
+			<nav>
+				<div id="glossary">
+					<a href="docs_private/glossary.pdf">League Cosmos Glossary</a>
+				</div>
+				<div id="humFed1">
+					<a href="docs_private/humFed1.pdf">First Human Federation</a>
+				</div>
+				<div id="humFed2">
+					<a href="docs_private/humFed2.pdf">Second Human Federation</a>
+				</div>
+				<div id="cosmosHeaven">
+					<a href="docs_private/cosmosHeaven.pdf">Cosmos Heaven</a>
+				</div>
+				<div id="cosmosPurgatory">
+					<a href="docs_private/cosmosPurgatory.pdf">Cosmos Purgatory</a>
+				</div>
+				<div id="cosmosHell">
+					<a href="docs_private/cosmosHell.pdf">Cosmos Hell</a>
+				</div>
+			</nav>
+		</section>
+		<section id="login_op">
+			<nav>
+				<div id="chooseLogin">
+					<button id="startLogin">Existing Login</button>
+				</div>
+				<div id="requestLogin">
+					<button id="startLoginRequest">Request Access to Works of
+						Fiction</button>
+				</div>
+			</nav>
+		</section>
+		<section id="page">
+			<div id="JRedden">WEB SITE OF JOHN T REDDEN</div>
+			<div id="skfSect">
+				<iframe src="http://southkonafarms.com" width="1000" height="1000"></iframe>
+			</div>
+			<div id="zenredSect">
+			<!--  
+				not used 
+				<iframe src="http://zenredcomputinglocal.com" width="1000" height="1000"></iframe>
+			-->
+			</div>
+			
+			<div id="questions1"></div>
+			
+			<div id="emailAndPassword">
+				<form name="LoginForm" id="LoginFormID"
+					action="http://www.johntreddenlocal.com:8080/login.html"
+					method="get">
+					<div id="uEmail">
+						E-Mail Address: <span id="uMails"> <input type="text"
+							name="email" maxlength=255 size=64 />
+						</span>
+					</div>
+					<div id="loginPassword">
+						Password&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:
+						<span id="loginPasswords"> <input type="password"
+							name="password" maxlength=255 size=64 />
+						</span>
+					</div>
+					<div id="submit">
+						<input class="button" type="submit" id="loginOperation"
+							name="submit" value="Submit E-Mail Address and Password" />
+					</div>
+				</form>
+			</div>
+			
+			<div id="answerQuestionOne">
+				<form name="Question1Form" id="Question1FormID"
+					action="http://www.johntreddenlocal.com:8088/answerQuestion1.html"
+					method="get">
+					<div id="uQuestion1">
+						Your First Question Answer: <span id="uQ1"  > <input type="text" 
+							name="question1" maxlength=10 size=5 />
+						</span>
+					</div>
+					<div id="uQuestion2">
+						Your Second Question Answer: <span id="uQ2"> <input type="text" 
+							name="question2" maxlength=10 size=5 />
+						</span>
+					</div>
+					<div id="submit">
+						<input class="button" type="submit" id="questionOneOperation"
+							name="submit" value="Submit Answers" />
+					</div>
+				</form>
+			</div>
+			<div id="createLogin">
+				<form name="CreateLoginForm"  id="CreateLoginFormID"
+					action="http://www.johntredden.com:8088/createLogin.html"
+					method="get">
+					<div id="firstName">
+						Your First Name: <span id="fn1"> <input type="text" 
+							name="firstName" maxlength=255 size=25 />
+						</span>
+					</div>
+					<div id="lastName">
+						Your Last Name: <span id="ln1"> <input type="text" 
+							name="lastName" maxlength=255 size=25 />
+						</span>
+					</div>
+					<div id="eMail">
+						Your E-Mail Address: <span id="em1"> <input type="text"
+							name="email" maxlength=255 size=25 />
+						</span>
+					</div>
+					<div id="password1">
+						Type Your Password: <span id="pw1"> <input type="password" 
+							name="Password1" maxlength=255 size=25 />
+						</span>
+					</div>
+					<div id="password2">
+						Retype Your Password: <span id="pw2"> <input type="password" 
+							name="Password2" maxlength=255 size=25 />
+						</span>
+					</div>
+					<div class="submitC" id="submit">
+						<input class="button" type="submit" id="createLoginOperation"
+							name="submit" value="Submit Answers" />
+					</div>				
+					</form>
+			</div>
+			
+		</section>
+	</div>
+			
+		</section>
+	</div>
+
+
+</body>
+</html>

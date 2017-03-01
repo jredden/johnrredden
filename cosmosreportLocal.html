@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="keywords"
+	content="Hawaii, 
+Globalization, 
+ScienceFiction,
+RideAStarShip, 
+Coffee,
+ZenredComputing" />
+
+<link href="css/main.css" rel="stylesheet" type="text/css">
+
+<script src="../js/jquery-3.0.0.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="../js/jquery.form.js"></script>
+<script type="text/javascript" src="../js/buckets.js"></script>
+
+<!--  
+<script src="js/jPages.js"></script>"
+-->
+
+<script type="text/javascript">
+
+/**
+ * not static, has to be instantiated
+ */
+var keyValuePair  = (function(){
+	// private
+	var key;
+	var value;
+	
+	return{
+		setKey : function(s_key){
+			key = s_key;
+		},
+		setValue: function(s_value){
+			value = s_value;
+		},
+		getKey : function(){
+			return key;
+		},
+		getValue : function(){
+			return value;
+		},
+		logPrint: function(){
+			console.log("KEY:"+key+" VALUE:"+value);
+		}
+	}
+	
+});
+
+
+$(document).ready(function() {
+	$('#spinner').hide();
+	$('#spinner2').hide();
+	processReport.readSectors();
+	
+	$("#home").click(function(){
+		window.location = "http://johntreddenlocal.com";
+	});
+
+}); <!-- end ready -->
+
+var processReport = (function(){
+	
+	return{
+		readSectors: function (){
+			$.getJSON("http://www.localhost:8080/johntredden-1.0/systemReportChoice.html",
+					function(json){           // callback
+						console.log("in ReportChoice");
+						processReportChoice.jsonProcess(json);
+					}
+			);
+		}
+	}
+})();
+
+var processReportChoice = (function(){
+	
+	// public
+	
+	return {
+		jsonProcess: function(json){
+			var choiceMessage = json.sectors.sectors;
+			var result = orderedPairToArray.getOrderedPair(choiceMessage);
+			displayButtons.action(result);
+		}
+	}
+	
+})();
+
+var orderedPairToArray = (function (){
+	
+	return{
+		getOrderedPair: function (oneString){
+			var result = [];
+			var stars = [];
+			
+			var arrayOfUnsplitOrderedPairs = oneString.toString().split(";");
+
+			for(var idex = 0; idex < arrayOfUnsplitOrderedPairs.length; idex++){
+				var kvPair = new keyValuePair();
+				var kvArray = arrayOfUnsplitOrderedPairs[idex].split("=");
+				kvPair.setKey(kvArray[0]);
+				kvPair.setValue(kvArray[1]);
+				console.log("KVPAIR:"+kvPair.getKey()+"::"+kvPair.getValue());
+				result.push(kvPair.getValue());
+			}
+			return result;
+		}
+	}
+})();
+
+var displayButtons = (function (){
+	const numberOfRows = 30;
+	const onePage = numberOfRows *2;
+	
+	function decodeUandV(kvpair){
+		var uvSet_ = kvpair;
+		return uvSet_.split(":");
+	}
+	
+	function displayAction(start, end, tag, arrayOfUandVcoordinates){
+		var dynamicHtml = "";
+		var theXor = 0;
+		for(var idex0 = start; idex0 < end; idex0++){
+			var kvPair = arrayOfUandVcoordinates[idex0];
+			var uvSet = decodeUandV(kvPair);
+			console.log("UVSet:"+uvSet);
+			theXor ^=1;
+			var bgColor = "lightblue";
+			if(theXor){
+				bgColor = "lightgreen";
+			}
+			dynamicHtml +="<div class=\"entry\"><button onclick=\"entry.action("
+					+uvSet[0]
+				+","+uvSet[1]
+				+","+uvSet[2]
+				+","+uvSet[3]
+				+")\" style=\"width: 100%; text-align: left; background-color:" + bgColor + ";"
+				+"\">"
+				+"Ucoordinate_top_"+uvSet[0]
+				+"_Vcoordinate_top_"+uvSet[1]
+				+"_Ucoordinate_bottom_"+uvSet[2]
+				+"_Vcoordinate_bottom_"+uvSet[3]
+				+"</button></div>";
+			
+		}
+		$("div[id^="+tag+"]").html(dynamicHtml);
+
+	}
+	
+	return{
+		action: function(arrayOfUandVcoordinates){
+			$('#spinner').hide();
+			var wholeOfIt = arrayOfUandVcoordinates.length;
+			var firstHalf = Math.floor(wholeOfIt/2);
+			
+			displayAction(0, firstHalf, "column1", arrayOfUandVcoordinates);
+			displayAction(firstHalf+1, wholeOfIt, "column2", arrayOfUandVcoordinates);
+			
+			/*	didn't work, bug 45 entered
+			$("div.holder").jPages({
+				containerId: "report",
+				perPage: 30
+			});
+			*/
+
+		}
+	}
+
+})();
+
+var entry = (function (){
+	var result;
+	var uri;
+	var parsedURI;
+	return{
+		action: function(topu, topv, bottomu, bottomv){
+			$('#spinner2').html("<div> report for top U,V " + topu + " " + topv + " and bottom U,V " + bottomu + " " + bottomv + " will load shortly</div>");
+			$('#spinner').show();
+			$('#spinner2').show();
+			var postWithParameters = "http://www.localhost:8080/johntredden-1.0/systemReportResults.html?s_Ucoordinate_top="
+					+ topu
+					+ "&s_Vcoordinate_top="
+					+ topv
+					+ "&s_Ucoordinate_bottom="
+					+ bottomu
+					+ "&s_Vcoordinate_bottom="
+					+ bottomv;
+			var jqxr = $.post(postWithParameters, function() {
+				result = $(".result");
+				console.log("rawURI:"+result);
+			})
+			  .done(function(data) {
+				  setInterval(function () {if(data != null){clearInterval();}}, 1000);	// arg! ajax
+				  console.log( "second success:"+data );
+				  uri = $.parseJSON(data)
+				  parsedURI = uri.sectors.sectors;
+				  console.log("URI:"+parsedURI);
+				  // $("#spreadSheet").load(parsedURI);
+				  window.location = parsedURI;
+			  })
+			  .fail(function() {
+			    alert( "error" );
+			  })
+			  .always(function() {
+				  console.log( "finished" );
+				  $('#spinner').hide();
+				  $('#spinner2').hide();
+			});
+			
+		}
+	}
+})();
+
+</script>
+
+<title>Cosmos Sector Report Selection</title>
+</head>
+<body id="cosmosspace">
+	<div id="wrapperspace">
+			<header id="topHeaderFixed">
+			<hgroup>
+				<nav id="topNavCosmos">
+					<button id="home">Home</button>
+				</nav>
+			</hgroup>
+		</header>
+	</div>
+	
+	<section id="spaceReport">
+		<div id="reportComments">
+			Select the sector identified by U, V top coordinates and U, V bottom coordinates<br\>
+			The csv file result is returned and can be loaded into a spread sheet.<br\> 
+			The spread sheet will either load automatically or the csv file on the page must be saved.<br\>
+		</div>
+	</section>
+	
+	<section id="nextResult">
+		<div id="spinner">
+		<img src="./animatedEllipse.gif" />
+		</div>
+		<div id="spinner2">
+		</div>
+		
+	</section>
+	
+	<section id="report">
+		
+		<div id="column1" class="column"></div>
+		<div id="column2" class="column"></div>
+		
+	</section>
+	<section id="load">
+		<div id="spreadSheet"></div>
+	</section>
+	<section id="pages"> 
+		<div class="holder">
+		</div>
+	</section>
+</body>
+</html>
