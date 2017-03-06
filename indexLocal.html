@@ -295,7 +295,7 @@ var accessRequest = (function () {
 	return{
 		jsonCall: function(){
 			console.log("start AccessRequest");
-			$.getJSON("http://www.johntreddenlocal.com:8080/firstAccess.html",
+			$.getJSON("http://www.johntreddenlocal.com:8080/johntredden-1.0/firstAccess.html",
 					function(json){           // callback
 					console.log("Here");
 					processRequest.jsonProcess(json);
@@ -312,14 +312,14 @@ var processRequest = (function () {
 			$(questions1).html("<div id=\"questionHeader\"> Please prove you are a person.  Key in a four letter word that describes  </div> ");
 			$(questions1).append("<div id=\"questionHeader2\">the following set of phrases.  </div>   ");
 			$(questions1).append("<br/></div> ");
-			for (var idex = 0; idex < json.firstAccessResponse.questionList.string.length; idex++) {
+			for (var idex = 0; idex < json.firstAccessResponse.questionList.length; idex++) {
 				
 				$(questions1).append("<div id=\"question" + idex + "\""
 				+colorSelector
 				+">"
-				+json.firstAccessResponse.questionList.string[idex]
+				+json.firstAccessResponse.questionList[idex].string
 				+"</div>");
-				console.log("question:" + json.firstAccessResponse.questionList.string[idex]);
+				console.log("question:" + json.firstAccessResponse.questionList[idex]);
 			}
 			$(questions1).append("<br/>");
 			$(questions1).append("<div id=\"math\"> Please add these two numbers and key the answer in:&nbsp;&nbsp;  <span id=\"knum\">"+json.firstAccessResponse.secondQuestion+"</span></div>");
@@ -435,7 +435,7 @@ var processRequest = (function () {
 			
 			<div id="emailAndPassword">
 				<form name="LoginForm" id="LoginFormID"
-					action="http://www.johntreddenlocal.com:8080/login.html"
+					action="http://www.johntreddenlocal.com:8080/johntredden-1.0/login.html"
 					method="get">
 					<div id="uEmail">
 						E-Mail Address: <span id="uMails"> <input type="text"
@@ -457,7 +457,7 @@ var processRequest = (function () {
 			
 			<div id="answerQuestionOne">
 				<form name="Question1Form" id="Question1FormID"
-					action="http://www.johntreddenlocal.com:8088/answerQuestion1.html"
+					action="http://www.johntreddenlocal.com:8080/johntredden-1.0/answerQuestion1.html"
 					method="get">
 					<div id="uQuestion1">
 						Your First Question Answer: <span id="uQ1"  > <input type="text" 
@@ -477,7 +477,7 @@ var processRequest = (function () {
 			</div>
 			<div id="createLogin">
 				<form name="CreateLoginForm"  id="CreateLoginFormID"
-					action="http://www.johntredden.com:8088/createLogin.html"
+					action="http://www.johntreddenlocal.com:8080/johntredden-1.0/createLogin.html"
 					method="get">
 					<div id="firstName">
 						Your First Name: <span id="fn1"> <input type="text" 
