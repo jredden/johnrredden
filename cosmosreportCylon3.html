@@ -66,7 +66,7 @@ var processReport = (function(){
 	
 	return{
 		readSectors: function (){
-			$.getJSON("http://www.localhost:8080/johntredden-1.0/systemReportChoice.html",
+			$.getJSON("http://johntreddencylon3.com:8080/johntredden-1.0/systemReportChoice.html",
 					function(json){           // callback
 						console.log("in ReportChoice");
 						processReportChoice.jsonProcess(json);
@@ -181,7 +181,7 @@ var entry = (function (){
 			$('#spinner2').html("<div> report for top U,V " + topu + " " + topv + " and bottom U,V " + bottomu + " " + bottomv + " will load shortly</div>");
 			$('#spinner').show();
 			$('#spinner2').show();
-			var postWithParameters = "http://www.localhost:8080/johntredden-1.0/systemReportResults.html?s_Ucoordinate_top="
+			var postWithParameters = "http://johntreddencylon3.com:8080/johntredden-1.0/systemReportResults.html?s_Ucoordinate_top="
 					+ topu
 					+ "&s_Vcoordinate_top="
 					+ topv
