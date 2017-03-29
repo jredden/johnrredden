@@ -126,7 +126,7 @@ public class PlanetoidDao extends AbstractJDBCDao{
 			+ " INNER JOIN "
 			+ PLANETOID + " plt2 "
 			+ " ON pltr." + OWNER_ID + " = plt2." + PLANETOID_ID
-			+ " WHERE plt2." + PLANETOID_ID + " = ? "			// planet that has moon
+			+ " WHERE pltr.domain = 'planetoid' AND plt2." + PLANETOID_ID + " = ? "			// planet that has moon
 			;
 	private static String readRoguePlanetoids = "SELECT "
 			+ "plt." + PLANETOID_ID + " "
