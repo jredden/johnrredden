@@ -18,6 +18,7 @@
 	<bean id="answerQuestion1" class="com.zenred.johntredden.controller.AnswerQuestion1"/>
 	<bean id="createLogin" class="com.zenred.johntredden.controller.CreateLogin"/>
 	<bean id="starSystems" class="com.zenred.cosmos.controller.StarSystems"/>
+	<bean id="visitStarSystem" class="com.zenred.cosmos.controller.VisitStarSystem"/>
 	<bean id="starCluster" class="com.zenred.cosmos.controller.StarCluster"/>
 	<bean id="starAndPlanets" class="com.zenred.cosmos.controller.StarAndPlanets"/>
 	<bean id="planetAndMoons" class="com.zenred.cosmos.controller.PlanetAndMoons"/>
@@ -33,6 +34,7 @@
 				<prop key="/answerQuestion1.html">answerQuestion1</prop>
 				<prop key="/createLogin.html">createLogin</prop>
 				<prop key="/starSystems.html">starSystems</prop>
+				<prop key="/visitStarSystem.html">visitStarSystem</prop>
 				<prop key="/starCluster.html">starCluster</prop>
 				<prop key="/starAndPlanets.html">starAndPlanets</prop>
 				<prop key="/planetAndMoons.html">planetAndMoons</prop>
