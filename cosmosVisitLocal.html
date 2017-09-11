@@ -15,7 +15,7 @@ ZenredComputing" />
 <script src="../js/jquery-3.0.0.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="../js/jquery.form.js"></script>
 <script type="text/javascript" src="../js/buckets.js"></script>
-
+<script type="text/javascript" src="../js/cosmosCommon.js"></script>
 <!--  
 <script src="js/jPages.js"></script>"
 -->
@@ -23,37 +23,105 @@ ZenredComputing" />
 <script type="text/javascript">
 
 /**
- * not static, has to be instantiated
+ * makes sections appear and dissapear on the page
  */
-var keyValuePair  = (function(){
+var tagOperations = (function(){
 	// private
-	var key;
-	var value;
+	var showOperations = [
+			function jumping(){
+					$('#comments').show();
+					$('#jumping').show();
+				},
+				function starsinclustertext(){
+					$('#starsinclustertextcanvas').show();
+				},
+				function backToSector(){
+					$('#reEnterSector').show();
+				},
+				function backToStarSystem(){
+					$('#reEnterStarSystem').show();
+				},
+				function backToPlanetSystem(){
+					$('#reEnterPlanetSystem').show();
+				},
+				function spinner(){
+					$('#spinner').show();
+				},
+				function spinner2(){
+					$('#spinner').show();
+				}
+
+      	];
 	
-	return{
-		setKey : function(s_key){
-			key = s_key;
-		},
-		setValue: function(s_value){
-			value = s_value;
-		},
-		getKey : function(){
-			return key;
-		},
-		getValue : function(){
-			return value;
-		},
-		logPrint: function(){
-			console.log("KEY:"+key+" VALUE:"+value);
-		}
+	var hideOperations = [
+			function jumping(){
+					$('#jumping').hide();
+					$('#comments').hide();
+				},
+				function starsinclustertext(){
+					$('#starsinclustertextcanvas').hide();
+				},
+				function backToSector(){
+					$('#reEnterSector').hide();
+				},
+				function backToStarSystem(){
+					$('#reEnterStarSystem').hide();
+				},
+				function backToPlanetSystem(){
+					$('#reEnterPlanetSystem').hide();
+				},
+				function spinner(){
+					$('#spinner').hide();
+				},
+				function spinner2(){
+					$('#spinner2').hide();
+				}
+			
+
+      	];
+	var references = {	
+			"jumping" : 0,
+			"starsinclustertext" : 1,
+			"backToSector" : 2,
+			"backToStarSystem" : 3,
+			"backToPlanetSystem" : 4,
+			"spinner" : 5,
+			"spinner2" : 6
 	}
+	// public 
+	return {
+		show: function(showList){ 
+			for(var idex = 0; idex < showList.length; idex++){
+				console.log("show:" + showList[idex]);
+				var token2 = references[showList[idex]];
+				showOperations[token2]();
+			}
+		},
+		hide: function(hideList){
+			for (var idex = 0; idex < hideList.length; idex++){
+				console.log("hide:" + hideList[idex]);
+				var token2 = references[hideList[idex]];
+				hideOperations[token2]();
+			}
+		},
+		hideAll: function(){
+			for(token in hideOperations){ 
+				console.log("token:" + token);
+				var op = hideOperations[token];
+				op();
+			}
+		},
+		both: function(showList, hideList){
+			tagOperations.show(showList);
+			tagOperations.hide(hideList);
+		}
+		
+	}
+}());	
+
 	
-});
-
-
 $(document).ready(function() {
-	$('#spinner').hide();
-	$('#spinner2').hide();
+	tagOperations.hideAll();
 	processReport.readSectors();
 	
 	$("#home").click(function(){
@@ -68,20 +136,23 @@ var processReport = (function(){
 		readSectors: function (){
 			$.getJSON("http://www.localhost:8080/johntredden-1.0/systemReportChoice.html",
 					function(json){           // callback
-						console.log("in ReportChoice");
-						processReportChoice.jsonProcess(json);
+						console.log("in cosmosVisit:"+json);
+						processSectorChoice.jsonProcess(json);
 					}
 			);
 		}
 	}
 })();
 
-var processReportChoice = (function(){
+var processSectorChoice = (function(){
 	
 	// public
 	
 	return {
 		jsonProcess: function(json){
+			var hideList = ['jumping'];
+			tagOperations.hide(hideList);
+
 			var choiceMessage = json.sectors.sectors;
 			var result = orderedPairToArray.getOrderedPair(choiceMessage);
 			displayButtons.action(result);
@@ -122,6 +193,9 @@ var displayButtons = (function (){
 	}
 	
 	function displayAction(start, end, tag, arrayOfUandVcoordinates){
+		var hideList = ['jumping'];
+		tagOperations.hide(hideList);
+
 		var dynamicHtml = "";
 		var theXor = 0;
 		for(var idex0 = start; idex0 < end; idex0++){
@@ -201,7 +275,8 @@ var fetchStarAndPlanets = (function () {
 					}		
 			);
 		}
-	}
+	}			
+
 
 })();
 
@@ -226,10 +301,11 @@ var entry = (function (){
 	var parsedURI;
 	return{
 		action: function(topu, topv, bottomu, bottomv){
-			$('#spinner2').html("<div> report for top U,V " + topu + " " + topv + " and bottom U,V " + bottomu + " " + bottomv + " will load shortly</div>");
-			$('#spinner').show();
-			$('#spinner2').show();
-			var postWithParameters = "http://www.localhost:8080/johntredden-1.0/systemReportResults.html?s_Ucoordinate_top="
+			var showList = ['jumping'];
+			tagOperations.show(showList);
+			var hideList = ['spinner2'];
+			tagOperations.hide(hideList);
+			var postWithParameters = "http://www.localhost:8080/johntredden-1.0/visitStarSystem.html?s_Ucoordinate_top="
 					+ topu
 					+ "&s_Vcoordinate_top="
 					+ topv
@@ -244,19 +320,14 @@ var entry = (function (){
 			  .done(function(data) {
 				  setInterval(function () {if(data != null){clearInterval();}}, 1000);	// arg! ajax
 				  console.log( "second success:"+data );
-				  uri = $.parseJSON(data)
-				  parsedURI = uri.sectors.sectors;
-				  console.log("URI:"+parsedURI);
-				  // $("#spreadSheet").load(parsedURI);
-				  window.location = parsedURI;
-			  })
+				  })
 			  .fail(function() {
 			    alert( "error" );
 			  })
 			  .always(function() {
 				  console.log( "finished" );
-				  $('#spinner').hide();
-				  $('#spinner2').hide();
+				var hideList = ['jumping'];
+				tagOperations.hide(hideList);
 			});
 			
 		}
@@ -265,24 +336,13 @@ var entry = (function (){
 
 </script>
 
-<title>Cosmos Sector Report Selection</title>
+<title>Cosmos Sector Sector Selection</title>
 </head>
-<body id="cosmosspace">
-	<div id="wrapperspace">
-			<header id="topHeaderFixed">
-			<hgroup>
-				<nav id="topNavCosmos">
-					<button id="home">Home</button>
-				</nav>
-			</hgroup>
-		</header>
-	</div>
-	
+
 	<section id="spaceReport">
 		<div id="reportComments">
 			Select the sector identified by U, V top coordinates and U, V bottom coordinates<br\>
-			The csv file result is returned and can be loaded into a spread sheet.<br\> 
-			The spread sheet will either load automatically or the csv file on the page must be saved.<br\>
+			The star ship will jump to that sector<br/>
 		</div>
 	</section>
 	
@@ -291,8 +351,7 @@ var entry = (function (){
 		<img src="./animatedEllipse.gif" />
 		</div>
 		<div id="spinner2">
-		</div>
-		
+		</div>		
 	</section>
 	
 	<section id="report">
@@ -307,6 +366,63 @@ var entry = (function (){
 	<section id="pages"> 
 		<div class="holder">
 		</div>
+	</section>
+<body id="cosmosspace">
+	<div id="wrapperspace">
+			<header id="topHeaderFixed">
+			<hgroup>
+				<nav id="topNavCosmos">
+					<button id="home">Home</button>
+				</nav>
+			</hgroup>
+		</header>
+	</div>
+	
+	<section id="shipstart">
+	<canvas id="firstposition">
+	Your browser does not support the HTML5 canvas tag.
+	Please upgrade to a version with full support for HTML5.
+	</canvas>
+	
+	</section> <!--  end shipstart -->
+	<section>
+	<div id="jumping">
+	<img src="../JumpingToLightSpeed.gif" width="1360" height="1000" />
+	</div>
+		
+	<div id="comments">
+	The starship is using the star drive to<br/>
+	enter a known sector consisting of twenty five<br/>
+	systems.  This can take several minutes.<br/>
+	<br/>
+	The sector is divided into systems, each<br/>
+	labeled with a U and a V coordinate, which<br/>
+	are the dimensions of each system in the<br/>
+	star drives entry sequence.<br/>
+	<br/>
+	Some systems are empty or seemingly empty<br/>
+	when viewing the sector map at the right<br/>
+	hand part of the page. Each star viewed in<br/>
+	sector map is listed in the middle of the<br/>
+	page.  The name of the system is taken from<br/>
+	its U and V coordinates of star ship entry.<br/>
+	Each star has a Description, Name, Color,<br/>
+	Radius in solar units and Luminosity.<br/>
+	A Description of None designates a <br/>
+	random collection of stars.<br/>
+	<br/>
+	To the far right of the page are the star<br/>
+	images. Select the stars image to visualize<br/>
+	the systems details.  Often a star will not<br/>
+	have detected planets.<br/>
+	<br/>
+	Using a similar procedure, planets and their<br/> 
+	moons can be selected.  The orbits scale of<br/>
+	planets and moons can be increased or <br/>
+	decreased using the scale controls.<br/>
+	 
+	</div>
+	
 	</section>
 </body>
 </html>

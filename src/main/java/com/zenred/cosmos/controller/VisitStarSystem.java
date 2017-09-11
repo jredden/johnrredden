@@ -23,6 +23,7 @@ class VisitStarSystem implements Controller {
 		logger.info("SESSION ID:"+request.getRequestedSessionId());
 		String  s_Ucoordinate_top = request.getParameter("s_Ucoordinate_top");	
 		String  s_Vcoordinate_top = request.getParameter("s_Vcoordinate_top");
+		logger.info("u and v:"+s_Ucoordinate_top+"::"+s_Vcoordinate_top);
 		Integer i_Ucoordinate = new Integer(s_Ucoordinate_top);
 		Integer i_Vcoordinate = new Integer(s_Vcoordinate_top);
 		Double d_Ucoordinate = new Double(s_Ucoordinate_top);
