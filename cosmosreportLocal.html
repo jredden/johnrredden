@@ -117,7 +117,7 @@ var displayButtons = (function (){
 	const onePage = numberOfRows *2;
 	
 	function decodeUandV(kvpair){
-		var uvSet_ = kvpair;
+		var uvSet_ = kvpair.getValue();
 		return uvSet_.split(":");
 	}
 	

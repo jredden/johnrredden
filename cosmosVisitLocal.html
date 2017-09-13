@@ -21,7 +21,6 @@ ZenredComputing" />
 -->
 
 <script type="text/javascript">
-
 /**
  * makes sections appear and dissapear on the page
  */
@@ -50,7 +49,6 @@ var tagOperations = (function(){
 				function spinner2(){
 					$('#spinner').show();
 				}
-
       	];
 	
 	var hideOperations = [
@@ -77,7 +75,6 @@ var tagOperations = (function(){
 					$('#spinner2').hide();
 				}
 			
-
       	];
 	var references = {	
 			"jumping" : 0,
@@ -118,7 +115,6 @@ var tagOperations = (function(){
 		
 	}
 }());	
-
 	
 $(document).ready(function() {
 	tagOperations.hideAll();
@@ -127,9 +123,7 @@ $(document).ready(function() {
 	$("#home").click(function(){
 		window.location = "http://johntreddenlocal.com";
 	});
-
 }); <!-- end ready -->
-
 var processReport = (function(){
 	
 	return{
@@ -143,7 +137,6 @@ var processReport = (function(){
 		}
 	}
 })();
-
 var processSectorChoice = (function(){
 	
 	// public
@@ -152,16 +145,15 @@ var processSectorChoice = (function(){
 		jsonProcess: function(json){
 			var hideList = ['jumping'];
 			tagOperations.hide(hideList);
-
 			var choiceMessage = json.sectors.sectors;
-			var result = orderedPairToArray.getOrderedPair(choiceMessage);
+			var result = orderedPairToArray2.getOrderedPair(choiceMessage);
 			displayButtons.action(result);
 		}
 	}
 	
 })();
 
-var orderedPairToArray = (function (){
+var orderedPairToArray2 = (function (){
 	
 	return{
 		getOrderedPair: function (oneString){
@@ -169,7 +161,6 @@ var orderedPairToArray = (function (){
 			var stars = [];
 			
 			var arrayOfUnsplitOrderedPairs = oneString.toString().split(";");
-
 			for(var idex = 0; idex < arrayOfUnsplitOrderedPairs.length; idex++){
 				var kvPair = new keyValuePair();
 				var kvArray = arrayOfUnsplitOrderedPairs[idex].split("=");
@@ -195,7 +186,6 @@ var displayButtons = (function (){
 	function displayAction(start, end, tag, arrayOfUandVcoordinates){
 		var hideList = ['jumping'];
 		tagOperations.hide(hideList);
-
 		var dynamicHtml = "";
 		var theXor = 0;
 		for(var idex0 = start; idex0 < end; idex0++){
@@ -222,7 +212,6 @@ var displayButtons = (function (){
 			
 		}
 		$("div[id^="+tag+"]").html(dynamicHtml);
-
 	}
 	
 	return{
@@ -240,12 +229,9 @@ var displayButtons = (function (){
 				perPage: 30
 			});
 			*/
-
 		}
 	}
-
 })();
-
 /**
  * invoke server
  */
@@ -261,7 +247,6 @@ var clusterDetailRequest = (function () {
 		}
 	}
 })();
-
 /**
  * invoke server
  */
@@ -276,10 +261,7 @@ var fetchStarAndPlanets = (function () {
 			);
 		}
 	}			
-
-
 })();
-
 var fetchMoons = (function () {
 	return{
 		jsonCall: function(moonName, starName){
@@ -292,9 +274,7 @@ var fetchMoons = (function () {
 			);
 		}
 	}
-
 })();
-
 var entry = (function (){
 	var result;
 	var uri;
@@ -320,6 +300,7 @@ var entry = (function (){
 			  .done(function(data) {
 				  setInterval(function () {if(data != null){clearInterval();}}, 1000);	// arg! ajax
 				  console.log( "second success:"+data );
+				  sectorProcess.iterate(data);
 				  })
 			  .fail(function() {
 			    alert( "error" );
@@ -333,6 +314,17 @@ var entry = (function (){
 		}
 	}
 })();
+
+var sectorProcess = (function (){
+	
+	return{
+		iterate: function(data){
+			
+		}
+	}
+	
+})();
+
 
 </script>
 
@@ -426,3 +418,4 @@ var entry = (function (){
 	</section>
 </body>
 </html>
+
