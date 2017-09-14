@@ -319,7 +319,10 @@ var sectorProcess = (function (){
 	
 	return{
 		iterate: function(data){
-			
+			var modifiedJson = data.replace("com.zenred.cosmos.vizualization.SystemVizCentric", 
+					"com_zenred_cosmos_vizualization_SystemVizCentric");
+			var jsonObject = JSON.parse(modifiedJson);
+			console.log("jsonObject:"+jsonObject.systems.systemVizCentrics[0].com_zenred_cosmos_vizualization_SystemVizCentric[0].systemName);
 		}
 	}
 	
