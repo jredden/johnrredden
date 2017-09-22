@@ -1700,7 +1700,7 @@ var starSystems = (function () {
 			ctx.font="16px Verdana";
 			ctx.strokeText(header, runningX+2, runningY+15);
 			clusterValues.clearDone();
-			clusterDetailReuquest.jsonCall(systemVizCentricArray[idex].getSystemName());
+			clusterDetailRequest.jsonCall(systemVizCentricArray[idex].getSystemName());
 			
 			runningY += incrementHeaderX;
 			

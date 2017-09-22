@@ -48,7 +48,11 @@ var tagOperations = (function(){
 				},
 				function spinner2(){
 					$('#spinner').show();
+				},
+				function report(){
+					$('#report').show();
 				}
+
       	];
 	
 	var hideOperations = [
@@ -73,6 +77,9 @@ var tagOperations = (function(){
 				},
 				function spinner2(){
 					$('#spinner2').hide();
+				},
+				function report(){
+					$('#report').hide();
 				}
 			
       	];
@@ -83,7 +90,8 @@ var tagOperations = (function(){
 			"backToStarSystem" : 3,
 			"backToPlanetSystem" : 4,
 			"spinner" : 5,
-			"spinner2" : 6
+			"spinner2" : 6,
+			"report" : 7
 	}
 	// public 
 	return {
@@ -118,6 +126,8 @@ var tagOperations = (function(){
 	
 $(document).ready(function() {
 	tagOperations.hideAll();
+	var showlist = ['report'];
+	tagOperations.show(showlist);
 	processReport.readSectors();
 	
 	$("#home").click(function(){
@@ -283,7 +293,7 @@ var entry = (function (){
 		action: function(topu, topv, bottomu, bottomv){
 			var showList = ['jumping'];
 			tagOperations.show(showList);
-			var hideList = ['spinner2'];
+			var hideList = ['spinner2', 'report'];
 			tagOperations.hide(hideList);
 			var postWithParameters = "http://www.localhost:8080/johntredden-1.0/visitStarSystem.html?s_Ucoordinate_top="
 					+ topu
@@ -319,10 +329,26 @@ var sectorProcess = (function (){
 	
 	return{
 		iterate: function(data){
+			systemVizCentricArray = [];
 			var modifiedJson = data.replace("com.zenred.cosmos.vizualization.SystemVizCentric", 
 					"com_zenred_cosmos_vizualization_SystemVizCentric");
 			var jsonObject = JSON.parse(modifiedJson);
 			console.log("jsonObject:"+jsonObject.systems.systemVizCentrics[0].com_zenred_cosmos_vizualization_SystemVizCentric[0].systemName);
+			for(var systemArray in jsonObject.systems.systemVizCentrics[0].com_zenred_cosmos_vizualization_SystemVizCentric){
+				console.log("systemArray:"+ 
+				jsonObject.systems.systemVizCentrics[0].com_zenred_cosmos_vizualization_SystemVizCentric[systemArray].systemName);
+				var systemVizCentricInstance = new systemVizCentric();
+				var name = jsonObject.systems.systemVizCentrics[0].com_zenred_cosmos_vizualization_SystemVizCentric[systemArray].systemName;
+				systemVizCentricInstance.setSystemName(name);
+				var ucoord = jsonObject.systems.systemVizCentrics[0].com_zenred_cosmos_vizualization_SystemVizCentric[systemArray].ucoordinate;
+				systemVizCentricInstance.setUCoordinate(ucoord);
+				var vcoord = jsonObject.systems.systemVizCentrics[0].com_zenred_cosmos_vizualization_SystemVizCentric[systemArray].vcoordinate;
+				systemVizCentricInstance.setVCoordinate(vcoord);
+				var distance = jsonObject.systems.systemVizCentrics[0].com_zenred_cosmos_vizualization_SystemVizCentric[systemArray].distance_to_galaxy_centre;
+				systemVizCentricInstance.setDistanceToGalacticCentre(distance);
+				systemVizCentricArray.push(systemVizCentricInstance);
+			}
+			starSystems.visualize(systemVizCentricArray);
 		}
 	}
 	
@@ -373,6 +399,35 @@ var sectorProcess = (function (){
 		</header>
 	</div>
 	
+	<div id="wrapperspace">
+			<header id="topHeaderFixed">
+			<hgroup>
+				<nav id="topNavCosmos">
+					<button id="home">Home</button>
+					<button id="jump">Activate Starships Star Drive</button>
+			<!--  		<span id="jumphint" style="color:lightyellow;font-weight:bold">To travel to a new star system activate the Star Drive</span> -->
+					<button id="reEnterSector">Re-Enter Sector</button>
+					<button id="reEnterStarSystem">Re-Enter Star System</button>
+					<button id="reEnterPlanetSystem">Re-Enter Planet System</button>
+				</nav>
+			</hgroup>
+		</header>
+	</div> <!--  wrapperspace -->
+	
+	<section id="cosmosspacedetail">
+	<canvas id="starsystems">
+	Your browser does not support the HTML5 canvas tag.
+	Please upgrade to a version with full support for HTML5.
+	
+	</canvas>
+	
+	<canvas id="starsinclustertextcanvas">
+	Your browser does not support the HTML5 canvas tag.
+	Please upgrade to a version with full support for HTML5.
+	
+	</canvas>
+	
+	</section> <!-- end cosmosspacedetail -->
 	<section id="shipstart">
 	<canvas id="firstposition">
 	Your browser does not support the HTML5 canvas tag.
@@ -380,6 +435,7 @@ var sectorProcess = (function (){
 	</canvas>
 	
 	</section> <!--  end shipstart -->
+	
 	<section>
 	<div id="jumping">
 	<img src="../JumpingToLightSpeed.gif" width="1360" height="1000" />
