@@ -51,7 +51,10 @@ var tagOperations = (function(){
 				},
 				function report(){
 					$('#report').show();
-				}
+				},
+   				function cosmosSpaceDetail(){
+   					$('#cosmosspacedetail').show();
+   				} 
 
       	];
 	
@@ -80,7 +83,10 @@ var tagOperations = (function(){
 				},
 				function report(){
 					$('#report').hide();
-				}
+				},
+   				function cosmosSpaceDetail(){
+   					$('#cosmosspacedetail').show();
+   				}
 			
       	];
 	var references = {	
@@ -91,7 +97,8 @@ var tagOperations = (function(){
 			"backToPlanetSystem" : 4,
 			"spinner" : 5,
 			"spinner2" : 6,
-			"report" : 7
+			"report" : 7,
+			"cosmosSpaceDetail" : 8
 	}
 	// public 
 	return {
@@ -349,6 +356,16 @@ var sectorProcess = (function (){
 				systemVizCentricArray.push(systemVizCentricInstance);
 			}
 			starSystems.visualize(systemVizCentricArray);
+			clusterValues.builder();
+			console.log("CLUSTER VALUES SIZE:"+clusterValues.getClusterVizCentricArraySize());
+			console.log("SYSTEM TO CLUSTER SIZE:"+clusterValues.getSystemNameArraySize());
+			var showList = ['cosmosSpaceDetail', 'starsinclustertext'];
+			var hideList = ['jumping'];
+			tagOperations.both(showList, hideList);
+
+			visualizeClusters.display();
+			visualizeStarsInClusters.display();
+
 		}
 	}
 	
