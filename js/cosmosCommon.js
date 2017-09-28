@@ -1401,6 +1401,9 @@ var clusterValues = (function () {
 		getSystemNameArraySize(){
 			return rawDictionary.size();
 		},
+		getSystemNameKeys(){
+			return rawDictionary.keys();
+		},
 		builder(){
 			
 			var systemNameArray =  rawDictionary.keys();
@@ -1649,9 +1652,9 @@ var visualizeStarsInClusters = ( function (){
 })();
 
 /**
- * stars on canvas
+ * stars on canvas NOT in common for now
  */
-var starSystems = (function () {
+var starSystemsNotUsed = (function () {
 	// private
 	var viz = function(systemVizCentricArray){
 		var ctx = canvasas.fetchStarSystemsCanvasContext();
