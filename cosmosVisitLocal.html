@@ -138,9 +138,38 @@ $(document).ready(function() {
 	processReport.readSectors();
 	
 	$("#home").click(function(){
-		window.location = "http://johntreddenlocal.com";
+		window.location = "http://www.johntreddenlocal.com";
 	});
+	
+	$("#starsystems").click(function(event){
+		var clickedX = event.pageX - this.offsetLeft;
+		var clickedY = event.pageY - this.offsetTop;
+		console.log("SCALE CLICK EVENT:"+clickedX+"::"+clickedY);
+		scaleViz.determineClick(clickedX, clickedY);
+	});
+	
+	$("#starsinclustertextcanvas").click(function(event){
+		var clickedX = event.pageX - this.offsetLeft;
+		var clickedY = event.pageY - this.offsetTop;
+		console.log("CLICK EVENT:"+clickedX+"::"+clickedY);
+		clickableAstroObjectList.determineClick(clickedX, clickedY);
+	});
+
+	$("#reEnterSector").click(function(){
+		backToSectorView.reenter();
+	});
+	
+	$("#reEnterStarSystem").click(function(){
+		backToStarView.reenter();
+	});
+	
+	$("#reEnterPlanetSystem").click(function(){
+		backToPlanetView.reenter();
+	});
+	
 }); <!-- end ready -->
+
+
 var processReport = (function(){
 	
 	return{
@@ -154,6 +183,8 @@ var processReport = (function(){
 		}
 	}
 })();
+
+
 var processSectorChoice = (function(){
 	
 	// public
@@ -458,30 +489,35 @@ var sectorProcess = (function (){
 			}
 			visualizeClustersOnCanvas.init();
 			visualizeClustersOnCanvas.logPrint();  // sanity check
+			vizStars.init();
+			vizPlanars.init();
+			moonViz.init();
+			processPlanetAndMoonsDetail.init();
 
 			starSystems.visualize(systemVizCentricArray);
-			console.log("CLUSTER VALUES SIZE:"+clusterValues.getClusterVizCentricArraySize());
-			console.log("SYSTEM TO CLUSTER SIZE:"+clusterValues.getSystemNameArraySize());
-			var showList = ['cosmosSpaceDetail', 'starsinclustertext'];
-			var hideList = ['jumping'];
-			tagOperations.both(showList, hideList);
-			
-			var arraySize = clusterValues.getSystemNameKeys();
-			if(arraySize.length == 0){
-			setInterval(function () {
-					arraySize = clusterValues.getSystemNameKeys();
-					if(arraySize.length > 0){clearInterval();}
-			}, 1000);
-			}
-			
-			clusterValues.builder();
-			visualizeClusters.display();
-			visualizeStarsInClusters.display();
-
+			var clusterTimer = setInterval(function () {clusterTimerLoop(clusterTimer)}, 1000);
 		}
 	}
 	
 })();
+
+/**
+* wait for Cluster key values pairs from domain tier.  Hey.  It's AJAX.  
+*/
+var clusterTimerLoop = function(clusterTimer){
+	console.log("WAITING FOR CLUSTER DATA");
+	if(clusterValues.getDone()){
+		window.clearInterval(clusterTimer)
+		console.log("CLUSTER VALUES SIZE:"+clusterValues.getClusterVizCentricArraySize());
+		console.log("SYSTEM TO CLUSTER SIZE:"+clusterValues.getSystemNameArraySize());
+		clusterValues.builder();
+		var showList = ['cosmosSpaceDetail', 'starsinclustertext'];
+		var hideList = ['jumping'];
+		tagOperations.both(showList, hideList);
+		visualizeClusters.display();
+		visualizeStarsInClusters.display();
+	}
+}
 
 
 </script>
@@ -491,7 +527,7 @@ var sectorProcess = (function (){
 
 	<section id="spaceReport">
 		<div id="reportComments">
-			Select the sector identified by U, V top coordinates and U, V bottom coordinates<br\>
+			Select the sector identified by U, V top coordinates and U, V bottom coordinates<br/>
 			The star ship will jump to that sector<br/>
 		</div>
 	</section>
