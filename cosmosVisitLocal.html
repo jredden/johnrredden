@@ -167,6 +167,10 @@ $(document).ready(function() {
 		backToPlanetView.reenter();
 	});
 	
+	$("#jump").click(function(){
+		window.location = "http://www.johntreddenlocal.com/cosmos/cosmosVisitLocal.html";
+	});
+	
 }); <!-- end ready -->
 
 
@@ -411,6 +415,24 @@ var fetchStarAndPlanets = (function () {
 		}
 	}			
 })();
+
+
+
+var fetchPlanetAndMoons = (function () {
+	return{
+		jsonCall: function(planetName, starName){
+			$.getJSON("http://www.localhost:8080/johntredden-1.0/planetAndMoons.html?starName="+starName+"&planetName="+planetName,
+					function(json){           // callback
+						console.log("fetch planets and moons for :" + planetName);
+						processPlanetAndMoonsDetail.f_planetMode();
+						processPlanetAndMoonsDetail.jsonProcess(json, planetName);
+					}		
+			);
+		}
+	}
+
+})();
+
 var fetchMoons = (function () {
 	return{
 		jsonCall: function(moonName, starName){
@@ -424,6 +446,33 @@ var fetchMoons = (function () {
 		}
 	}
 })();
+
+/**
+ * return to the previous sector view
+ */
+var backToSectorView = (function (){
+	
+	return{
+		reenter: function(){
+			var hideList = ['backToSector', 'backToStarSystem', 'backToPlanetSystem'];
+			tagOperations.hide(hideList);
+			
+			canvasas.clearStarSystemsCanvasContext();
+			canvasas.clearStarsInClusterTextCanvasContext();
+			canvasas.init();
+			var systemVizCentricArray = sectorProcess.getSystemVizCentricArray();
+			starSystems.vizualizeNoInit(systemVizCentricArray);
+			clusterValues.builder();
+			var showList = ['starsinclustertext'];
+			tagOperations.show(showList);
+			visualizeClusters.display();
+			visualizeStarsInClusters.display();
+
+		}
+	}
+	
+})();
+
 var entry = (function (){
 	var result;
 	var uri;
@@ -466,6 +515,8 @@ var entry = (function (){
 
 var sectorProcess = (function (){
 	
+	var systemVizCentricArray;
+	
 	return{
 		iterate: function(data){
 			systemVizCentricArray = [];
@@ -496,6 +547,9 @@ var sectorProcess = (function (){
 
 			starSystems.visualize(systemVizCentricArray);
 			var clusterTimer = setInterval(function () {clusterTimerLoop(clusterTimer)}, 1000);
+		},
+		getSystemVizCentricArray: function(){
+			return systemVizCentricArray;
 		}
 	}
 	
@@ -528,7 +582,8 @@ var clusterTimerLoop = function(clusterTimer){
 	<section id="spaceReport">
 		<div id="reportComments">
 			Select the sector identified by U, V top coordinates and U, V bottom coordinates<br/>
-			The star ship will jump to that sector<br/>
+			<br/>
+			The star ship will jump to the selected sector<br/>
 		</div>
 	</section>
 	
@@ -554,22 +609,12 @@ var clusterTimerLoop = function(clusterTimer){
 		</div>
 	</section>
 <body id="cosmosspace">
-	<div id="wrapperspace">
+		<div id="wrapperspace">
 			<header id="topHeaderFixed">
 			<hgroup>
 				<nav id="topNavCosmos">
 					<button id="home">Home</button>
-				</nav>
-			</hgroup>
-		</header>
-	</div>
-	
-	<div id="wrapperspace">
-			<header id="topHeaderFixed">
-			<hgroup>
-				<nav id="topNavCosmos">
-					<button id="home">Home</button>
-					<button id="jump">Activate Starships Star Drive</button>
+					<button id="jump">Return to Sector Selection</button>
 			<!--  		<span id="jumphint" style="color:lightyellow;font-weight:bold">To travel to a new star system activate the Star Drive</span> -->
 					<button id="reEnterSector">Re-Enter Sector</button>
 					<button id="reEnterStarSystem">Re-Enter Star System</button>

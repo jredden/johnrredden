@@ -1940,6 +1940,38 @@ var starAndPlanets = (function(){
 	
 })();
 
+var planetAndMoons = (function(){
+	
+	return{
+		init: function(planetName){
+			canvasas.clearStarSystemsCanvasContext();
+			canvasas.clearStarsInClusterTextCanvasContext();
+			var showList = ['backToStarSystem'];
+			tagOperations.show(showList);
+			var starName = sessionStorage.STAR_NAME;
+			sessionStorage.setItem('PLANET_NAME', planetName);
+			fetchPlanetAndMoons.jsonCall(planetName, starName);
+		}
+	}
+	
+})();
+
+var moonsOnly = (function(){
+	
+	return{
+		init: function(moonName){
+			canvasas.clearStarSystemsCanvasContext();
+			canvasas.clearStarsInClusterTextCanvasContext();
+			var showList = ['backToPlanetSystem'];
+			tagOperations.show(showList);
+			var starName = sessionStorage.STAR_NAME;
+			fetchMoons.jsonCall(moonName, starName);
+		}
+	}
+	
+})();
+
+
 /**
  * star and planets detail
  */
@@ -2727,4 +2759,42 @@ var processPlanetAndMoonsDetail = (function(){
 	}
 })();
 
+
+var backToStarView  = (function (){
+	
+	return{
+		reenter: function(){
+			var hideList = ['backToStarSystem','backToPlanetSystem'];
+			tagOperations.hide(hideList);
+			
+			canvasas.clearStarSystemsCanvasContext();
+			canvasas.clearStarsInClusterTextCanvasContext();
+			canvasas.init();
+			scaleViz.setModePlanets();
+			processStarAndPlanetsDetail.f_drawStarInCentre();
+			processStarAndPlanetsDetail.f_drawPlanetoidsAroundStar();
+			processStarAndPlanetsDetail.f_drawStarDetails();
+			
+		}
+	}
+	
+})();
+
+var backToPlanetView = (function(){
+	
+	return{
+		reenter: function(){
+			var hideList = ['backToPlanetSystem'];
+			tagOperations.hide(hideList);
+			canvasas.clearStarSystemsCanvasContext();
+			canvasas.clearStarsInClusterTextCanvasContext();
+			canvasas.init();
+			scaleViz.setModeMoons();
+			var planetName = sessionStorage.PLANET_NAME;  // restore via database
+			var starName = sessionStorage.STAR_NAME;
+			fetchPlanetAndMoons.jsonCall(planetName, starName);
+		}
+	}
+	
+})();
 
