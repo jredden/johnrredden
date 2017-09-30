@@ -54,7 +54,10 @@ var tagOperations = (function(){
 				},
    				function cosmosSpaceDetail(){
    					$('#cosmosspacedetail').show();
-   				} 
+   				},
+   				function reportComments(){
+   					$('#reportComments').show();
+   				}
 
       	];
 	
@@ -85,7 +88,10 @@ var tagOperations = (function(){
 					$('#report').hide();
 				},
    				function cosmosSpaceDetail(){
-   					$('#cosmosspacedetail').show();
+   					$('#cosmosspacedetail').hide();
+   				},
+   				function reportComments(){
+   					$('#reportComments').hide();
    				}
 			
       	];
@@ -98,7 +104,8 @@ var tagOperations = (function(){
 			"spinner" : 5,
 			"spinner2" : 6,
 			"report" : 7,
-			"cosmosSpaceDetail" : 8
+			"cosmosSpaceDetail" : 8,
+			"reportComments" :9
 	}
 	// public 
 	return {
@@ -481,7 +488,7 @@ var entry = (function (){
 		action: function(topu, topv, bottomu, bottomv){
 			var showList = ['jumping'];
 			tagOperations.show(showList);
-			var hideList = ['spinner2', 'report'];
+			var hideList = ['spinner2', 'report', 'reportComments'];
 			tagOperations.hide(hideList);
 			var postWithParameters = "http://www.localhost:8080/johntredden-1.0/visitStarSystem.html?s_Ucoordinate_top="
 					+ topu
