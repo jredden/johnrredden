@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="keywords"
+	content="Hawaii, 
+Globalization, 
+ScienceFiction,
+RideAStarShip, 
+Coffee,
+ZenredComputing" />
+
+<link href="css/main.css" rel="stylesheet" type="text/css">
+
+<script src="../js/jquery-3.0.0.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="../js/jquery.form.js"></script>
+<script type="text/javascript" src="../js/buckets.js"></script>
+<script type="text/javascript" src="../js/cosmosCommon.js"></script>
+<!--  
+<script src="js/jPages.js"></script>"
+-->
+
+<script type="text/javascript">
+/**
+ * makes sections appear and dissapear on the page
+ */
+var tagOperations = (function(){
+	// private
+	var showOperations = [
+			function jumping(){
+					$('#comments').show();
+					$('#jumping').show();
+				},
+				function starsinclustertext(){
+					$('#starsinclustertextcanvas').show();
+				},
+				function backToSector(){
+					$('#reEnterSector').show();
+				},
+				function backToStarSystem(){
+					$('#reEnterStarSystem').show();
+				},
+				function backToPlanetSystem(){
+					$('#reEnterPlanetSystem').show();
+				},
+				function spinner(){
+					$('#spinner').show();
+				},
+				function spinner2(){
+					$('#spinner').show();
+				},
+				function report(){
+					$('#report').show();
+				},
+   				function cosmosSpaceDetail(){
+   					$('#cosmosspacedetail').show();
+   				},
+   				function reportComments(){
+   					$('#reportComments').show();
+   				}
+
+      	];
+	
+	var hideOperations = [
+			function jumping(){
+					$('#jumping').hide();
+					$('#comments').hide();
+				},
+				function starsinclustertext(){
+					$('#starsinclustertextcanvas').hide();
+				},
+				function backToSector(){
+					$('#reEnterSector').hide();
+				},
+				function backToStarSystem(){
+					$('#reEnterStarSystem').hide();
+				},
+				function backToPlanetSystem(){
+					$('#reEnterPlanetSystem').hide();
+				},
+				function spinner(){
+					$('#spinner').hide();
+				},
+				function spinner2(){
+					$('#spinner2').hide();
+				},
+				function report(){
+					$('#report').hide();
+				},
+   				function cosmosSpaceDetail(){
+   					$('#cosmosspacedetail').hide();
+   				},
+   				function reportComments(){
+   					$('#reportComments').hide();
+   				}
+			
+      	];
+	var references = {	
+			"jumping" : 0,
+			"starsinclustertext" : 1,
+			"backToSector" : 2,
+			"backToStarSystem" : 3,
+			"backToPlanetSystem" : 4,
+			"spinner" : 5,
+			"spinner2" : 6,
+			"report" : 7,
+			"cosmosSpaceDetail" : 8,
+			"reportComments" :9
+	}
+	// public 
+	return {
+		show: function(showList){ 
+			for(var idex = 0; idex < showList.length; idex++){
+				console.log("show:" + showList[idex]);
+				var token2 = references[showList[idex]];
+				showOperations[token2]();
+			}
+		},
+		hide: function(hideList){
+			for (var idex = 0; idex < hideList.length; idex++){
+				console.log("hide:" + hideList[idex]);
+				var token2 = references[hideList[idex]];
+				hideOperations[token2]();
+			}
+		},
+		hideAll: function(){
+			for(token in hideOperations){ 
+				console.log("token:" + token);
+				var op = hideOperations[token];
+				op();
+			}
+		},
+		both: function(showList, hideList){
+			tagOperations.show(showList);
+			tagOperations.hide(hideList);
+		}
+		
+	}
+}());	
+	
+$(document).ready(function() {
+	tagOperations.hideAll();
+	var showlist = ['report'];
+	tagOperations.show(showlist);
+	processReport.readSectors();
+	
+	$("#home").click(function(){
+		window.location = "http://www.johntreddenlocal.com";
+	});
+	
+	$("#starsystems").click(function(event){
+		var clickedX = event.pageX - this.offsetLeft;
+		var clickedY = event.pageY - this.offsetTop;
+		console.log("SCALE CLICK EVENT:"+clickedX+"::"+clickedY);
+		scaleViz.determineClick(clickedX, clickedY);
+	});
+	
+	$("#starsinclustertextcanvas").click(function(event){
+		var clickedX = event.pageX - this.offsetLeft;
+		var clickedY = event.pageY - this.offsetTop;
+		console.log("CLICK EVENT:"+clickedX+"::"+clickedY);
+		clickableAstroObjectList.determineClick(clickedX, clickedY);
+	});
+
+	$("#reEnterSector").click(function(){
+		backToSectorView.reenter();
+	});
+	
+	$("#reEnterStarSystem").click(function(){
+		backToStarView.reenter();
+	});
+	
+	$("#reEnterPlanetSystem").click(function(){
+		backToPlanetView.reenter();
+	});
+	
+	$("#jump").click(function(){
+		window.location = "http://www.johntreddenlocal.com/cosmos/cosmosVisitLocal.html";
+	});
+	
+}); <!-- end ready -->
+
+
+var processReport = (function(){
+	
+	return{
+		readSectors: function (){
+			$.getJSON("http://johntredden.com:8080/johntredden-1.0/systemReportChoice.html",
+					function(json){           // callback
+						console.log("in cosmosVisit:"+json);
+						processSectorChoice.jsonProcess(json);
+					}
+			);
+		}
+	}
+})();
+
+
+var processSectorChoice = (function(){
+	
+	// public
+	
+	return {
+		jsonProcess: function(json){
+			var hideList = ['jumping'];
+			tagOperations.hide(hideList);
+			var choiceMessage = json.sectors.sectors;
+			var result = orderedPairToArray2.getOrderedPair(choiceMessage);
+			displayButtons.action(result);
+		}
+	}
+	
+})();
+
+var orderedPairToArray2 = (function (){
+	
+	return{
+		getOrderedPair: function (oneString){
+			var result = [];
+			var stars = [];
+			
+			var arrayOfUnsplitOrderedPairs = oneString.toString().split(";");
+			for(var idex = 0; idex < arrayOfUnsplitOrderedPairs.length; idex++){
+				var kvPair = new keyValuePair();
+				var kvArray = arrayOfUnsplitOrderedPairs[idex].split("=");
+				kvPair.setKey(kvArray[0]);
+				kvPair.setValue(kvArray[1]);
+				console.log("KVPAIR:"+kvPair.getKey()+"::"+kvPair.getValue());
+				result.push(kvPair.getValue());
+			}
+			return result;
+		}
+	}
+})();
+
+var displayButtons = (function (){
+	const numberOfRows = 30;
+	const onePage = numberOfRows *2;
+	
+	function decodeUandV(kvpair){
+		var uvSet_ = kvpair;
+		return uvSet_.split(":");
+	}
+	
+	function displayAction(start, end, tag, arrayOfUandVcoordinates){
+		var hideList = ['jumping'];
+		tagOperations.hide(hideList);
+		var dynamicHtml = "";
+		var theXor = 0;
+		for(var idex0 = start; idex0 < end; idex0++){
+			var kvPair = arrayOfUandVcoordinates[idex0];
+			var uvSet = decodeUandV(kvPair);
+			console.log("UVSet:"+uvSet);
+			theXor ^=1;
+			var bgColor = "lightblue";
+			if(theXor){
+				bgColor = "lightgreen";
+			}
+			dynamicHtml +="<div class=\"entry\"><button onclick=\"entry.action("
+					+uvSet[0]
+				+","+uvSet[1]
+				+","+uvSet[2]
+				+","+uvSet[3]
+				+")\" style=\"width: 100%; text-align: left; background-color:" + bgColor + ";"
+				+"\">"
+				+"Ucoordinate_top_"+uvSet[0]
+				+"_Vcoordinate_top_"+uvSet[1]
+				+"_Ucoordinate_bottom_"+uvSet[2]
+				+"_Vcoordinate_bottom_"+uvSet[3]
+				+"</button></div>";
+			
+		}
+		$("div[id^="+tag+"]").html(dynamicHtml);
+	}
+	
+	return{
+		action: function(arrayOfUandVcoordinates){
+			$('#spinner').hide();
+			var wholeOfIt = arrayOfUandVcoordinates.length;
+			var firstHalf = Math.floor(wholeOfIt/2);
+			
+			displayAction(0, firstHalf, "column1", arrayOfUandVcoordinates);
+			displayAction(firstHalf+1, wholeOfIt, "column2", arrayOfUandVcoordinates);
+			
+			/*	didn't work, bug 45 entered
+			$("div.holder").jPages({
+				containerId: "report",
+				perPage: 30
+			});
+			*/
+		}
+	}
+})();
+
+/**
+ * stars on canvas
+ */
+var starSystems = (function () {
+	// private
+	var viz = function(systemVizCentricArray){
+		var ctx = canvasas.fetchStarSystemsCanvasContext();
+		ctx.fillRect(0,20,window.innerWidth/2, window.innerHeight);
+		
+		var lineWidth = 2;
+		var flipFlop = 0;
+		var startX = 50;
+		var startY = 50;
+		var incrementHeaderX = 20;
+		var widthBoxY= 150;
+		var widthBoxX = 150
+		var runningX = startX;
+		var runningY = startY;
+		var fillStyle;
+		var reset;
+		console.log("LENGTH:"+systemVizCentricArray.length);
+		ctx.beginPath();
+		for(var idex = 0; idex < systemVizCentricArray.length; ){
+			clusterValues.initArrays(systemVizCentricArray[idex].getSystemName());
+			if(flipFlop == 0){
+				fillStyle = 'darkblue';
+			}
+			else{
+				fillStyle = 'midnightblue';
+			}
+			ctx.rect(runningX, runningY, widthBoxX, incrementHeaderX);
+			ctx.fillStyle = fillStyle;
+			ctx.fillRect(runningX, runningY, widthBoxX, incrementHeaderX);
+			ctx.lineWidth= lineWidth;
+			ctx.strokeStyle= "lightblue";
+			ctx.stroke();
+			
+			var cvCoordinates = new clusterViewCoordinates();
+			cvCoordinates.setAttributesFromRectangle(runningX, runningY, widthBoxX, widthBoxY);
+			console.log("STAR SYSTEM:"+systemVizCentricArray[idex].getSystemName()+" CVCOORDINATES:"+cvCoordinates.getTopLeftX()
+					+"|"+cvCoordinates.getTopLeftY()
+					+"|"+cvCoordinates.getBottomRightX()
+					+"|"+cvCoordinates.getBottomRightY());
+			cvCoordinates.getMiddlePoint().logPrint();
+				
+			clusterViewCoordinatesToSystemName.process(systemVizCentricArray[idex].getSystemName(),cvCoordinates);
+			
+			var header = "U"+systemVizCentricArray[idex].getUCoordinate()+":V"+systemVizCentricArray[idex].getVCoordinate();
+			// console.log("HEADER:"+header);
+			ctx.font="16px Verdana";
+			ctx.strokeText(header, runningX+2, runningY+15);
+			clusterValues.clearDone();
+			clusterDetailRequest.jsonCall(systemVizCentricArray[idex].getSystemName());
+			
+			runningY += incrementHeaderX;
+			
+			if(flipFlop == 0){
+				fillStyle = 'midnightblue';
+			}
+			else{
+				fillStyle = 'darkblue';
+			}
+			ctx.rect(runningX, runningY, widthBoxX, widthBoxY);
+			ctx.fillStyle = fillStyle;
+			ctx.fillRect(runningX, runningY, widthBoxX, widthBoxY);
+			ctx.lineWidth= lineWidth;
+			ctx.strokeStyle= "lightblue";
+			ctx.stroke();
+			
+			runningY -= incrementHeaderX;
+			
+			flipFlop ^=1;
+			runningX+=widthBoxX;
+			++idex;
+			reset = idex % 5;
+			if(reset == 0){
+				runningX = startX;
+				runningY += widthBoxY;
+			}
+		}
+		ctx.closePath();
+	}
+	
+	return{
+		visualize: function(systemVizCentricArray){
+			clusterValues.reset();  // reinitilizes top dictionary
+			visualizeClustersOnCanvas.reset();
+			clusterViewCoordinatesToSystemName.initArrays();
+			
+			canvasas.init();
+			viz(systemVizCentricArray);
+		},
+		vizualizeNoInit: function(systemVizCentricArray){
+			viz(systemVizCentricArray);
+		}
+	}
+})();
+
+
+/**
+ * invoke server
+ */
+var clusterDetailRequest = (function () {
+	return{
+		jsonCall: function(systemName){
+			$.getJSON("http://johntredden.com:8080/johntredden-1.0/starCluster.html?systemName="+systemName,
+					function(json){           // callback
+						setInterval(function () {if(json != null){clearInterval();}}, 1000);
+						console.log("in clusterDetailRequest for :" + systemName);
+						processClusterDetail.jsonProcess(json, systemName);
+					}		
+			);
+		}
+	}
+})();
+/**
+ * invoke server
+ */
+var fetchStarAndPlanets = (function () {
+	return{
+		jsonCall: function(starName){
+			$.getJSON("http://johntredden.com:8080/johntredden-1.0/starAndPlanets.html?starName="+starName,
+					function(json){           // callback
+						console.log("fetchStarAndPlanets for :" + starName);
+						processStarAndPlanetsDetail.jsonProcess(json, starName);
+					}		
+			);
+		}
+	}			
+})();
+
+
+
+var fetchPlanetAndMoons = (function () {
+	return{
+		jsonCall: function(planetName, starName){
+			$.getJSON("http://johntredden.com:8080/johntredden-1.0/planetAndMoons.html?starName="+starName+"&planetName="+planetName,
+					function(json){           // callback
+						console.log("fetch planets and moons for :" + planetName);
+						processPlanetAndMoonsDetail.f_planetMode();
+						processPlanetAndMoonsDetail.jsonProcess(json, planetName);
+					}		
+			);
+		}
+	}
+
+})();
+
+var fetchMoons = (function () {
+	return{
+		jsonCall: function(moonName, starName){
+			$.getJSON("http://johntredden.com:8080/johntredden-1.0/planetAndMoons.html?starName="+starName+"&planetName="+moonName,
+					function(json){           // callback
+						console.log("fetch moon :" + moonName);
+						processPlanetAndMoonsDetail.f_moonMode();
+						processPlanetAndMoonsDetail.jsonProcess(json, moonName);
+					}		
+			);
+		}
+	}
+})();
+
+/**
+ * return to the previous sector view
+ */
+var backToSectorView = (function (){
+	
+	return{
+		reenter: function(){
+			var hideList = ['backToSector', 'backToStarSystem', 'backToPlanetSystem'];
+			tagOperations.hide(hideList);
+			
+			canvasas.clearStarSystemsCanvasContext();
+			canvasas.clearStarsInClusterTextCanvasContext();
+			canvasas.init();
+			var systemVizCentricArray = sectorProcess.getSystemVizCentricArray();
+			starSystems.vizualizeNoInit(systemVizCentricArray);
+			clusterValues.builder();
+			var showList = ['starsinclustertext'];
+			tagOperations.show(showList);
+			visualizeClusters.display();
+			visualizeStarsInClusters.display();
+
+		}
+	}
+	
+})();
+
+var entry = (function (){
+	var result;
+	var uri;
+	var parsedURI;
+	return{
+		action: function(topu, topv, bottomu, bottomv){
+			var showList = ['jumping'];
+			tagOperations.show(showList);
+			var hideList = ['spinner2', 'report', 'reportComments'];
+			tagOperations.hide(hideList);
+			var postWithParameters = "http://johntredden.com:8080/johntredden-1.0/visitStarSystem.html?s_Ucoordinate_top="
+					+ topu
+					+ "&s_Vcoordinate_top="
+					+ topv
+					+ "&s_Ucoordinate_bottom="
+					+ bottomu
+					+ "&s_Vcoordinate_bottom="
+					+ bottomv;
+			var jqxr = $.post(postWithParameters, function() {
+				result = $(".result");
+				console.log("rawURI:"+result);
+			})
+			  .done(function(data) {
+				  setInterval(function () {if(data != null){clearInterval();}}, 1000);	// arg! ajax
+				  console.log( "second success:"+data );
+				  sectorProcess.iterate(data);
+				  })
+			  .fail(function() {
+			    alert( "error" );
+			  })
+			  .always(function() {
+				  console.log( "finished" );
+				var hideList = ['jumping'];
+				tagOperations.hide(hideList);
+			});
+			
+		}
+	}
+})();
+
+var sectorProcess = (function (){
+	
+	var systemVizCentricArray;
+	
+	return{
+		iterate: function(data){
+			systemVizCentricArray = [];
+			var modifiedJson = data.replace("com.zenred.cosmos.vizualization.SystemVizCentric", 
+					"com_zenred_cosmos_vizualization_SystemVizCentric");
+			var jsonObject = JSON.parse(modifiedJson);
+			console.log("jsonObject:"+jsonObject.systems.systemVizCentrics[0].com_zenred_cosmos_vizualization_SystemVizCentric[0].systemName);
+			for(var systemArray in jsonObject.systems.systemVizCentrics[0].com_zenred_cosmos_vizualization_SystemVizCentric){
+				console.log("systemArray:"+ 
+				jsonObject.systems.systemVizCentrics[0].com_zenred_cosmos_vizualization_SystemVizCentric[systemArray].systemName);
+				var systemVizCentricInstance = new systemVizCentric();
+				var name = jsonObject.systems.systemVizCentrics[0].com_zenred_cosmos_vizualization_SystemVizCentric[systemArray].systemName;
+				systemVizCentricInstance.setSystemName(name);
+				var ucoord = jsonObject.systems.systemVizCentrics[0].com_zenred_cosmos_vizualization_SystemVizCentric[systemArray].ucoordinate;
+				systemVizCentricInstance.setUCoordinate(ucoord);
+				var vcoord = jsonObject.systems.systemVizCentrics[0].com_zenred_cosmos_vizualization_SystemVizCentric[systemArray].vcoordinate;
+				systemVizCentricInstance.setVCoordinate(vcoord);
+				var distance = jsonObject.systems.systemVizCentrics[0].com_zenred_cosmos_vizualization_SystemVizCentric[systemArray].distance_to_galaxy_centre;
+				systemVizCentricInstance.setDistanceToGalacticCentre(distance);
+				systemVizCentricArray.push(systemVizCentricInstance);
+			}
+			visualizeClustersOnCanvas.init();
+			visualizeClustersOnCanvas.logPrint();  // sanity check
+			vizStars.init();
+			vizPlanars.init();
+			moonViz.init();
+			processPlanetAndMoonsDetail.init();
+
+			starSystems.visualize(systemVizCentricArray);
+			var clusterTimer = setInterval(function () {clusterTimerLoop(clusterTimer)}, 1000);
+		},
+		getSystemVizCentricArray: function(){
+			return systemVizCentricArray;
+		}
+	}
+	
+})();
+
+/**
+* wait for Cluster key values pairs from domain tier.  Hey.  It's AJAX.  
+*/
+var clusterTimerLoop = function(clusterTimer){
+	console.log("WAITING FOR CLUSTER DATA");
+	if(clusterValues.getDone()){
+		window.clearInterval(clusterTimer)
+		console.log("CLUSTER VALUES SIZE:"+clusterValues.getClusterVizCentricArraySize());
+		console.log("SYSTEM TO CLUSTER SIZE:"+clusterValues.getSystemNameArraySize());
+		clusterValues.builder();
+		var showList = ['cosmosSpaceDetail', 'starsinclustertext'];
+		var hideList = ['jumping'];
+		tagOperations.both(showList, hideList);
+		visualizeClusters.display();
+		visualizeStarsInClusters.display();
+	}
+}
+
+
+</script>
+
+<title>Cosmos Sector Sector Selection</title>
+</head>
+
+	<section id="spaceReport">
+		<div id="reportComments">
+			Select the sector identified by U, V top coordinates and U, V bottom coordinates<br/>
+			<br/>
+			The star ship will jump to the selected sector<br/>
+		</div>
+	</section>
+	
+	<section id="nextResult">
+		<div id="spinner">
+		<img src="./animatedEllipse.gif" />
+		</div>
+		<div id="spinner2">
+		</div>		
+	</section>
+	
+	<section id="report">
+		
+		<div id="column1" class="column"></div>
+		<div id="column2" class="column"></div>
+		
+	</section>
+	<section id="load">
+		<div id="spreadSheet"></div>
+	</section>
+	<section id="pages"> 
+		<div class="holder">
+		</div>
+	</section>
+<body id="cosmosspace">
+		<div id="wrapperspace">
+			<header id="topHeaderFixed">
+			<hgroup>
+				<nav id="topNavCosmos">
+					<button id="home">Home</button>
+					<button id="jump">Return to Sector Selection</button>
+			<!--  		<span id="jumphint" style="color:lightyellow;font-weight:bold">To travel to a new star system activate the Star Drive</span> -->
+					<button id="reEnterSector">Re-Enter Sector</button>
+					<button id="reEnterStarSystem">Re-Enter Star System</button>
+					<button id="reEnterPlanetSystem">Re-Enter Planet System</button>
+				</nav>
+			</hgroup>
+		</header>
+	</div> <!--  wrapperspace -->
+	
+	<section id="cosmosspacedetail">
+	<canvas id="starsystems">
+	Your browser does not support the HTML5 canvas tag.
+	Please upgrade to a version with full support for HTML5.
+	
+	</canvas>
+	
+	<canvas id="starsinclustertextcanvas">
+	Your browser does not support the HTML5 canvas tag.
+	Please upgrade to a version with full support for HTML5.
+	
+	</canvas>
+	
+	</section> <!-- end cosmosspacedetail -->
+	<section id="shipstart">
+	<canvas id="firstposition">
+	Your browser does not support the HTML5 canvas tag.
+	Please upgrade to a version with full support for HTML5.
+	</canvas>
+	
+	</section> <!--  end shipstart -->
+	
+	<section>
+	<div id="jumping">
+	<img src="../JumpingToLightSpeed.gif" width="1360" height="1000" />
+	</div>
+		
+	<div id="comments">
+	The starship is using the star drive to<br/>
+	enter a known sector consisting of twenty five<br/>
+	systems.  This can take several minutes.<br/>
+	<br/>
+	The sector is divided into systems, each<br/>
+	labeled with a U and a V coordinate, which<br/>
+	are the dimensions of each system in the<br/>
+	star drives entry sequence.<br/>
+	<br/>
+	Some systems are empty or seemingly empty<br/>
+	when viewing the sector map at the right<br/>
+	hand part of the page. Each star viewed in<br/>
+	sector map is listed in the middle of the<br/>
+	page.  The name of the system is taken from<br/>
+	its U and V coordinates of star ship entry.<br/>
+	Each star has a Description, Name, Color,<br/>
+	Radius in solar units and Luminosity.<br/>
+	A Description of None designates a <br/>
+	random collection of stars.<br/>
+	<br/>
+	To the far right of the page are the star<br/>
+	images. Select the stars image to visualize<br/>
+	the systems details.  Often a star will not<br/>
+	have detected planets.<br/>
+	<br/>
+	Using a similar procedure, planets and their<br/> 
+	moons can be selected.  The orbits scale of<br/>
+	planets and moons can be increased or <br/>
+	decreased using the scale controls.<br/>
+	 
+	</div>
+	
+	</section>
+</body>
+</html>
+

@@ -11,7 +11,7 @@ ZenredComputing" />
 
 <link href="css/main.css" rel="stylesheet" type="text/css">
 
-<script src="../js/jquery-1.8.1.min.js" type="text/javascript"></script>
+<script src="../js/jquery-3.0.0.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="../js/jquery.form.js"></script>
 <script type="text/javascript">
 
@@ -228,6 +228,7 @@ $(document).ready(function() {
 		
 	$("#home").click(function () { 
 		tagOperations.hideAll();
+		window.location = "http://johntreddenlocal.com";
 	});	
 	$("#skf").click(function () { 
 		console.log("in click");
@@ -277,15 +278,19 @@ $(document).ready(function() {
 	});
 	
 	$("#zenred").click(function(){
-		window.location = "http://www.zenredcomputing.com";
+		window.location = "http://www.zenredcomputinglocal.com";
 	});
 	
     $("#cosmos").click(function(){
-        window.location = "http://www.johntredden.com/cosmos.html";
+        window.location = "http://johntreddenlocal.com/cosmos/cosmos.html";
 	});
     
 	$("#cosmosReport").click(function(){
-		window.location = "http://www.johntredden.com/cosmosreport.html";
+		window.location = "http://johntreddenlocal.com/cosmos/cosmosreport.html";
+	});
+
+	$("#cosmosVisit").click(function(){
+		window.location = "http://www.johntreddenlocal.com/cosmos/cosmosVisitLocal.html";
 	});
 
 });
@@ -294,7 +299,7 @@ var accessRequest = (function () {
 	return{
 		jsonCall: function(){
 			console.log("start AccessRequest");
-			$.getJSON("http://www.johntredden.com:8088/firstAccess.html",
+			$.getJSON("http://www.johntreddenlocal.com:8080/johntredden-1.0/firstAccess.html",
 					function(json){           // callback
 					console.log("Here");
 					processRequest.jsonProcess(json);
@@ -308,17 +313,17 @@ var processRequest = (function () {
 	return{
 		jsonProcess: function(json){
 			var colorSelector = 0;
-			$(questions1).html("<div id=\"questionHeader\"> Please prove you are a person.  Key in a four letter word that describes  </div> ");
+			$(questions1).html("<div id=\"questionHeader\"> Please prove you are a person.  Key in a four letter word below </div> ");
 			$(questions1).append("<div id=\"questionHeader2\">the following set of phrases.  </div>   ");
 			$(questions1).append("<br/></div> ");
-			for (var idex = 0; idex < json.firstAccessResponse.questionList.string.length; idex++) {
+			for (var idex = 0; idex < json.firstAccessResponse.questionList.length; idex++) {
 				
 				$(questions1).append("<div id=\"question" + idex + "\""
 				+colorSelector
 				+">"
-				+json.firstAccessResponse.questionList.string[idex]
+				+json.firstAccessResponse.questionList[idex].string
 				+"</div>");
-				console.log("question:" + json.firstAccessResponse.questionList.string[idex]);
+				console.log("question:" + json.firstAccessResponse.questionList[idex]);
 			}
 			$(questions1).append("<br/>");
 			$(questions1).append("<div id=\"math\"> Please add these two numbers and key the answer in:&nbsp;&nbsp;  <span id=\"knum\">"+json.firstAccessResponse.secondQuestion+"</span></div>");
@@ -348,6 +353,7 @@ var processRequest = (function () {
 					<button id="zenred">Zenred Computing</button>
 					<button id="cosmos">Explore the Cosmos</button>
 					<button id="cosmosReport">Select a Cosmos Report</button>
+					<button id="cosmosVisit">Select a Known Cosmos Sector</button>
 				</nav>
 
 
@@ -387,23 +393,24 @@ var processRequest = (function () {
 		</section>
 		<section id="cosmosSect">
 			<nav>
+			
 				<div id="glossary">
-					<a href="docs_private/glossary.pdf">League Cosmos Glossary</a>
+					<a href="docs_private/HomeWorlds.pdf">Home Worlds</a>
 				</div>
 				<div id="humFed1">
-					<a href="docs_private/humFed1.pdf">First Human Federation</a>
+					<a href="docs_private/FirstHumanFederation.pdf">First Human Federation</a>
 				</div>
 				<div id="humFed2">
-					<a href="docs_private/humFed2.pdf">Second Human Federation</a>
+					<a href="docs_private/FirstHumanFederation.pdf">Second Human Federation</a>
 				</div>
 				<div id="cosmosHeaven">
-					<a href="docs_private/cosmosHeaven.pdf">Cosmos Heaven</a>
+					<a href="docs_private/CosmosHeaven.pdf">Cosmos Heaven</a>
 				</div>
 				<div id="cosmosPurgatory">
-					<a href="docs_private/cosmosPurgatory.pdf">Cosmos Purgatory</a>
+					<a href="docs_private/CosmosPurgatory.pdf">Cosmos Purgatory</a>
 				</div>
 				<div id="cosmosHell">
-					<a href="docs_private/cosmosHell.pdf">Cosmos Hell</a>
+					<a href="docs_private/CosmosHell.pdf">Cosmos Hell</a>
 				</div>
 			</nav>
 		</section>
@@ -426,7 +433,7 @@ var processRequest = (function () {
 			<div id="zenredSect">
 			<!--  
 				not used 
-				<iframe src="http://zenredcomputing.com" width="1000" height="1000"></iframe>
+				<iframe src="http://zenredcomputinglocal.com" width="1000" height="1000"></iframe>
 			-->
 			</div>
 			
@@ -434,7 +441,7 @@ var processRequest = (function () {
 			
 			<div id="emailAndPassword">
 				<form name="LoginForm" id="LoginFormID"
-					action="http://www.johntredden.com:8088/login.html"
+					action="http://www.johntreddenlocal.com:8080/johntredden-1.0/login.html"
 					method="get">
 					<div id="uEmail">
 						E-Mail Address: <span id="uMails"> <input type="text"
@@ -456,7 +463,7 @@ var processRequest = (function () {
 			
 			<div id="answerQuestionOne">
 				<form name="Question1Form" id="Question1FormID"
-					action="http://www.johntredden.com:8088/answerQuestion1.html"
+					action="http://www.johntreddenlocal.com:8080/johntredden-1.0/answerQuestion1.html"
 					method="get">
 					<div id="uQuestion1">
 						Your First Question Answer: <span id="uQ1"  > <input type="text" 
@@ -476,7 +483,7 @@ var processRequest = (function () {
 			</div>
 			<div id="createLogin">
 				<form name="CreateLoginForm"  id="CreateLoginFormID"
-					action="http://www.johntredden.com:8088/createLogin.html"
+					action="http://www.johntreddenlocal.com:8080/johntredden-1.0/createLogin.html"
 					method="get">
 					<div id="firstName">
 						Your First Name: <span id="fn1"> <input type="text" 
