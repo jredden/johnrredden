@@ -228,7 +228,7 @@ $(document).ready(function() {
 		
 	$("#home").click(function () { 
 		tagOperations.hideAll();
-		window.location = "http://johntreddenlocal.com";
+		window.location = "http://johntredden.com";
 	});	
 	$("#skf").click(function () { 
 		console.log("in click");
@@ -278,19 +278,19 @@ $(document).ready(function() {
 	});
 	
 	$("#zenred").click(function(){
-		window.location = "http://www.zenredcomputinglocal.com";
+		window.location = "http://www.zenredcomputing.com";
 	});
 	
     $("#cosmos").click(function(){
-        window.location = "http://johntreddenlocal.com/cosmos/cosmos.html";
+        window.location = "http://johntredden.com/cosmos/cosmos.html";
 	});
     
 	$("#cosmosReport").click(function(){
-		window.location = "http://johntreddenlocal.com/cosmos/cosmosreport.html";
+		window.location = "http://johntredden.com/cosmos/cosmosreport.html";
 	});
 
 	$("#cosmosVisit").click(function(){
-		window.location = "http://www.johntreddenlocal.com/cosmos/cosmosVisitLocal.html";
+		window.location = "http://www.johntredden.com/cosmos/cosmosVisitLocal.html";
 	});
 
 });
@@ -299,7 +299,7 @@ var accessRequest = (function () {
 	return{
 		jsonCall: function(){
 			console.log("start AccessRequest");
-			$.getJSON("http://www.johntreddenlocal.com:8080/johntredden-1.0/firstAccess.html",
+			$.getJSON("http://www.johntredden.com:8080/johntredden-1.0/firstAccess.html",
 					function(json){           // callback
 					console.log("Here");
 					processRequest.jsonProcess(json);
@@ -433,7 +433,7 @@ var processRequest = (function () {
 			<div id="zenredSect">
 			<!--  
 				not used 
-				<iframe src="http://zenredcomputinglocal.com" width="1000" height="1000"></iframe>
+				<iframe src="http://zenredcomputing.com" width="1000" height="1000"></iframe>
 			-->
 			</div>
 			
@@ -441,7 +441,7 @@ var processRequest = (function () {
 			
 			<div id="emailAndPassword">
 				<form name="LoginForm" id="LoginFormID"
-					action="http://www.johntreddenlocal.com:8080/johntredden-1.0/login.html"
+					action="http://www.johntredden.com:8080/johntredden-1.0/login.html"
 					method="get">
 					<div id="uEmail">
 						E-Mail Address: <span id="uMails"> <input type="text"
@@ -463,7 +463,7 @@ var processRequest = (function () {
 			
 			<div id="answerQuestionOne">
 				<form name="Question1Form" id="Question1FormID"
-					action="http://www.johntreddenlocal.com:8080/johntredden-1.0/answerQuestion1.html"
+					action="http://www.johntredden.com:8080/johntredden-1.0/answerQuestion1.html"
 					method="get">
 					<div id="uQuestion1">
 						Your First Question Answer: <span id="uQ1"  > <input type="text" 
@@ -483,7 +483,7 @@ var processRequest = (function () {
 			</div>
 			<div id="createLogin">
 				<form name="CreateLoginForm"  id="CreateLoginFormID"
-					action="http://www.johntreddenlocal.com:8080/johntredden-1.0/createLogin.html"
+					action="http://www.johntredden.com:8080/johntredden-1.0/createLogin.html"
 					method="get">
 					<div id="firstName">
 						Your First Name: <span id="fn1"> <input type="text" 
