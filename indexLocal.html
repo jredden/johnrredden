@@ -54,7 +54,11 @@ var tagOperations = (function(){
 	   				},
 	   					function netEconomicsSect(){
 	   					$('#netEconomicsSect').show();
+	   				},
+	   					function musicSect(){
+	   					$('#musicSect').show();
 	   				}
+	   				
 	];
 	var hideOperations = [
 			   function skfSect(){
@@ -89,6 +93,9 @@ var tagOperations = (function(){
 	   			},
 					function netEconomicsSect(){
    					$('#netEconomicsSect').hide();
+   				},
+					function musicSect(){
+   					$('#musicSect').hide();
    				}
 				
 	];
@@ -104,7 +111,8 @@ var tagOperations = (function(){
 			"questions1" :7,
 			"answerQuestionOne" : 8,
 			"createLogin" :9,
-			"netEconomicsSect" :10
+			"netEconomicsSect" :10,
+			"musicSect" : 11
 	}
 	
 	// public 
@@ -214,7 +222,7 @@ $(document).ready(function() {
 		console.log("createLogin:");
 		if(json.createMessageResponse.theMessage.indexOf("SUCCESS") != -1){
 			var showList = ['cosmosSect'];
-   		var hideList = ['skfSect', 'hawaiiSect', 'zenredSect','login_op','emailAndPassword','questions1','answerQuestionOne', 'createLogin','netEconomicsSect'];
+   		var hideList = ['skfSect', 'hawaiiSect', 'zenredSect','login_op','emailAndPassword','questions1','answerQuestionOne', 'createLogin','netEconomicsSect', 'musicSect'];
 			tagOperations.both(showList, hideList);
 			sessionStorage.setItem('LOGIN', true);
 		}
@@ -240,21 +248,21 @@ $(document).ready(function() {
 	$("#skf").click(function () { 
 		console.log("in click");
 		var showList = ['skfSect'];
-		var hideList = ['zenredSect','hawaiiSect','login_op','emailAndPassword','cosmosSect','questions1','answerQuestionOne', 'createLogin','netEconomicsSect'];
+		var hideList = ['zenredSect','hawaiiSect','login_op','emailAndPassword','cosmosSect','questions1','answerQuestionOne', 'createLogin','netEconomicsSect','musicSect'];
 		tagOperations.both(showList, hideList);
 	});
 	
 	$("#zenred").click(function () { 
 		console.log("in click");
 		var showList = ['zenredSect'];
-		var hideList = ['skfSect','hawaiiSect','login_op','emailAndPassword','cosmosSect','questions1', 'answerQuestionOne', 'createLogin','netEconomicsSect'];
+		var hideList = ['skfSect','hawaiiSect','login_op','emailAndPassword','cosmosSect','questions1', 'answerQuestionOne', 'createLogin','netEconomicsSect','musicSect'];
 		tagOperations.both(showList, hideList);
 	});	
 	
 	$("#doh").click(function () { 
 		console.log("in click");
 		var showList = ['hawaiiSect'];
-		var hideList = ['skfSect','zenredSect','login_op','emailAndPassword','cosmosSect','questions1', 'answerQuestionOne', 'createLogin','netEconomicsSect'];
+		var hideList = ['skfSect','zenredSect','login_op','emailAndPassword','cosmosSect','questions1', 'answerQuestionOne', 'createLogin','netEconomicsSect','musicSect'];
 		tagOperations.both(showList, hideList);
 	});
 	
@@ -263,23 +271,23 @@ $(document).ready(function() {
 		if(sessionStorage.LOGIN){
 			console.log("Already logged in");
 			var showList = ['cosmosSect'];
-   			var hideList = ['skfSect', 'hawaiiSect', 'zenredSect','login_op','emailAndPassword','questions1','answerQuestionOne', 'createLogin','netEconomicsSect'];
+   			var hideList = ['skfSect', 'hawaiiSect', 'zenredSect','login_op','emailAndPassword','questions1','answerQuestionOne', 'createLogin','netEconomicsSect','musicSect'];
 		}
 		else{
 			var showList = ['login_op'];
-			var hideList = ['hawaiiSect','skfSect','zenredSect','emailAndPassword','cosmosSect','questions1','answerQuestionOne', 'createLogin','netEconomicsSect'];
+			var hideList = ['hawaiiSect','skfSect','zenredSect','emailAndPassword','cosmosSect','questions1','answerQuestionOne', 'createLogin','netEconomicsSect','musicSect'];
 		}
 		tagOperations.both(showList, hideList);
 	});
 	
 	$("#startLogin").click(function(){
 		var showList = ['emailAndPassword']
-		var hideList = ['hawaiiSect','cosmosSect','login_op', 'answerQuestionOne', 'createLogin','netEconomicsSect'];
+		var hideList = ['hawaiiSect','cosmosSect','login_op', 'answerQuestionOne', 'createLogin','netEconomicsSect', 'musicSect'];
 		tagOperations.both(showList, hideList);
 	});
 	
 	$("#startLoginRequest").click(function(){
-		var hideList = ['hawaiiSect', 'cosmosSect','login_op', 'answerQuestionOne', 'createLogin','netEconomicsSect'];
+		var hideList = ['hawaiiSect', 'cosmosSect','login_op', 'answerQuestionOne', 'createLogin','netEconomicsSect', 'musicSect'];
 		tagOperations.hide(hideList);
 		accessRequest.jsonCall();
 	});
@@ -303,7 +311,15 @@ $(document).ready(function() {
 	$("#netEconommics").click(function(){
 		console.log("in click");
 		var showList = ['netEconomicsSect'];
-		var hideList = ['skfSect','zenredSect','login_op','emailAndPassword','cosmosSect','questions1', 'answerQuestionOne', 'createLogin','hawaiiSect'];
+		var hideList = ['skfSect','zenredSect','login_op','emailAndPassword','cosmosSect','questions1', 'answerQuestionOne', 'createLogin','hawaiiSect', 'musicSect'];
+		tagOperations.both(showList, hideList);
+
+	});
+
+	$("#music").click(function(){
+		console.log("in click");
+		var showList = ['musicSect'];
+		var hideList = ['skfSect','zenredSect','login_op','emailAndPassword','cosmosSect','questions1', 'answerQuestionOne', 'createLogin','hawaiiSect', 'netEconomicsSect'];
 		tagOperations.both(showList, hideList);
 
 	});
@@ -371,6 +387,7 @@ var processRequest = (function () {
 					<button id="cosmosReport">Select a Cosmos Report</button>
 					<button id="cosmosVisit">Select a Known Cosmos Sector</button>
 					<button id="netEconommics">Document On Network Economics</button>
+					<button id="music">Music</button>
 				</nav>
 
 
@@ -412,6 +429,16 @@ var processRequest = (function () {
 			<nav>
 				<div id="netEco">
 					<a href="docs/GlobalInternetValueAndWorkCandidate.pdf">Internet Value and Work</a>			
+				</div>
+			</nav>
+		</section>
+		<section id="musicSect">
+			<nav>
+				<div id="mus">
+					<a href="docs/BuzzardsBluesBand.mp3">Buzzards Blues Band</a>			
+				</div>
+				<div id="musNote">
+					<a href="docs/NotesOnBuzzards.pdf">Note on Buzzards</a>			
 				</div>
 			</nav>
 		</section>
