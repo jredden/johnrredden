@@ -18,6 +18,19 @@ ZenredComputing" />
 var questionNumber = '0';
 var addQuestion = '0+0';
 var formData = { questionNumber1:questionNumber, questionNumber2:addQuestion, questionNumber3:'0+0' }
+	
+var sleeper = (function () {
+	return{
+		sleep: function (milliseconds){
+			console.log("start Sleep:" + milliseconds);
+			  for (var i = 0; i <  milliseconds; i++) {
+			    var doDah = i;
+			    
+		    }
+			console.log("end Sleep");
+		}
+	}
+})();
 
 var tagOperations = (function(){
 	// private
@@ -240,6 +253,10 @@ $(document).ready(function() {
 
 	$(JRedden).fadeIn();
 	$(JRedden).fadeOut(5000);
+	sleeper.sleep(100000000);
+	$(JRedden).fadeIn();
+	$(JRedden).fadeOut(5000);
+	sleeper.sleep(100000000);
 		
 	$("#home").click(function () { 
 		tagOperations.hideAll();
@@ -478,8 +495,9 @@ var processRequest = (function () {
 		</section>
 		<section id="page">
 			<div id="JRedden">WEB SITE OF JOHN T REDDEN</div>
+				
 			<div id="skfSect">
-				<iframe src="http://southkonafarms.com" width="1000" height="1000"></iframe>
+				<iframe src="http://southkonafarms.com" width="1100" height="1000"></iframe>
 			</div>
 			<div id="zenredSect">
 			<!--  
