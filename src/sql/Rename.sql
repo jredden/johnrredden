@@ -5,9 +5,9 @@ CREATE TABLE `Rename`(
 `renameId` int unsigned NOT NULL auto_increment,
 `objectId` int unsigned NOT NULL,
 `objectType` ENUM (
-	'Planetoid',
-	'Star',
-	'Cluster'
+	'PLANETOID',
+	'STAR',
+	'CLUSTER'
 ) DEFAULT NULL,
 `genericName` varchar(255) NOT NULL,
 `renameName` varchar(255) NOT NULL,
