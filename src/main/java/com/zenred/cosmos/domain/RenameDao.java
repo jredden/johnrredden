@@ -26,5 +26,18 @@ public class RenameDao extends AbstractJDBCDao {
 			+ OBJECTID 
 			+ " = ? "
 	;
+	/**
+	 * Add a name associated to the generic generated name of the planar, star or cluster
+	 * 
+	 * @param renameObjectType
+	 * @param objectId
+	 * @param Rename
+	 * @return
+	 */
+	public String addNewName(RenameObjectType renameObjectType, Integer objectId, String Rename){
+		
+		
+		return null;
+	}
 
 }

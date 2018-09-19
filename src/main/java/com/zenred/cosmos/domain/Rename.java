@@ -1,7 +1,9 @@
 package com.zenred.cosmos.domain;
 
+import java.util.HashMap;
+import java.util.Map;
 
-
+import com.zenred.cosmos.domain.RenameObjectType;
 public class Rename {
 	
 	public Integer getRenameId() {
@@ -150,5 +152,24 @@ public class Rename {
 		this.renameName = renameName;
 		this.renameCount = renameCount;
 		this.datestamp = datestamp;
+	}
+	
+	
+	/**
+	 * 
+	 * used for database insert of rename 
+	 * 
+	 * @param renameObjectType
+	 * @param genericName
+	 * @param renameName
+	 * @param renameCount
+	 * @return
+	 */
+	public static Map<String, Object> getRenameMap(RenameObjectType renameObjectType, 
+			String genericName, String renameName, Integer renameCount, Integer objectId){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put(RenameDao.OBJECTID, objectId);
+		map.put(RenameDao.OBJECTTYPE, renameObjectType);
+		return map;
 	}
 };
