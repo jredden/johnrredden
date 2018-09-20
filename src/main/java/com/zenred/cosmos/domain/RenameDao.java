@@ -1,5 +1,7 @@
 package com.zenred.cosmos.domain;
 
+import java.util.Map;
+
 import org.apache.log4j.Logger;
 
 import com.zenred.johntredden.domain.AbstractJDBCDao;
@@ -26,6 +28,17 @@ public class RenameDao extends AbstractJDBCDao {
 			+ OBJECTID 
 			+ " = ? "
 	;
+	
+	private static String nameAlreadyStored = "SELECT "
+			+ RENAMECOUNT 
+			+ " FROM "
+			+ RENAME
+			+ " WHERE "
+			+ RENAMENAME 
+			+ " = ?"
+	;
+	
+	
 	/**
 	 * Add a name associated to the generic generated name of the planar, star or cluster
 	 * 
@@ -37,6 +50,13 @@ public class RenameDao extends AbstractJDBCDao {
 	public String addNewName(RenameObjectType renameObjectType, Integer objectId, String Rename){
 		
 		
+		return null;
+	}
+	
+	
+	public Integer alreadyThere(String reNameName){
+		Object[] param = {reNameName};
+		Map<String, Object> atmosphereMap = super.jdbcSetUp().getSimpleJdbcTemplate().queryForMap(nameAlreadyStored, param);
 		return null;
 	}
 
