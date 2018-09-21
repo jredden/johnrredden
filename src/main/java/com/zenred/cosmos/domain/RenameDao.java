@@ -53,11 +53,17 @@ public class RenameDao extends AbstractJDBCDao {
 		return null;
 	}
 	
-	
+	/**
+	 * 
+	 * @param reNameName
+	 * @return 0 if not there else != 0 if there
+	 */
 	public Integer alreadyThere(String reNameName){
 		Object[] param = {reNameName};
-		Map<String, Object> atmosphereMap = super.jdbcSetUp().getSimpleJdbcTemplate().queryForMap(nameAlreadyStored, param);
-		return null;
+		Map<String, Object> renameMap = super.jdbcSetUp().getSimpleJdbcTemplate().queryForMap(nameAlreadyStored, param);
+		String s_renameCount = renameMap.get(RENAMECOUNT).toString();
+		Integer renameCount = new Integer(s_renameCount);
+		return renameCount;
 	}
 
 }
