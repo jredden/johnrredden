@@ -49,6 +49,15 @@ public class Rename {
 		this.datestamp = datestamp;
 	}
 	
+	/**
+	 * 
+	 * @return attribute array
+	 */
+	public static String[] csvRename() {
+		return new String[] { RenameDao.OBJECTTYPE, RenameDao.GENERICNAME, RenameDao.RENAMENAME, RenameDao.RENAMECOUNT,
+				RenameDao.OBJECTID };
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -165,7 +174,7 @@ public class Rename {
 	 * @param renameCount
 	 * @return
 	 */
-	public static Map<String, Object> getRenameMap(RenameObjectType renameObjectType, 
+	public static Map<String, Object> getRenameMap(String renameObjectType, 
 			String genericName, String renameName, Integer renameCount, Integer objectId){
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put(RenameDao.OBJECTID, objectId);
