@@ -3,6 +3,7 @@ package com.zenred.cosmos.domain;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.zenred.johntredden.domain.AbstractJDBCDao;
 
@@ -38,6 +39,12 @@ public class RenameDao extends AbstractJDBCDao {
 			+ " = ?"
 	;
 	
+	private static String lastRenameInsertSql = "SELECT MAX(" + RENAMEID + ") FROM " + RENAME
+	;
+	
+	private static String deleteRename = "DELETE FROM " + RENAME + " WHERE " + RENAMEID + " = ?"
+	;
+	
 	
 	/**
 	 * Add a name associated to the generic generated name of the planar, star or cluster
@@ -47,13 +54,16 @@ public class RenameDao extends AbstractJDBCDao {
 	 * @param Rename
 	 * @return
 	 */
-	public String addNewName(RenameObjectType renameObjectType, Integer objectId, String rename, String genericName) {
+	@Transactional
+	public Integer addNewName(RenameObjectType renameObjectType, Integer objectId, String rename, String genericName) {
 
 		Integer renameCount = allreadyThere(rename);
 		renameCount += 1;
 		Map<String, Object> newNameMap = Rename.getRenameMap(renameObjectType.getName().objectName(), genericName,
 				rename, renameCount, objectId);
-		return null;
+		super.jdbcInsertSetup().withTableName(RENAME).usingColumns(Rename.csvRename()).execute(newNameMap);
+		Integer renameId = super.jdbcSetUp().getSimpleJdbcTemplate().queryForInt(lastRenameInsertSql);
+		return renameId;
 	}
 	
 	/**
@@ -61,12 +71,25 @@ public class RenameDao extends AbstractJDBCDao {
 	 * @param reNameName
 	 * @return 0 if not there else != 0 if there
 	 */
+	@Transactional
 	public Integer allreadyThere(String reNameName){
 		Object[] param = {reNameName};
 		Map<String, Object> renameMap = super.jdbcSetUp().getSimpleJdbcTemplate().queryForMap(nameAlreadyStored, param);
 		String s_renameCount = renameMap.get(RENAMECOUNT).toString();
 		Integer renameCount = new Integer(s_renameCount);
 		return renameCount;
+	}
+	
+	@Transactional
+	/**
+	 * 
+	 * @param renameId
+	 */
+	public void deleteRename(Integer renameId){
+		super.jdbcSetUp()
+		.getSimpleJdbcTemplate()
+		.update(deleteRename, new Object[] {renameId}
+		);
 	}
 
 }
