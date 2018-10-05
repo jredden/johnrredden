@@ -179,6 +179,10 @@ public class Rename {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put(RenameDao.OBJECTID, objectId);
 		map.put(RenameDao.OBJECTTYPE, renameObjectType);
+		map.put(RenameDao.RENAMECOUNT, renameCount);
+		map.put(RenameDao.GENERICNAME, genericName);
+		map.put(RenameDao.RENAMENAME, renameName);
+		
 		return map;
 	}
 };
