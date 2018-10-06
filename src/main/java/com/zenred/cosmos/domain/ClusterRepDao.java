@@ -1,5 +1,7 @@
 package com.zenred.cosmos.domain;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -54,6 +56,18 @@ public class ClusterRepDao extends AbstractJDBCDao{
 			+ " FROM " + CLUSTER_REP + " cr "
 			+ " WHERE cr."+SYSTEM_ID+ " = ?" 
 			;
+	
+	private static String readAllClusterReps = "SELECT "
+			+ "cr."+CLUSTER_REP_ID+" "
+			+ ", cr."+SYSTEM_ID+" "
+			+ ", cr."+CLUSTER_NAME+" "
+			+ ", cr."+DISTANCE_SYS_VIRT_CENTRE+" "
+			+ ", cr."+ANGLE_IN_RADIANS+" "
+			+ ", cr."+CLUSTER_DESCRIPTION+" "
+			+ ", cr."+DATESTAMP+" "
+			+ " FROM " + CLUSTER_REP + " cr "
+			;
+
 	
 	private static String updateClusterRepById = "UPDATE "+ CLUSTER_REP + " cr SET "
 			+ " cr."+SYSTEM_ID+" = ? "
@@ -156,6 +170,18 @@ public class ClusterRepDao extends AbstractJDBCDao{
 		clusterRep.setClusterRepId(new Integer(s_clusterRep_id));
 
 		return clusterRep;
+	}
+	
+	public List<ClusterRep>  readAllClusterReps(){
+		List<ClusterRep> clusterReps = new ArrayList<ClusterRep>();
+		List<Map<String, Object>> clusterListMap = super.jdbcSetUp()
+				.getSimpleJdbcTemplate()
+				.queryForList(readAllClusterReps);
+		for(Map<String, Object> clusterMap : clusterListMap ){
+			Integer clusterRepId = new Integer(clusterMap.get(CLUSTER_REP_ID).toString());
+			clusterReps.add(readClusterRepById(clusterRepId));
+		}
+		return clusterReps;
 	}
 	
 	/**

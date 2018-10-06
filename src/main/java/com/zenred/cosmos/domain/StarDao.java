@@ -66,6 +66,21 @@ public class StarDao extends AbstractJDBCDao {
 			+ " FROM "+ STAR + " st "
 			+ " WHERE st."+NAME+ " = ?" 
 		;
+	
+	private static String readAllStars = "SELECT "
+			+ "st."+STAR_ID+" "
+			+ ", st."+CLUSTER_TO_STAR_ID_2+" "
+			+ ", st."+NAME+" "
+			+ ", st."+DISTANCE_CLUST_VIRT_CENTRE+" "
+			+ ", st."+LUMINOSITY+" "
+			+ ", st."+NO_PLANETS_ALLOWED+" "
+			+ ", st."+ANGLE_IN_RADIANS_S+" "
+			+ ", st."+STAR_COLOR+" "
+			+ ", st."+STAR_TYPE+" "
+			+ ", st."+STAR_SIZE+" "
+			+ ", st."+DATESTAMP+" "
+			+ " FROM "+ STAR + " st "
+			;
 	private static String updateStarById = "UPDATE " + STAR + " st SET "
 			+ " st."+CLUSTER_TO_STAR_ID_2+" = ? "
 			+ ", st."+NAME+" = ? "
@@ -186,6 +201,18 @@ public class StarDao extends AbstractJDBCDao {
 		starMap = super.jdbcSetUp().getSimpleJdbcTemplate().queryForMap(readStarByName, param);
 		Star star = buildStar(starMap);
 		return star;
+	}
+	
+	public List<Star> readAllStars(){
+		List<Star> allStars = new ArrayList<Star>();
+		List<Map<String, Object>> starListMap = super.jdbcSetUp()
+				.getSimpleJdbcTemplate()
+				.queryForList(readAllStars);
+		for(Map<String, Object> starMap : starListMap){
+			Integer starId = new Integer(starMap.get(STAR_ID).toString());
+			allStars.add(readStarById(starId));
+		}
+		return allStars;
 	}
 
 	/**

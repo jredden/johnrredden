@@ -35,6 +35,19 @@ public class PlanetoidDao extends AbstractJDBCDao{
 	private static String lastPlanetoidInsertSql = "SELECT MAX("+PLANETOID_ID+") FROM " + PLANETOID;
 	private static String lastPlwnetoidRepInsertSql = "SELECT MAX("+PLANETOID_REP_ID+") FROM "+ PLANETOID_REP;
 	
+	private static String readAllPlanetoids = "SELECT "
+			+ "plt." + PLANETOID_ID + " "
+			+ ", plt." + REP_ID + " "
+			+ ", plt." + PLANETOID_NAME + " "
+			+ ", plt." + RADIUS + " "
+			+ ", plt." + DISTANCE_TO_PRIMARY + " "
+			+ ", plt." + DEGREE + " "
+			+ ", plt." + TEMPERATURE + " "
+			+ ", plt." + PERCENT_WATER + " "
+			+ ", plt." + DATESTAMP + " "
+			+ " FROM " + PLANETOID + " plt "
+			;
+
 	private static String readPlanetoidById = "SELECT "
 			+ "plt." + PLANETOID_ID + " "
 			+ ", plt." + REP_ID + " "
@@ -300,6 +313,20 @@ public class PlanetoidDao extends AbstractJDBCDao{
 		planetoidMap = super.jdbcSetUp().getSimpleJdbcTemplate().queryForMap(readPlanetoidByName, param);
 		return buildPlanetoid(planetoidMap);
 	}
+	
+	public List<Planetoid> readAllPlanetoids(){
+		List<Planetoid> allPlanetoids = new ArrayList<Planetoid>();
+		List<Map<String, Object>> planetoidListMap = super.jdbcSetUp()
+				.getSimpleJdbcTemplate()
+				.queryForList(readAllPlanetoids);
+		for(Map<String, Object> planetoidMap: planetoidListMap){
+			Integer planetoidId = new Integer(planetoidMap.get(PLANETOID_ID).toString());
+			allPlanetoids.add(readPlanetoidById(planetoidId));
+
+		}
+		return allPlanetoids;
+	}
+	
 	/**
 	 * deletes planetoid and planetoid rep
 	 * @param planetoid
