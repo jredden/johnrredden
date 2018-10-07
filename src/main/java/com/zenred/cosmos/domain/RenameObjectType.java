@@ -1,7 +1,14 @@
 package com.zenred.cosmos.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 interface ObjectName{
 	String objectName();
+}
+
+interface ObjectList{
+	List<Object> objectList();
 }
 
 class ObjectNameImpl{
@@ -23,6 +30,7 @@ class ObjectNameImpl{
 
 
 
+
 public enum RenameObjectType {
 		
 		PLANETOID("PLANETOID"){
@@ -31,6 +39,22 @@ public enum RenameObjectType {
 			ObjectName getName() {
 				return ObjectNameImpl.planetoidName;
 			}
+
+			@Override
+			ObjectList getObjectList() {
+				PlanetoidDao planetoidDao = new PlanetoidDao();
+				List<Object> genericList = new ArrayList<>();
+				List<Planetoid> allPlanetoids = new ArrayList<Planetoid>();
+				allPlanetoids = planetoidDao.readAllPlanetoids();
+				for (Planetoid aPlanetoid : allPlanetoids) {
+					Object object = (Object)aPlanetoid;
+					genericList.add(object);
+				}
+				
+				return (ObjectList) genericList;
+			}
+			
+				
 			
 		},
 		STAR("STAR"){
@@ -39,6 +63,18 @@ public enum RenameObjectType {
 			ObjectName getName() {
 				return ObjectNameImpl.starName;
 			}
+
+			@Override
+			ObjectList getObjectList() {
+				StarDao starDao = new StarDao();
+				List<Object> genericList = new ArrayList<>();
+				List<Star> allStars = new ArrayList<Star>();
+				for (Star aStar : allStars){
+					Object object = (Object) aStar;
+					genericList.add(object);
+				}
+				return (ObjectList) genericList;
+			}
 			
 		},
 		CLUSTER("CLUSTER"){
@@ -46,6 +82,18 @@ public enum RenameObjectType {
 			@Override
 			ObjectName getName() {
 				return ObjectNameImpl.clusterName;
+			}
+
+			@Override
+			ObjectList getObjectList() {
+				ClusterRepDao clusterRepDao = new ClusterRepDao();
+				List<Object> genericList = new ArrayList<>();
+				List<ClusterRep> allClusterReps = new ArrayList<ClusterRep>();
+				for (ClusterRep aClusterRep : allClusterReps){
+					Object object = (Object) aClusterRep;
+					genericList.add(object);
+				}
+				return (ObjectList) genericList;
 			}
 			
 		}
@@ -57,6 +105,7 @@ public enum RenameObjectType {
 	}
 	
 	abstract ObjectName getName();
+	abstract ObjectList getObjectList();
 
 };
 
