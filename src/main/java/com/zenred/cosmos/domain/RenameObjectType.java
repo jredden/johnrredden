@@ -8,7 +8,8 @@ interface ObjectName{
 }
 
 interface ObjectList{
-	List<Object> objectList();
+	void objectListImpl(List<Object> objectList);
+	List<Object> getObjectList();
 }
 
 class ObjectNameImpl{
@@ -51,7 +52,19 @@ public enum RenameObjectType {
 					genericList.add(object);
 				}
 				
-				return (ObjectList) genericList;
+				ObjectList objectList = new ObjectList() {
+					List<Object> list;
+					@Override
+					public void objectListImpl(List<Object> genericList) {
+						list = genericList;
+					}
+					@Override
+					public List<Object> getObjectList() {
+						return list;
+					}
+				};
+				objectList.objectListImpl(genericList);
+				return objectList;
 			}
 			
 				
@@ -69,11 +82,25 @@ public enum RenameObjectType {
 				StarDao starDao = new StarDao();
 				List<Object> genericList = new ArrayList<>();
 				List<Star> allStars = new ArrayList<Star>();
+				allStars = starDao.readAllStars();
 				for (Star aStar : allStars){
 					Object object = (Object) aStar;
 					genericList.add(object);
 				}
-				return (ObjectList) genericList;
+				
+				ObjectList objectList = new ObjectList() {
+					List<Object> list;
+					@Override
+					public void objectListImpl(List<Object> genericList) {
+						list = genericList;
+					}
+					@Override
+					public List<Object> getObjectList() {
+						return list;
+					}
+				};
+				objectList.objectListImpl(genericList);
+				return objectList;
 			}
 			
 		},
@@ -89,11 +116,25 @@ public enum RenameObjectType {
 				ClusterRepDao clusterRepDao = new ClusterRepDao();
 				List<Object> genericList = new ArrayList<>();
 				List<ClusterRep> allClusterReps = new ArrayList<ClusterRep>();
+				allClusterReps = clusterRepDao.readAllClusterReps();
 				for (ClusterRep aClusterRep : allClusterReps){
 					Object object = (Object) aClusterRep;
 					genericList.add(object);
 				}
-				return (ObjectList) genericList;
+				
+				ObjectList objectList = new ObjectList() {
+					List<Object> list;
+					@Override
+					public void objectListImpl(List<Object> genericList) {
+						list = genericList;
+					}
+					@Override
+					public List<Object> getObjectList() {
+						return list;
+					}
+				};
+				objectList.objectListImpl(genericList);
+				return objectList;
 			}
 			
 		}
