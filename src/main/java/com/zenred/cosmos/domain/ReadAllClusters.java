@@ -18,7 +18,7 @@ public class ReadAllClusters {
 	
 	RenameObjectType renameObjectType = RenameObjectType.CLUSTER;
 	
-	List<ClusterRep> get(){
+	public List<ClusterRep> get(){
 		ObjectList objectListEncap =  renameObjectType.getObjectList();
 		List<ClusterRep> allClusterReps = new ArrayList<ClusterRep>();
 		List<Object> objectList = objectListEncap.getObjectList();

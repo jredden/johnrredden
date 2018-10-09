@@ -18,7 +18,7 @@ public class ReadAllStars {
 	
 	RenameObjectType renameObjectType = RenameObjectType.STAR;
 	
-	List<Star> get(){
+	public List<Star> get(){
 		ObjectList objectListEncap =  renameObjectType.getObjectList();
 		List<Star> allStars = new ArrayList<Star>();
 		List<Object> objectList = objectListEncap.getObjectList();
