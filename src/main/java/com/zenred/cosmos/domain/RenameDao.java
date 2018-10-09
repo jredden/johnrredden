@@ -1,5 +1,7 @@
 package com.zenred.cosmos.domain;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -39,6 +41,18 @@ public class RenameDao extends AbstractJDBCDao {
 			+ " = ?"
 	;
 	
+	private static String renamesForAGenericName = "SELECT "
+			+ "rn." + RENAMEID
+			+ ",rn." + OBJECTID
+			+ ",rn." + OBJECTTYPE
+			+ ",rn." + GENERICNAME
+			+ ",rn." + RENAMENAME
+			+ ",rn." + RENAMECOUNT
+			+ ",rn." + DATESTAMP
+			+ " FROM " + RENAME + " rn "
+			+ " WHERE rn." + GENERICNAME + " = ? "
+	;
+	
 	private static String lastRenameInsertSql = "SELECT MAX(" + RENAMEID + ") FROM " + RENAME
 	;
 	
@@ -57,7 +71,7 @@ public class RenameDao extends AbstractJDBCDao {
 	@Transactional
 	public Integer addNewName(RenameObjectType renameObjectType, Integer objectId, String rename, String genericName) {
 
-		Integer renameCount = allreadyThere(rename);
+		Integer renameCount = allreadyThere(objectId);
 		renameCount += 1;
 		Map<String, Object> newNameMap = Rename.getRenameMap(renameObjectType.getName().objectName(), genericName,
 				rename, renameCount, objectId);
@@ -72,15 +86,31 @@ public class RenameDao extends AbstractJDBCDao {
 	 * @return 0 if not there else != 0 if there
 	 */
 	@Transactional
-	public Integer allreadyThere(String reNameName){
-		Object[] param = {reNameName};
+	public Integer allreadyThere(Integer objectId){
+		Object[] param = {objectId};
 		Integer renameCount = super.jdbcSetUp().getSimpleJdbcTemplate().queryForInt(existanceCheck, param);
-		if(renameCount > 0){
-			Map<String, Object> renameMap = super.jdbcSetUp().getSimpleJdbcTemplate().queryForMap(nameAlreadyStored, param);
-			String s_renameCount = renameMap.get(RENAMECOUNT).toString();
-			renameCount = new Integer(s_renameCount);
-		}
 		return renameCount;
+	}
+	/*
+	 * fetches a list of aliases for a renamed entity
+	 */
+	public List<Rename> fetchRenamesForGenericName(String genericName){
+		List<Rename> renameList = new ArrayList<Rename>();
+		Object[] param = {genericName};
+		List<Map<String, Object>> renameListMap = super.jdbcSetUp().getSimpleJdbcTemplate().queryForList(renamesForAGenericName, param);
+		for(Map<String, Object> renameMap : renameListMap){
+			Rename rename = new Rename();
+			rename.setDatestamp(renameMap.get(DATESTAMP).toString());
+			rename.setGenericName(renameMap.get(GENERICNAME).toString());
+			rename.setObjectId(new Integer(renameMap.get(OBJECTID).toString()));
+			rename.setRenameCount(new Integer(renameMap.get(RENAMECOUNT).toString()));
+			rename.setRenameId(new Integer(renameMap.get(RENAMEID).toString()));
+			rename.setRenameName(renameMap.get(RENAMENAME).toString());
+			rename.setRenameObjectType(RenameObjectType.valueOf(renameMap.get(OBJECTTYPE).toString()));
+			renameList.add(rename);
+		}
+		return renameList;
+		
 	}
 	
 	@Transactional

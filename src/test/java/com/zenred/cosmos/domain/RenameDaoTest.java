@@ -16,7 +16,8 @@ public class RenameDaoTest {
 		StarDao starDao = new StarDao();
 		String genericName = starDao.readNameOfRandomStar();
 		Integer renameId = renameDao.addNewName(RenameObjectType.STAR, 999999, "froBozz", genericName);
-		Integer renameCount = renameDao.allreadyThere("froBozz");
+		Integer renameCount = renameDao.allreadyThere(999999);
+		logger.info("rename count:" + renameCount + " renameId:" + renameId);
 		renameDao.deleteRename(renameId);
 		
 	}
