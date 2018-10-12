@@ -18,7 +18,7 @@ public class PlanetoidRenameCandidates {
 	 * @return a list of planetoids to give alternate names
 	 */
 	
-	List<RenameCandidates> buildList(){
+	public List<RenameCandidates> buildList(){
 		List<Planetoid> planetoidList = new ReadAllPlanetoids().get();
 		List<RenameCandidates> renameCandidates = new ArrayList<RenameCandidates>();
 		RenameDao renameDao = new RenameDao();
