@@ -18,7 +18,7 @@ public class StarRenameCandidates {
 	 * @return a list of Stars to give alternate names
 	 */
 	
-	List<RenameCandidates> buildList(){
+	public List<RenameCandidates> buildList(){
 		List<Star> StarList = new ReadAllStars().get();
 		List<RenameCandidates> renameCandidates = new ArrayList<RenameCandidates>();
 		RenameDao renameDao = new RenameDao();

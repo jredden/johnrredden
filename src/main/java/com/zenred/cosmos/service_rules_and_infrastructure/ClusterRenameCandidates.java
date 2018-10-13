@@ -18,7 +18,7 @@ public class ClusterRenameCandidates {
 	 * @return a list of ClusterReps to give alternate names
 	 */
 	
-	List<RenameCandidates> buildList(){
+	public List<RenameCandidates> buildList(){
 		List<ClusterRep> ClusterRepList = new ReadAllClusters().get();
 		List<RenameCandidates> renameCandidates = new ArrayList<RenameCandidates>();
 		RenameDao renameDao = new RenameDao();
