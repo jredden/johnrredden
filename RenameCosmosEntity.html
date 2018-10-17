@@ -10,10 +10,38 @@
 <script type="text/javascript" src="../js/buckets.js"></script>
 <script type="text/javascript">
 
+var parseRenameStream  = (function(){
+	
+	// public
+	
+	return{
+		cluster: function(){
+			
+		},
+		star: function(){
+			
+		},
+		planar: function(){
+			
+		}
+	}
+
+}());
+
 $(document).ready(function() {
 	
 	$("#home").click(function(){
 		window.location = "http://johntreddenlocal.com";
+	});
+	$("#renameCluster").click(function(){
+		parseRenameStream.cluster();
+		
+	});
+	$("#renameStar").click(function(){
+		parseRenameStream.star();
+	});
+	$("#renamePlanetoid").click(function(){
+		parseRenameStream.planar();
 	});
 
 });
@@ -29,6 +57,9 @@ $(document).ready(function() {
 		<hgroup>
 		<nav id="topRenameCosmosEntity">
 			<button id="home">Home</button>
+			<button id="renameCluster">Rename a Cluster</button>
+			<button id="renameStar">Rename a Star</button>
+			<button id="renamePlanetoid">Rename a Planetoid</button>
 		</nav>
 		</hgroup>
 	</header>
