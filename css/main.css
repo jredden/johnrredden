@@ -19,6 +19,12 @@ body {
 	background-color: midnightblue;
 }
 
+#renameSpace{
+	width: auto;
+	height: auto;
+	background-color: midnightblue;
+}
+
 input{
 	margin-right: 40%;
 	background-color:lightyellow;

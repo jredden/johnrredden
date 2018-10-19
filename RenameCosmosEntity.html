@@ -16,17 +16,46 @@ var parseRenameStream  = (function(){
 	
 	return{
 		cluster: function(){
+			$.getJSON("http://www.localhost:8080/johntredden-1.0/listClusterRenameCandidates.html",
+					function(json){           // callback
+						console.log("in cluster:"+json);
+						processChoice.jsonProcess(json);
+					}
+			);
 			
 		},
 		star: function(){
+			$.getJSON("http://www.localhost:8080/johntredden-1.0/listStarRenameCandidates.html",
+					function(json){           // callback
+						console.log("in star:"+json);
+						processChoice.jsonProcess(json);
+					}
+			);
 			
 		},
 		planar: function(){
+			$.getJSON("http://www.localhost:8080/johntredden-1.0/listPlanetoidRenameCandidates.html",
+					function(json){           // callback
+						console.log("in planetoids:"+json);
+						processChoice.jsonProcess(json);
+					}
+			);
 			
 		}
 	}
 
 }());
+
+var processChoice = (function(){
+	
+	// public
+	
+	return {
+		jsonProcess: function(json){
+		}
+	}
+	
+})();
 
 $(document).ready(function() {
 	
@@ -50,8 +79,9 @@ $(document).ready(function() {
 
 <title>Rename Cosmos Entity</title>
 </head>
+
 <body id="renameSpace">
-	<div id="wrapperspace"></div>
+	<div id="wrapperspace">
 	<!--  wrapperspace -->
 	<header id="topHeaderFixed">
 		<hgroup>
@@ -63,5 +93,6 @@ $(document).ready(function() {
 		</nav>
 		</hgroup>
 	</header>
+	</div>
 </body>
 </html>
