@@ -8,6 +8,7 @@
 <script src="../js/jquery-3.0.0.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="../js/jquery.form.js"></script>
 <script type="text/javascript" src="../js/buckets.js"></script>
+<script type="text/javascript" src="../js/cosmosCommon.js"></script>
 <script type="text/javascript">
 
 var parseRenameStream  = (function(){
@@ -52,10 +53,15 @@ var processChoice = (function(){
 	
 	return {
 		jsonProcess: function(json){
+			var candidates = json.list[0];
+			console.log(candidates);
+			print_recursive(candidates);
 		}
 	}
 	
 })();
+
+
 
 $(document).ready(function() {
 	
@@ -75,6 +81,21 @@ $(document).ready(function() {
 
 });
 
+
+//for debugging
+function print_recursive(printthis) {
+    var output = '';
+
+    if($.isArray(printthis) || typeof(printthis) == 'object') {
+        for(var i in printthis) {
+        	console.log("??:"+printthis[i]+"::"+i);
+            output += i + ' : ' + print_recursive(printthis[i]) + '\n';
+        }
+    }else {
+        output += printthis;
+    }
+    console.log("PRINT:"+output);
+}
 </script>
 
 <title>Rename Cosmos Entity</title>
