@@ -11,6 +11,45 @@
 <script type="text/javascript" src="../js/cosmosCommon.js"></script>
 <script type="text/javascript">
 
+
+/**
+ * single line of renameable entity, new must be used
+ */
+var renameLine = (function(){
+	
+	// private
+	
+	var genericName;
+	var entityType;
+	var renamesArray = [];
+	var renames_count = 0;
+	
+	//public
+	
+	return {
+		setGenericName: function(name){
+			genericName = name;
+		},
+		getGenericName: function(){
+			return genericName;
+		},
+		setType: function(type){
+			entityType = type;
+		},
+		getType: function(){
+			return entityType;
+		},
+		addRename:  function(rename){
+			renamesArray[renames_count] = rename;
+			++renames_count;
+		},
+		getRenamesArray: function(){
+			return renamesArray;
+		}
+	}
+	
+});
+
 var parseRenameStream  = (function(){
 	
 	// public
@@ -55,7 +94,28 @@ var processChoice = (function(){
 		jsonProcess: function(json){
 			var candidates = json.list[0];
 			console.log(candidates);
-			print_recursive(candidates);
+			parseCandidates.parse(candidates);
+		}
+	}
+	
+})();
+
+var parseCandidates = (function(){
+	
+	return{
+		parse: function(stream){
+			var output = '';
+		    if($.isArray(stream) || typeof(stream) == 'object') {
+		        for(var idex in stream) {
+		        	console.log("??:"+stream[idex]+"::"+idex);
+		        	parseCandidates.parse(stream[idex]);
+		        }
+		    }else {
+		        output += stream;
+		    }
+		    if(output.length > 0){
+		    	console.log("PRINT:"+output);
+		    }
 		}
 	}
 	
