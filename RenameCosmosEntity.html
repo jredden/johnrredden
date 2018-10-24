@@ -94,7 +94,17 @@ var processChoice = (function(){
 		jsonProcess: function(json){
 			var candidates = json.list[0];
 			console.log(candidates);
-			parseCandidates.parse(candidates);
+			var lineArray = parseCandidates.parse(candidates);
+			for (var idex in lineArray){
+				
+				var renameArray = lineArray[idex].getRenamesArray();
+				console.log(lineArray[idex].getGenericName() + " "
+						+ lineArray[idex].getType() + " ");
+				for(var idex2 in renameArray){
+					console.log( " " + renameArray[idex2] + " ");
+				}
+				
+			}
 		}
 	}
 	
@@ -102,21 +112,60 @@ var processChoice = (function(){
 
 var parseCandidates = (function(){
 	
+	var lineArray = [];
+	var lineCount = 0;
+	var workingRenameLine;
+	var state;
+	
 	return{
 		parse: function(stream){
 			var output = '';
 		    if($.isArray(stream) || typeof(stream) == 'object') {
 		        for(var idex in stream) {
-		        	console.log("??:"+stream[idex]+"::"+idex);
+		        	switch(idex){
+		        	case "genericName":
+		        		state = 'start';
+		        		workingRenameLine = new renameLine();
+		        		break;
+		        	
+		        	case "renameObjectType":
+		        		state = 'objectType';
+		        		break;
+		        		
+		        	case "renames":
+		        		state = 'renames';
+		        		break;
+		        	default:
+		        		// probably object as name
+		        	}
 		        	parseCandidates.parse(stream[idex]);
 		        }
 		    }else {
 		        output += stream;
 		    }
 		    if(output.length > 0){
-		    	console.log("PRINT:"+output);
+		    	// console.log("state:" + state + " PRINT:"+output);
+		    	switch (state){
+		    	
+		    	case "start":
+		    		workingRenameLine.setGenericName(output);
+		    		break;
+		    		
+		    	case "renames":
+		    		workingRenameLine.addRename(output);
+		    		break;
+		    		
+		    	case "objectType":
+		    		workingRenameLine.setType(output);
+		    		lineArray[lineCount++] = workingRenameLine;
+		    		break;
+		    		
+		    	default:
+		    		console.log("warning:" + state);
 		    }
-		}
+		 }
+		 return lineArray;   
+	   }
 	}
 	
 })();
@@ -163,17 +212,17 @@ function print_recursive(printthis) {
 
 <body id="renameSpace">
 	<div id="wrapperspace">
-	<!--  wrapperspace -->
-	<header id="topHeaderFixed">
-		<hgroup>
-		<nav id="topRenameCosmosEntity">
-			<button id="home">Home</button>
-			<button id="renameCluster">Rename a Cluster</button>
-			<button id="renameStar">Rename a Star</button>
-			<button id="renamePlanetoid">Rename a Planetoid</button>
-		</nav>
-		</hgroup>
-	</header>
+		<!--  wrapperspace -->
+		<header id="topHeaderFixed">
+			<hgroup>
+				<nav id="topRenameCosmosEntity">
+					<button id="home">Home</button>
+					<button id="renameCluster">Rename a Cluster</button>
+					<button id="renameStar">Rename a Star</button>
+					<button id="renamePlanetoid">Rename a Planetoid</button>
+				</nav>
+			</hgroup>
+		</header>
 	</div>
 </body>
 </html>
