@@ -50,6 +50,59 @@ var renameLine = (function(){
 	
 });
 
+var displayButtons = (function (){
+	
+	// private
+	
+	function displayAction(start, end, tag, renameArray){
+		var dynamicHtml = "";
+		theXor = 0;
+		for(var idex0 = start; idex0 < end; idex0++){
+			var genericName = renameArray[idex0].getGenericName();
+			var renames = [];
+			renames = renameArray[idex0].getRenamesArray();
+			var renameDisplay = "";
+			for(var idex1 = 0; idex1 < renames.length; idex1++){
+				if(0 == idex1){
+					renameDisplay += renames[idex1];
+				}
+				else{
+					renameDisplay += ",";
+					renameDisplay += renames[idex1];
+				}
+			}
+			
+			theXor ^=1;
+			var bgColor = "lightblue";
+			if(theXor){
+				bgColor = "lightgreen";
+			}
+			
+			dynamicHtml +="<div class=\"entry\"><button onclick=\"entry.action("
+					+ genericName + " "
+					+ renameDisplay
+					+")\" style=\"width: 100%; text-align: left; background-color:" + bgColor + ";"
+					+"\">"
+					+ "Generic Name: " + genericName
+					+"</button></div>";
+		}
+		$("div[id^="+tag+"]").html(dynamicHtml);
+	}
+	
+	// public
+	return{
+		action: function(renameArray){
+			var wholeOfIt = renameArray.length;
+			var firstHalf = Math.floor(wholeOfIt/2);
+
+			displayAction(0, firstHalf, "column1", renameArray);
+			displayAction(firstHalf+1, wholeOfIt, "column2", renameArray);
+
+		}
+	}
+	
+})();
+
 var parseRenameStream  = (function(){
 	
 	// public
@@ -105,6 +158,7 @@ var processChoice = (function(){
 				}
 				
 			}
+			displayButtons.action(lineArray);
 		}
 	}
 	
