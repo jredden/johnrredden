@@ -12,6 +12,24 @@
 <script type="text/javascript">
 
 /**
+ * canvas holding area
+ */
+var canvasas_2 = (function(){
+	// private
+	
+	function buildCanvasas(){
+		
+	}
+	
+	// public
+	return{
+		init: function(){
+			buildCanvasas();
+		}
+	}
+})();
+
+/**
  * makes sections appear and dissapear on the page
  */
 var tagOperations = (function(){
@@ -23,6 +41,12 @@ var tagOperations = (function(){
 		function spinner2(){
 			$('#spinner2').show();
 		},
+		function renameText(){
+			$('#renametext').show();
+		},
+		function wrapperspace(){
+			$('#wrapperspace').show();
+		}
 
     ];
 	
@@ -33,11 +57,20 @@ var tagOperations = (function(){
 		function spinner2(){
 			$('#spinner2').hide();
 		},
+		function renameText(){
+			$('#renametext').hide();
+		},
+		function wrapperspace(){
+			$('#wrapperspace').hide();
+		}
+
 	];
 	
 	var references = {
 			"spinner" : 0
 			,"spinner2" : 1
+			,"renameText" : 2
+			,"wrapperspace" : 3
 	}
 	
 	// public 
@@ -112,8 +145,19 @@ var displayButtons = (function (){
 	
 	// private
 	
+	// var renameCanvas;
+	// var renameContext;
+	
 	function displayAction(start, end, tag, renameArray){
-		var dynamicHtml = "";
+		// renameCanvas = document.getElementById("renametextcanvas");
+		// renameContext = renameCanvas.getContext("2d");
+		// renameContext.canvas.width = window.innerWidth/2;
+		// renameContext.canvas.height = window.innerHeight*3;
+		// renameContext.fillStyle = "#00003D";
+		
+		var dynamicHtml = "<br/> <br/>";
+		$("div[id=space]").html(dynamicHtml);
+		dynamicHtml = "";
 		theXor = 0;
 		for(var idex0 = start; idex0 < end; idex0++){
 			var genericName = renameArray[idex0].getGenericName();
@@ -150,12 +194,14 @@ var displayButtons = (function (){
 	// public
 	return{
 		action: function(renameArray){
+			$('#renameText').hide();
 			var wholeOfIt = renameArray.length;
 			var firstHalf = Math.floor(wholeOfIt/2);
 
 			displayAction(0, firstHalf, "column1", renameArray);
 			displayAction(firstHalf+1, wholeOfIt, "column2", renameArray);
-
+			$('#renameText').show();
+			$('#wrapperspace').show();
 		}
 	}
 	
@@ -209,8 +255,12 @@ var processChoice = (function(){
 	
 	return {
 		jsonProcess: function(json){
+			$('#renametext').hide();
+			canvasas_2.init();
+
 			var candidates = json.list[0];
 			console.log(candidates);
+			parseCandidates.reset();
 			var lineArray = parseCandidates.parse(candidates);
 			for (var idex in lineArray){
 				
@@ -223,6 +273,7 @@ var processChoice = (function(){
 				
 			}
 			displayButtons.action(lineArray);
+			$('#renametext').show();
 		}
 	}
 	
@@ -230,10 +281,13 @@ var processChoice = (function(){
 
 var parseCandidates = (function(){
 	
+	// private
 	var lineArray = [];
 	var lineCount = 0;
 	var workingRenameLine;
 	var state;
+	
+	// public
 	
 	return{
 		parse: function(stream){
@@ -283,7 +337,11 @@ var parseCandidates = (function(){
 		    }
 		 }
 		 return lineArray;   
-	   }
+	   },
+		reset: function(){
+			lineArray = [];
+		}
+
 	}
 	
 })();
@@ -293,6 +351,7 @@ var parseCandidates = (function(){
 $(document).ready(function() {
 	
 	tagOperations.hideAll();
+	$('#wrapperspace').show();
 	
 	$("#home").click(function(){
 		window.location = "http://johntreddenlocal.com";
@@ -337,6 +396,8 @@ function print_recursive(printthis) {
 		<div id="spinner2">
 		</div>		
 	</section>
+	
+	
 
 <body id="renameSpace">
 	<div id="wrapperspace">
@@ -353,4 +414,17 @@ function print_recursive(printthis) {
 		</header>
 	</div>
 </body>
+
+<section id="start">
+	<div id="space">
+	</div>
+</section>
+
+	<section id="renameText">
+		
+		<div id="column1" class="column"></div>
+		<div id="column2" class="column"></div>
+		
+	</section>
+
 </html>
