@@ -261,14 +261,14 @@ var processChoice = (function(){
 			var candidates = json.list[0];
 			console.log(candidates);
 			parseCandidates.reset();
-			var lineArray = parseCandidates.parse(candidates);
+			var lineArray = parseCandidates.parseStart(candidates);
 			for (var idex in lineArray){
 				
 				var renameArray = lineArray[idex].getRenamesArray();
-				console.log(lineArray[idex].getGenericName() + " "
+				console.log(lineArray[idex].getGenericName() + " Type:  "
 						+ lineArray[idex].getType() + " ");
 				for(var idex2 in renameArray){
-					console.log( " " + renameArray[idex2] + " ");
+					console.log( "   Rewname:" + renameArray[idex2] + " ");
 				}
 				
 			}
@@ -286,17 +286,27 @@ var parseCandidates = (function(){
 	var lineCount = 0;
 	var workingRenameLine;
 	var state;
+	var output;
+
 	
 	// public
 	
 	return{
+		
+		parseStart: function(stream){
+			lineArray = [];
+			lineCount = 0;
+			output = '';
+			return parseCandidates.parse(stream);
+		},
 		parse: function(stream){
-			var output = '';
 		    if($.isArray(stream) || typeof(stream) == 'object') {
 		        for(var idex in stream) {
 		        	switch(idex){
 		        	case "genericName":
 		        		state = 'start';
+		    			output = '';
+
 		        		workingRenameLine = new renameLine();
 		        		break;
 		        	
@@ -308,7 +318,17 @@ var parseCandidates = (function(){
 		        		state = 'renames';
 		        		break;
 		        	default:
-		        		// probably object as name
+		        		if(state == 'renames' && stream[idex].toString() != '[object Object]'){
+		        		   console.log("not a keyword:" +stream[idex]);
+		        		   renamesArray = stream[idex].toString().split(',');
+		        		   if(renamesArray.length > 0){
+		        			   for (var idex2 in renamesArray){
+		        				   workingRenameLine.addRename(renamesArray[idex2]);
+		        			   }
+		        		   }
+		        		   
+		        		   break;
+		        		}
 		        	}
 		        	parseCandidates.parse(stream[idex]);
 		        }
@@ -340,6 +360,7 @@ var parseCandidates = (function(){
 	   },
 		reset: function(){
 			lineArray = [];
+			ineCount = 0;
 		}
 
 	}
