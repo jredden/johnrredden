@@ -159,13 +159,16 @@ var displayButtons = (function (){
 		$("div[id=space]").html(dynamicHtml);
 		dynamicHtml = "";
 		theXor = 0;
+		var renameDisplay = "";
+
 		for(var idex0 = start; idex0 < end; idex0++){
 			var genericName = renameArray[idex0].getGenericName();
 			var renames = [];
 			renames = renameArray[idex0].getRenamesArray();
-			var renameDisplay = "";
 			for(var idex1 = 0; idex1 < renames.length; idex1++){
+				
 				if(0 == idex1){
+					renameDisplay += " Renames:"
 					renameDisplay += renames[idex1];
 				}
 				else{
@@ -182,11 +185,11 @@ var displayButtons = (function (){
 			
 			dynamicHtml +="<div class=\"entry\"><button onclick=\"entry.action("
 					+ genericName + " "
-					+ renameDisplay
 					+")\" style=\"width: 100%; text-align: left; background-color:" + bgColor + ";"
 					+"\">"
-					+ "Generic Name: " + genericName
+					+ "Generic Name: " + genericName + renameDisplay
 					+"</button></div>";
+			var renameDisplay = "";
 		}
 		$("div[id^="+tag+"]").html(dynamicHtml);
 	}
@@ -260,13 +263,14 @@ var processChoice = (function(){
 
 			var candidates = json.list[0];
 			console.log(candidates);
-			parseCandidates.reset();
 			var lineArray = parseCandidates.parseStart(candidates);
 			for (var idex in lineArray){
 				
-				var renameArray = lineArray[idex].getRenamesArray();
 				console.log(lineArray[idex].getGenericName() + " Type:  "
-						+ lineArray[idex].getType() + " ");
+						+ lineArray[idex].getType() + " " + renameArray);
+				
+				var renameArray = lineArray[idex].getRenamesArray();
+
 				for(var idex2 in renameArray){
 					console.log( "   Rewname:" + renameArray[idex2] + " ");
 				}
@@ -302,12 +306,12 @@ var parseCandidates = (function(){
 		parse: function(stream){
 		    if($.isArray(stream) || typeof(stream) == 'object') {
 		        for(var idex in stream) {
+		        	console.log("Next idex:" + idex);
 		        	switch(idex){
 		        	case "genericName":
-		        		state = 'start';
-		    			output = '';
-
 		        		workingRenameLine = new renameLine();
+			    		lineArray[lineCount++] = workingRenameLine;
+		        		state = 'start';
 		        		break;
 		        	
 		        	case "renameObjectType":
@@ -318,46 +322,34 @@ var parseCandidates = (function(){
 		        		state = 'renames';
 		        		break;
 		        	default:
-		        		if(state == 'renames' && stream[idex].toString() != '[object Object]'){
-		        		   console.log("not a keyword:" +stream[idex]);
-		        		   renamesArray = stream[idex].toString().split(',');
-		        		   if(renamesArray.length > 0){
-		        			   for (var idex2 in renamesArray){
-		        				   workingRenameLine.addRename(renamesArray[idex2]);
-		        			   }
-		        		   }
-		        		   
-		        		   break;
-		        		}
 		        	}
 		        	parseCandidates.parse(stream[idex]);
 		        }
 		    }else {
-		        output += stream;
-		    }
-		    if(output.length > 0){
-		    	// console.log("state:" + state + " PRINT:"+output);
+		    	console.log("Next stream:" + stream + " state:" + state);
 		    	switch (state){
 		    	
 		    	case "start":
-		    		workingRenameLine.setGenericName(output);
+		    		workingRenameLine.setGenericName(stream);
 		    		break;
 		    		
 		    	case "renames":
-		    		workingRenameLine.addRename(output);
+		    		workingRenameLine.addRename(stream);
 		    		break;
 		    		
 		    	case "objectType":
-		    		workingRenameLine.setType(output);
-		    		lineArray[lineCount++] = workingRenameLine;
+		    		workingRenameLine.setType(stream);
 		    		break;
 		    		
 		    	default:
 		    		console.log("warning:" + state);
+		    	}
+		        
 		    }
-		 }
-		 return lineArray;   
-	   },
+			return lineArray;   
+
+		},
+	   
 		reset: function(){
 			lineArray = [];
 			ineCount = 0;
@@ -410,15 +402,14 @@ function print_recursive(printthis) {
 <title>Rename Cosmos Entity</title>
 </head>
 
-	<section id="candidatesResult">
-		<div id="spinner">
+<section id="candidatesResult">
+	<div id="spinner">
 		<img src="./animatedEllipse.gif" />
-		</div>
-		<div id="spinner2">
-		</div>		
-	</section>
-	
-	
+	</div>
+	<div id="spinner2"></div>
+</section>
+
+
 
 <body id="renameSpace">
 	<div id="wrapperspace">
@@ -437,15 +428,14 @@ function print_recursive(printthis) {
 </body>
 
 <section id="start">
-	<div id="space">
-	</div>
+	<div id="space"></div>
 </section>
 
-	<section id="renameText">
-		
-		<div id="column1" class="column"></div>
-		<div id="column2" class="column"></div>
-		
-	</section>
+<section id="renameText">
+
+	<div id="column1" class="column"></div>
+	<div id="column2" class="column"></div>
+
+</section>
 
 </html>
