@@ -10,6 +10,11 @@ interface ObjectName{
 interface ObjectList{
 	void objectListImpl(List<Object> objectList);
 	List<Object> getObjectList();
+	
+}
+
+interface Entity{
+	Boolean renameEntity(String genericName, String reName);
 }
 
 class ObjectNameImpl{
@@ -67,7 +72,14 @@ public enum RenameObjectType {
 				return objectList;
 			}
 			
-				
+			@Override
+			Boolean renameEntity(String genericName, String reName)	{
+				PlanetoidDao planetoidDao = new PlanetoidDao();
+				Planetoid planetoid = planetoidDao.readPlanetoidByName(genericName);
+				RenameDao renameDao = new RenameDao();
+				renameDao.addNewName(PLANETOID, planetoid.getPlanetoidId(), reName, genericName);
+				return true;
+			}
 			
 		},
 		STAR("STAR"){
@@ -103,6 +115,16 @@ public enum RenameObjectType {
 				return objectList;
 			}
 			
+			@Override
+			Boolean renameEntity(String genericName, String reName)	{
+				StarDao starDao = new StarDao();
+				Star star = starDao.readStarByName(genericName);
+				RenameDao renameDao = new RenameDao();
+				renameDao.addNewName(STAR, star.getStarId(), reName, genericName);
+				return true;
+			}
+
+			
 		},
 		CLUSTER("CLUSTER"){
 
@@ -137,6 +159,16 @@ public enum RenameObjectType {
 				return objectList;
 			}
 			
+			@Override
+			Boolean renameEntity(String genericName, String reName)	{
+				ClusterRepDao clusterRepDao = new ClusterRepDao();
+				ClusterRep clusterRep = clusterRepDao.readClusterRepByName(genericName);
+				RenameDao renameDao = new RenameDao();
+				renameDao.addNewName(CLUSTER, clusterRep.getClusterRepId(), reName, genericName);
+				return true;
+			}
+
+			
 		}
 		;
 	
@@ -145,6 +177,8 @@ public enum RenameObjectType {
 		
 	}
 	
+	abstract Boolean renameEntity(String genericName, String reName);
+
 	abstract ObjectName getName();
 	abstract ObjectList getObjectList();
 

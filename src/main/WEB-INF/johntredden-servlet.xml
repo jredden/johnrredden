@@ -27,6 +27,7 @@
 	<bean id="listAllPlanetoidRenamingCandidates"  class="com.zenred.cosmos.controller.ListAllPlanetoidRenamingCandidates"/>
 	<bean id="listAllStarRenamingCandidates"  class="com.zenred.cosmos.controller.ListAllStarRenamingCandidates"/>
 	<bean id="listAllClusterRenamingCandidates"  class="com.zenred.cosmos.controller.ListAllClusterRenamingCandidates"/>
+	<bean id="renameEntity" class="com.zenred.cosmos.controller.RenameEntity"/>
 	
 	<bean id="urlMapping"
 		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
@@ -46,6 +47,7 @@
 				<prop key="/listPlanetoidRenameCandidates.html">listAllPlanetoidRenamingCandidates</prop>
 				<prop key="/listStarRenameCandidates.html">listAllStarRenamingCandidates</prop>
 				<prop key="/listClusterRenameCandidates.html">listAllClusterRenamingCandidates</prop>
+				<prop key="/renameEntity.html">renameEntity</prop>
 			</props>
 		</property>
 	</bean>
