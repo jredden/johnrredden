@@ -182,9 +182,8 @@ var displayButtons = (function (){
 			if(theXor){
 				bgColor = "lightgreen";
 			}
-			
+			entry.params(genericName, tag);
 			dynamicHtml +="<div class=\"entry\"><button onclick=\"entry.action("
-					+ genericName + " "
 					+")\" style=\"width: 100%; text-align: left; background-color:" + bgColor + ";"
 					+"\">"
 					+ "Generic Name: " + genericName + renameDisplay
@@ -355,9 +354,24 @@ var parseCandidates = (function(){
 
 var entry = (function (){
 	
+	var theGenericName;
+	var theTag;
+	
+	// public
 	return{
-		action: function(genericName){
+		action: function(tag){
 			
+			var dynamicHtml = "";
+			dynamicHtml += "<form id=\"renameFormId\">";
+			dynamicHtml += "<label>Rename" + theGenericName + "</label>";
+			dynamicHtml += "<input type = \"text\" id = \"rename\" value = \"  \" />";
+			dynamicHtml += "</form>";
+			$("div[id^="+theTag+"]").html(dynamicHtml);
+			
+		},
+		params: function(genericName, tag){
+			theGenericName = genericName;
+			theTag = tag;
 		}
 	}
 	
