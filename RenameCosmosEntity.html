@@ -363,6 +363,7 @@ var entry = (function (){
 	
 	var theGenericName;
 	var theTag;
+	var rename;
 	
 	// public
 	return{
@@ -370,23 +371,23 @@ var entry = (function (){
 			$('#renameText').hide();
 			var dynamicHtml = "";
 			dynamicHtml += "<br/><br/><br/><br/><br/>";
-			dynamicHtml += "<form id=\"renameFormId\">";
 			dynamicHtml += "<font color=\"white\"> Rename " + theGenericName + "<font/>";
-			dynamicHtml += "<input type = \"text\" id = \"rename\" value = \"  \" />";
+			dynamicHtml += "<br/><br/><br/><br/><br/>";
+			dynamicHtml += "<form name=\"renameForm\" id=\"renameFormId\">";
+			dynamicHtml += "<input type = \"text\" name = \"rename\" id = \"renameId\" value = \"  \" maxlength=255 size=64 />";
+			dynamicHtml +="<div class=\"entry\"><button>" 
+			+"</button></div>";
 			dynamicHtml += "</form>";
 			$("div[id^="+theTag+"]").html(dynamicHtml);
 			$('#fsect').show();
-			// build a second action for a button
-			
 		},
 		params: function(genericName, tag){
 			theGenericName = genericName;
 			theTag = tag;
-		}
+		},
 	}
 	
 })();
-
 
 
 $(document).ready(function() {
