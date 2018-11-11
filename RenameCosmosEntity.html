@@ -155,7 +155,7 @@ var displayButtons = (function (){
 	// var renameCanvas;
 	// var renameContext;
 	
-	function displayAction(start, end, tag, renameArray){
+	function displayAction(start, end, tag, renameArray, type){
 		// renameCanvas = document.getElementById("renametextcanvas");
 		// renameContext = renameCanvas.getContext("2d");
 		// renameContext.canvas.width = window.innerWidth/2;
@@ -189,7 +189,7 @@ var displayButtons = (function (){
 			if(theXor){
 				bgColor = "lightgreen";
 			}
-			entry.params(genericName, "fdiv");
+			entry.params(genericName, "fdiv", type);
 			dynamicHtml +="<div class=\"entry\"><button onclick=\"entry.action("
 					+")\" style=\"width: 100%; text-align: left; background-color:" + bgColor + ";"
 					+"\">"
@@ -202,13 +202,13 @@ var displayButtons = (function (){
 	
 	// public
 	return{
-		action: function(renameArray){
+		action: function(renameArray, type){
 			$('#renameText').hide();
 			var wholeOfIt = renameArray.length;
 			var firstHalf = Math.floor(wholeOfIt/2);
 
-			displayAction(0, firstHalf, "column1", renameArray);
-			displayAction(firstHalf+1, wholeOfIt, "column2", renameArray);
+			displayAction(0, firstHalf, "column1", renameArray, type);
+			displayAction(firstHalf+1, wholeOfIt, "column2", renameArray, type);
 			$('#renameText').show();
 			$('#wrapperspace').show();
 		}
@@ -282,7 +282,7 @@ var processChoice = (function(){
 				}
 				
 			}
-			displayButtons.action(lineArray);
+			displayButtons.action(lineArray, lineArray[0].getType());
 			$('#renameText').show();
 		}
 	}
@@ -364,27 +364,57 @@ var entry = (function (){
 	var theGenericName;
 	var theTag;
 	var rename;
+	var theType;
 	
 	// public
 	return{
-		action: function(tag){
+		action: function(){
 			$('#renameText').hide();
 			var dynamicHtml = "";
 			dynamicHtml += "<br/><br/><br/><br/><br/>";
 			dynamicHtml += "<font color=\"white\"> Rename " + theGenericName + "<font/>";
 			dynamicHtml += "<br/><br/><br/><br/><br/>";
-			dynamicHtml += "<form name=\"renameForm\" id=\"renameFormId\" action=\"http://www.localhost:8080/johntredden-1.0/renameEntity.html?genericName=" + theGenericName + "\">";
+			dynamicHtml += "<form name=\"renameForm\" id='renameFormId'>";
 			dynamicHtml += "<input type = \"text\" name = \"rename\" id = \"renameId\" value = \"  \" maxlength=255 size=64 />";
-			dynamicHtml +="<div class=\"entry\"><button>" 
+			dynamicHtml +="<div class=\"entry\"><button onclick=\"entry.nextAction("
+				+")\">" 
 			+"</button></div>";
 			dynamicHtml += "</form>";
 			$("div[id^="+theTag+"]").html(dynamicHtml);
 			$('#fsect').show();
 		},
-		params: function(genericName, tag){
+		params: function(genericName, tag, type){
 			theGenericName = genericName;
 			theTag = tag;
+			theType = type
 		},
+		nextAction: function(){
+			
+			rename = $("#renameId").val();
+			console.log("rename:"+rename);
+			var postWithParameters = "http://www.localhost:8080/johntredden-1.0/renameEntity.html?"
+					+ "genericName="
+					+ theGenericName
+					+ "&rename="
+					+ rename
+					+ "&type="
+					+ theType;
+			
+			var jqxr = $.post(postWithParameters, function() {
+				result = $(".result");
+				console.log("rawURI:"+result);
+			})
+			  .done(function(data) {
+				  console.log( "success:"+data );
+				  })
+			  .fail(function() {
+			    alert( "error" );
+			  })
+			  .always(function() {
+				  console.log( "finished" );
+			});
+		
+		}
 	}
 	
 })();
