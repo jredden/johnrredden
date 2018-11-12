@@ -11,23 +11,7 @@
 <script type="text/javascript" src="../js/cosmosCommon.js"></script>
 <script type="text/javascript">
 
-/**
- * canvas holding area
- */
-var canvasas_2 = (function(){
-	// private
-	
-	function buildCanvasas(){
-		
-	}
-	
-	// public
-	return{
-		init: function(){
-			buildCanvasas();
-		}
-	}
-})();
+
 
 /**
  * makes sections appear and dissapear on the page
@@ -121,6 +105,7 @@ var renameLine = (function(){
 	var entityType;
 	var renamesArray = [];
 	var renames_count = 0;
+	var selectedIndex;
 	
 	//public
 	
@@ -143,6 +128,12 @@ var renameLine = (function(){
 		},
 		getRenamesArray: function(){
 			return renamesArray;
+		},
+		setSelectedIndex: function(index){
+			selectedIndex = index;
+		},
+		getSelectedIndex: function(){
+			return selectedIndex;
 		}
 	}
 	
@@ -189,9 +180,8 @@ var displayButtons = (function (){
 			if(theXor){
 				bgColor = "lightgreen";
 			}
-			entry.params(genericName, "fdiv", type);
-			dynamicHtml +="<div class=\"entry\"><button onclick=\"entry.action("
-					+")\" style=\"width: 100%; text-align: left; background-color:" + bgColor + ";"
+			entry.params("fdiv", type);
+			dynamicHtml +="<div class=\"entry\"><button onclick=\"entry.action("+idex0+")\" style=\"width: 100%; text-align: left; background-color:" + bgColor + ";"
 					+"\">"
 					+ "Generic Name: " + genericName + renameDisplay
 					+"</button></div>";
@@ -265,13 +255,12 @@ var processChoice = (function(){
 	return {
 		jsonProcess: function(json){
 			$('#renameText').hide();
-			canvasas_2.init();
 
 			var candidates = json.list[0];
 			console.log(candidates);
 			var lineArray = parseCandidates.parseStart(candidates);
 			for (var idex in lineArray){
-				
+				lineArray[idex].setSelectedIndex(idex);
 				console.log(lineArray[idex].getGenericName() + " Type:  "
 						+ lineArray[idex].getType() + " " + renameArray);
 				
@@ -354,6 +343,9 @@ var parseCandidates = (function(){
 		    }
 			return lineArray;   
 
+		},
+		getGenericName: function(index){
+			return lineArray[index].getGenericName();
 		}
 	}
 	
@@ -368,7 +360,10 @@ var entry = (function (){
 	
 	// public
 	return{
-		action: function(){
+		action: function(index){
+			console.log("input:" + index);
+			console.log("realGenericName:"+ parseCandidates.getGenericName(index));
+			theGenericName = parseCandidates.getGenericName(index);
 			$('#renameText').hide();
 			var dynamicHtml = "";
 			dynamicHtml += "<br/><br/><br/><br/><br/>";
@@ -383,8 +378,7 @@ var entry = (function (){
 			$("div[id^="+theTag+"]").html(dynamicHtml);
 			$('#fsect').show();
 		},
-		params: function(genericName, tag, type){
-			theGenericName = genericName;
+		params: function(tag, type){
 			theTag = tag;
 			theType = type
 		},
