@@ -507,8 +507,8 @@ var entry = (function (){
 				  console.log( "second success:"+data );
 				  sectorProcess.iterate(data);
 				  })
-			  .fail(function() {
-			    alert( "error" );
+			  .fail(function(xhr, status, error) {
+			    alert( "error" + error);
 			  })
 			  .always(function() {
 				  console.log( "finished" );
