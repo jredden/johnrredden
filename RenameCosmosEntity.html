@@ -201,6 +201,7 @@ var displayButtons = (function (){
 			displayAction(firstHalf+1, wholeOfIt, "column2", renameArray, type);
 			$('#renameText').show();
 			$('#wrapperspace').show();
+			console.log("json:" + entry.getJson());
 		}
 	}
 	
@@ -357,6 +358,7 @@ var entry = (function (){
 	var theTag;
 	var rename;
 	var theType;
+	var jSon;
 	
 	// public
 	return{
@@ -381,6 +383,7 @@ var entry = (function (){
 		params: function(tag, type){
 			theTag = tag;
 			theType = type
+			jSon = 0;
 		},
 		nextAction: function(){
 			
@@ -395,9 +398,12 @@ var entry = (function (){
 					+ theType;
 			$.getJSON(getWithParameters,
 					function(json){
-					alert("json:"+json);
+					jSon = json;
 				}
 			);
+		},
+		getJson: function(){
+			return jSon;
 		}
 	}
 	
