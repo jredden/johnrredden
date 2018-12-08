@@ -53,6 +53,18 @@ public class RenameDao extends AbstractJDBCDao {
 			+ " WHERE rn." + GENERICNAME + " = ? "
 	;
 	
+	private static String renamesForType = "SELECT "
+			+ "rn." + RENAMEID
+			+ ",rn." + OBJECTID
+			+ ",rn." + GENERICNAME
+			+ ",rn." + RENAMENAME
+			+ ",rn." + RENAMECOUNT
+			+ ",rn." + DATESTAMP
+			+ " FROM " + RENAME + " rn "
+			+ " WHERE rn." + OBJECTTYPE + " = ? "
+	;
+
+	
 	private static String lastRenameInsertSql = "SELECT MAX(" + RENAMEID + ") FROM " + RENAME
 	;
 	
@@ -111,6 +123,30 @@ public class RenameDao extends AbstractJDBCDao {
 		}
 		return renameList;
 		
+	}
+	
+	/**
+	 * 
+	 * @param type
+	 * @return a list of aliases for a renamed entity
+	 */
+	
+	public List<Rename> fetchRenamesForType(RenameObjectType type){
+		List<Rename> renameList = new ArrayList<Rename>();
+		Object[] param = {type.name()};
+		List<Map<String, Object>> renameListMap = super.jdbcSetUp().getSimpleJdbcTemplate().queryForList(renamesForType, param);
+		for(Map<String, Object> renameMap : renameListMap){
+			Rename rename = new Rename();
+			rename.setDatestamp(renameMap.get(DATESTAMP).toString());
+			rename.setGenericName(renameMap.get(GENERICNAME).toString());
+			rename.setObjectId(new Integer(renameMap.get(OBJECTID).toString()));
+			rename.setRenameCount(new Integer(renameMap.get(RENAMECOUNT).toString()));
+			rename.setRenameId(new Integer(renameMap.get(RENAMEID).toString()));
+			rename.setRenameName(renameMap.get(RENAMENAME).toString());
+			rename.setRenameObjectType(type);
+			renameList.add(rename);
+		}
+		return renameList;	
 	}
 	
 	@Transactional
