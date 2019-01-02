@@ -14,7 +14,7 @@
 
 
 /**
- * Named Entity Object
+ * Named Entity Object, instantiate with new
  */
  var namedEntity = (function(){
 	 
@@ -26,6 +26,8 @@
 	 	var renameObjectType;
 	 	var genericName;
 	 	var renameName;
+	 	
+	 // public
 	 	
 	 	return {
 	 	
@@ -69,7 +71,7 @@
 		 		return renameName;
 		 	}
 	 	}
- })();
+ });
 
 /**
  * makes sections appear and dissapear on the page
@@ -230,6 +232,88 @@ var processChoice = (function(){
 	
 })();
 
+var parseCandidates = (function(){
+	
+	// private
+	var lineArray = [];
+	var lineCount = 0;
+	var workingRenameLine;
+	var state;
+	var output;
+
+	
+	// public
+	
+	return{
+		
+		parseStart: function(stream){
+			lineArray = [];
+			lineCount = 0;
+			output = '';
+			return parseCandidates.parse(stream);
+		},
+		parse: function(stream){
+		    if($.isArray(stream) || typeof(stream) == 'object') {
+		        for(var idex in stream) {
+		        	console.log("Next idex:" + idex);
+		        	switch(idex){
+
+		        	case "uDimension":
+		        		workingNamedEntity = new namedEntity();
+			    		lineArray[lineCount++] = workingNamedEntity;
+		        		state = 'start';
+		        		break;
+		        	
+		        	case "vDimension":
+		        		state = 'vDimension';
+		        		break;
+		        		
+		        	case "renameObjectType":
+		        		state = 'renameObjectType';
+		        		break;
+		        		
+		        	case "genericName":
+		        		state = 'genericName';
+		        		break;
+		        		
+		        	case "renameName":
+		        		state = 'renameName';
+		        		break;
+		        		
+		        	default:
+		        	}
+		        	parseCandidates.parse(stream[idex]);
+		        }
+		    }else {
+		    	console.log("Next stream:" + stream + " state:" + state);
+		    	switch (state){
+		    	
+		    	case "start":
+		    		workingNamedEntity.setUDimension(stream);
+		    		break;
+		    		
+		    	case "vDimension":
+		    		workingNamedEntity.setVDimension(stream);
+		    		break;
+		    		
+		    	case "renameObjectType":
+		    		workingNamedEntity.setRenameObjectType(stream);
+		    		break;
+		    		
+		    	default:
+		    		console.log("warning:" + state);
+		    	}
+		        
+		    }
+			return lineArray;   
+
+		},
+		getGenericName: function(index){
+			return lineArray[index].getGenericName();
+		}
+	}
+	
+})();
 
 var entry = (function (){
 	var result;
