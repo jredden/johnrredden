@@ -219,7 +219,7 @@ var processChoice = (function(){
 	
 	return {
 		jsonProcessCluster: function(json){
-			parseRenamed(json);
+			parseCandidates.parseStart(json);
 		},
 		jsonProcessStar: function(json){
 			parseRenamed(json);
@@ -300,6 +300,14 @@ var parseCandidates = (function(){
 		    		workingNamedEntity.setRenameObjectType(stream);
 		    		break;
 		    		
+		    	case "genericName":
+		    		workingNamedEntity.setGenericName(stream);
+		    		break;	    	
+
+		    	case "renameName":
+		    		workingNamedEntity.setRenameName(stream);
+		    		break;
+
 		    	default:
 		    		console.log("warning:" + state);
 		    	}
