@@ -26,6 +26,7 @@
 	 	var renameObjectType;
 	 	var genericName;
 	 	var renameName;
+	 	var distanceToGalacticCentre;
 	 	
 	 // public
 	 	
@@ -69,6 +70,14 @@
 		 	
 		 	getRenameName: function (){
 		 		return renameName;
+		 	},
+		 	
+		 	setDistanceToGalacticCentre: function (_distanceToGalacticCentre){
+		 		distanceToGalacticCentre = _distanceToGalacticCentre;
+		 	},
+		 	
+		 	getDistanceToGalacticCentre: function (){
+		 		return distanceToGalacticCentre;
 		 	}
 	 	}
  });
@@ -280,6 +289,10 @@ var parseCandidates = (function(){
 		        		state = 'renameName';
 		        		break;
 		        		
+		        	case "distanceToGalacticCentre":
+		        		state = 'distanceToGalacticCentre';
+		        		break;
+		        		
 		        	default:
 		        	}
 		        	parseCandidates.parse(stream[idex]);
@@ -305,6 +318,10 @@ var parseCandidates = (function(){
 		    		break;	    	
 
 		    	case "renameName":
+		    		workingNamedEntity.setRenameName(stream);
+		    		break;
+		    		
+		    	case "distanceToGalacticCentre":
 		    		workingNamedEntity.setRenameName(stream);
 		    		break;
 

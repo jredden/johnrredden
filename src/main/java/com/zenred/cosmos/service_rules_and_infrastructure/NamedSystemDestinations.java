@@ -24,6 +24,10 @@ public class NamedSystemDestinations {
 			genericRenameResponseForDestintion.setuDimension(uvVcoordinate.getU());
 			genericRenameResponseForDestintion.setvDimension(uvVcoordinate.getV());
 			destinationList.add(genericRenameResponseForDestintion);
+			Double f_Udim = new Double(uvVcoordinate.getU());
+			Double f_Vdim = new Double(uvVcoordinate.getV());
+			Double distanceToGalacticCentre = Math.sqrt(f_Udim*f_Udim + f_Vdim*f_Vdim);
+			genericRenameResponseForDestintion.setDistanceToGalacticCentre(distanceToGalacticCentre);
 		}
 		return destinationList;
 	}

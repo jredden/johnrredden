@@ -8,6 +8,7 @@ public class GenericRenameResponseForDestintion {
 	private String renameObjectType;
 	private String genericName;
 	private String renameName;
+	private Double distanceToGalacticCentre;
 	
 	public Integer getuDimension() {
 		return uDimension;
@@ -39,11 +40,17 @@ public class GenericRenameResponseForDestintion {
 	public void setRenameName(String renameName) {
 		this.renameName = renameName;
 	}
+	public Double getDistanceToGalacticCentre() {
+		return distanceToGalacticCentre;
+	}
+	public void setDistanceToGalacticCentre(Double distanceToGalacticCentre) {
+		this.distanceToGalacticCentre = distanceToGalacticCentre;
+	}
 	@Override
 	public String toString() {
 		return "GenericRenameResponseForDestintion [uDimension=" + uDimension + ", vDimension=" + vDimension
 				+ ", renameObjectType=" + renameObjectType + ", genericName=" + genericName + ", renameName="
-				+ renameName + "]";
+				+ renameName + ", distanceToGalacticCentre=" + distanceToGalacticCentre + "]";
 	}
 
 	
