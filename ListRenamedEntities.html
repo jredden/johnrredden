@@ -25,7 +25,8 @@
 	 	var vDimension;
 	 	var renameObjectType;
 	 	var genericName;
-	 	var renameName;
+	 	var renamesArray = [];
+	 	var renames_count = 0;
 	 	var distanceToGalacticCentre;
 	 	
 	 // public
@@ -64,12 +65,13 @@
 		 		return genericName;
 		 	},
 		 	
-		 	setRenameName: function (_renameName){
-		 		renameName = _renameName;
+		 	addRename: function (_renameName){
+				renamesArray[renames_count] = _renameName;
+				++renames_count;
 		 	},
 		 	
-		 	getRenameName: function (){
-		 		return renameName;
+		 	getRenamesArray: function (){
+		 		return renamesArray;
 		 	},
 		 	
 		 	setDistanceToGalacticCentre: function (_distanceToGalacticCentre){
@@ -213,28 +215,25 @@ var parseRenameStream  = (function(){
 var processChoice = (function(){
 	
 	// private
-	
-		var parseRenamed = function(json){
-		/*
-			var modifiedJson = json.replace("com.zenred.cosmos.vizualization.GenericRenameResponseForDestintion", 
-			"com_zenred_cosmos_vizualization_GenericRenameResponseForDestintion");
-			var jsonObject = JSON.parse(modifiedJson);
-			console.log("jsonObject:"+jsonObject.com_zenred_cosmos_vizualization_GenericRenameResponseForDestintion);
-		*/
-			print_recursive(json);
+	    var lineArray = [];
+		var parseRenamed = function(lineArray, type){
+			displayButtons.action(lineArray, type);
 		}
 	
 	// public
 	
 	return {
 		jsonProcessCluster: function(json){
-			parseCandidates.parseStart(json);
+			lineArray = parseCandidates.parseStart(json);
+			parseRenamed(lineArray, 'CLUSTER');
 		},
 		jsonProcessStar: function(json){
-			parseRenamed(json);
+			lineArray = parseCandidates.parseStart(json);
+			parseRenamed(lineArray, 'STAR');
 		},
 		jsonProcessPlanetoid: function(json){
-			parseRenamed(json);
+			lineArray = parseCandidates.parseStart(json);
+			parseRenamed(lineArray, 'PLANETOID');
 		},
 		
 	}
@@ -318,11 +317,12 @@ var parseCandidates = (function(){
 		    		break;	    	
 
 		    	case "renameName":
-		    		workingNamedEntity.setRenameName(stream);
+		    		workingNamedEntity.addRename(stream);
 		    		break;
 		    		
 		    	case "distanceToGalacticCentre":
-		    		workingNamedEntity.setRenameName(stream);
+		    		workingNamedEntity.setDistanceToGalacticCentre(stream);
+		    		lineArray[lineCount++] = workingNamedEntity;
 		    		break;
 
 		    	default:
@@ -335,6 +335,66 @@ var parseCandidates = (function(){
 		},
 		getGenericName: function(index){
 			return lineArray[index].getGenericName();
+		}
+	}
+	
+})();
+
+var displayButtons = (function (){
+	
+	// private
+	
+	function displayAction(start, end, tag, renameArray, type){
+		var dynamicHtml = "<br/> <br/>";
+		$("div[id=space]").html(dynamicHtml);
+		dynamicHtml = "";
+		theXor = 0;
+		var renameDisplay = "";
+
+		for(var idex0 = start; idex0 < end; idex0++){
+			var uDimension = renameArray[idex0].getUDimension();
+			var vDimension = renameArray[idex0].getVDimension();
+			var genericName = renameArray[idex0].getGenericName();
+			var distanceToGalacticCentre = renameArray[idex0].getDistanceToGalacticCentre();
+			var renames = [];
+			renames = renameArray[idex0].getRenamesArray();
+			for(var idex1 = 0; idex1 < renames.length; idex1++){
+				
+				if(0 == idex1){
+					renameDisplay += " Renames:"
+					renameDisplay += renames[idex1];
+				}
+				else{
+					renameDisplay += ",";
+					renameDisplay += renames[idex1];
+				}
+			}
+			
+			theXor ^=1;
+			var bgColor = "lightblue";
+			if(theXor){
+				bgColor = "lightgreen";
+			}
+//			entry.params("fdiv", type);
+			dynamicHtml +="<div class=\"entry\"><button onclick=\"entry.action("+idex0+")\" style=\"width: 100%; text-align: left; background-color:" + bgColor + ";"
+					+"\">"
+					+ "Rename Name: " + "U" + uDimension + " V" + vDimension+ " " + renameDisplay
+					+"</button></div>";
+			var renameDisplay = "";
+		}
+		$("div[id^="+tag+"]").html(dynamicHtml);	}
+	
+	// public
+	return{
+		action: function(renameArray, type){
+			$('#renameText').hide();
+			var wholeOfIt = renameArray.length;
+			var firstHalf = Math.floor(wholeOfIt/2);
+
+			displayAction(0, firstHalf, "column1", renameArray, type);
+			displayAction(firstHalf+1, wholeOfIt, "column2", renameArray, type);
+			$('#renameText').show();
+			$('#wrapperspace').show();
 		}
 	}
 	
