@@ -268,7 +268,6 @@ var parseCandidates = (function(){
 
 		        	case "uDimension":
 		        		workingNamedEntity = new namedEntity();
-			    		lineArray[lineCount++] = workingNamedEntity;
 		        		state = 'start';
 		        		break;
 		        	
@@ -375,7 +374,7 @@ var displayButtons = (function (){
 			if(theXor){
 				bgColor = "lightgreen";
 			}
-//			entry.params("fdiv", type);
+			entry.params("fdiv", type);
 			dynamicHtml +="<div class=\"entry\"><button onclick=\"entry.action("+idex0+")\" style=\"width: 100%; text-align: left; background-color:" + bgColor + ";"
 					+"\">"
 					+ "Rename Name: " + "U" + uDimension + " V" + vDimension+ " " + renameDisplay
@@ -390,11 +389,11 @@ var displayButtons = (function (){
 			$('#renameText').hide();
 			var wholeOfIt = renameArray.length;
 			var firstHalf = Math.floor(wholeOfIt/2);
-
+			id="topRenameCosmosEntity"
 			displayAction(0, firstHalf, "column1", renameArray, type);
 			displayAction(firstHalf+1, wholeOfIt, "column2", renameArray, type);
 			$('#renameText').show();
-			$('#wrapperspace').show();
+//			$('#wrapperspace').show();
 		}
 	}
 	
@@ -436,8 +435,14 @@ var entry = (function (){
 				tagOperations.hide(hideList);
 			});
 			
-		}
+		},
+		params: function(tag, type){
+			theTag = tag;
+			theType = type
+			jSon = 0;
+		},
 	}
+
 })();
 
 
@@ -542,12 +547,8 @@ function print_recursive(printthis) {
 <title>Rename Cosmos Entity</title>
 </head>
 
-<section id="candidatesResult"><section id="renameText">
 
-	<div id="column1" class="column"></div>
-	<div id="column2" class="column"></div>
-
-</section>
+<section>
 	<div id="spinner">
 		<img src="./animatedEllipse.gif" />
 	</div>
@@ -561,7 +562,7 @@ function print_recursive(printthis) {
 		<!--  wrapperspace -->
 		<header id="topHeaderFixed">
 			<hgroup>
-				<nav id="topRenameCosmosEntity">
+				<nav>
 					<button id="home">Home</button>
 					<button id="listRenamedClusters">Travel to a named Cluster</button>
 					<button id="listRenamedStars">Travel to a named Star</button>
@@ -575,6 +576,14 @@ function print_recursive(printthis) {
 <section id="start">
 	<div id="space"></div>
 </section>
+
+<section id="renameText">
+
+	<div id="column1" class="column"></div>
+	<div id="column2" class="column"></div>
+
+</section>
+
 
 
 
