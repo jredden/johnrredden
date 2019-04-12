@@ -103,10 +103,7 @@ var tagOperations = (function(){
 			$('#wrapperspace').show();
 		},
 		function fsect(){
-			$('#fsect').show();
-		},
-		function jumping(){
-			$('#jumping').show();
+			$('#fsect').show
 		}
 
     ];
@@ -125,10 +122,7 @@ var tagOperations = (function(){
 			$('#wrapperspace').hide();
 		},
 		function fsect(){
-			$('#fsect').hide();
-		},
-		function jumping(){
-			$('#jumping').hide();
+			$('#fsect').hide
 		}
 
 	];
@@ -139,7 +133,6 @@ var tagOperations = (function(){
 			,"renameText" : 2
 			,"wrapperspace" : 3
 			,"fsect" : 4
-			,"jumping" : 5
 	}
 	
 	// public 
@@ -374,28 +367,18 @@ var displayButtons = (function (){
 					renameDisplay += ",";
 					renameDisplay += renames[idex1];
 				}
+			}
 			
-			
-				theXor ^=1;
-				var bgColor = "lightblue";
-				if(theXor){
-					bgColor = "lightgreen";
-				}
-				entry.params("fdiv", type);
-				var s_genericName = genericName.replace(/\./g, '_');
-				var s_distanceToGalacticCentre = "d_" + distanceToGalacticCentre.toString().replace(/\./g, '_');
-				
-				dynamicHtml +="<div class=\"entry\"><button onclick=\"entry.action("
-					+uDimension
-					+","+vDimension
-					+","+s_genericName
-					+","+s_distanceToGalacticCentre
-					+","+renames[idex1]
-					+")\" style=\"width: 100%; text-align: left; background-color:" + bgColor + ";"
+			theXor ^=1;
+			var bgColor = "lightblue";
+			if(theXor){
+				bgColor = "lightgreen";
+			}
+			entry.params("fdiv", type);
+			dynamicHtml +="<div class=\"entry\"><button onclick=\"entry.action("+idex0+")\" style=\"width: 100%; text-align: left; background-color:" + bgColor + ";"
 					+"\">"
 					+ "Rename Name: " + "U" + uDimension + " V" + vDimension+ " " + renameDisplay
 					+"</button></div>";
-			}
 			var renameDisplay = "";
 		}
 		$("div[id^="+tag+"]").html(dynamicHtml);	}
@@ -420,24 +403,20 @@ var entry = (function (){
 	var result;
 	var uri;
 	var parsedURI;
-	
 	return{
-		action: function(uDimenson, vDimension, genericName, distanceToGalacticCentre, rename ){
+		action: function(topu, topv, bottomu, bottomv){
 			var showList = ['jumping'];
 			tagOperations.show(showList);
 			var hideList = ['spinner2', 'report', 'reportComments'];
 			tagOperations.hide(hideList);
-			var postWithParameters = "http://www.localhost:8080/johntredden-1.0/visitSingleStarSystem.html?s_Ucoordinate="
-					+ uDimenson
-					+ "&s_Vcoordinate="
-					+ vDimension
-					+ "&s_genericName="
-					+ genericName
-					+ "&s_distanceToGalacticCentre="
-					+ distanceToGalacticCentre
-					+ "&s_rename="
-					+ rename;
-
+			var postWithParameters = "http://www.localhost:8080/johntredden-1.0/visitStarSystem.html?s_Ucoordinate_top="
+					+ topu
+					+ "&s_Vcoordinate_top="
+					+ topv
+					+ "&s_Ucoordinate_bottom="
+					+ bottomu
+					+ "&s_Vcoordinate_bottom="
+					+ bottomv;
 			var jqxr = $.post(postWithParameters, function() {
 				result = $(".result");
 				console.log("rawURI:"+result);
@@ -592,6 +571,7 @@ function print_recursive(printthis) {
 			</hgroup>
 		</header>
 	</div>
+</body>
 
 <section id="start">
 	<div id="space"></div>
@@ -611,5 +591,4 @@ function print_recursive(printthis) {
 	<div id="fdiv"></div>
 </section>
 
-</body>
 </html>
