@@ -265,6 +265,7 @@ var parseCandidates = (function(){
 			lineArray = [];
 			lineCount = 0;
 			output = '';
+			entry.init();
 			return parseCandidates.parse(stream);
 		},
 		parse: function(stream){
@@ -381,16 +382,14 @@ var displayButtons = (function (){
 				if(theXor){
 					bgColor = "lightgreen";
 				}
-				entry.params("fdiv", type);
-				var s_genericName = genericName.replace(/\./g, '_');
-				var s_distanceToGalacticCentre = "d_" + distanceToGalacticCentre.toString().replace(/\./g, '_');
-				
+//				var s_genericName = genericName.replace(/\./g, '_');
+//				var s_distanceToGalacticCentre = "d_" + distanceToGalacticCentre.toString().replace(/\./g, '_');
+				entry.params("fdiv", type, renameArray[idex0], idex0);
+
 				dynamicHtml +="<div class=\"entry\"><button onclick=\"entry.action("
 					+uDimension
 					+","+vDimension
-					+","+s_genericName
-					+","+s_distanceToGalacticCentre
-					+","+renames[idex1]
+					+","+idex0
 					+")\" style=\"width: 100%; text-align: left; background-color:" + bgColor + ";"
 					+"\">"
 					+ "Rename Name: " + "U" + uDimension + " V" + vDimension+ " " + renameDisplay
@@ -420,24 +419,35 @@ var entry = (function (){
 	var result;
 	var uri;
 	var parsedURI;
+	var workingNamedEntityArray;
+	var theType;
+	
 	
 	return{
-		action: function(uDimenson, vDimension, genericName, distanceToGalacticCentre, rename ){
+		action: function(uDimenson, vDimension, idex0){
 			var showList = ['jumping'];
 			tagOperations.show(showList);
-			var hideList = ['spinner2', 'report', 'reportComments'];
+			var hideList = ['renameText'];
 			tagOperations.hide(hideList);
+			renames = workingNamedEntityArray[idex0].getRenamesArray();
+			var rename = "&s_rename=";
+			for(var idex1 = 0; idex1 < renames.length; idex1++){
+				rename += renames[idex1];
+				if(idex1 != renames.length-1){
+					rename += ",";
+				}
+			}
 			var postWithParameters = "http://www.localhost:8080/johntredden-1.0/visitSingleStarSystem.html?s_Ucoordinate="
 					+ uDimenson
 					+ "&s_Vcoordinate="
 					+ vDimension
 					+ "&s_genericName="
-					+ genericName
+					+ workingNamedEntityArray[idex0].getGenericName()
 					+ "&s_distanceToGalacticCentre="
-					+ distanceToGalacticCentre
-					+ "&s_rename="
+					+ workingNamedEntityArray[idex0].getDistanceToGalacticCentre()
+					+ "&s_type="
+					+ theType
 					+ rename;
-
 			var jqxr = $.post(postWithParameters, function() {
 				result = $(".result");
 				console.log("rawURI:"+result);
@@ -457,11 +467,15 @@ var entry = (function (){
 			});
 			
 		},
-		params: function(tag, type){
+		params: function(tag, type, workingNamedEntity, idex){
 			theTag = tag;
 			theType = type
 			jSon = 0;
+			workingNamedEntityArray[idex]=workingNamedEntity;
 		},
+		init: function(){
+			workingNamedEntityArray=[];
+		}
 	}
 
 })();
@@ -507,6 +521,105 @@ var sectorProcess = (function (){
 	}
 	
 })();
+
+/**
+ * stars on canvas
+ */
+var starSystems = (function () {
+	// private
+	var viz = function(systemVizCentricArray){
+		var ctx = canvasas.fetchStarSystemsCanvasContext();
+		ctx.fillRect(0,20,window.innerWidth/2, window.innerHeight);
+		
+		var lineWidth = 2;
+		var flipFlop = 0;
+		var startX = 50;
+		var startY = 50;
+		var incrementHeaderX = 20;
+		var widthBoxY= 150;
+		var widthBoxX = 150
+		var runningX = startX;
+		var runningY = startY;
+		var fillStyle;
+		var reset;
+		console.log("LENGTH:"+systemVizCentricArray.length);
+		ctx.beginPath();
+		for(var idex = 0; idex < systemVizCentricArray.length; ){
+			clusterValues.initArrays(systemVizCentricArray[idex].getSystemName());
+			if(flipFlop == 0){
+				fillStyle = 'darkblue';
+			}
+			else{
+				fillStyle = 'midnightblue';
+			}
+			ctx.rect(runningX, runningY, widthBoxX, incrementHeaderX);
+			ctx.fillStyle = fillStyle;
+			ctx.fillRect(runningX, runningY, widthBoxX, incrementHeaderX);
+			ctx.lineWidth= lineWidth;
+			ctx.strokeStyle= "lightblue";
+			ctx.stroke();
+			
+			var cvCoordinates = new clusterViewCoordinates();
+			cvCoordinates.setAttributesFromRectangle(runningX, runningY, widthBoxX, widthBoxY);
+			console.log("STAR SYSTEM:"+systemVizCentricArray[idex].getSystemName()+" CVCOORDINATES:"+cvCoordinates.getTopLeftX()
+					+"|"+cvCoordinates.getTopLeftY()
+					+"|"+cvCoordinates.getBottomRightX()
+					+"|"+cvCoordinates.getBottomRightY());
+			cvCoordinates.getMiddlePoint().logPrint();
+				
+			clusterViewCoordinatesToSystemName.process(systemVizCentricArray[idex].getSystemName(),cvCoordinates);
+			
+			var header = "U"+systemVizCentricArray[idex].getUCoordinate()+":V"+systemVizCentricArray[idex].getVCoordinate();
+			// console.log("HEADER:"+header);
+			ctx.font="16px Verdana";
+			ctx.strokeText(header, runningX+2, runningY+15);
+			clusterValues.clearDone();
+			clusterDetailRequest.jsonCall(systemVizCentricArray[idex].getSystemName());
+			
+			runningY += incrementHeaderX;
+			
+			if(flipFlop == 0){
+				fillStyle = 'midnightblue';
+			}
+			else{
+				fillStyle = 'darkblue';
+			}
+			ctx.rect(runningX, runningY, widthBoxX, widthBoxY);
+			ctx.fillStyle = fillStyle;
+			ctx.fillRect(runningX, runningY, widthBoxX, widthBoxY);
+			ctx.lineWidth= lineWidth;
+			ctx.strokeStyle= "lightblue";
+			ctx.stroke();
+			
+			runningY -= incrementHeaderX;
+			
+			flipFlop ^=1;
+			runningX+=widthBoxX;
+			++idex;
+			reset = idex % 5;
+			if(reset == 0){
+				runningX = startX;
+				runningY += widthBoxY;
+			}
+		}
+		ctx.closePath();
+	}
+	
+	return{
+		visualize: function(systemVizCentricArray){
+			clusterValues.reset();  // reinitilizes top dictionary
+			visualizeClustersOnCanvas.reset();
+			clusterViewCoordinatesToSystemName.initArrays();
+			
+			canvasas.init();
+			viz(systemVizCentricArray);
+		},
+		vizualizeNoInit: function(systemVizCentricArray){
+			viz(systemVizCentricArray);
+		}
+	}
+})();
+
 
 /**
 * wait for Cluster key values pairs from domain tier.  Hey.  It's AJAX.  

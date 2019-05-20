@@ -29,7 +29,8 @@
 	<bean id="listAllClusterRenamingCandidates"  class="com.zenred.cosmos.controller.ListAllClusterRenamingCandidates"/>
 	<bean id="renameEntity" class="com.zenred.cosmos.controller.RenameEntity"/>
 	<bean id="listRenamedEntities" class="com.zenred.cosmos.controller.ListRenamedEntities"/>
-	
+	<bean id="visitSingleStarSystem" class="com.zenred.cosmos.controller.VisitSingleStarSystem"/>
+
 	<bean id="urlMapping"
 		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="mappings">
@@ -50,6 +51,7 @@
 				<prop key="/listClusterRenameCandidates.html">listAllClusterRenamingCandidates</prop>
 				<prop key="/renameEntity.html">renameEntity</prop>
 				<prop key="/listRenamedEntities.html">listRenamedEntities</prop>
+				<prop key="/visitSingleStarSystem.html">visitSingleStarSystem</prop>
 			</props>
 		</property>
 	</bean>
