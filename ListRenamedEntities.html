@@ -639,6 +639,23 @@ var clusterTimerLoop = function(clusterTimer){
 	}
 }
 
+/**
+ * invoke server
+ */
+var clusterDetailRequest = (function () {
+	return{
+		jsonCall: function(systemName){
+			$.getJSON("http://www.localhost:8080/johntredden-1.0/starCluster.html?systemName="+systemName,
+					function(json){           // callback
+						setInterval(function () {if(json != null){clearInterval();}}, 1000);
+						console.log("in clusterDetailRequest for :" + systemName);
+						processClusterDetail.jsonProcess(json, systemName);
+					}		
+			);
+		}
+	}
+})();
+
 
 $(document).ready(function() {
 	
@@ -724,5 +741,36 @@ function print_recursive(printthis) {
 	<div id="fdiv"></div>
 </section>
 
+	<section id="cosmosspacedetail">
+	<canvas id="starsystems">
+	Your browser does not support the HTML5 canvas tag.
+	Please upgrade to a version with full support for HTML5.
+	
+	</canvas>
+	
+	<canvas id="starsinclustertextcanvas">
+	Your browser does not support the HTML5 canvas tag.
+	Please upgrade to a version with full support for HTML5.
+	
+	</canvas>
+	
+	</section> <!-- end cosmosspacedetail -->
+	<section id="shipstart">
+	<canvas id="firstposition">
+	Your browser does not support the HTML5 canvas tag.
+	Please upgrade to a version with full support for HTML5.
+	</canvas>
+	
+	</section> <!--  end shipstart -->
+	
+	<section>
+	<div id="jumping">
+	<img src="../JumpingToLightSpeed.gif" width="1360" height="1000" />
+	</div>
+		
+	<div id="comments">
+	</div>
+	
+	</section>
 </body>
 </html>
