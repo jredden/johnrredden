@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
 import com.zenred.cosmos.controller.json.SystemView;
+import com.zenred.cosmos.domain.RenamedSystem;
 import com.zenred.cosmos.domain.System;
 import com.zenred.cosmos.domain.SystemDao;
 import com.zenred.cosmos.service_rules_and_infrastructure.ImergeFromHyperspace;
@@ -39,6 +40,7 @@ class VisitSingleStarSystem implements Controller {
 		Integer i_Vcoordinate = new Integer(s_Vcoordinate_top);
 		Double d_Ucoordinate = new Double(s_Ucoordinate_top);
 		Double d_Vcoordinate = new Double(s_Vcoordinate_top);
+		RenamedSystem renamedSystem = new RenamedSystem();
 		SystemDao systemDao = new SystemDao();
 		if(!systemDao.doesSystemExist(d_Ucoordinate, d_Vcoordinate)){
 			// should never get here
