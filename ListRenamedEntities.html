@@ -487,25 +487,15 @@ var sectorProcess = (function (){
 	
 	return{
 		iterate: function(data){
-			systemVizCentricArray = [];
-			var modifiedJson = data.replace("com.zenred.cosmos.vizualization.SystemVizCentric", 
-					"com_zenred_cosmos_vizualization_SystemVizCentric");
+			var renamedSystemVizCentric;
+			var modifiedJson = data.replace("com.zenred.cosmos.vizualization.NamedSystemVizCentric", 
+					"com_zenred_cosmos_vizualization_NamedSystemVizCentric");
 			var jsonObject = JSON.parse(modifiedJson);
-			console.log("jsonObject:"+jsonObject.systems.systemVizCentrics[0].com_zenred_cosmos_vizualization_SystemVizCentric[0].systemName);
-			for(var systemArray in jsonObject.systems.systemVizCentrics[0].com_zenred_cosmos_vizualization_SystemVizCentric){
-				console.log("systemArray:"+ 
-				jsonObject.systems.systemVizCentrics[0].com_zenred_cosmos_vizualization_SystemVizCentric[systemArray].systemName);
-				var systemVizCentricInstance = new systemVizCentric();
-				var name = jsonObject.systems.systemVizCentrics[0].com_zenred_cosmos_vizualization_SystemVizCentric[systemArray].systemName;
-				systemVizCentricInstance.setSystemName(name);
-				var ucoord = jsonObject.systems.systemVizCentrics[0].com_zenred_cosmos_vizualization_SystemVizCentric[systemArray].ucoordinate;
-				systemVizCentricInstance.setUCoordinate(ucoord);
-				var vcoord = jsonObject.systems.systemVizCentrics[0].com_zenred_cosmos_vizualization_SystemVizCentric[systemArray].vcoordinate;
-				systemVizCentricInstance.setVCoordinate(vcoord);
-				var distance = jsonObject.systems.systemVizCentrics[0].com_zenred_cosmos_vizualization_SystemVizCentric[systemArray].distance_to_galaxy_centre;
-				systemVizCentricInstance.setDistanceToGalacticCentre(distance);
-				systemVizCentricArray.push(systemVizCentricInstance);
-			}
+			console.log("jsonObject:"+jsonObject);
+			print_recursive(jsonObject);
+			//{"com.zenred.cosmos.vizualization.NamedSystemResponse":{"namedSystemVizCentric":
+			//{"distance_to_galaxy_centre":40670.03201168509,"ucoordinate":60792,"vcoordinate":67271,"systemName":
+			//"System.60792.67271","renames":[{"string":["  GenduSystem","  BulbsSystem"]}]}}}
 			visualizeClustersOnCanvas.init();
 			visualizeClustersOnCanvas.logPrint();  // sanity check
 			vizStars.init();

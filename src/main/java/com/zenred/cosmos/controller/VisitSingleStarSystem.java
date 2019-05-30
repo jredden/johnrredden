@@ -13,6 +13,7 @@ import com.zenred.cosmos.domain.RenamedSystem;
 import com.zenred.cosmos.domain.System;
 import com.zenred.cosmos.domain.SystemDao;
 import com.zenred.cosmos.service_rules_and_infrastructure.ImergeFromHyperspace;
+import com.zenred.cosmos.vizualization.NamedSystemResponse;
 import com.zenred.cosmos.vizualization.SystemResponse;
 
 class VisitSingleStarSystem implements Controller {
@@ -41,13 +42,13 @@ class VisitSingleStarSystem implements Controller {
 		Double d_Ucoordinate = new Double(s_Ucoordinate_top);
 		Double d_Vcoordinate = new Double(s_Vcoordinate_top);
 		RenamedSystem renamedSystem = new RenamedSystem();
-		SystemDao systemDao = new SystemDao();
-		if(!systemDao.doesSystemExist(d_Ucoordinate, d_Vcoordinate)){
+		if(!renamedSystem.doesSystemExist(d_Ucoordinate, d_Vcoordinate)){
 			// should never get here
-			throw new RuntimeErrorException(new Error(), "System Not Exist:"+s_Ucoordinate_top+"::"+s_Vcoordinate_top);
+			throw new RuntimeErrorException(new Error(), "System Does Not Exist:"+s_Ucoordinate_top+"::"+s_Vcoordinate_top);		
 		}
-		System system = systemDao.readSystemByUVCoordinates(i_Ucoordinate, i_Vcoordinate);
-		SystemResponse systemResponse = ImergeFromHyperspace.doesKnowWhereShipIs(system);
+		renamedSystem.readNamedSystemByUVCoordinates(i_Ucoordinate, i_Vcoordinate, s_genericName);
+		System system = renamedSystem.fetchSystem();
+		NamedSystemResponse systemResponse = ImergeFromHyperspace.shipInNamedSystem(renamedSystem);
 		ModelAndView modelAndView = new ModelAndView(new SystemView());
 		modelAndView.addObject(SystemView.JSON_ROOT, systemResponse);
 		logger.info(modelAndView);

@@ -1,5 +1,6 @@
 package com.zenred.cosmos.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RenamedSystem {
@@ -7,23 +8,27 @@ public class RenamedSystem {
 	private System system;
 	private RenameDao renameDao;
 	private SystemDao systemDao;
-	private List<Rename> renames;
+	private List<String> renames;
 	
 	public RenamedSystem(){
 		systemDao = new SystemDao();
 		renameDao = new RenameDao();
 	}
 
-	void readNamedSystemByUVCoordinates(Integer i_Ucoordinate, Integer i_Vcoordinate, String genericName){
+	public void readNamedSystemByUVCoordinates(Integer i_Ucoordinate, Integer i_Vcoordinate, String genericName){
 		system = systemDao.readSystemByUVCoordinates(i_Ucoordinate, i_Vcoordinate);
-		renames = renameDao.fetchRenamesForGenericName(genericName);
+		List<Rename> l_renames = renameDao.fetchRenamesForGenericName(genericName);
+		renames = new ArrayList<String>();
+		for(int idex =0; idex <l_renames.size(); idex++ ){
+			renames.add(l_renames.get(idex).getRenameName());
+		}
 	}
 	
 	public System fetchSystem(){
 		return system;
 	}
 	
-	public List<Rename> fetchRenames(){
+	public List<String> fetchRenames(){
 		return renames;
 	}
 	

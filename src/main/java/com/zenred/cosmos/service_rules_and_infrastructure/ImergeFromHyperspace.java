@@ -12,8 +12,11 @@ import com.zenred.cosmos.domain.ClusterFactory;
 import com.zenred.cosmos.domain.ClusterRep;
 import com.zenred.cosmos.domain.ConfigurationDao;
 import com.zenred.cosmos.domain.Planetoid;
+import com.zenred.cosmos.domain.RenamedSystem;
 import com.zenred.cosmos.domain.Star;
 import com.zenred.cosmos.domain.SystemDao;
+import com.zenred.cosmos.vizualization.NamedSystemResponse;
+import com.zenred.cosmos.vizualization.NamedSystemVizCentric;
 import com.zenred.cosmos.vizualization.SystemResponse;
 import com.zenred.cosmos.vizualization.SystemVizCentric;
 import com.zenred.util.GenRandomRolls;
@@ -73,6 +76,21 @@ public class ImergeFromHyperspace {
 		return buildSystemResponse(systemVizCentrics);
 	}
 	
+	public static NamedSystemResponse shipInNamedSystem(RenamedSystem renamedSystem){
+		SystemDao systemDao = new SystemDao();
+		NamedSystemVizCentric namedSystemVizCentric = new NamedSystemVizCentric();
+		NamedSystemResponse namedSystemResponse = new NamedSystemResponse();
+		com.zenred.cosmos.domain.System system = renamedSystem.fetchSystem();
+		com.zenred.cosmos.domain.System existingSystem = systemDao.readSystemByName(system.getSystemName());
+		namedSystemVizCentric.setDistance_to_galaxy_centre(system.getDistance_to_galaxy_centre());
+		namedSystemVizCentric.setSystemName(system.getSystemName());
+		namedSystemVizCentric.setUcoordinate(system.getUcoordinate());
+		namedSystemVizCentric.setVcoordinate(system.getVcoordinate());
+		namedSystemVizCentric.setRenames(renamedSystem.fetchRenames());
+		namedSystemResponse.setNamedSystemVizCentric(namedSystemVizCentric);
+		return namedSystemResponse;
+	}
+	
 	/**
 	 * 
 	 * this is where the stars and everything around them appears
@@ -127,6 +145,7 @@ public class ImergeFromHyperspace {
 		systemVizCentric.setVcoordinate(system.getVcoordinate());
 		systemVizCentrics.add(systemVizCentric);
 	}
+	
 	
 	private static SystemResponse buildSystemResponse( List<SystemVizCentric> systemVizCentrics){
 		SystemResponse systemResponse = new SystemResponse();
