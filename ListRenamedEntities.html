@@ -278,8 +278,16 @@ var parseCandidates = (function(){
 		        		workingNamedEntity = new namedEntity();
 		        		state = 'start';
 		        		break;
-		        	
+		        	case "ucoordinate":
+		        		workingNamedEntity = new namedEntity();
+		        		state = 'start';
+		        		break;
+		        		
 		        	case "vDimension":
+		        		state = 'vDimension';
+		        		break;
+		        	
+		        	case "vcoordinate":
 		        		state = 'vDimension';
 		        		break;
 		        		
@@ -291,13 +299,25 @@ var parseCandidates = (function(){
 		        		state = 'genericName';
 		        		break;
 		        		
+		        	case "systemName":
+		        		state = 'genericName';
+		        		break;
+
 		        	case "renameName":
+		        		state = 'renameName';
+		        		break;
+		        		
+		        	case "renameNames":
 		        		state = 'renameName';
 		        		break;
 		        		
 		        	case "distanceToGalacticCentre":
 		        		state = 'distanceToGalacticCentre';
 		        		break;
+		        	case "distance_to_galaxy_centre":
+		        		state = 'distanceToGalacticCentre';
+		        		break;
+		        		
 		        		
 		        	default:
 		        	}
@@ -342,9 +362,26 @@ var parseCandidates = (function(){
 		},
 		getGenericName: function(index){
 			return lineArray[index].getGenericName();
+		},
+		parseStart2: function(stream){
+				lineArray = [];
+				lineCount = 0;
+				output = '';
+				entry.init();
+				return parseCandidates.parse2(stream);
+		},
+		parse2: function(stream){
+			if($.isArray(stream) || typeof(stream) == 'object') {
+			        for(var idex in stream) {
+			        	console.log("Next2 idex:" + idex);
+		        		parseCandidates.parse2(stream[idex]);
+					}
+			}else {
+			    	console.log("Next2 stream:" + stream + " state:" + state);
+					return lineArray;   
+			}
 		}
 	}
-	
 })();
 
 var displayButtons = (function (){
@@ -493,9 +530,13 @@ var sectorProcess = (function (){
 			var jsonObject = JSON.parse(modifiedJson);
 			console.log("jsonObject:"+jsonObject);
 			print_recursive(jsonObject);
+			
 			//{"com.zenred.cosmos.vizualization.NamedSystemResponse":{"namedSystemVizCentric":
 			//{"distance_to_galaxy_centre":40670.03201168509,"ucoordinate":60792,"vcoordinate":67271,"systemName":
 			//"System.60792.67271","renames":[{"string":["  GenduSystem","  BulbsSystem"]}]}}}
+			
+			
+			parseCandidates.parseStart(jsonObject);
 			visualizeClustersOnCanvas.init();
 			visualizeClustersOnCanvas.logPrint();  // sanity check
 			vizStars.init();
