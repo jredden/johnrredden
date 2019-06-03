@@ -107,7 +107,14 @@ var tagOperations = (function(){
 		},
 		function jumping(){
 			$('#jumping').show();
-		}
+		},
+		function cosmosSpaceDetail(){
+			$('#cosmosspacedetail').show();
+		},
+		function starsinclustertext(){
+			$('#starsinclustertextcanvas').show();
+		},
+
 
     ];
 	
@@ -129,7 +136,14 @@ var tagOperations = (function(){
 		},
 		function jumping(){
 			$('#jumping').hide();
-		}
+		},
+		function cosmosSpaceDetail(){
+			$('#cosmosspacedetail').hide();
+		},
+		function starsinclustertext(){
+			$('#starsinclustertextcanvas').hide();
+		},
+
 
 	];
 	
@@ -140,6 +154,8 @@ var tagOperations = (function(){
 			,"wrapperspace" : 3
 			,"fsect" : 4
 			,"jumping" : 5
+			,"cosmosspacedetail" : 6
+			,"starsinclustertextcanvas": 7
 	}
 	
 	// public 
@@ -307,7 +323,7 @@ var parseCandidates = (function(){
 		        		state = 'renameName';
 		        		break;
 		        		
-		        	case "renameNames":
+		        	case "renames":
 		        		state = 'renameName';
 		        		break;
 		        		
@@ -315,7 +331,7 @@ var parseCandidates = (function(){
 		        		state = 'distanceToGalacticCentre';
 		        		break;
 		        	case "distance_to_galaxy_centre":
-		        		state = 'distanceToGalacticCentre';
+		        		state = 'distanceToGalacticCentre2';
 		        		break;
 		        		
 		        		
@@ -352,10 +368,17 @@ var parseCandidates = (function(){
 		    		lineArray[lineCount++] = workingNamedEntity;
 		    		break;
 
+		    	case "distanceToGalacticCentre2":
+		    		workingNamedEntity.setDistanceToGalacticCentre(stream);
+		    		break;
+		    		
 		    	default:
 		    		console.log("warning:" + state);
 		    	}
 		        
+		    }
+		    if(lineArray.length == 0){
+		    	return workingNamedEntity;  // single system
 		    }
 			return lineArray;   
 
@@ -520,7 +543,8 @@ var entry = (function (){
 
 var sectorProcess = (function (){
 	
-	var systemVizCentricArray;
+	var systemVizCentricArray = [];
+	
 	
 	return{
 		iterate: function(data){
@@ -528,15 +552,21 @@ var sectorProcess = (function (){
 			var modifiedJson = data.replace("com.zenred.cosmos.vizualization.NamedSystemVizCentric", 
 					"com_zenred_cosmos_vizualization_NamedSystemVizCentric");
 			var jsonObject = JSON.parse(modifiedJson);
-			console.log("jsonObject:"+jsonObject);
-			print_recursive(jsonObject);
+			// console.log("jsonObject:"+jsonObject);
+			// print_recursive(jsonObject);
 			
 			//{"com.zenred.cosmos.vizualization.NamedSystemResponse":{"namedSystemVizCentric":
 			//{"distance_to_galaxy_centre":40670.03201168509,"ucoordinate":60792,"vcoordinate":67271,"systemName":
 			//"System.60792.67271","renames":[{"string":["  GenduSystem","  BulbsSystem"]}]}}}
 			
 			
-			parseCandidates.parseStart(jsonObject);
+			var namedEntity =  parseCandidates.parseStart(jsonObject);
+			var systemVizCentricInstance = new systemVizCentric();
+			systemVizCentricInstance.setDistanceToGalacticCentre(namedEntity.getDistanceToGalacticCentre());
+			systemVizCentricInstance.setUCoordinate(namedEntity.getUDimension());
+			systemVizCentricInstance.setVCoordinate(namedEntity.getVDimension());
+			systemVizCentricInstance.setSystemName(namedEntity.getGenericName());
+			systemVizCentricArray.push(systemVizCentricInstance);
 			visualizeClustersOnCanvas.init();
 			visualizeClustersOnCanvas.logPrint();  // sanity check
 			vizStars.init();
@@ -662,9 +692,9 @@ var clusterTimerLoop = function(clusterTimer){
 		console.log("CLUSTER VALUES SIZE:"+clusterValues.getClusterVizCentricArraySize());
 		console.log("SYSTEM TO CLUSTER SIZE:"+clusterValues.getSystemNameArraySize());
 		clusterValues.builder();
-		var showList = ['cosmosSpaceDetail', 'starsinclustertext'];
-		var hideList = ['jumping'];
-		tagOperations.both(showList, hideList);
+		$('#cosmosSpaceDetail').show();
+		$('#starsinclustertext').show();
+		$('#jumping').hide();
 		visualizeClusters.display();
 		visualizeStarsInClusters.display();
 	}
