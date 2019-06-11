@@ -553,6 +553,7 @@ var displayButtons = (function (){
 	}
 	
 })();
+
 /**
  * stars on canvas
  */
@@ -746,20 +747,34 @@ var entry = (function (){
 	var uri;
 	var parsedURI;
 	var workingNamedEntityArray;
+	var theType;
+	
+	
 	return{
-		action: function(topu, topv, bottomu, bottomv){
+		action: function(uDimenson, vDimension, idex0){
 			var showList = ['jumping'];
 			tagOperations.show(showList);
-			var hideList = ['spinner2', 'report', 'reportComments'];
+			var hideList = ['renameText'];
 			tagOperations.hide(hideList);
-			var postWithParameters = "http://www.localhost:8080/johntredden-1.0/visitStarSystem.html?s_Ucoordinate_top="
-					+ topu
-					+ "&s_Vcoordinate_top="
-					+ topv
-					+ "&s_Ucoordinate_bottom="
-					+ bottomu
-					+ "&s_Vcoordinate_bottom="
-					+ bottomv;
+			renames = workingNamedEntityArray[idex0].getRenamesArray();
+			var rename = "&s_rename=";
+			for(var idex1 = 0; idex1 < renames.length; idex1++){
+				rename += renames[idex1];
+				if(idex1 != renames.length-1){
+					rename += ",";
+				}
+			}
+			var postWithParameters = "http://www.localhost:8080/johntredden-1.0/visitSingleStarSystem.html?s_Ucoordinate="
+					+ uDimenson
+					+ "&s_Vcoordinate="
+					+ vDimension
+					+ "&s_genericName="
+					+ workingNamedEntityArray[idex0].getGenericName()
+					+ "&s_distanceToGalacticCentre="
+					+ workingNamedEntityArray[idex0].getDistanceToGalacticCentre()
+					+ "&s_type="
+					+ theType
+					+ rename;
 			var jqxr = $.post(postWithParameters, function() {
 				result = $(".result");
 				console.log("rawURI:"+result);
@@ -788,9 +803,10 @@ var entry = (function (){
 		init: function(){
 			workingNamedEntityArray=[];
 		}
-
 	}
+
 })();
+
 
 var sectorProcess = (function (){
 	
@@ -800,13 +816,13 @@ var sectorProcess = (function (){
 			"com_zenred_cosmos_vizualization_NamedSystemVizCentric");
 			var jsonObject = JSON.parse(modifiedJson);
 			var namedEntity =  parseCandidates.parseStart(jsonObject);
-			DTest.dt(namedEntity);
+			sectorProcess2.dt(namedEntity);
 		}
 	}
 	
 })();
 
-var DTest = (function () {
+var sectorProcess2 = (function () {
 	return{
 		dt: function(namedEntity){
 			$('#jumping').hide();
