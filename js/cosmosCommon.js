@@ -1570,7 +1570,7 @@ var visualizeClusters = (function (){
 })();
 
 /**
- * visualize stars in cluter
+ * visualize stars in cluster
  */
 var visualizeStarsInClusters = ( function (){
 	var previousCtx;

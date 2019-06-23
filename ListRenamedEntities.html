@@ -839,8 +839,8 @@ var sectorProcess2 = (function () {
 				theRenamed += renamesArray[idex1];
 				theRenamed += ' '
 			}
-			var header = 'U' + namedEntity.getUDimension()
-				+ ' V' + namedEntity.getVDimension()
+			var header = 'U ' + namedEntity.getUDimension()
+				+ ' V ' + namedEntity.getVDimension()
 				+ theRenamed
 				;
 			ctx.strokeStyle= "lightblue";
@@ -850,10 +850,33 @@ var sectorProcess2 = (function () {
 			var showList = ['cosmosSpaceDetail', 'starsinclustertext'];
 			var hideList = ['jumping'];
 			tagOperations.both(showList, hideList);
+			sectorProcess3.action(namedEntity);
 		}
 	}
 })();
 
+var sectorProcess3 = (function () {
+	return{
+		action: function(namedEntity){
+			clusterValues.reset();  // reinitilizes top dictionary
+			visualizeClustersOnCanvas.reset();
+
+			var systemName = 'System.'+namedEntity.getUDimension()+'.'+namedEntity.getVDimension();
+			clusterDetailRequest.jsonCall(systemName);
+			visualizeClusters.display();
+			visualizeStarsInClusters.display();
+
+		}
+	}
+})();
+
+var sectorProcess4 = (function(){
+	return{
+		iterate: function(data){
+			
+		}
+	}	
+})();	
 
 /**
 * wait for Cluster key values pairs from domain tier.  Hey.  It's AJAX.  
