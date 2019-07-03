@@ -561,12 +561,12 @@ var starSystems = (function () {
 	// private
 	var viz = function(systemVizCentricArray){
 		var ctx = canvasas.fetchStarSystemsCanvasContext();
-		ctx.fillRect(0,20,window.innerWidth/2, window.innerHeight);
+//		ctx.fillRect(0,20,window.innerWidth/2, window.innerHeight);
 		
 		var lineWidth = 2;
 		var flipFlop = 0;
 		var startX = 50;
-		var startY = 50;
+		var startY = 150;
 		var incrementHeaderX = 20;
 		var widthBoxY= 150;
 		var widthBoxX = 150
@@ -860,9 +860,20 @@ var sectorProcess3 = (function () {
 		action: function(namedEntity){
 			clusterValues.reset();  // reinitilizes top dictionary
 			visualizeClustersOnCanvas.reset();
+			clusterViewCoordinatesToSystemName.initArrays();
 
 			var systemName = 'System.'+namedEntity.getUDimension()+'.'+namedEntity.getVDimension();
 			clusterDetailRequest.jsonCall(systemName);
+			var oneSystemVizCentic = new systemVizCentric();
+			oneSystemVizCentic.setDistanceToGalacticCentre(namedEntity.getDistanceToGalacticCentre());
+			oneSystemVizCentic.setUCoordinate(namedEntity.getUDimension());
+			oneSystemVizCentic.setVCoordinate(namedEntity.getVDimension());
+			oneSystemVizCentic.setSystemName(namedEntity.getGenericName());
+			var systemVizCentricArray = [];
+			systemVizCentricArray.push(oneSystemVizCentic);
+			
+			starSystems.vizualizeNoInit(systemVizCentricArray);
+			clusterValues.builder();
 			visualizeClusters.display();
 			visualizeStarsInClusters.display();
 

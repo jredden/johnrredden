@@ -1597,7 +1597,7 @@ var visualizeStarsInClusters = ( function (){
 					var size = vizStarSizes.fetchSmallSize();
 					var color = vizStarSizes.fetchColor();
 					var startx = o_middlePoint.getX() + a_relativeSystemVector.getScalarX();
-					var starty = o_middlePoint.getY() + a_relativeSystemVector.getScalarY();
+					var starty = o_mivizStarsddlePoint.getY() + a_relativeSystemVector.getScalarY();
 					
 					console.log("SYSTEM:"+systemName +" VISUALIZE STARS IN CLUSTERS X COORDINATES:"+o_middlePoint.getX()+"::"+a_relativeSystemVector.getScalarX());
 					console.log("SYSTEM:"+systemName + " VISUALIZE STARS IN CLUSTERS Y COORDINATES:"+o_middlePoint.getY()+"::"+a_relativeSystemVector.getScalarY());
