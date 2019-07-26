@@ -606,8 +606,11 @@ var starSystems = (function () {
 			ctx.font="16px Verdana";
 			ctx.strokeText(header, runningX+2, runningY+15);
 			clusterValues.clearDone();
-			clusterDetailRequest.jsonCall(systemVizCentricArray[idex].getSystemName());
+//			clusterDetailRequest.jsonCall(systemVizCentricArray[idex].getSystemName());
 			
+//			var clusterTimer2 = setInterval(function () {clusterTimerLoop2(clusterTimer2)}, 10000);
+			
+			// clusterValues.builder();
 			runningY += incrementHeaderX;
 			
 			if(flipFlop == 0){
@@ -662,8 +665,9 @@ var clusterDetailRequest = (function () {
 			$.getJSON("http://www.localhost:8080/johntredden-1.0/starCluster.html?systemName="+systemName,
 					function(json){           // callback
 						setInterval(function () {if(json != null){clearInterval();}}, 1000);
-						console.log("in clusterDetailRequest for :" + systemName);
+						console.log("in  for :" + systemName);
 						processClusterDetail.jsonProcess(json, systemName);
+						clusterValues.builder();
 					}		
 			);
 		}
@@ -862,8 +866,10 @@ var sectorProcess3 = (function () {
 			visualizeClustersOnCanvas.reset();
 			clusterViewCoordinatesToSystemName.initArrays();
 
-			var systemName = 'System.'+namedEntity.getUDimension()+'.'+namedEntity.getVDimension();
-			clusterDetailRequest.jsonCall(systemName);
+//			var systemName = 'System.'+namedEntity.getUDimension()+'.'+namedEntity.getVDimension();
+//			clusterDetailRequest.jsonCall(systemName);
+//			var clusterTimer = setInterval(function () {clusterTimerLoop(clusterTimer)}, 1000);
+
 			var oneSystemVizCentic = new systemVizCentric();
 			oneSystemVizCentic.setDistanceToGalacticCentre(namedEntity.getDistanceToGalacticCentre());
 			oneSystemVizCentic.setUCoordinate(namedEntity.getUDimension());
@@ -873,7 +879,7 @@ var sectorProcess3 = (function () {
 			systemVizCentricArray.push(oneSystemVizCentic);
 			
 			starSystems.vizualizeNoInit(systemVizCentricArray);
-			clusterValues.builder();
+			
 			visualizeClusters.display();
 			visualizeStarsInClusters.display();
 
@@ -895,18 +901,27 @@ var sectorProcess4 = (function(){
 var clusterTimerLoop = function(clusterTimer){
 	console.log("WAITING FOR CLUSTER DATA");
 	if(clusterValues.getDone()){
-		window.clearInterval(clusterTimer)
+		window.clearInterval(clusterTimer);
 		console.log("CLUSTER VALUES SIZE:"+clusterValues.getClusterVizCentricArraySize());
 		console.log("SYSTEM TO CLUSTER SIZE:"+clusterValues.getSystemNameArraySize());
+		/*
 		clusterValues.builder();
 		var showList = ['cosmosSpaceDetail', 'starsinclustertext'];
 		var hideList = ['jumping'];
 		tagOperations.both(showList, hideList);
 		visualizeClusters.display();
 		visualizeStarsInClusters.display();
+		*/
 	}
 }
+//
 
+var clusterTimerLoop2 = function(clusterTimer2){clusterValues.builder()
+	if(clusterValues.getSystemNameArraySize()> 0){
+		window.clearInterval(clusterTimer2);
+		console.log("RAW DICTIONARY SIZE:" + clusterValues.getSystemNameArraySize());
+	}
+}
 
 </script>
 
