@@ -661,13 +661,29 @@ var starSystems = (function () {
  */
 var clusterDetailRequest = (function () {
 	return{
-		jsonCall: function(systemName){
+		jsonCall: function(namedEntity){
+			var systemName = 'System.'+namedEntity.getUDimension()+'.'+namedEntity.getVDimension();
+
 			$.getJSON("http://www.localhost:8080/johntredden-1.0/starCluster.html?systemName="+systemName,
 					function(json){           // callback
 						setInterval(function () {if(json != null){clearInterval();}}, 1000);
+
 						console.log("in  for :" + systemName);
 						processClusterDetail.jsonProcess(json, systemName);
 						clusterValues.builder();
+						var oneSystemVizCentic = new systemVizCentric();
+						oneSystemVizCentic.setDistanceToGalacticCentre(namedEntity.getDistanceToGalacticCentre());
+						oneSystemVizCentic.setUCoordinate(namedEntity.getUDimension());
+						oneSystemVizCentic.setVCoordinate(namedEntity.getVDimension());
+						oneSystemVizCentic.setSystemName(namedEntity.getGenericName());
+						var systemVizCentricArray = [];
+						systemVizCentricArray.push(oneSystemVizCentic);
+						
+						starSystems.vizualizeNoInit(systemVizCentricArray);
+						
+						visualizeClusters.display();
+						visualizeStarsInClusters.display();
+
 					}		
 			);
 		}
@@ -784,7 +800,7 @@ var entry = (function (){
 				console.log("rawURI:"+result);
 			})
 			  .done(function(data) {
-				  setInterval(function () {if(data != null){clearInterval();}}, 1000);	// arg! ajax
+//				  setInterval(function () {if(data != null){clearInterval();}}, 1000);	// arg! ajax
 				  console.log( "second success:"+data );
 				  sectorProcess.iterate(data);
 				  })
@@ -866,22 +882,9 @@ var sectorProcess3 = (function () {
 			visualizeClustersOnCanvas.reset();
 			clusterViewCoordinatesToSystemName.initArrays();
 
-//			var systemName = 'System.'+namedEntity.getUDimension()+'.'+namedEntity.getVDimension();
-//			clusterDetailRequest.jsonCall(systemName);
+				clusterDetailRequest.jsonCall(namedEntity);
 //			var clusterTimer = setInterval(function () {clusterTimerLoop(clusterTimer)}, 1000);
 
-			var oneSystemVizCentic = new systemVizCentric();
-			oneSystemVizCentic.setDistanceToGalacticCentre(namedEntity.getDistanceToGalacticCentre());
-			oneSystemVizCentic.setUCoordinate(namedEntity.getUDimension());
-			oneSystemVizCentic.setVCoordinate(namedEntity.getVDimension());
-			oneSystemVizCentic.setSystemName(namedEntity.getGenericName());
-			var systemVizCentricArray = [];
-			systemVizCentricArray.push(oneSystemVizCentic);
-			
-			starSystems.vizualizeNoInit(systemVizCentricArray);
-			
-			visualizeClusters.display();
-			visualizeStarsInClusters.display();
 
 		}
 	}
