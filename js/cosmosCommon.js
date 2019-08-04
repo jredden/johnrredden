@@ -1365,6 +1365,7 @@ var clusterValues = (function () {
 	                    	 var starDict = systemDictionary.get(currentSystem);
 	                    	 starDict.set(currentStarKey, workingClusterVizCentric);
 	                    	 console.log("STAR_TYPE:"+type.toString()+" ADDING:"+currentStarKey+":: "+workingClusterVizCentric.getStarName());
+	                    	 console.log("CURRENT SYSTEM" + currentSystem + " ::" + starDict.keys());
 	                    	 workingClusterVizCentric = new clusterVizCentric();
 	                     }
 	                    ];
@@ -1420,6 +1421,8 @@ var clusterValues = (function () {
 				}
 			}
 			console.log("ALL SYSTEMS BUILT");
+			// clusterValues.debug();
+			oneSystem.store();
 		},
 		fetchProcessedCluster(){
 			return systemDictionary;
@@ -1436,9 +1439,46 @@ var clusterValues = (function () {
 		},
 		getDone(){
 			return done;
+		},
+		debug(){
+			var dictionary = clusterValues.fetchProcessedCluster();
+			var systemsWithClusters = dictionary.keys();
+			for(var idex = 0; idex < systemsWithClusters.length; idex++){
+				var clusterVizCentrics = dictionary.get(systemsWithClusters[idex]);
+				console.log("SYSTEM WITH CLUSTER:"+systemsWithClusters[idex]);
+				var system = systemsWithClusters[idex];
+				var starDict = dictionary.get(system);
+				var stars = starDict.keys();
+			}
 		}
-
 	}
+	
+})();
+
+var oneSystem = (function () {
+	
+	// private
+	
+	var dictionary;
+	var systemsWithClusters;
+	var starDict;
+	
+	// public
+	
+	return{
+		store(){
+			dictionary = clusterValues.fetchProcessedCluster();
+			system = dictionary.keys();
+			console.log("ONE SYSTEM WITH CLUSTER:"+system);
+			starDict = dictionary.get(system);
+			var stars = starDict.keys();
+			console.log("ONE SYSTEM STARs:"+stars);
+		},
+		fetch(){
+			return dictionary;
+		}
+	}
+	
 	
 })();
 
@@ -1871,6 +1911,7 @@ var clickableAstroObjectList = (function(){
 	const fudgeFactor = 3;  // close as in horseshoes ...
 	
 	var doTheAction;
+	// private
 	
 	function action(nameAndKeys){
 		doTheAction.init(nameAndKeys);
