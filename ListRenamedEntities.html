@@ -577,7 +577,8 @@ var starSystems = (function () {
 		console.log("LENGTH:"+systemVizCentricArray.length);
 		ctx.beginPath();
 		for(var idex = 0; idex < systemVizCentricArray.length; ){
-			clusterValues.initArrays(systemVizCentricArray[idex].getSystemName());
+			// clusterValues.initArrays(systemVizCentricArray[idex].getSystemName());
+			clusterValues.init2Arrays();
 			if(flipFlop == 0){
 				fillStyle = 'darkblue';
 			}
@@ -680,7 +681,7 @@ var clusterDetailRequest = (function () {
 						systemVizCentricArray.push(oneSystemVizCentic);
 						
 						starSystems.vizualizeNoInit(systemVizCentricArray);
-						
+						vizStars.init();
 						visualizeClusters.display();
 						visualizeStarsInClusters.display();
 
@@ -848,6 +849,7 @@ var sectorProcess2 = (function () {
 			$('#jumping').hide();
 			visualizeClustersOnCanvas.reset();
 			canvasas.init();
+			visualizeClustersOnCanvas.init();
 			var ctx = canvasas.fetchStarSystemsCanvasContext();
 			ctx.fillRect(0,20,window.innerWidth/2, window.innerHeight);
 			ctx.beginPath();
