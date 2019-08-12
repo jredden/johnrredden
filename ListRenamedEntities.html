@@ -156,6 +156,7 @@ $(document).ready(function() {
 		window.location = "http://johntreddenlocal.com";
 	});
 	$("#listRenamedClusters").click(function(){
+		tagOperations.hideAll();
 		parseRenameStream.cluster();
 		
 	});
@@ -164,6 +165,12 @@ $(document).ready(function() {
 	});
 	$("#listRenamedPlanetoids").click(function(){
 		parseRenameStream.planar();
+	});
+	$("#starsinclustertextcanvas").click(function(event){
+		var clickedX = event.pageX - this.offsetLeft;
+		var clickedY = event.pageY - this.offsetTop;
+		console.log("CLICK EVENT:"+clickedX+"::"+clickedY);
+		clickableAstroObjectList.determineClick(clickedX, clickedY);
 	});
 
 	
@@ -682,6 +689,10 @@ var clusterDetailRequest = (function () {
 						
 						starSystems.vizualizeNoInit(systemVizCentricArray);
 						vizStars.init();
+						vizPlanars.init();
+						moonViz.init();
+						processPlanetAndMoonsDetail.init();
+
 						visualizeClusters.display();
 						visualizeStarsInClusters.display();
 
