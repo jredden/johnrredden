@@ -161,9 +161,11 @@ $(document).ready(function() {
 		
 	});
 	$("#listRenamedStars").click(function(){
+		tagOperations.hideAll();
 		parseRenameStream.star();
 	});
 	$("#listRenamedPlanetoids").click(function(){
+		tagOperations.hideAll();
 		parseRenameStream.planar();
 	});
 	$("#starsinclustertextcanvas").click(function(event){
