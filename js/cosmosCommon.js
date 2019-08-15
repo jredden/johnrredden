@@ -1518,6 +1518,10 @@ var processClusterDetail = (function () {
  */
 var visualizeClusters = (function (){
 	
+	// private
+	
+	var namedSystem = "  ";
+	
 	// public
 	return{
 		display : function(){
@@ -1541,7 +1545,8 @@ var visualizeClusters = (function (){
 			var systemsWithClusters = dictionary.keys();
 			ctx.font="18px Verdana";
 			ctx.strokeStyle = "orange";
-			ctx.strokeText("Star Systems in this Sector", runningX, runningY);
+			ctx.strokeText("Star Systems in this Sector" + namedSystem, runningX, runningY);
+			runningY += incrementY;
 			runningY += incrementY;
 			for(var idex = 0; idex < systemsWithClusters.length; idex++){
 				var clusterVizCentrics = dictionary.get(systemsWithClusters[idex]);
@@ -1577,6 +1582,7 @@ var visualizeClusters = (function (){
 					ctx.strokeStyle = "yellow";
 					if(previousSystem != system){
 						runningY += incrementY;
+						runningY += incrementY;
 						ctx.strokeText("SYSTEM WITH CLUSTER:"+system, runningX, runningY);
 						runningY += incrementY;
 					}
@@ -1608,6 +1614,9 @@ var visualizeClusters = (function (){
 
 				}
 			}
+		},
+		setNamedSystem: function(s_namedSystem){
+			namedSystem = s_namedSystem;
 		}
 	}
 	
@@ -1664,7 +1673,7 @@ var visualizeStarsInClusters = ( function (){
 			currentCanvasCtx.font="18px Verdana";
 			currentCanvasCtx.strokeStyle = "orange";
 			var firstMessageWidth = currentCanvasCtx.measureText("Star Systems in this Sector                 ").width;
-			currentCanvasCtx.strokeText("Select Star By Star Image", firstMessageWidth, beginY);
+			currentCanvasCtx.strokeText("Select Star By Star Image", firstMessageWidth, beginY + 20 );
 
 			for(var idex = 0; idex < systemNames.length; idex++){
 				var systemName = systemNames[idex];

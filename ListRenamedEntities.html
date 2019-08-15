@@ -866,20 +866,21 @@ var sectorProcess2 = (function () {
 			var ctx = canvasas.fetchStarSystemsCanvasContext();
 			ctx.fillRect(0,20,window.innerWidth/2, window.innerHeight);
 			ctx.beginPath();
-			ctx.font="16px Verdana";
-			
+			ctx.font="bold 30px Serif";
+			ctx.strokeStyle = "white";
 			var renamesArray = namedEntity.getRenamesArray();
 			var theRenamed = ' ';
 			for(var idex1 = 0; idex1 < renamesArray.length; idex1++){
 				theRenamed += renamesArray[idex1];
 				theRenamed += ' '
 			}
+			visualizeClusters.setNamedSystem(theRenamed);
 			var header = 'U ' + namedEntity.getUDimension()
 				+ ' V ' + namedEntity.getVDimension()
-				+ theRenamed
+				+ '      ' + theRenamed
 				;
 			ctx.strokeStyle= "lightblue";
-			ctx.strokeText(header, 5, 50);
+			ctx.strokeText(header, 10, 70);
 			ctx.stroke();
 			ctx.closePath();
 			var showList = ['cosmosSpaceDetail', 'starsinclustertext'];
@@ -897,21 +898,12 @@ var sectorProcess3 = (function () {
 			visualizeClustersOnCanvas.reset();
 			clusterViewCoordinatesToSystemName.initArrays();
 
-				clusterDetailRequest.jsonCall(namedEntity);
-//			var clusterTimer = setInterval(function () {clusterTimerLoop(clusterTimer)}, 1000);
-
+			clusterDetailRequest.jsonCall(namedEntity);
 
 		}
 	}
 })();
 
-var sectorProcess4 = (function(){
-	return{
-		iterate: function(data){
-			
-		}
-	}	
-})();	
 
 /**
 * wait for Cluster key values pairs from domain tier.  Hey.  It's AJAX.  
