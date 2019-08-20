@@ -30,6 +30,7 @@
 	<bean id="renameEntity" class="com.zenred.cosmos.controller.RenameEntity"/>
 	<bean id="listRenamedEntities" class="com.zenred.cosmos.controller.ListRenamedEntities"/>
 	<bean id="visitSingleStarSystem" class="com.zenred.cosmos.controller.VisitSingleStarSystem"/>
+	<bean id="isEntityRenamed" class="com.zenred.cosmos.controller.IsEntityRenamed"/>
 
 	<bean id="urlMapping"
 		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
@@ -52,6 +53,7 @@
 				<prop key="/renameEntity.html">renameEntity</prop>
 				<prop key="/listRenamedEntities.html">listRenamedEntities</prop>
 				<prop key="/visitSingleStarSystem.html">visitSingleStarSystem</prop>
+				<prop key="/isEntityRenamed.html">isEntityRenamed</prop>
 			</props>
 		</property>
 	</bean>

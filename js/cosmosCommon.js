@@ -1521,6 +1521,7 @@ var visualizeClusters = (function (){
 	// private
 	
 	var namedSystem = "  ";
+	var namedStar = "  ";
 	
 	// public
 	return{
@@ -1592,6 +1593,8 @@ var visualizeClusters = (function (){
 					ctx.strokeText("SubClusterDescription:"+subClusterDescription, runningX, runningY);
 					runningY += incrementY;
 					ctx.strokeText(starName, runningX, runningY);
+					runningY += incrementY;
+					ctx.strokeText(namedStar, runningX, runningY);
 					
 					var o_point = new point();
 					o_point.setXandY(runningX, runningY);  // saved for larger star images to select
@@ -1617,6 +1620,9 @@ var visualizeClusters = (function (){
 		},
 		setNamedSystem: function(s_namedSystem){
 			namedSystem = s_namedSystem;
+		},
+		setNamedStar: function(s_namedStar){
+			namedStar = "Named Star: " +  s_namedStar;
 		}
 	}
 	

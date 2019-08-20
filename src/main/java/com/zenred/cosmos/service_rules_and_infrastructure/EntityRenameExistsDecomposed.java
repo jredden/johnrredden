@@ -1,10 +1,13 @@
 package com.zenred.cosmos.service_rules_and_infrastructure;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.zenred.cosmos.domain.Rename;
 import com.zenred.cosmos.domain.RenameDao;
+import com.zenred.cosmos.domain.Star;
+import com.zenred.cosmos.vizualization.RenamePlanetoidsResponse;
 
 import java.util.List;
 
@@ -51,5 +54,16 @@ public class EntityRenameExistsDecomposed {
 	public static List<Rename> doesEntryExist(String type, String genericName){
 		RenameType renameType = typeMap.get(type);
 		return renameType.invokeDomain(genericName);
+	}
+	
+	public static RenamePlanetoidsResponse buildList(List<Rename> renameList){
+		RenamePlanetoidsResponse renamePlanetoidsResponse = new RenamePlanetoidsResponse();
+		List<String> renames =  new ArrayList<String>();
+		for(Rename rename : renameList){
+			renames.add(rename.getRenameName());
+			renamePlanetoidsResponse.setGenericName(rename.getGenericName());
+		}
+		renamePlanetoidsResponse.setAlternateNames(renames);
+		return renamePlanetoidsResponse;
 	}
 }
