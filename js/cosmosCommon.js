@@ -1619,7 +1619,7 @@ var parseRenames = (function(){
 			lineCount = 0;
 			output = '';
 			entry.init();
-			return parseCandidates.parse(stream);
+			return parseRenames.parse(stream);
 		},
 		parse: function(stream){
 		    if($.isArray(stream) || typeof(stream) == 'object') {
@@ -1636,7 +1636,7 @@ var parseRenames = (function(){
 		        		break;
 		        	default:
 		        	}
-		        	parseCandidates.parse(stream[idex]);
+		        	parseRenames.parse(stream[idex]);
 		        }
 		    }else {
 		    	console.log("Next stream:" + stream + " state:" + state);
@@ -1652,6 +1652,14 @@ var parseRenames = (function(){
 		    	default:
 		    		console.log("warning:" + state);
 		    	}
+				var renamesArray = workingNamedEntity.getRenamesArray();
+				var theRenamed = ' ';
+				for(var idex1 = 0; idex1 < renamesArray.length; idex1++){
+					theRenamed += renamesArray[idex1];
+					theRenamed += ' ';
+				}
+
+		    visualizeClusters.setNamedStar(theRenamed);	
 		    return workingNamedEntity;   
 		    }
 		},
@@ -1716,7 +1724,8 @@ var visualizeClusters = (function (){
 					console.log("StarType:"+oneClusterVizCentric.getStarType());
 					
 					isItARenamedEntity.jsonCall('STAR', oneClusterVizCentric.getStarName());
-					
+					setInterval(function () {if(json != null){clearInterval();}}, 1000);
+
 					var starPoint = visualizeClustersOnCanvas.locateScaleUsingDistance(oneClusterVizCentric.getDistanceClusterVirtCentre(), oneClusterVizCentric.getAnglenInRadians());
 					var starPointXVector = starPoint.getX();
 					var starPointYVector = starPoint.getY();
@@ -1763,7 +1772,6 @@ var visualizeClusters = (function (){
 					runningY += incrementY;
 
 					runningX = startX;
-
 				}
 			}
 		},
