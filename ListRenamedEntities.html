@@ -178,77 +178,7 @@ $(document).ready(function() {
 	
 }); <!-- end ready -->
 
-/**
- * Named Entity Object, instantiate with new
- */
- var namedEntity = (function(){
-	 
-	 // private
-	 // uDimension":77116,"vDimension":75958,"renameObjectType":"CLUSTER",
-	 // "genericName":"Cluster.SINGLESTAR.77116.75958","renameName":"FelgerCarb"
-	 	var uDimension;
-	 	var vDimension;
-	 	var renameObjectType;
-	 	var genericName;
-	 	var renamesArray = [];
-	 	var renames_count = 0;
-	 	var distanceToGalacticCentre;
-	 	
-	 // public
-	 	
-	 	return {
-	 	
-	 		setUDimension: function (_uDimension){
-		 		uDimension = _uDimension;
-		 	},
-		 	
-		 	getUDimension: function (){
-		 		return uDimension;
-		 	},
-		 	
-		 	setVDimension: function (_vDimension){
-		 		vDimension = _vDimension;
-		 	},
-		 	
-		 	getVDimension: function (){
-		 		return vDimension;
-		 	},
-		 	
-		 	setRenameObjectType: function (_renameObjectType){
-		 		renameObjectType = _renameObjectType;
-		 	},
-		 	
-		 	getRenameObjectType: function (){
-		 		return renameObjectType;
-		 	},
-	
-		 	setGenericName: function (_genericName){
-		 		genericName = _genericName;
-		 	},
-		 	
-		 	getGenericName: function (){
-		 		return genericName;
-		 	},
-		 	
-		 	addRename: function (_renameName){
-				renamesArray[renames_count] = _renameName;
-				++renames_count;
-		 	},
-		 	
-		 	getRenamesArray: function (){
-		 		return renamesArray;
-		 	},
-		 	
-		 	setDistanceToGalacticCentre: function (_distanceToGalacticCentre){
-		 		distanceToGalacticCentre = _distanceToGalacticCentre;
-		 	},
-		 	
-		 	getDistanceToGalacticCentre: function (){
-		 		return distanceToGalacticCentre;
-		 	}
-	 	}
- });
- 
+
  var parseRenameStream  = (function(){
 		
 		// public
@@ -442,6 +372,8 @@ $(document).ready(function() {
 		}
 	})();
 
+ 
+ 
 
 var processReport = (function(){
 	
@@ -694,7 +626,7 @@ var clusterDetailRequest = (function () {
 						vizPlanars.init();
 						moonViz.init();
 						processPlanetAndMoonsDetail.init();
-
+						// need generic name of star before JSON call
 						visualizeClusters.display();
 						visualizeStarsInClusters.display();
 

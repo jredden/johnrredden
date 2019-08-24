@@ -1514,6 +1514,152 @@ var processClusterDetail = (function () {
 })();
 
 /**
+ * Named Entity Object, instantiate with new
+ */
+ var namedEntity = (function(){
+	 
+	 // private
+	 // uDimension":77116,"vDimension":75958,"renameObjectType":"CLUSTER",
+	 // "genericName":"Cluster.SINGLESTAR.77116.75958","renameName":"FelgerCarb"
+	 	var uDimension;
+	 	var vDimension;
+	 	var renameObjectType;
+	 	var genericName;
+	 	var renamesArray = [];
+	 	var renames_count = 0;
+	 	var distanceToGalacticCentre;
+	 	
+	 // public
+	 	
+	 	return {
+	 	
+	 		setUDimension: function (_uDimension){
+		 		uDimension = _uDimension;
+		 	},
+		 	
+		 	getUDimension: function (){
+		 		return uDimension;
+		 	},
+		 	
+		 	setVDimension: function (_vDimension){
+		 		vDimension = _vDimension;
+		 	},
+		 	
+		 	getVDimension: function (){
+		 		return vDimension;
+		 	},
+		 	
+		 	setRenameObjectType: function (_renameObjectType){
+		 		renameObjectType = _renameObjectType;
+		 	},
+		 	
+		 	getRenameObjectType: function (){
+		 		return renameObjectType;
+		 	},
+	
+		 	setGenericName: function (_genericName){
+		 		genericName = _genericName;
+		 	},
+		 	
+		 	getGenericName: function (){
+		 		return genericName;
+		 	},
+		 	
+		 	addRename: function (_renameName){
+				renamesArray[renames_count] = _renameName;
+				++renames_count;
+		 	},
+		 	
+		 	getRenamesArray: function (){
+		 		return renamesArray;
+		 	},
+		 	
+		 	setDistanceToGalacticCentre: function (_distanceToGalacticCentre){
+		 		distanceToGalacticCentre = _distanceToGalacticCentre;
+		 	},
+		 	
+		 	getDistanceToGalacticCentre: function (){
+		 		return distanceToGalacticCentre;
+		 	}
+	 	}
+ });
+ 
+
+var isItARenamedEntity  = (function (){
+	
+	return {
+		jsonCall: function(type, genericName){
+			$.getJSON("http://www.localhost:8080/johntredden-1.0/isEntityRenamed.html?type="
+					+type+"&genericName="+genericName,
+					function(json){           // callback
+						console.log("in isItARenamedEntity:"+json);
+						parseRenames.parseStart(json);
+					}
+				);
+			}
+		}
+	
+})();
+
+var parseRenames = (function(){
+	
+	// private
+	var lineCount = 0;
+	var workingRenameLine;
+	var state;
+	var output;
+
+	
+	// public
+	
+	return{
+		
+		parseStart: function(stream){
+			lineArray = [];
+			lineCount = 0;
+			output = '';
+			entry.init();
+			return parseCandidates.parse(stream);
+		},
+		parse: function(stream){
+		    if($.isArray(stream) || typeof(stream) == 'object') {
+		        for(var idex in stream) {
+		        	console.log("Next idex:" + idex);
+		        	switch(idex){
+
+		        	case "genericName":
+		        		workingNamedEntity = new namedEntity();
+		        		state = 'start';
+		        		break;			        		
+		        	case "alternateNames":
+		        		state = 'renameName';
+		        		break;
+		        	default:
+		        	}
+		        	parseCandidates.parse(stream[idex]);
+		        }
+		    }else {
+		    	console.log("Next stream:" + stream + " state:" + state);
+		    	switch (state){
+		    	
+		    	case "start":
+		    		workingNamedEntity.setGenericName(stream);
+		    		break;
+		    	case "renameName":
+		    		workingNamedEntity.addRename(stream);
+		    		break;
+		    		
+		    	default:
+		    		console.log("warning:" + state);
+		    	}
+		    return workingNamedEntity;   
+		    }
+		},
+	}
+})();
+
+
+/**
  * cluster visualization
  */
 var visualizeClusters = (function (){
@@ -1522,6 +1668,7 @@ var visualizeClusters = (function (){
 	
 	var namedSystem = "  ";
 	var namedStar = "  ";
+	var oneAndOnlyOneClusterVizCentric;  // used only in rename a star
 	
 	// public
 	return{
@@ -1567,6 +1714,8 @@ var visualizeClusters = (function (){
 					console.log("StarColor:"+oneClusterVizCentric.getStarColor());
 					console.log("StarSize:"+oneClusterVizCentric.getStarSize());
 					console.log("StarType:"+oneClusterVizCentric.getStarType());
+					
+					isItARenamedEntity.jsonCall('STAR', oneClusterVizCentric.getStarName());
 					
 					var starPoint = visualizeClustersOnCanvas.locateScaleUsingDistance(oneClusterVizCentric.getDistanceClusterVirtCentre(), oneClusterVizCentric.getAnglenInRadians());
 					var starPointXVector = starPoint.getX();
