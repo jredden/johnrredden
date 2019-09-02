@@ -3176,20 +3176,7 @@ var orderedPairToArray = (function (){
 	}
 })();
 
-//for debugging
-function print_recursive(printthis) {
-    var output = '';
 
-    if($.isArray(printthis) || typeof(printthis) == 'object') {
-        for(var i in printthis) {
-        	console.log("??:"+printthis[i]+"::"+i);
-            output += i + ' : ' + print_recursive(printthis[i]) + '\n';
-        }
-    }else {
-        output += printthis;
-    }
-    console.log("PRINT:"+output);
-}
 </script>
 
 <title>Cosmos Website</title>

@@ -1592,6 +1592,7 @@ var isItARenamedEntity  = (function (){
 			$.getJSON("http://www.localhost:8080/johntredden-1.0/isEntityRenamed.html?type="
 					+type+"&genericName="+genericName,
 					function(json){           // callback
+						setInterval(function () {if(json != null){clearInterval();}}, 1000);
 						console.log("in isItARenamedEntity:"+json);
 						parseRenames.parseStart(json);
 					}
@@ -1619,6 +1620,11 @@ var parseRenames = (function(){
 			lineCount = 0;
 			output = '';
 			entry.init();
+			
+			console.log("START DEBUG");
+			print_recursive(stream);  // debug
+			console.log("END DEBUG");
+
 			return parseRenames.parse(stream);
 		},
 		parse: function(stream){
@@ -1630,11 +1636,13 @@ var parseRenames = (function(){
 		        	case "genericName":
 		        		workingNamedEntity = new namedEntity();
 		        		state = 'start';
-		        		break;			        		
+		        		break;
+		        	case "string":
 		        	case "alternateNames":
 		        		state = 'renameName';
 		        		break;
 		        	default:
+		        		console.log("DEFAULT:"+idex)
 		        	}
 		        	parseRenames.parse(stream[idex]);
 		        }
@@ -1658,7 +1666,7 @@ var parseRenames = (function(){
 					theRenamed += renamesArray[idex1];
 					theRenamed += ' ';
 				}
-
+			console.log("FINISHED PARSE:"+theRenamed);
 		    visualizeClusters.setNamedStar(theRenamed);	
 		    return workingNamedEntity;   
 		    }
@@ -1724,8 +1732,9 @@ var visualizeClusters = (function (){
 					console.log("StarType:"+oneClusterVizCentric.getStarType());
 					
 					isItARenamedEntity.jsonCall('STAR', oneClusterVizCentric.getStarName());
-					setInterval(function () {if(json != null){clearInterval();}}, 1000);
-
+					console.log("CALLED JSON");
+					setInterval(function () {if(namedStar !== "  "){clearInterval();}}, 1000);
+					
 					var starPoint = visualizeClustersOnCanvas.locateScaleUsingDistance(oneClusterVizCentric.getDistanceClusterVirtCentre(), oneClusterVizCentric.getAnglenInRadians());
 					var starPointXVector = starPoint.getX();
 					var starPointYVector = starPoint.getY();
@@ -1779,6 +1788,7 @@ var visualizeClusters = (function (){
 			namedSystem = s_namedSystem;
 		},
 		setNamedStar: function(s_namedStar){
+			console.log("SETTING NAMED STAR:" + s_namedStar);
 			namedStar = "Named Star: " +  s_namedStar;
 		}
 	}
@@ -3015,3 +3025,17 @@ var backToPlanetView = (function(){
 	
 })();
 
+//for debugging
+function print_recursive(printthis) {
+    var output = '';
+
+    if($.isArray(printthis) || typeof(printthis) == 'object') {
+        for(var i in printthis) {
+        	console.log("??:"+printthis[i]+"::"+i);
+            output += i + ' : ' + print_recursive(printthis[i]) + '\n';
+        }
+    }else {
+        output += printthis;
+    }
+    console.log("PRINT:"+output);
+}
