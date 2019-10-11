@@ -1802,7 +1802,7 @@ var visualizeClusters = (function (){
 					ctx.strokeStyle = "yellow";
 
 					ctx.strokeText(namedStar, runningX+100, runningY);
-
+					namedStar = " ";
 					runningX = startX;
 				}
 			}
