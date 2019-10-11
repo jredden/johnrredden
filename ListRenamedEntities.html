@@ -188,7 +188,7 @@ $(document).ready(function() {
 				$('#spinner').show();
 				$.getJSON("http://www.localhost:8080/johntredden-1.0/listRenamedEntities.html?objectType=CLUSTER",
 						function(json){           // callback
-							console.log("in cluster:"+json);
+							console.log("parseRenameStream in cluster:"+json);
 							$('#spinner').hide();
 							processChoice.jsonProcessCluster(json);
 						}
@@ -199,7 +199,7 @@ $(document).ready(function() {
 				$('#spinner').show();
 				$.getJSON("http://www.localhost:8080/johntredden-1.0/listRenamedEntities.html?objectType=STAR",
 						function(json){           // callback
-							console.log("in star:"+json);
+							console.log("parseRenameStream in star:"+json);
 							$('#spinner').hide();
 							processChoice.jsonProcessStar(json);
 						}
@@ -210,7 +210,7 @@ $(document).ready(function() {
 				$('#spinner').show();
 				$.getJSON("http://www.localhost:8080/johntredden-1.0/listRenamedEntities.html?objectType=PLANETOID",
 						function(json){           // callback
-							console.log("in planetoids:"+json);
+							console.log("parseRenameStream in planetoids:"+json);
 							$('#spinner').hide();
 							processChoice.jsonProcessPlanetoid(json);
 						}
@@ -343,6 +343,7 @@ $(document).ready(function() {
 			    		
 			    	case "genericName":
 			    		workingNamedEntity.setGenericName(stream);
+			    		workingNamedEntity.setFullGenericName(stream);
 			    		break;	    	
 
 			    	case "renameName":
@@ -381,7 +382,7 @@ var processReport = (function(){
 		readSectors: function (){
 			$.getJSON("http://www.localhost:8080/johntredden-1.0/systemReportChoice.html",
 					function(json){           // callback
-						console.log("in cosmosVisit:"+json);
+						console.log("processReport in cosmosVisit:"+json);
 						processSectorChoice.jsonProcess(json);
 					}
 			);
@@ -608,9 +609,9 @@ var clusterDetailRequest = (function () {
 
 			$.getJSON("http://www.localhost:8080/johntredden-1.0/starCluster.html?systemName="+systemName,
 					function(json){           // callback
-						setInterval(function () {if(json != null){clearInterval();}}, 1000);
+//						setInterval(function () {if(json != null){clearInterval();}}, 1000);
 
-						console.log("in  for :" + systemName);
+						console.log("in clusterDetailRequest for :" + systemName);
 						processClusterDetail.jsonProcess(json, systemName);
 						clusterValues.builder();
 						var oneSystemVizCentic = new systemVizCentric();
@@ -627,6 +628,13 @@ var clusterDetailRequest = (function () {
 						moonViz.init();
 						processPlanetAndMoonsDetail.init();
 						// need generic name of star before JSON call
+						var dictionary = clusterValues.fetchProcessedCluster();
+						var systemsWithClusters = dictionary.keys();
+						for(var idex = 0; idex < systemsWithClusters.length; idex++){
+							var system = systemsWithClusters[idex];
+							console.log("LOOK:" + system);
+						}
+						
 						visualizeClusters.display();
 						visualizeStarsInClusters.display();
 
@@ -783,6 +791,15 @@ var sectorProcess = (function (){
 			var jsonObject = JSON.parse(modifiedJson);
 			var namedEntity =  parseCandidates.parseStart(jsonObject);
 			sectorProcess2.dt(namedEntity);
+			var starName = clusterValues.getStarName();
+			namedEntity.setFullGenericName(starName);
+			isItARenamedEntity.jsonCall('STAR', namedEntity.getFullGenericName());
+			var ctx = canvasas.fetchStarsInClusterTextCanvasContext();
+			ctx.font="18px Verdana";
+			ctx.strokeStyle = "orange";
+			var namedStar = visualizeClusters.getNamedStar();
+			console.log("NAMED STAR:" + namedStar);
+			ctx.strokeText(namedStar, 5, 100);
 		}
 	}
 	
