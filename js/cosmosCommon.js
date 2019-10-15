@@ -192,6 +192,7 @@ var systemVizCentric = (function(){
 	var uCoordinate;
 	var vCoordinate;
 	var systemName;
+	var systemRename;
 	
 	// public
 	return {
@@ -218,6 +219,12 @@ var systemVizCentric = (function(){
 		},
 		getSystemName(){
 			return systemName;
+		},
+		setRename(rename){
+			systemRename = rename;
+		},
+		getRename(){
+			return systemRename;
 		}
 	}
 });
@@ -238,6 +245,7 @@ var clusterVizCentric  = (function(){
 	var star_size;
 	var star_type;
 	var system_name;
+	var rename;
 	
 	// public
 	return {
@@ -295,6 +303,12 @@ var clusterVizCentric  = (function(){
 		},
 		getSystemName: function(){
 			return system_name;
+		},
+		setRename:function(s_rename){
+			rename = s_rename;
+		},
+		getRename:function(){
+			return rename;
 		}
 		
 	}
@@ -1363,14 +1377,18 @@ var clusterValues = (function () {
 	                    	 workingClusterVizCentric.setStarSize(size);
 	                    	 console.log("STAR_SIZE:"+size.toString());
 	                     },
-	                     function setStarType(type){
+	                     function setRename(s_rename){
+	                    	 workingClusterVizCentric.setRename(s_rename);
+	                    	 console.log("STAR_RENAME:"+s_rename);	                    	 
+	                     },
+                         function setStarType(type){
 	                    	 workingClusterVizCentric.setStarType(type);  // last star attribute, save cluster viz centric
 	                    	 var starDict = systemDictionary.get(currentSystem);
 	                    	 starDict.set(currentStarKey, workingClusterVizCentric);
 	                    	 console.log("STAR_TYPE:"+type.toString()+" ADDING:"+currentStarKey+":: "+workingClusterVizCentric.getStarName());
 	                    	 console.log("CURRENT SYSTEM" + currentSystem + " ::" + starDict.keys());
 	                    	 workingClusterVizCentric = new clusterVizCentric();
-	                     }
+	                     },
 	                    ];
 	
 						var references = {
@@ -1382,7 +1400,9 @@ var clusterValues = (function () {
 								"Name" : 5,
 								"star_color" : 6,
 								"star_size" : 7,
-								"star_type" : 8
+								"renameName" : 8,
+								"star_type" : 9,
+
 						}
 	return{
 		initArrays: function(systemName){
@@ -1751,6 +1771,7 @@ var visualizeClusters = (function (){
 					console.log("StarColor:"+oneClusterVizCentric.getStarColor());
 					console.log("StarSize:"+oneClusterVizCentric.getStarSize());
 					console.log("StarType:"+oneClusterVizCentric.getStarType());
+					console.log("StarRename:"+oneClusterVizCentric.getRename());
 					
 					var starPoint = visualizeClustersOnCanvas.locateScaleUsingDistance(oneClusterVizCentric.getDistanceClusterVirtCentre(), oneClusterVizCentric.getAnglenInRadians());
 					var starPointXVector = starPoint.getX();
