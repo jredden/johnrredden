@@ -786,11 +786,13 @@ var sectorProcess = (function (){
 	
 	return{
 		iterate: function(data){
+			renameMap.init();
 			var modifiedJson = data.replace("com.zenred.cosmos.vizualization.NamedSystemVizCentric", 
 			"com_zenred_cosmos_vizualization_NamedSystemVizCentric");
 			var jsonObject = JSON.parse(modifiedJson);
 			var namedEntity =  parseCandidates.parseStart(jsonObject);
 			sectorProcess2.dt(namedEntity);
+			/*
 			var starName = clusterValues.getStarName();
 			namedEntity.setFullGenericName(starName);
 			isItARenamedEntity.jsonCall('STAR', namedEntity.getFullGenericName());
@@ -800,6 +802,7 @@ var sectorProcess = (function (){
 			var namedStar = visualizeClusters.getNamedStar();
 			console.log("NAMED STAR:" + namedStar);
 			ctx.strokeText(namedStar, 5, 100);
+			*/
 		}
 	}
 	

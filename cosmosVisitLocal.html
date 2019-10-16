@@ -505,6 +505,7 @@ var entry = (function (){
 			  .done(function(data) {
 				  setInterval(function () {if(data != null){clearInterval();}}, 1000);	// arg! ajax
 				  console.log( "second success:"+data );
+				  renameMap.init();
 				  sectorProcess.iterate(data);
 				  })
 			  .fail(function(xhr, status, error) {

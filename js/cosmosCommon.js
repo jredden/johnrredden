@@ -1322,6 +1322,34 @@ var clusterViewCoordinatesToSystemName = (function (){
 })();
 
 
+/*
+ * simple map to hold renamed systems
+ */
+var renameMap = (function () {
+	var theRenameMap;
+	
+	return{
+		init: function(){
+			theRenameMap = new buckets.Dictionary();
+		},
+		get: function(systemName){
+			var result = theRenameMap.get(systemName);
+			console.log("Rename for system:"+result+" System:"+systemName);
+			return result;
+		},
+		set: function(systemName, reName){
+			/*
+       	    if(reName === "" || reName === ","){
+    	  	 reName = " ";
+    	    }
+    	    */
+
+			theRenameMap.set(systemName, reName);
+			console.log("Set Rename for system:"+reName+" System:"+systemName);
+		}
+	}
+})();
+
 /**
  * build cluster values for visualizatrion after system matrix visualized.
  */
@@ -1379,6 +1407,10 @@ var clusterValues = (function () {
 	                     },
 	                     function setRename(s_rename){
 	                    	 workingClusterVizCentric.setRename(s_rename);
+	                    	 if(s_rename === "" || s_rename === ","){
+	                    		 s_rename = " ";
+	                    	 }
+	                    	 renameMap.set(currentStarKey, s_rename);
 	                    	 console.log("STAR_RENAME:"+s_rename);	                    	 
 	                     },
                          function setStarType(type){
@@ -1703,7 +1735,7 @@ var parseRenames = (function(){
 				}
 				if(state === "renameName"){
 					console.log("FINISHED PARSE:"+theRenamed);
-				    visualizeClusters.setNamedStar(theRenamed);	
+				    // visualizeClusters.setNamedStar(theRenamed);	
 				}
 		    return workingNamedEntity;   
 		    }
@@ -1771,7 +1803,11 @@ var visualizeClusters = (function (){
 					console.log("StarColor:"+oneClusterVizCentric.getStarColor());
 					console.log("StarSize:"+oneClusterVizCentric.getStarSize());
 					console.log("StarType:"+oneClusterVizCentric.getStarType());
-					console.log("StarRename:"+oneClusterVizCentric.getRename());
+					var starFullName = stars[idex2];
+					var theRename = renameMap.get(starFullName);
+					oneClusterVizCentric.setRename(theRename);
+					visualizeClusters.setNamedStar(theRename);
+					console.log("StarRename:"+theRename);
 					
 					var starPoint = visualizeClustersOnCanvas.locateScaleUsingDistance(oneClusterVizCentric.getDistanceClusterVirtCentre(), oneClusterVizCentric.getAnglenInRadians());
 					var starPointXVector = starPoint.getX();
@@ -1804,7 +1840,7 @@ var visualizeClusters = (function (){
 					var o_point = new point();
 					o_point.setXandY(runningX, runningY);  // saved for larger star images to select
 					visualizeClustersOnCanvas.saveStarTextGeometry(oneClusterVizCentric.getStarName(), o_point);
-					
+					namedStar	
 					runningY += incrementY;
 					ctx.strokeText(starColor, runningX, runningY);
 					var colorWidth = ctx.measureText(starColor).width;
@@ -1833,12 +1869,14 @@ var visualizeClusters = (function (){
 		},
 		setNamedStar: function(s_namedStar){
 			console.log("SETTING NAMED STAR:" + s_namedStar);
-			namedStar = "Named Star: " +  s_namedStar;
+			namedStar = s_namedStar;
+			/*
 			ctx = canvasas.fetchStarsInClusterTextCanvasContext();
-			ctx.font="20px Verdana";
+			ctx.fnamedStaront="20px Verdana";
 			ctx.strokeStyle = "yellow";
 
 			ctx.strokeText(s_namedStar, 5, 500);
+			*/
 		},
 		getNamedStar: function(){
 			console.log("GETTING NAMED STAR:" + namedStar);

@@ -1693,6 +1693,9 @@ var clusterValues = (function () {
 	                    	 starDict.set(currentStarKey, workingClusterVizCentric);
 	                    	 console.log("STAR_TYPE:"+type.toString()+" ADDING:"+currentStarKey+":: "+workingClusterVizCentric.getStarName());
 	                    	 workingClusterVizCentric = new clusterVizCentric();
+	                     },
+	                     function setRename(){
+	                    	 // none yet
 	                     }
 	                    ];
 	
@@ -1705,7 +1708,8 @@ var clusterValues = (function () {
 								"Name" : 5,
 								"star_color" : 6,
 								"star_size" : 7,
-								"star_type" : 8
+								"star_type" : 8,
+								"renameName" : 9,
 						}
 	return{
 		initArrays: function(systemName){
