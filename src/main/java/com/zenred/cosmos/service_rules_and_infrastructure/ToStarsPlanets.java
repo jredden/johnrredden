@@ -16,6 +16,8 @@ import com.zenred.cosmos.domain.AtmosphereParts;
 import com.zenred.cosmos.domain.Planetoid;
 import com.zenred.cosmos.domain.PlanetoidColor;
 import com.zenred.cosmos.domain.PlanetoidDao;
+import com.zenred.cosmos.domain.Rename;
+import com.zenred.cosmos.domain.RenameDao;
 import com.zenred.cosmos.domain.Star;
 import com.zenred.cosmos.domain.StarDao;
 import com.zenred.cosmos.domain.UnifiedPlanetoidI;
@@ -39,8 +41,15 @@ public class ToStarsPlanets {
 		
 		StarDao starDao = new StarDao();
 		PlanetoidDao planetoidDao = new PlanetoidDao();
+		RenameDao renameDao = new RenameDao();
 		Star star = starDao.readStarByName(starsName);
 		
+		List<Rename> renames = renameDao.fetchRenamesForGenericName(star.getName());
+		String renamedStars = "";
+		for(Rename rename : renames){
+			renamedStars += rename.getRenameName();
+		}
+
 		// build star detail response first
 		StringBuilder keyValuePair = new StringBuilder();
 		keyValuePair.append(StarDao.ANGLE_IN_RADIANS_S).append("=").append(star.getAngle_in_radians_s());
@@ -50,14 +59,14 @@ public class ToStarsPlanets {
 		keyValuePair.append(";"+StarDao.STAR_COLOR).append("=").append(star.getStar_color());
 		keyValuePair.append(";"+StarDao.STAR_SIZE).append("=").append(star.getStar_size());
 		keyValuePair.append(";"+StarDao.STAR_TYPE).append("=").append(star.getStar_type());
-		
+		keyValuePair.append(";"+RenameDao.RENAMENAME).append("=").append(renamedStars);
 
 		
 		List<UnifiedPlanetoidI> planetoids = planetoidDao.readPlanetoidsAroundStar(star);
-		return completePlanetoid(planetoids, star, keyValuePair).toString();
+		return completePlanetoid(planetoids, star, keyValuePair, renameDao).toString();
 		}
 	
-	protected static StringBuilder completePlanetoid(List<UnifiedPlanetoidI> planetoids, Star star, StringBuilder keyValuePair){
+	protected static StringBuilder completePlanetoid(List<UnifiedPlanetoidI> planetoids, Star star, StringBuilder keyValuePair, RenameDao renameDao){
 		for (UnifiedPlanetoidI unifiedOlanetoid : planetoids){
 			Planetoid planetoid = unifiedOlanetoid.getPlanetoid();
 			List<PlanetoidColor> planetoidColors = PlanetoidColor.planarColors(planetoid);
@@ -70,6 +79,12 @@ public class ToStarsPlanets {
 			keyValuePair.append(";"+SIZE_TYPE).append("=").append(sizeType);
 			keyValuePair.append(";"+PlanetoidDao.TEMPERATURE).append("=").append(planetoid.getTemperature());
 			keyValuePair.append(";"+PlanetoidDao.RADIUS).append("=").append(planetoid.getRadius());
+			List<Rename> renames = renameDao.fetchRenamesForGenericName(planetoid.getPlanetoidName());
+			String renamedPlanetoids = "";
+			for(Rename rename : renames){
+				renamedPlanetoids += rename.getRenameName();
+			}
+			keyValuePair.append(";"+RenameDao.RENAMENAME).append("=").append(renamedPlanetoids);
 			Map<String, Double> colorAccumulator = new HashMap<String, Double>();
 			for(PlanetoidColor planetoidColor : planetoidColors){
 				String color = planetoidColor.getColor();

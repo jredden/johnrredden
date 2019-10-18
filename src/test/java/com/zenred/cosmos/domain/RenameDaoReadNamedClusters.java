@@ -20,7 +20,7 @@ public class RenameDaoReadNamedClusters {
 		List<Rename> renameList;
 		renameList = renameDao.fetchRenamesForType(RenameObjectType.CLUSTER);
 		for(Rename renameListInstance : renameList){
-			logger.info("rename-object"+renameList);
+			logger.info("rename-object"+renameListInstance);
 		}
 	}
 

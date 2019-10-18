@@ -18,9 +18,9 @@ public class RenameDaoReadNamedPlanetoids {
 		
 		RenameDao renameDao = new RenameDao();
 		List<Rename> renameList;
-		renameList = renameDao.fetchRenamesForType(RenameObjectType.STAR);
+		renameList = renameDao.fetchRenamesForType(RenameObjectType.PLANETOID);
 		for(Rename renameListInstance : renameList){
-			logger.info("rename-object"+renameList);
+			logger.info("rename-object"+renameListInstance);
 		}
 	}
 

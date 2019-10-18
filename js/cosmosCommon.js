@@ -429,6 +429,7 @@ var planarVizCentric = (function (){
 	var planarTempType;
 	var planarSizeType;
 	var planarPecentageWater;
+	var planarRename;
 	var planarColorsArray = [];
 	var gradientsArray = [];
 	
@@ -488,6 +489,12 @@ var planarVizCentric = (function (){
 		},
 		getPlanarPercentWater(){
 			return planarPecentageWater;
+		},
+		setRenameName(renameName){
+			planarRename = renameName;
+		},
+		getRenameName(){
+			return planarRename;
 		},
 		buildGradients: function(){
 			var nextIncrementStart = parseFloat(0.0).toFixed(3);
@@ -2312,6 +2319,7 @@ var processStarAndPlanetsDetail = (function(){
 	const PLANAR_COLOR_PERCENTAGE = "Percent";
 	const TEMPTYPE = "TempType";
 	const SIZETYPE = "SizeType";
+	const RENAMENAME = "renameName";
 	
 	const ELPISE_SCALAR = 90000;  // a segmenter for distances of 900 K kloms to 90,000 K kloms
 	
@@ -2365,7 +2373,7 @@ var processStarAndPlanetsDetail = (function(){
 	
 	function f_planarName(value){
 		console.log("planetoidName: "+ value);
-		o_planarVizCentric = new planarVizCentric();
+//		o_planarVizCentric = new planarVizCentric();
 		o_planarVizCentric.setPlanarName(value);
 		onePlanetDictionary.set(value, o_planarVizCentric);
 	}
@@ -2413,8 +2421,14 @@ var processStarAndPlanetsDetail = (function(){
 		o_planarVizCentric.addColorPercentage(o_colorPercentageSet);
 	}
 	
+	function f_planarRename(renameValue){
+		console.log("planarRename: "+ renameValue);
+		o_planarVizCentric.setRenameName(renameValue);
+	}
+	
 	function parseResults(result){
 		o_clusterVizCentric = new clusterVizCentric();
+		o_planarVizCentric = new planarVizCentric();
 		planetsDictionary = new buckets.Dictionary();
 		onePlanetDictionary = new buckets.Dictionary();  // all the planets for this star
 		planetsDictionary.set(ANGLE_IN_RADIANS, f_angle_in_radians);
@@ -2433,6 +2447,7 @@ var processStarAndPlanetsDetail = (function(){
 		planetsDictionary.set(SIZETYPE, f_sizeType);
 		planetsDictionary.set(PLANAR_COLOR, f_planarColor);
 		planetsDictionary.set(PLANAR_COLOR_PERCENTAGE, f_planarColorPercentage);
+		planetsDictionary.set(RENAMENAME,f_planarRename);
 		
 		for (var idex = 0; idex < result.length; idex++){
 			var o_keyValuePair = result[idex];
@@ -2682,6 +2697,7 @@ var processPlanetAndMoonsDetail = (function(){
 	const COLOR = "Color";
 	const TEMPTYPE = "TempType";
 	const SIZETYPE = "SizeType";
+	const RENAMENAME = "renameName";
 
 	
 	const o_planarVizCentric = new planarVizCentric();
@@ -2801,6 +2817,12 @@ var processPlanetAndMoonsDetail = (function(){
 		console.log("planetAtmosphereChemColor: "+ value);
 	}
 	
+	function p_planarRename(s_rename){
+		o_planarVizCentric.setRenameName(s_rename);
+		console.log("planetRename: "+ s_rename);
+	}
+
+	
 	function action(value){
 		console.log("action: "+ value);
 		if(value == 'NO_MOON'){
@@ -2815,7 +2837,7 @@ var processPlanetAndMoonsDetail = (function(){
 					console.log("atmospheres coming");					
 				}
 				else{
-					throw "Bad Action Value:"+value;
+					throw "Bad Action Value:"+value;planarRename
 				}
 			}
 		}
@@ -2859,6 +2881,11 @@ var processPlanetAndMoonsDetail = (function(){
 		o_moonPlanarVizCentric.addColorPercentage(o_colorPercentageSet);
 		console.log("moonColorPercentage: "+ value);
 	}
+	
+	function f_planarRename(s_rename){
+		o_moonPlanarVizCentric.setRenameName(s_rename);
+		console.log("moonRename: "+ s_rename);
+	}
 
 	function parseResults(result){
 		planetDictionary = new buckets.Dictionary();
@@ -2879,6 +2906,7 @@ var processPlanetAndMoonsDetail = (function(){
 		planetDictionary.set(CHEM_NAME, atmosphereChemName);
 		planetDictionary.set(PERCENTAGE, atmosphereChemPercentage);
 		planetDictionary.set(CHEM_COLOR, atmosphereChemColor);
+		planetDictionary.set(RENAMENAME, p_planarRename);
 
 		
 		moonsDictionary.set(PLANAR_NAME, moonName);
@@ -2890,6 +2918,7 @@ var processPlanetAndMoonsDetail = (function(){
 		moonsDictionary.set(TEMPERATURE, moonTemperature);
 		moonsDictionary.set(COLOR, moonColor);
 		moonsDictionary.set(PERCENT, moonColorPercentage);
+		moonsDictionary.set(RENAMENAME, f_planarRename);
 		
 		for (var idex = 0; idex < result.length; idex++){
 			var o_keyValuePair = result[idex];

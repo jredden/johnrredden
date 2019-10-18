@@ -13,6 +13,8 @@ import com.zenred.cosmos.domain.AtmosphereParts;
 import com.zenred.cosmos.domain.Planetoid;
 import com.zenred.cosmos.domain.PlanetoidColor;
 import com.zenred.cosmos.domain.PlanetoidDao;
+import com.zenred.cosmos.domain.Rename;
+import com.zenred.cosmos.domain.RenameDao;
 import com.zenred.cosmos.domain.Star;
 import com.zenred.cosmos.domain.StarDao;
 import com.zenred.cosmos.domain.UnifiedPlanetoidI;
@@ -33,6 +35,7 @@ public class ToPlanetAndMoons {
 		
 		PlanetoidDao planetoidDao = new PlanetoidDao();
 		AtmosphereDao atmosphereDao = new AtmosphereDao(); 
+		RenameDao renameDao = new RenameDao();
 		Planetoid planetoid = planetoidDao.readPlanetoidByName(planetName);
 		
 		List<Atmosphere> atmospheres = atmosphereDao.readAtmosphereAroundPlanet(planetoid);
@@ -54,6 +57,13 @@ public class ToPlanetAndMoons {
 		keyValuePair.append(";"+PlanetoidDao.RADIUS).append("=").append(planetoid.getRadius());
 		keyValuePair.append(";"+PlanetoidDao.PLANETOID_NAME).append("=").append(planetoid.getPlanetoidName());
 		keyValuePair.append(";"+PlanetoidDao.TEMPERATURE).append("=").append(planetoid.getTemperature());
+		
+		List<Rename> renames = renameDao.fetchRenamesForGenericName(planetoid.getPlanetoidName());
+		String renamedPlanars = "";
+		for(Rename rename : renames){
+			renamedPlanars += rename.getRenameName();
+		}
+		keyValuePair.append(";"+RenameDao.RENAMENAME).append("=").append(renamedPlanars);
 		
 		keyValuePair.append(";"+"ACTION").append("=").append("ATMOSPHERE");
 		List<PlanetoidColor> planetoidColors = new ArrayList<PlanetoidColor>();
@@ -84,7 +94,7 @@ public class ToPlanetAndMoons {
 		else{
 			keyValuePair.append(";"+"ACTION").append("=").append("MOON");
 		}
-		return ToStarsPlanets.completePlanetoid(moonList, star, keyValuePair).toString();
+		return ToStarsPlanets.completePlanetoid(moonList, star, keyValuePair, renameDao).toString();
 	}
 	
 	public static MoonsResponse planarAndMoons(String planetName, String starName){

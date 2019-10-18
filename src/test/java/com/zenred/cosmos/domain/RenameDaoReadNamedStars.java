@@ -20,7 +20,7 @@ public class RenameDaoReadNamedStars {
 		List<Rename> renameList;
 		renameList = renameDao.fetchRenamesForType(RenameObjectType.STAR);
 		for(Rename renameListInstance : renameList){
-			logger.info("rename-object"+renameList);
+			logger.info("rename-object"+renameListInstance);
 		}
 	}
 
