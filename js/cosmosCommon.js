@@ -2319,6 +2319,7 @@ var processStarAndPlanetsDetail = (function(){
 	const PLANAR_COLOR_PERCENTAGE = "Percent";
 	const TEMPTYPE = "TempType";
 	const SIZETYPE = "SizeType";
+	const STARRENAME = "STARrenameName"
 	const RENAMENAME = "renameName";
 	
 	const ELPISE_SCALAR = 90000;  // a segmenter for distances of 900 K kloms to 90,000 K kloms
@@ -2421,6 +2422,11 @@ var processStarAndPlanetsDetail = (function(){
 		o_planarVizCentric.addColorPercentage(o_colorPercentageSet);
 	}
 	
+	function f_StarRename(renameValue){
+		console.log("planarRename: "+ renameValue);
+		o_clusterVizCentric.setRename(renameValue);
+	}
+ 
 	function f_planarRename(renameValue){
 		console.log("planarRename: "+ renameValue);
 		o_planarVizCentric.setRenameName(renameValue);
@@ -2447,6 +2453,7 @@ var processStarAndPlanetsDetail = (function(){
 		planetsDictionary.set(SIZETYPE, f_sizeType);
 		planetsDictionary.set(PLANAR_COLOR, f_planarColor);
 		planetsDictionary.set(PLANAR_COLOR_PERCENTAGE, f_planarColorPercentage);
+		planetsDictionary.set(STARRENAME,f_StarRename);
 		planetsDictionary.set(RENAMENAME,f_planarRename);
 		
 		for (var idex = 0; idex < result.length; idex++){
@@ -2516,6 +2523,7 @@ var processStarAndPlanetsDetail = (function(){
 		var color = o_clusterVizCentric.getStarColor();
 		var size = o_clusterVizCentric.getStarSize();
 		var type = o_clusterVizCentric.getStarType();
+		var renameName = o_clusterVizCentric.getRename();
 		
 		var ctx = canvasas.fetchStarsInClusterTextCanvasContext();
 		var runningX = startX;
@@ -2523,7 +2531,7 @@ var processStarAndPlanetsDetail = (function(){
 		var incrementY = 20;
 		ctx.font="18px Verdana";
 		ctx.strokeStyle = "orange";
-		ctx.strokeText("Star System "+starName+" Details", runningX, runningY);
+		ctx.strokeText("Star System "+starName+ " " + renameName + " Details", runningX, runningY);
 		runningY += incrementY;
 		runningX = startX;
 		ctx.strokeText("Select Planet By Planet Image", runningX, runningY);

@@ -59,7 +59,7 @@ public class ToStarsPlanets {
 		keyValuePair.append(";"+StarDao.STAR_COLOR).append("=").append(star.getStar_color());
 		keyValuePair.append(";"+StarDao.STAR_SIZE).append("=").append(star.getStar_size());
 		keyValuePair.append(";"+StarDao.STAR_TYPE).append("=").append(star.getStar_type());
-		keyValuePair.append(";"+RenameDao.RENAMENAME).append("=").append(renamedStars);
+		keyValuePair.append(";"+"STAR" + RenameDao.RENAMENAME).append("=").append(renamedStars);
 
 		
 		List<UnifiedPlanetoidI> planetoids = planetoidDao.readPlanetoidsAroundStar(star);
