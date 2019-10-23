@@ -2374,7 +2374,7 @@ var processStarAndPlanetsDetail = (function(){
 	
 	function f_planarName(value){
 		console.log("planetoidName: "+ value);
-//		o_planarVizCentric = new planarVizCentric();
+		o_planarVizCentric = new planarVizCentric();
 		o_planarVizCentric.setPlanarName(value);
 		onePlanetDictionary.set(value, o_planarVizCentric);
 	}
@@ -2434,7 +2434,7 @@ var processStarAndPlanetsDetail = (function(){
 	
 	function parseResults(result){
 		o_clusterVizCentric = new clusterVizCentric();
-		o_planarVizCentric = new planarVizCentric();
+//		o_planarVizCentric = new planarVizCentric();
 		planetsDictionary = new buckets.Dictionary();
 		onePlanetDictionary = new buckets.Dictionary();  // all the planets for this star
 		planetsDictionary.set(ANGLE_IN_RADIANS, f_angle_in_radians);
@@ -2559,6 +2559,16 @@ var processStarAndPlanetsDetail = (function(){
 		drawPlanetDetails(startX, runningY);
 	}
 	
+	function debugPlanetDetails(){
+		var planetNames = onePlanetDictionary.keys();
+		for (var idex = 0; idex < planetNames.length; idex++){
+			console.log("PLANET next:" + planetNames[idex]);
+			
+			o_planarVizCentric = onePlanetDictionary.get(planetNames[idex]);
+			console.log("NAME next:" + o_planarVizCentric.getPlanarName());
+		}
+	}
+	
 	function drawPlanetDetails(startX, runningY){
 		var ctx = canvasas.fetchNewStarAndPlanetsContext();
 		var planetNames = onePlanetDictionary.keys();
@@ -2581,6 +2591,7 @@ var processStarAndPlanetsDetail = (function(){
 			clickableAstroObjectList.init();
 			clickableAstroObjectList.setPlanetAndMoons();
 			runningY += incrementY*2;
+			// debugPlanetDetails();
 			for (var idex = 0; idex < planetNames.length; idex++){
 				runningX = startX;
 				o_planarVizCentric = onePlanetDictionary.get(planetNames[idex]);
@@ -2590,10 +2601,15 @@ var processStarAndPlanetsDetail = (function(){
 				var distance = o_planarVizCentric.getPlanarDistanceToPrimary();
 				var temperature = o_planarVizCentric.getPlanarTemperature();
 				var radius = o_planarVizCentric.getPlanarRadius();
+				var renameName = o_planarVizCentric.getRenameName();
 				ctx.font="14px Verdana";
 				ctx.strokeStyle = "yellow";
 				var planarName = "Planar Name: "+name;
 				ctx.strokeText(planarName, runningX, runningY);
+				if(renameName != ""){
+					runningY += incrementY;
+					ctx.strokeText(renameName, runningX, runningY);
+				}
 				
 				var imageX = Math.floor(ctx.measureText(planarName).width + offsetX);
 				var outerRadius = vizPlanars.fetchImageSize(radius);
@@ -2953,6 +2969,7 @@ var processPlanetAndMoonsDetail = (function(){
 		var planarType = o_baseMessage.getMode();
 		var fromMessage = o_baseMessage.getFrom();
 		var planarName = o_planarVizCentric.getPlanarName();
+		var rename = o_planarVizCentric.getRenameName();
 		var planarDegree = o_planarVizCentric.getPlanarDegree()*(180/Math.PI);  // radians to degrees
 		var distanceToParentStar = o_planarVizCentric.getPlanarDistanceToPrimary();
 		var temperature = o_planarVizCentric.getPlanarTemperature();	// kelvin
@@ -2967,7 +2984,7 @@ var processPlanetAndMoonsDetail = (function(){
 		
 		ctx.font="18px Verdana";
 		ctx.strokeStyle = "orange";
-		ctx.strokeText(planarType +" "+planarName+" Details", runningX, runningY);
+		ctx.strokeText(planarType +" "+planarName+ "  " + rename + " Details", runningX, runningY);
 		runningY += incrementY;
 		runningX = startX;
 		var selectMessage = o_baseMessage.getSelect();
