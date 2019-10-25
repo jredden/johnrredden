@@ -324,6 +324,15 @@ $(document).ready(function() {
 	$("#cosmosVisit").click(function(){
 		window.location = "http://www.johntreddenlocal.com/cosmos/cosmosVisitLocal.html";
 	});
+
+	$("#renameEntity").click(function(){
+		window.location = "http://www.johntreddenlocal.com/cosmos/RenameCosmosEntity.html";
+	});
+	
+	$("#travelRenamed").click(function(){
+		window.location = "http://www.johntreddenlocal.com/cosmos/ListRenamedEntities.html";
+	});
+
 	
 	$("#netEconommics").click(function(){
 		console.log("in click");
@@ -403,6 +412,8 @@ var processRequest = (function () {
 					<button id="cosmos">Explore the Cosmos</button>
 					<button id="cosmosReport">Select a Cosmos Report</button>
 					<button id="cosmosVisit">Select a Known Cosmos Sector</button>
+					<button id="renameEntity">Rename an existing Cosmos Entity</button>
+					<button id="travelRenamed">Travel to a Renamed Cosmos Entity</button>
 					<button id="netEconommics">Document On Network Economics</button>
 					<button id="music">Music</button>
 				</nav>

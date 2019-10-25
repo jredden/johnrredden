@@ -2520,6 +2520,9 @@ var processStarAndPlanetsDetail = (function(){
 		for (var idex = 0; idex < result.length; idex++){
 			var o_keyValuePair = result[idex];
 			var key = o_keyValuePair.getKey();
+			if(key === 'STARrenameName' || key === 'renameName'){
+				continue;
+			}
 			var operation = planetsDictionary.get(key);
 			operation(o_keyValuePair.getValue());
 		}
@@ -2974,6 +2977,9 @@ var processPlanetAndMoonsDetail = (function(){
 			var o_keyValuePair = result[idex];
 			var key = o_keyValuePair.getKey();
 			// console.log("KEY:"+key);
+			if(key === 'renameName'){
+				continue;
+			}
 			var operation = planetAndMoonsDictionary.get(key);
 			operation(o_keyValuePair.getValue());
 		}
