@@ -395,7 +395,18 @@ section#report{
     column-count: 2;
 }
 .entry{
-	text-align: left;
+  text-align: left;
+}
+
+.entry2{
+  display: enter;
+  width: 100%;
+  border: none;
+  background-color: #729fcf;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
 }
 
 label {

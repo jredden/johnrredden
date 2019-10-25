@@ -360,6 +360,7 @@ var entry = (function (){
 	var theType;
 	var jSon;
 	
+	
 	// public
 	return{
 		action: function(index){
@@ -369,13 +370,12 @@ var entry = (function (){
 			$('#renameText').hide();
 			var dynamicHtml = "";
 			dynamicHtml += "<br/><br/><br/><br/><br/>";
-			dynamicHtml += "<font color=\"white\"> Rename " + theGenericName + "<font/>";
-			dynamicHtml += "<br/><br/><br/><br/><br/>";
+			dynamicHtml += "<font color=\"white\" style=\"font-size:20pt\"> Rename " + theGenericName + "<font/>";
 			dynamicHtml += "<form name=\"renameForm\" id='renameFormId'>";
-			dynamicHtml += "<input type = \"text\" name = \"rename\" id = \"renameId\" value = \"  \" maxlength=255 size=64 />";
-			dynamicHtml +="<div class=\"entry\"><button onclick=\"entry.nextAction("
+			dynamicHtml += "<input type = \"text\" name = \"rename\" id = \"renameId\" value = \"  \" maxlength=\"255\" size=\"64\" style=\"font-size:16pt\" />";
+			dynamicHtml +="<br/><br/><br/><br/><br/><div class=\"entry2\"><button  onclick=\"entry.nextAction("
 				+")\">" 
-			+"</button></div>";
+			+"Enter</button></div>";
 			dynamicHtml += "</form>";
 			$("div[id^="+theTag+"]").html(dynamicHtml);
 			$('#fsect').show();
