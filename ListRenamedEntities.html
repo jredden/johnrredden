@@ -168,6 +168,15 @@ $(document).ready(function() {
 		tagOperations.hideAll();
 		parseRenameStream.planar();
 	});
+	
+	$("#starsystems").click(function(event){
+		var clickedX = event.pageX - this.offsetLeft;
+		var clickedY = event.pageY - this.offsetTop;
+		console.log("SCALE CLICK EVENT:"+clickedX+"::"+clickedY);
+		scaleViz.determineClick(clickedX, clickedY);
+	});
+	
+
 	$("#starsinclustertextcanvas").click(function(event){
 		var clickedX = event.pageX - this.offsetLeft;
 		var clickedY = event.pageY - this.offsetTop;
