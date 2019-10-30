@@ -12,11 +12,11 @@
 	StarSystemSimulation"
 />
 
-<link href="css/main.css" rel="stylesheet" type="text/css">
+<link href="../css/main.css" rel="stylesheet" type="text/css">
 
-<script src="js/jquery-3.0.0.min.js" type="text/javascript"></script>
-<script type="text/javascript" src="js/jquery.form.js"></script>
-<script type="text/javascript" src="js/buckets.js"></script>
+<script src="../js/jquery-3.0.0.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="../js/jquery.form.js"></script>
+<script type="text/javascript" src="../js/buckets.js"></script>
 <script type="text/javascript">
 
 const CHANCE_FOR_STAR_ON_START = 0.1;	// one in ten
@@ -1349,7 +1349,7 @@ $(document).ready(function() {
 	processPlanetAndMoonsDetail.init();
 	
 	$("#home").click(function(){
-		window.location = "http://www.localhost/~jredden/johntredden";
+		window.location = "http://johntredden.com";
 	});
 	var showList = ['shipStart'];
 	tagOperations.show(showList);
@@ -1395,10 +1395,10 @@ var jumpRequest = (function () {
 		jsonCall: function(){
 			console.log("start jumpRequest");
 			var showList = ['jumping'];
-			var hideList = ['shipStart','cosmosSpaceDetail', 'starsinclustertext', 'backToSector', 'backToStarSystem'];
+			var hideList = ['shipStart','cosmosSpaceDetail', 'starsinclustertext', 'backToSector', 'backToStarSystem', 'backToPlanetSystem'];
 			tagOperations.both(showList, hideList);
 
-			$.getJSON("http://www.johntredden.com:8088/starSystems.html",
+			$.getJSON("http://www.johntredden.com:8080/johntredden-1.0/starSystems.html",
 					function(json){           // callback
 						console.log("in jumpRequest");
 						processJump.jsonProcess(json);
@@ -1480,6 +1480,8 @@ var processJump = (function () {
 			console.log("CLUSTER VALUES SIZE:"+clusterValues.getClusterVizCentricArraySize());
 			console.log("SYSTEM TO CLUSTER SIZE:"+clusterValues.getSystemNameArraySize());
 			clusterValues.builder();
+			var showList = ['starsinclustertext'];
+			tagOperations.show(showList);
 			visualizeClusters.display();
 			visualizeStarsInClusters.display();
 		}
@@ -1513,7 +1515,7 @@ var backToSectorView = (function (){
 	
 	return{
 		reenter: function(){
-			var hideList = ['backToSector', 'backToStarSystem'];
+			var hideList = ['backToSector', 'backToStarSystem', 'backToPlanetSystem'];
 			tagOperations.hide(hideList);
 			
 			canvasas.clearStarSystemsCanvasContext();
@@ -1522,6 +1524,8 @@ var backToSectorView = (function (){
 			var systemVizCentricArray = processJump.getSystemVizCentricArray();
 			starSystems.vizualizeNoInit(systemVizCentricArray);
 			clusterValues.builder();
+			var showList = ['starsinclustertext'];
+			tagOperations.show(showList);
 			visualizeClusters.display();
 			visualizeStarsInClusters.display();
 
@@ -1534,7 +1538,7 @@ var backToStarView  = (function (){
 	
 	return{
 		reenter: function(){
-			var hideList = ['backToStarSystem'];
+			var hideList = ['backToStarSystem','backToPlanetSystem'];
 			tagOperations.hide(hideList);
 			
 			canvasas.clearStarSystemsCanvasContext();
@@ -1571,7 +1575,7 @@ var backToPlanetView = (function(){
 var clusterDetailReuquest = (function () {
 	return{
 		jsonCall: function(systemName){
-			$.getJSON("http://www.johntredden.com:8088/starCluster.html?systemName="+systemName,
+			$.getJSON("http://www.johntredden.com:8080/johntredden-1.0/starCluster.html?systemName="+systemName,
 					function(json){           // callback
 						console.log("in clusterDetailRequest for :" + systemName);
 						processClusterDetail.jsonProcess(json, systemName);
@@ -1689,6 +1693,9 @@ var clusterValues = (function () {
 	                    	 starDict.set(currentStarKey, workingClusterVizCentric);
 	                    	 console.log("STAR_TYPE:"+type.toString()+" ADDING:"+currentStarKey+":: "+workingClusterVizCentric.getStarName());
 	                    	 workingClusterVizCentric = new clusterVizCentric();
+	                     },
+	                     function setRename(){
+	                    	 // none yet
 	                     }
 	                    ];
 	
@@ -1701,7 +1708,8 @@ var clusterValues = (function () {
 								"Name" : 5,
 								"star_color" : 6,
 								"star_size" : 7,
-								"star_type" : 8
+								"star_type" : 8,
+								"renameName" : 9,
 						}
 	return{
 		initArrays: function(systemName){
@@ -1770,8 +1778,6 @@ var visualizeClusters = (function (){
 			var ctx = canvasas.fetchStarsInClusterTextCanvasContext();
 			ctx.fillRect(5,20,700, window.innerHeight);
 			ctx.beginPath();
-			var showList = ['starsinclustertext'];
-			tagOperations.show(showList);
 			var startX = 5;
 			var startY = 50;
 			var runningX = startX;
@@ -2330,7 +2336,7 @@ var moonsOnly = (function(){
 var fetchStarAndPlanets = (function () {
 	return{
 		jsonCall: function(starName){
-			$.getJSON("http://www.johntredden.com:8088/starAndPlanets.html?starName="+starName,
+			$.getJSON("http://www.johntredden.com:8080/johntredden-1.0/starAndPlanets.html?starName="+starName,
 					function(json){           // callback
 						console.log("fetchStarAndPlanets for :" + starName);
 						processStarAndPlanetsDetail.jsonProcess(json, starName);
@@ -2344,7 +2350,7 @@ var fetchStarAndPlanets = (function () {
 var fetchPlanetAndMoons = (function () {
 	return{
 		jsonCall: function(planetName, starName){
-			$.getJSON("http://www.johntredden.com:8088/planetAndMoons.html?starName="+starName+"&planetName="+planetName,
+			$.getJSON("http://www.johntredden.com:8080/johntredden-1.0/planetAndMoons.html?starName="+starName+"&planetName="+planetName,
 					function(json){           // callback
 						console.log("fetch planets and moons for :" + planetName);
 						processPlanetAndMoonsDetail.f_planetMode();
@@ -2359,7 +2365,7 @@ var fetchPlanetAndMoons = (function () {
 var fetchMoons = (function () {
 	return{
 		jsonCall: function(moonName, starName){
-			$.getJSON("http://www.johntredden.com:8088/planetAndMoons.html?starName="+starName+"&planetName="+moonName,
+			$.getJSON("http://www.johntredden.com:8080/johntredden-1.0/planetAndMoons.html?starName="+starName+"&planetName="+moonName,
 					function(json){           // callback
 						console.log("fetch moon :" + moonName);
 						processPlanetAndMoonsDetail.f_moonMode();
@@ -2514,6 +2520,9 @@ var processStarAndPlanetsDetail = (function(){
 		for (var idex = 0; idex < result.length; idex++){
 			var o_keyValuePair = result[idex];
 			var key = o_keyValuePair.getKey();
+			if(key === 'STARrenameName' || key === 'renameName'){
+				continue;
+			}
 			var operation = planetsDictionary.get(key);
 			operation(o_keyValuePair.getValue());
 		}
@@ -2968,6 +2977,9 @@ var processPlanetAndMoonsDetail = (function(){
 			var o_keyValuePair = result[idex];
 			var key = o_keyValuePair.getKey();
 			// console.log("KEY:"+key);
+			if(key === 'renameName'){
+				continue;
+			}
 			var operation = planetAndMoonsDictionary.get(key);
 			operation(o_keyValuePair.getValue());
 		}
@@ -3174,20 +3186,7 @@ var orderedPairToArray = (function (){
 	}
 })();
 
-//for debugging
-function print_recursive(printthis) {
-    var output = '';
 
-    if($.isArray(printthis) || typeof(printthis) == 'object') {
-        for(var i in printthis) {
-        	console.log("??:"+printthis[i]+"::"+i);
-            output += i + ' : ' + print_recursive(printthis[i]) + '\n';
-        }
-    }else {
-        output += printthis;
-    }
-    console.log("PRINT:"+output);
-}
 </script>
 
 <title>Cosmos Website</title>
@@ -3231,7 +3230,7 @@ function print_recursive(printthis) {
 	</section> <!--  end shipstart -->
 	<section>
 	<div id="jumping">
-	<img src="./JumpingToLightSpeed.gif" width="1360" height="1000" />
+	<img src="../JumpingToLightSpeed.gif" width="1360" height="1000" />
 	</div>
 		
 	<div id="comments">

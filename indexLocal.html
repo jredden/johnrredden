@@ -257,6 +257,17 @@ $(document).ready(function() {
 	$(JRedden).fadeIn();
 	$(JRedden).fadeOut(5000);
 	sleeper.sleep(100000000);
+	$(JRedden1).html("<i> Home </i> - Brings up this page");
+	$(JRedden1).append("<br/><br/><i> South Kona Farms </i> - Brings up the South Kona Farms website");
+	$(JRedden1).append("<br/><br/><i> Documents On Hawai`i </i> - Brings up the papers on the globalization of Hawai`i ");
+	$(JRedden1).append("<br/><br/><i> Access Works of Fiction </i> - Brings up a list of my science fiction titles");
+	$(JRedden1).append("<br/><br/><i> Zenred Computing </i> - Brings up the fictitious business website");
+	$(JRedden1).append("<br/><br/><i> Explore the Cosmos </i> - Take a trip to a random new or existing imaginary space sector");
+	$(JRedden1).append("<br/><br/><i> Select a Cosmos Report </i> - Dumps an existing imaginary space sector to a spread sheet");
+	$(JRedden1).append("<br/><br/><i> Rename an Existing Cosmos Entity </i> - Allows you to name a cluster, sun or planetoid");
+	$(JRedden1).append("<br/><br/><i> Travel to a Renamed Cosmos Entity </i> - Allows you to travel to a named cluster, sun or planetoid");
+	$(JRedden1).append("<br/><br/><i> Document on Network Economics </i> - Network economics as presented to Global Studies Association");
+	$(JRedden1).append("<br/><br/><i> Music </i> - Recording of the Buzzards Blues Band");
 		
 	$("#home").click(function () { 
 		tagOperations.hideAll();
@@ -407,12 +418,12 @@ var processRequest = (function () {
 					<button id="home">Home</button>
 					<button id="skf">South Kona Farms</button>
 					<button id="doh">Documents On Hawai`i</button>
-					<button id="login">Access works of fiction</button>
+					<button id="login">Access Works of Fiction</button>
 					<button id="zenred">Zenred Computing</button>
 					<button id="cosmos">Explore the Cosmos</button>
 					<button id="cosmosReport">Select a Cosmos Report</button>
 					<button id="cosmosVisit">Select a Known Cosmos Sector</button>
-					<button id="renameEntity">Rename an existing Cosmos Entity</button>
+					<button id="renameEntity">Rename an Existing Cosmos Entity</button>
 					<button id="travelRenamed">Travel to a Renamed Cosmos Entity</button>
 					<button id="netEconommics">Document On Network Economics</button>
 					<button id="music">Music</button>
@@ -506,7 +517,8 @@ var processRequest = (function () {
 		</section>
 		<section id="page">
 			<div id="JRedden">WEB SITE OF JOHN T REDDEN</div>
-				
+			<div id="JRedden1"></div>				
+							
 			<div id="skfSect">
 				<iframe src="http://southkonafarms.com" width="1100" height="1000"></iframe>
 			</div>

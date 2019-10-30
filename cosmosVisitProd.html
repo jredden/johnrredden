@@ -145,7 +145,7 @@ $(document).ready(function() {
 	processReport.readSectors();
 	
 	$("#home").click(function(){
-		window.location = "http://www.johntreddenlocal.com";
+		window.location = "http://www.johntredden.com";
 	});
 	
 	$("#starsystems").click(function(event){
@@ -175,7 +175,7 @@ $(document).ready(function() {
 	});
 	
 	$("#jump").click(function(){
-		window.location = "http://www.johntreddenlocal.com/cosmos/cosmosVisitLocal.html";
+		window.location = "http://www.johntredden.com/cosmos/cosmosVisit.html";
 	});
 	
 }); <!-- end ready -->
@@ -503,12 +503,13 @@ var entry = (function (){
 				console.log("rawURI:"+result);
 			})
 			  .done(function(data) {
-				  setInterval(function () {if(data != null){clearInterval();}}, 1000);	// arg! ajax
+					 setInterval(function () {if(data != null){clearInterval();}}, 1000);	// arg! ajax
+			          renameMap.init();
 				  console.log( "second success:"+data );
 				  sectorProcess.iterate(data);
 				  })
 			  .fail(function() {
-			    alert( "error" );
+			    alert( "error" + error );
 			  })
 			  .always(function() {
 				  console.log( "finished" );
