@@ -1189,6 +1189,8 @@ var scaleViz = (function(){
 	const bigger = "Increase Scale  ";
 	const smaller = "Decrease Scale  ";
 	const value = "Current Scale:";
+	const reset = "Reset Scale  ";
+	const toggle = "Toggle Entity Graphic";
 	
 	const step = 0.1;
 	
@@ -1199,12 +1201,18 @@ var scaleViz = (function(){
 	var biggerWidth;
 	var smallerWidth;
 	var valueWidth;
+	var resetWidth;
+	var toggleWidth;
 	
 	var xBoxSmaller;
 	var xBoxCurrent;
+	var xBoxReset;
+	var xBoxToggle;
 	
 	var scale=1.0;
 	var mode;
+	
+	var entityDisplay=0;
 	
 	function finish(){
 		canvasas.clearStarSystemsCanvasContext();
@@ -1238,13 +1246,18 @@ var scaleViz = (function(){
 			context.font="16px Verdana";
 			biggerWidth = Math.floor(context.measureText(bigger).width);
 			smallerWidth = Math.floor(context.measureText(smaller).width);
-			valueWidth = Math.floor(context.measureText(value).width);
+			valueWidth = Math.floor(context.measureText(value).width+30);
+			resetWidth = Math.floor(context.measureText(reset).width);
+			toggleWidth = Math.floor(context.measureText(toggle).width);
 			
 			xBoxSmaller = xBoxLarger+biggerWidth+spacing;
-			xBoxCurrent = xBoxLarger+biggerWidth+spacing+smallerWidth+spacing;
+			xBoxCurrent = xBoxLarger+biggerWidth+spacing+smallerWidth+spacing+spacing;
+			xBoxReset = xBoxLarger+biggerWidth+spacing+smallerWidth+spacing+valueWidth+spacing;
+			xBoxToggle = xBoxLarger+biggerWidth+spacing+smallerWidth+spacing+valueWidth+spacing+resetWidth+spacing;
+
 			context.beginPath();
 		    context.rect(xBoxLarger, yBox, biggerWidth, yHeight);
-		    context.fillStyle = 'lightgreen';
+		    context.fillStyle = 'lightgreen';xBoxCurrent;
 		    context.fill();
 		    context.lineWidth = 2;
 		    context.strokeStyle = 'black';
@@ -1271,6 +1284,26 @@ var scaleViz = (function(){
 		    context.strokeText(value+scale, xBoxCurrent, yBox+yHeight-3);
 		    context.stroke();
 		    context.closePath();
+
+		    context.beginPath();
+		    context.rect(xBoxReset, yBox, resetWidth, yHeight);
+		    context.fillStyle = 'orange';
+		    context.fill();
+		    context.lineWidth = 2;
+		    context.strokeStyle = 'black';
+		    context.strokeText(reset, xBoxReset, yBox+yHeight-3);
+		    context.stroke();
+		    context.closePath();
+
+		    context.beginPath();
+		    context.rect(xBoxToggle, yBox, toggleWidth, yHeight);
+		    context.fillStyle = 'lightblue';
+		    context.fill();
+		    context.lineWidth = 2;
+		    context.strokeStyle = 'black';
+		    context.strokeText(toggle, xBoxToggle, yBox+yHeight-3);
+		    context.stroke();
+		    context.closePath();
 		},
 		fetchScale: function(){
 			return scale;
@@ -1289,8 +1322,31 @@ var scaleViz = (function(){
 					&& clickedY >= yBox && clickedY <= yBox+yHeight){
 				scale -= step;
 				scale = Math.floor(scale*100)/100
-					finish();
+				finish();
 			}
+			if(clickedX >= xBoxCurrent && clickedX <= xBoxCurrent+valueWidth
+					&& clickedY >= yBox && clickedY <= yBox+yHeight){
+				// doesn't do anything
+				console.log("Clicking on the current scale does nothing")
+			}
+			if(clickedX >= xBoxReset && clickedX <= xBoxReset+resetWidth
+					&& clickedY >= yBox && clickedY <= yBox+yHeight){
+				scale = 1.0;
+				scale = Math.floor(scale*100)/100
+				finish();
+			}
+			if(clickedX >= xBoxToggle && clickedX <= xBoxToggle+toggleWidth
+					&& clickedY >= yBox && clickedY <= yBox+yHeight){
+				
+				console.log("Toggling display entity or display system");
+				if(entityDisplay === 0){
+					entityDisplay = 1;
+				}
+				else{
+					entityDisplay = 0;
+				}
+			}
+
 		},
 		setModePlanets: function(){
 			mode = PLANETS;
