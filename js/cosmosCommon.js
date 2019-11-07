@@ -1308,6 +1308,9 @@ var scaleViz = (function(){
 		fetchScale: function(){
 			return scale;
 		},
+		fetchEntityDislay: function(){
+			return entityDisplay;
+		},
 		resetScale: function(){
 			scale=1.0;
 		},
@@ -1344,6 +1347,7 @@ var scaleViz = (function(){
 				}
 				else{
 					entityDisplay = 0;
+					processStarAndPlanetsDetail.f_drawPlanetoidsAroundStar();
 				}
 			}
 
