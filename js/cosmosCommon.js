@@ -1344,9 +1344,11 @@ var scaleViz = (function(){
 				console.log("Toggling display entity or display system");
 				if(entityDisplay === 0){
 					entityDisplay = 1;
+					processStarAndPlanetsDetail.f_drawStarImage();
 				}
 				else{
 					entityDisplay = 0;
+					processStarAndPlanetsDetail.f_drawStarInCentre();
 					processStarAndPlanetsDetail.f_drawPlanetoidsAroundStar();
 				}
 			}
@@ -1357,6 +1359,9 @@ var scaleViz = (function(){
 		},
 		setModeMoons: function(){
 			mode = MOONS;
+		},
+		fetchEntityDisplay(){
+			return entityDisplay;
 		}
 	}
 	
@@ -2425,7 +2430,7 @@ var processStarAndPlanetsDetail = (function(){
 	function f_starSize(value){
 		o_clusterVizCentric.setStarSize(value);
 		console.log("starSize: "+ value);
-	}
+	}drawStarInCentre
 	
 	function f_starType(value){
 		o_clusterVizCentric.setStarType(value);
@@ -2542,9 +2547,18 @@ var processStarAndPlanetsDetail = (function(){
 		starsystemscanvasContext.stroke();
 	}
 	
+	function drawStarImage(){
+		canvasas.initStarSystem();
+		var starsystemscanvasContext = canvasas.fetchStarSystemsCanvasContext();
+		scaleViz.drawControls(starsystemscanvasContext);
+		var starColor = o_clusterVizCentric.getStarColor();		
+	}
+	
 	function drawPlanetoidsAroundStar(){
 		if(planetNames.length == 0){
 			console.log("NO PLANETS");
+			var starsystemscanvasContext = canvasas.fetchStarSystemsCanvasContext();
+			scaleViz.drawControls(starsystemscanvasContext);
 		}
 		else{
 			var starsystemscanvasContext = canvasas.fetchStarSystemsCanvasContext();
@@ -2741,6 +2755,9 @@ var processStarAndPlanetsDetail = (function(){
 		},
 		f_drawPlanetoidsAroundStar: function(){
 			drawPlanetoidsAroundStar();
+		},
+		f_drawStarImage: function(){
+			drawStarImage();
 		},
 		f_drawStarDetails: function(){
 			drawStarDetails();
