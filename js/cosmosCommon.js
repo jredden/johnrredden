@@ -719,7 +719,11 @@ var vizStars = (function(){
 	// private 
 	
 	var starColorDictionary;
+	var starImageDictionary;
 	var starSize;
+	var imageURL;
+	
+	// public
 	return {
 		init: function(){
 			starColorDictionary = new buckets.Dictionary();
@@ -900,9 +904,77 @@ var vizStars = (function(){
 			starSize = new vizStarSizes();
 			starSize.init(2, 5, 'chocolate');
 			starColorDictionary.set('Dark Brown Sub Dwarf', starSize);
+			
+		
+			starImageDictionary = new buckets.Dictionary();
+			starImageDictionary.set('Blue Super Giant II', 'BlueSuperGiantII.png');
+			starImageDictionary.set('Light Blue Super Giant II', 'LightBlueSuperGiantII.png');
+			starImageDictionary.set('White Super Giant II', 'WhiteSuperGiantII.png');
+			starImageDictionary.set('Pale Yellow Super Giant II', 'PaleYellowSuperGiantII.png');
+			starImageDictionary.set('Yellow Super Giant II', 'YellowSuperGiantII.png');
+			starImageDictionary.set('Orange Super Giant II', 'OrangeSuperGiantII.png');
+			starImageDictionary.set('Red Super Giant II', 'RedSuperGiantII,png');
+			starImageDictionary.set('Blue Super Giant I', 'BlueSuperGiantI.png');
+			starImageDictionary.set('Light Blue Super Giant I', 'LightBlueSuperGiantI.png');
+			starImageDictionary.set('White Super Giant I', 'WhiteSuperGiantI.png');
+			starImageDictionary.set('Pale Yellow Super Giant I', 'PaleYellowSuperGiantI.png');
+			starImageDictionary.set('Yellow Super Giant I', 'YellowSuperGiantI.png');
+			starImageDictionary.set('Orange Super Giant I', 'OrangeSuperGiantI.png');
+			starImageDictionary.set('Red Super Giant I', 'RedSuperGiantI.png');
+			starImageDictionary.set('Blue Giant II', 'BlueGiantII.png');
+			starImageDictionary.set('Light Blue  Giant II', 'LightBlueGiantII.png');
+			starImageDictionary.set('White Giant II', 'WhiteGiantII.png');
+			starImageDictionary.set('Pale Yellow Giant II', 'PaleYellowGiantII.png');
+			starImageDictionary.set('Yellow Giant II', 'YellowGiantII.png');
+			starImageDictionary.set('Orange Giant II', 'OrangeGiantII.png');
+			starImageDictionary.set('Red Giant II', 'RedGiantII,png');
+			starImageDictionary.set('Blue Giant I', 'BlueGiantI.png');
+			starImageDictionary.set('Light Blue  Giant I', 'LightBlueGiantI.png');
+			starImageDictionary.set('White Giant I', 'WhiteGiantI.png');
+			starImageDictionary.set('Pale Yellow Giant I', 'PaleYellowGiantI.png');
+			starImageDictionary.set('Yellow Giant I', 'YellowGiantI.png');
+			starImageDictionary.set('Orange Giant I', 'OrangeGiantI.png');
+			starImageDictionary.set('Red Giant I', 'RedGiantI.png');
+			starImageDictionary.set('Blue Sub Giant', 'BlueSubGiant.png');
+			starImageDictionary.set('Light Blue Sub Giant', 'LightBlueSubGiant.png');
+			starImageDictionary.set('White Sub Giant', 'WhiteSubGiant.png');
+			starImageDictionary.set('Pale Yellow SubGiant', 'PaleYellowSubGiant.png');
+			starImageDictionary.set('Yellow Sub Giant', 'YellowSubGiant.png');
+			starImageDictionary.set('Orange Sub Giant', 'OrangeSubGiant.png');
+			starImageDictionary.set('Red Sub Giant', 'Red Sub Giant.png');
+			starImageDictionary.set('Blue Main Sequence', 'Blue Main Sequence.png');
+			starImageDictionary.set('Light Blue Main Sequence', 'LightBlueMainSequence.png');
+			starImageDictionary.set('White Main Sequence', 'WhiteMainSequence.png');
+			starImageDictionary.set('Pale Yellow Main Sequence', 'PaleYellowMainSequence.png');
+			starImageDictionary.set('Yellow Main Sequence', 'YellowMainSequence.png');
+			starImageDictionary.set('Orange Main Sequence', 'OrangeMainSequence.png');
+			starImageDictionary.set('Red Main Sequence', 'RedMainSequence.png');
+			starImageDictionary.set('Blue Sub Dwarf', 'BlueSubDwarf.png');
+			starImageDictionary.set('Light Blue Sub Dwarf', 'LightBlueSubDwarf.png');
+			starImageDictionary.set('White Sub Dwarf', 'White Sub Dwarf.png');
+			starImageDictionary.set('Pale Yellow Sub Dwarf', 'PaleYellowSubDwarf.png');
+			starImageDictionary.set('Yellow Sub Dwarf', 'YellowSubDwarf.png');
+			starImageDictionary.set('Orange Sub Dwarf', 'OrangeSubDwarf.png');
+			starImageDictionary.set('Red Sub Dwarf', 'RedSubDwarf.png');
+			starImageDictionary.set('Blue Dwarf', 'Blue Dwarf.png');
+			starImageDictionary.set('Light Blue Dwarf', 'LightBlueDwarf.png');
+			starImageDictionary.set('White Dwarf', 'WhiteDwarf.png');
+			starImageDictionary.set('Pale Yellow Dwarf', 'PaleYellowDwarf.png');
+			starImageDictionary.set('Yellow Dwarf', 'YellowDwarf.png');
+			starImageDictionary.set('Orange Dwarf', 'OrangeDwarf.png');
+			starImageDictionary.set('Red Dwarf', 'RedDwarf.png');
+			starImageDictionary.set('Purple Red Dwarf', 'PurpleRedDwarf.png');
+			starImageDictionary.set('Brown Sub Star', 'BrownSubStar.png');
+			starImageDictionary.set('Dark Brown Sub Dwarf', 'DarkBrownSubDwarf.png');
 		},
 		fetchStarSizeAndColor: function(color){
 			return starColorDictionary.get(color);
+		},
+		setImageURL(url){
+			imageURL = url;
+		},
+		getImageURL(){
+			return imageURL;
 		}
 	}
 	
