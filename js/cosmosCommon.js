@@ -941,8 +941,8 @@ var vizStars = (function(){
 			starImageDictionary.set('Pale Yellow SubGiant', 'PaleYellowSubGiant.png');
 			starImageDictionary.set('Yellow Sub Giant', 'YellowSubGiant.png');
 			starImageDictionary.set('Orange Sub Giant', 'OrangeSubGiant.png');
-			starImageDictionary.set('Red Sub Giant', 'Red Sub Giant.png');
-			starImageDictionary.set('Blue Main Sequence', 'Blue Main Sequence.png');
+			starImageDictionary.set('Red Sub Giant', 'RedSubGiant.png');
+			starImageDictionary.set('Blue Main Sequence', 'BlueMainSequence.png');
 			starImageDictionary.set('Light Blue Main Sequence', 'LightBlueMainSequence.png');
 			starImageDictionary.set('White Main Sequence', 'WhiteMainSequence.png');
 			starImageDictionary.set('Pale Yellow Main Sequence', 'PaleYellowMainSequence.png');
@@ -951,12 +951,12 @@ var vizStars = (function(){
 			starImageDictionary.set('Red Main Sequence', 'RedMainSequence.png');
 			starImageDictionary.set('Blue Sub Dwarf', 'BlueSubDwarf.png');
 			starImageDictionary.set('Light Blue Sub Dwarf', 'LightBlueSubDwarf.png');
-			starImageDictionary.set('White Sub Dwarf', 'White Sub Dwarf.png');
+			starImageDictionary.set('White Sub Dwarf', 'WhiteSubDwarf.png');
 			starImageDictionary.set('Pale Yellow Sub Dwarf', 'PaleYellowSubDwarf.png');
 			starImageDictionary.set('Yellow Sub Dwarf', 'YellowSubDwarf.png');
 			starImageDictionary.set('Orange Sub Dwarf', 'OrangeSubDwarf.png');
 			starImageDictionary.set('Red Sub Dwarf', 'RedSubDwarf.png');
-			starImageDictionary.set('Blue Dwarf', 'Blue Dwarf.png');
+			starImageDictionary.set('Blue Dwarf', 'BlueDwarf.png');
 			starImageDictionary.set('Light Blue Dwarf', 'LightBlueDwarf.png');
 			starImageDictionary.set('White Dwarf', 'WhiteDwarf.png');
 			starImageDictionary.set('Pale Yellow Dwarf', 'PaleYellowDwarf.png');
@@ -975,7 +975,11 @@ var vizStars = (function(){
 		},
 		getImageURL(){
 			return imageURL;
+		},
+		getImage(starColor){
+			return starImageDictionary.get(starColor);
 		}
+		
 	}
 	
 })();
@@ -1419,6 +1423,7 @@ var scaleViz = (function(){
 					processStarAndPlanetsDetail.f_drawStarImage();
 				}
 				else{
+					canvasas.initStarSystem();
 					entityDisplay = 0;
 					processStarAndPlanetsDetail.f_drawStarInCentre();
 					processStarAndPlanetsDetail.f_drawPlanetoidsAroundStar();
@@ -2623,7 +2628,16 @@ var processStarAndPlanetsDetail = (function(){
 		canvasas.initStarSystem();
 		var starsystemscanvasContext = canvasas.fetchStarSystemsCanvasContext();
 		scaleViz.drawControls(starsystemscanvasContext);
-		var starColor = o_clusterVizCentric.getStarColor();		
+		var starColor = o_clusterVizCentric.getStarColor();	
+		var URL = vizStars.getImageURL()+vizStars.getImage(starColor);
+		console.log("Image URL:"+URL);
+		var img = new window.Image();
+		var ctx = canvasas.fetchStarSystemsCanvasContext();
+		img.onload = function(){
+			  ctx.drawImage(img,0,500); 
+			};
+		img.src = URL;
+		// ctx.drawImage(img, 500, 500);
 	}
 	
 	function drawPlanetoidsAroundStar(){
