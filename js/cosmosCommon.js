@@ -2629,15 +2629,22 @@ var processStarAndPlanetsDetail = (function(){
 		var starsystemscanvasContext = canvasas.fetchStarSystemsCanvasContext();
 		scaleViz.drawControls(starsystemscanvasContext);
 		var starColor = o_clusterVizCentric.getStarColor();	
+		
+		
 		var URL = vizStars.getImageURL()+vizStars.getImage(starColor);
 		console.log("Image URL:"+URL);
 		var img = new window.Image();
 		var ctx = canvasas.fetchStarSystemsCanvasContext();
+		
+		ctx.beginPath();
+		ctx.rect(0, 90, 1500, 1500);
+		ctx.fillStyle = "black";
+		ctx.fill();
+		
 		img.onload = function(){
 			  ctx.drawImage(img,0,500); 
 			};
 		img.src = URL;
-		// ctx.drawImage(img, 500, 500);
 	}
 	
 	function drawPlanetoidsAroundStar(){
