@@ -139,6 +139,7 @@ var tagOperations = (function(){
 }());	
 	
 $(document).ready(function() {
+	vizStars.setImageURL("http://www.johntredden.com/cosmos/graphics/stars/");
 	tagOperations.hideAll();
 	var showlist = ['report'];
 	tagOperations.show(showlist);
@@ -185,7 +186,7 @@ var processReport = (function(){
 	
 	return{
 		readSectors: function (){
-			$.getJSON("http://johntredden.com:8080/johntredden-1.0/systemReportChoice.html",
+			$.getJSON("http://www.johntredden.com:8080/johntredden-1.0/systemReportChoice.html",
 					function(json){           // callback
 						console.log("in cosmosVisit:"+json);
 						processSectorChoice.jsonProcess(json);
@@ -397,7 +398,7 @@ var starSystems = (function () {
 var clusterDetailRequest = (function () {
 	return{
 		jsonCall: function(systemName){
-			$.getJSON("http://johntredden.com:8080/johntredden-1.0/starCluster.html?systemName="+systemName,
+			$.getJSON("http://www.johntredden.com:8080/johntredden-1.0/starCluster.html?systemName="+systemName,
 					function(json){           // callback
 						setInterval(function () {if(json != null){clearInterval();}}, 1000);
 						console.log("in clusterDetailRequest for :" + systemName);
@@ -413,7 +414,7 @@ var clusterDetailRequest = (function () {
 var fetchStarAndPlanets = (function () {
 	return{
 		jsonCall: function(starName){
-			$.getJSON("http://johntredden.com:8080/johntredden-1.0/starAndPlanets.html?starName="+starName,
+			$.getJSON("http://www.johntredden.com:8080/johntredden-1.0/starAndPlanets.html?starName="+starName,
 					function(json){           // callback
 						console.log("fetchStarAndPlanets for :" + starName);
 						processStarAndPlanetsDetail.jsonProcess(json, starName);
@@ -428,7 +429,7 @@ var fetchStarAndPlanets = (function () {
 var fetchPlanetAndMoons = (function () {
 	return{
 		jsonCall: function(planetName, starName){
-			$.getJSON("http://johntredden.com:8080/johntredden-1.0/planetAndMoons.html?starName="+starName+"&planetName="+planetName,
+			$.getJSON("http://www.johntredden.com:8080/johntredden-1.0/planetAndMoons.html?starName="+starName+"&planetName="+planetName,
 					function(json){           // callback
 						console.log("fetch planets and moons for :" + planetName);
 						processPlanetAndMoonsDetail.f_planetMode();
@@ -443,7 +444,7 @@ var fetchPlanetAndMoons = (function () {
 var fetchMoons = (function () {
 	return{
 		jsonCall: function(moonName, starName){
-			$.getJSON("http://johntredden.com:8080/johntredden-1.0/planetAndMoons.html?starName="+starName+"&planetName="+moonName,
+			$.getJSON("http://www.johntredden.com:8080/johntredden-1.0/planetAndMoons.html?starName="+starName+"&planetName="+moonName,
 					function(json){           // callback
 						console.log("fetch moon :" + moonName);
 						processPlanetAndMoonsDetail.f_moonMode();
@@ -490,7 +491,7 @@ var entry = (function (){
 			tagOperations.show(showList);
 			var hideList = ['spinner2', 'report', 'reportComments'];
 			tagOperations.hide(hideList);
-			var postWithParameters = "http://johntredden.com:8080/johntredden-1.0/visitStarSystem.html?s_Ucoordinate_top="
+			var postWithParameters = "http://www.johntredden.com:8080/johntredden-1.0/visitStarSystem.html?s_Ucoordinate_top="
 					+ topu
 					+ "&s_Vcoordinate_top="
 					+ topv
@@ -503,13 +504,13 @@ var entry = (function (){
 				console.log("rawURI:"+result);
 			})
 			  .done(function(data) {
-					 setInterval(function () {if(data != null){clearInterval();}}, 1000);	// arg! ajax
-			          renameMap.init();
+				  setInterval(function () {if(data != null){clearInterval();}}, 1000);	// arg! ajax
 				  console.log( "second success:"+data );
+				  renameMap.init();
 				  sectorProcess.iterate(data);
 				  })
-			  .fail(function() {
-			    alert( "error" + error );
+			  .fail(function(xhr, status, error) {
+			    alert( "error" + error);
 			  })
 			  .always(function() {
 				  console.log( "finished" );
@@ -552,7 +553,6 @@ var sectorProcess = (function (){
 			vizPlanars.init();
 			moonViz.init();
 			processPlanetAndMoonsDetail.init();
-
 			starSystems.visualize(systemVizCentricArray);
 			var clusterTimer = setInterval(function () {clusterTimerLoop(clusterTimer)}, 1000);
 		},
