@@ -1270,6 +1270,7 @@ var scaleViz = (function(){
 	
 	const step = 0.1;
 	
+	const STARS = "STARS";
 	const PLANETS = "PLANETS";
 	const MOONS = "MOONS";
 	
@@ -1287,8 +1288,10 @@ var scaleViz = (function(){
 	
 	var scale=1.0;
 	var mode;
+	var entityDisplayMode;
 	
 	var entityDisplay=0;
+	var planarName;
 	
 	function finish(){
 		canvasas.clearStarSystemsCanvasContext();
@@ -1406,7 +1409,7 @@ var scaleViz = (function(){
 			if(clickedX >= xBoxCurrent && clickedX <= xBoxCurrent+valueWidth
 					&& clickedY >= yBox && clickedY <= yBox+yHeight){
 				// doesn't do anything
-				console.log("Clicking on the current scale does nothing")
+				console.log("Clicking on the current scale does nothing");
 			}
 			if(clickedX >= xBoxReset && clickedX <= xBoxReset+resetWidth
 					&& clickedY >= yBox && clickedY <= yBox+yHeight){
@@ -1420,7 +1423,12 @@ var scaleViz = (function(){
 				console.log("Toggling display entity or display system");
 				if(entityDisplay === 0){
 					entityDisplay = 1;
-					processStarAndPlanetsDetail.f_drawStarImage();
+					if(entityDisplayMode === STARS){
+						processStarAndPlanetsDetail.f_drawStarImage();
+					}
+					else{
+						processStarAndPlanetsDetail.f_drawPlanarImage();
+					}
 				}
 				else{
 					canvasas.initStarSystem();
@@ -1433,12 +1441,20 @@ var scaleViz = (function(){
 		},
 		setModePlanets: function(){
 			mode = PLANETS;
+			entityDisplayMode = STARS;
 		},
 		setModeMoons: function(){
+			entityDisplayMode = PLANETS;
 			mode = MOONS;
 		},
 		fetchEntityDisplay(){
 			return entityDisplay;
+		},
+		setPlanarName(s_planarName){
+			planarName = s_planarName.replace(/\./g,'_');;
+		},
+		getPlanarName(){
+			return planarName;
 		}
 	}
 	
@@ -2631,7 +2647,29 @@ var processStarAndPlanetsDetail = (function(){
 		var starColor = o_clusterVizCentric.getStarColor();	
 		
 		
-		var URL = vizStars.getImageURL()+vizStars.getImage(starColor);
+		var URL = vizStars.getImageURL()+"/stars/"+vizStars.getImage(starColor);
+		console.log("Image URL:"+URL);
+		var img = new window.Image();
+		var ctx = canvasas.fetchStarSystemsCanvasContext();
+		
+		ctx.beginPath();
+		ctx.rect(0, 90, 1500, 1500);
+		ctx.fillStyle = "black";
+		ctx.fill();
+		
+		img.onload = function(){
+			  ctx.drawImage(img,0,500); 
+			};
+		img.src = URL;
+	}
+	
+	function drawPlanarImage(){
+		canvasas.initStarSystem();
+		var starsystemscanvasContext = canvasas.fetchStarSystemsCanvasContext();
+		scaleViz.drawControls(starsystemscanvasContext);
+		var planarName = scaleViz.getPlanarName();
+		
+		var URL = vizStars.getImageURL()+"/planars/"+scaleViz.getPlanarName()+"/Planet.png";
 		console.log("Image URL:"+URL);
 		var img = new window.Image();
 		var ctx = canvasas.fetchStarSystemsCanvasContext();
@@ -2851,6 +2889,9 @@ var processStarAndPlanetsDetail = (function(){
 		},
 		f_drawStarImage: function(){
 			drawStarImage();
+		},
+		f_drawPlanarImage: function(){
+			drawPlanarImage();
 		},
 		f_drawStarDetails: function(){
 			drawStarDetails();
@@ -3138,7 +3179,11 @@ var processPlanetAndMoonsDetail = (function(){
 	function drawPlanetDetails(){
 		var planarType = o_baseMessage.getMode();
 		var fromMessage = o_baseMessage.getFrom();
+		// used to display image of a planar
 		var planarName = o_planarVizCentric.getPlanarName();
+		scaleViz.setPlanarName(planarName);
+
+		
 		var rename = o_planarVizCentric.getRenameName();
 		var planarDegree = o_planarVizCentric.getPlanarDegree()*(180/Math.PI);  // radians to degrees
 		var distanceToParentStar = o_planarVizCentric.getPlanarDistanceToPrimary();
