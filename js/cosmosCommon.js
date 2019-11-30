@@ -1289,6 +1289,7 @@ var scaleViz = (function(){
 	var scale=1.0;
 	var mode;
 	var entityDisplayMode;
+	var entityDisplayMode_m;
 	
 	var entityDisplay=0;
 	var planarName;
@@ -1324,7 +1325,7 @@ var scaleViz = (function(){
 		drawControls: function(context){
 			context.font="16px Verdana";
 			biggerWidth = Math.floor(context.measureText(bigger).width);
-			smallerWidth = Math.floor(context.measureText(smaller).width);
+			smallerWidth = Math.floor(context.measureText(smaller).width);processPlanetAndMoonsDetail
 			valueWidth = Math.floor(context.measureText(value).width+30);
 			resetWidth = Math.floor(context.measureText(reset).width);
 			toggleWidth = Math.floor(context.measureText(toggle).width);
@@ -1347,7 +1348,7 @@ var scaleViz = (function(){
 			context.beginPath();
 		    context.rect(xBoxSmaller, yBox, smallerWidth, yHeight);
 		    context.fillStyle = 'red';
-		    context.fill();
+		    context.fill();processPlanetAndMoonsDetail
 		    context.lineWidth = 2;
 		    context.strokeStyle = 'black';
 		    context.strokeText(smaller, xBoxSmaller, yBox+yHeight-3);
@@ -1427,14 +1428,21 @@ var scaleViz = (function(){
 						processStarAndPlanetsDetail.f_drawStarImage();
 					}
 					else{
-						processStarAndPlanetsDetail.f_drawPlanarImage();
+						if(entityDisplayMode === PLANETS){
+						   processStarAndPlanetsDetail.f_drawPlanarImage();
+						}
 					}
 				}
 				else{
 					canvasas.initStarSystem();
 					entityDisplay = 0;
-					processStarAndPlanetsDetail.f_drawStarInCentre();
-					processStarAndPlanetsDetail.f_drawPlanetoidsAroundStar();
+					if(entityDisplayMode_m === MOONS){
+						processPlanetAndMoonsDetail.f_drawPlanetInCentre();
+					}
+					else{
+						processStarAndPlanetsDetail.f_drawStarInCentre();
+						processStarAndPlanetsDetail.f_drawPlanetoidsAroundStar();
+					}
 				}
 			}
 
@@ -1442,10 +1450,14 @@ var scaleViz = (function(){
 		setModePlanets: function(){
 			mode = PLANETS;
 			entityDisplayMode = STARS;
+			entityDisplayMode_m = '';
 		},
 		setModeMoons: function(){
 			entityDisplayMode = PLANETS;
 			mode = MOONS;
+		},
+		setModeMoonOnly: function (){
+			entityDisplayMode_m = MOONS;
 		},
 		fetchEntityDisplay(){
 			return entityDisplay;
@@ -2682,7 +2694,25 @@ var processStarAndPlanetsDetail = (function(){
 		img.onload = function(){
 			  ctx.drawImage(img,0,500); 
 			};
+			img.onerror=imageNotFound;
 		img.src = URL;
+	}
+	
+	function imageNotFound(){
+		var URL = vizStars.getImageURL()+"/planars/none/Planet.png";
+		console.log("NO IMAGE, no Image URL:"+URL);
+		var img = new window.Image();
+		var ctx = canvasas.fetchStarSystemsCanvasContext();
+		
+		ctx.beginPath();
+		ctx.rect(0, 90, 1500, 1500);
+		ctx.fillStyle = "black";
+		ctx.fill();
+		img.onload = function(){
+			  ctx.drawImage(img,0,500); 
+			};
+		img.src = URL;
+
 	}
 	
 	function drawPlanetoidsAroundStar(){
@@ -3321,6 +3351,10 @@ var processPlanetAndMoonsDetail = (function(){
 			parseResults(result);
 			moonNames = onePlanetDictionary.keys();	// early binding
 			scaleViz.setModeMoons();
+			
+			var starsystemscanvasContext = canvasas.fetchStarSystemsCanvasContext();
+			scaleViz.drawControls(starsystemscanvasContext);
+
 			drawPlanetDetails();
 			drawPlanetInCentre();
 		},

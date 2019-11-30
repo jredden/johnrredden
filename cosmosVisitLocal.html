@@ -447,6 +447,8 @@ var fetchMoons = (function () {
 			$.getJSON("http://www.localhost:8080/johntredden-1.0/planetAndMoons.html?starName="+starName+"&planetName="+moonName,
 					function(json){           // callback
 						console.log("fetch moon :" + moonName);
+					
+						scaleViz.setModeMoonOnly();
 						processPlanetAndMoonsDetail.f_moonMode();
 						processPlanetAndMoonsDetail.jsonProcess(json, moonName);
 					}		
